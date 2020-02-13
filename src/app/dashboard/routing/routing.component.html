@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col">
+    <h2
+      style="color: #2b2da5; font-family: 'Trocchi', serif; font-size: 45px; font-weight: normal; line-height: 48px; margin: 0;">
+      {{ 'main.route' | translate }}</h2>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <app-example *ngFor="let data of accordianData" [data]="data" class="panel panel-default"></app-example>
+    </div>
+    <!-- <accordion>
+      <group *ngFor="let routeRail of routeRails" title={{routeRail.nameRoute}}>
+        {{routeRail.description}}
+      </group> -->
+    <!-- <group title="Tuyến số 2">
+        <strong>Cát Linh</strong> - Hoàng Cầu - Thái Thịnh - Chính Kinh - <strong>Đại học Hà Nội</strong> -
+        Hồ Gươm Plaza - <strong>Bưu điện Hà Đông</strong> - Khu đô thị Văn Phú - <strong>Bến xe Yên
+          Nghĩa</strong>
+      </group>
+      <group title="Tuyến số 3">
+        <strong>Ga Hà Nội</strong> - Trần Hưng Đạo - <strong>Trần Quang Khải</strong> - <strong>Bến xe Long
+          Biên</strong> - Bến xe Gia Lâm - Ngô Gia Tự - Cầu Đuống - Thị trấn Yên Viên - <strong>Ninh
+          Hiệp</strong>
+      </group>
+      <group title="Tuyến số 4">
+        <strong>Đại học CN Nhổn</strong> - <strong>Nghĩa trang Mai Dịch</strong> - Bộ công an Phạm Văn Đồng -
+        <strong>Khu Đô thị Ciputra</strong> - Mê Linh Plaza - <strong>Sân bay Nội Bài</strong>
+      </group>
+      <group title="Tuyến số 5">
+        <strong>Bến xe Yên Nghĩa</strong> - Khu đô thị Văn Phú - <strong>Bưu điện Hà Đông</strong> - Khu đô
+        thị Sa La - Tả Thanh Oai - Nghĩa trang Văn Điển - <strong>Thị trấn Văn Điển</strong> - Bệnh viện Nội
+        tiết trung ương - <strong>Bến xe nước ngầm</strong>
+      </group>
+      <group title="Tuyến số 6">
+        <strong>Ga Long Biên</strong> - Hồ Gươm - <strong>Ga Hà Nội</strong>- <strong>Bệnh viện Bạch
+          Mai</strong> - Ga Giáp Bát - <strong>Bến xe Nước Ngầm</strong>
+      </group>
+      <group title="Tuyến số 7">
+        <strong>Bến xe Nước Ngầm</strong> - Khu đô thị Gamuda - Chợ đầu mối Lĩnh Nam - <strong>Time
+          city</strong> - Nguyễn Khoái - <strong>Trần Quang Khải</strong> - <strong>Bến xe Long Biên</strong>
+      </group>
+      <group title="Tuyến số 8">
+        <strong>Cát Linh</strong> - Khách sạn Deawoo - <strong>Bưởi</strong> - <strong>Khu đô thị
+          Ciputra</strong> - Chợ hoa Quảng Bá - Đường Thanh Niên - <strong>Bến xe Long Biên</strong>
+      </group>
+      <group title="Tuyến số 9">
+        <strong>Khu đô thị Ciputra</strong> - <strong>Bưởi</strong> - <strong>Khách sạn Cầu Giấy</strong> -
+        <strong>Trung Yên Plaza</strong> - Chính Kinh - Tòa nhà Atermis -
+        <strong>Bệnh viện Bạch Mai</strong> - <strong>Time city</strong> - <strong>Trần Quang Khải</strong>
+      </group>
+      <group title="Tuyến số 10">
+        <strong>Bến xe Kim Mã</strong> - <strong>Khách sạn Deawoo</strong> - <strong>Trung Yên plaza</strong>
+        - Trung tâm hội nghị Quốc Gia - Thiên đường Bảo Sơn - Khu công nghệ cao Hòa Lạc -<strong>Làng văn
+          hóa các dân tộc</strong>
+      </group>
+      <group title="Tuyến số 11">
+        <strong>Khu đô thị Ciputra(PVD)</strong> - Bộ công an Phạm Văn Đồng - <strong>Đại học sư phạm Hà
+          Nội</strong>- <strong>Trung tâm hội nghị Quốc Gia</strong> - <strong>Đại học Hà
+          Nội</strong> - Hồ Gươm Plaza - Bưu điện Hà Đông - Khu đô thị Văn Phú - <strong>Bến xe Yên Nghĩa</strong>
+      </group> -->
+    <!-- </accordion> -->
+
+  </div>
+  <div class="col">
+    <iframe style="margin: 25% 2%;"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14896.098622893422!2d105.84143963988559!3d21.03169944351326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1578733492165!5m2!1sen!2s"
+      width="100%" height="600px" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+  </div>
+</div>

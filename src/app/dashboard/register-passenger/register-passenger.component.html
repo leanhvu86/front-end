@@ -1,0 +1,68 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <label>First Name:
+    <input type="text" formControlName="firstName" required />
+  </label>
+  <br />
+  <label>
+    Last Name:
+    <input type="text" formControlName="lastName">
+  </label>
+  <br />
+  <br />
+  <div class="col-12" formGroupName="contact">
+    <h3> Contacts</h3>
+    <br />
+    <label>
+      Mobile No
+      <input type="text" formControlName="mobileNo">
+    </label>
+    <br />
+    <label>
+      State
+      <input type="text" formControlName="state">
+    </label>
+    <br />
+    <label>
+      City
+      <input type="text" formControlName="city">
+    </label>
+  </div>
+  <br />
+  <div class="col-12" formArrayName="aliases">
+    <h3> Aliases</h3>
+    <br />
+    {{profileForm.controls.aliases.valid}}
+    <button type="button" [disabled]="!profileForm.controls.aliases.valid" (click)="addInputs('aliases')">Add
+      Alias</button>
+
+    <br />
+    <div [formGroup]="address" *ngFor="let address of aliaseS.controls; let i = index;">
+      <label>
+        Alias:
+        <input type="text" formControlName="name">
+        <span (click)="deleteAlias(i)"> Delete</span>
+      </label>
+    </div>
+  </div>
+  <div class="col-12" formArrayName="myInputs">
+    <h3> myInputs</h3>
+    <br />
+    <button type="button" (click)="addInputs('myInputs')">Add myInputs</button>
+    <div [formGroup]="address" *ngFor="let address of myInputs.controls; let i = index;">
+      <label>
+        Alias:
+        <input type="text" formControlName="name">
+      </label>
+    </div>
+  </div>
+  <br>
+  <div class="col-12">
+    <br>
+    <br>
+    <button type="submit">Submit</button>
+    <button type="button" (click)="updateProfile()">Update</button>
+  </div>
+</form>
+<br />
+<br />
+<p>{{profileForm.status}}</p>
