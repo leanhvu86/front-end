@@ -18,12 +18,16 @@
     <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
     <link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json">
     <link rel="mask-icon" href="/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
-    <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon.ico">
+    <link rel="icon" href="../../../assets/images/logo.ico">
     <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#563d7c">
 
 
     <style>
+        .text-muted :hover {
+            color: orange;
+        }
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -57,7 +61,7 @@
         p {
             font-size: 16px;
             font-weight: 400;
-            color: #444;
+            color: rgb(0, 0, 0);
             line-height: 1.5em;
         }
 
@@ -87,7 +91,7 @@
 
 
         .top-bar a {
-            color: #aaa;
+            color: rgb(0, 0, 0);
         }
 
         /* .top-bar .contact-details {
@@ -108,7 +112,7 @@
         }
 
         .top-bar .contact-details li a:before {
-            color: #aaa;
+            color: rgb(0, 0, 0);
         }
 
         .top-bar .contact-details li:first-child a:before {
@@ -221,11 +225,11 @@
 
 </head>
 
-<body>
+<body style="background: #e9ebee;">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="top-bar">
+                <div class="top-bar" style="background: #e9ebee;">
                     <div class="row">
 
                         <div class="col-md-6">
@@ -233,7 +237,7 @@
                             <ul class="contact-details">
                                 <li><a href="#"><i class="fa fa-phone"></i> +84 245 678 000</a>
                                 </li>
-                                <li><a href="#"><i class="fa fa-envelope-o"></i> DuongsatCC@gmail.com.vn</a>
+                                <li><a href="#"><i class="fa fa-envelope-o"></i> amthuc_monchay@gmail.com</a>
                                 </li>
                             </ul>
                             <!-- End Contact Info -->
@@ -268,11 +272,11 @@
                                 <li>
                                     <a href="#"><i class="fa fa-youtube"></i></a>
                                 </li> -->
-                                <li>
+                                <!-- <li>
                                     <a href="#">
                                         <linkedin-share url={{url}}></linkedin-share>
                                     </a>
-                                </li>
+                                </li> -->
                                 <!-- <li>
                                     <a href="#"><i class="fa fa-skype"></i></a>
                                 </li> -->
@@ -287,23 +291,19 @@
 
         </div><!-- .row -->
     </div>
-    <nav class="site-header sticky-top py-1">
+    <nav class="site-header sticky-top py-1" style="background: white; ">
         <div class="container d-flex flex-column flex-md-row justify-content-between">
-            <a class="py-2" href="#" aria-label="Product">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img"
-                    viewBox="0 0 24 24" focusable="false">
-                    <title>Product</title>
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path
-                        d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94">
-                    </path>
-                </svg>
+            <a class="py-2" href="#" aria-label="Product" style="width: 20%;">
+                <i><img style="height: 90%;width:50%;margin-left: -10%;" src="../../../assets/images/logo.png" /></i>
             </a>
-            <a class="py-2 d-none d-md-inline-block" routerLink="/index">{{ 'index.home' | translate }}</a>
-            <a class="py-2 d-none d-md-inline-block" routerLink="/routing">{{ 'index.routing' | translate }}</a>
-            <a class="py-2 d-none d-md-inline-block" href="#">{{ 'index.servie' | translate }}</a>
-            <a class="py-2 d-none d-md-inline-block" routerLink="/about">{{ 'index.about' | translate }}</a>
+            <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;"
+                routerLink="/index">{{ 'index.home' | translate }}</a>
+            <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;"
+                routerLink="/routing">{{ 'index.routing' | translate }}</a>
+            <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;"
+                href="#">{{ 'index.servie' | translate }}</a>
+            <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;"
+                routerLink="/about">{{ 'index.about' | translate }}</a>
             <a class="py-2 d-none d-md-inline-block" href="#"></a>
             <a class="py-2 d-none d-md-inline-block" href="#"></a>
             <a class="py-2 d-none d-md-inline-block" href="#"></a>
@@ -312,139 +312,20 @@
             <a class="py-2 d-none d-md-inline-block" href="#"></a>
             <a class="py-2 d-none d-md-inline-block" href="#"></a>
             <a class="py-2 d-none d-md-inline-block" href="#"></a>
-            <a class="py-2 d-none d-md-inline-block" routerLink="/addPassenger">{{ 'index.register' | translate }}</a>
+
+        </div>
+        <div class=" div-shadow" style="position: relative; background: whitesmoke;width: 100%; height: 40px;">
+            <button class="py-2 d-none d-md-inline-block register-button" style="right: 15%;"
+                routerLink="/addPassenger">{{ 'register.recipe' | translate }}</button>
+            <button class="py-2 d-none d-md-inline-block register-button"
+                routerLink="/login">{{ 'index.register' | translate }}</button>
         </div>
     </nav>
 
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: 500px;margin-top: -8%;">
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-                <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-            </ol>
-            <div class="carousel-inner" style="height: 550px;">
 
-                <div class="carousel-item " style="height: 550px;">
-
-                    <img style="height: auto;width:100%;" src="https://images.alphacoders.com/470/470114.jpg" />
-
-                    <div class="container">
-                        <div class="carousel-caption text-right">
-                            <!-- <h1></h1>
-              <div style="width: 50%; padding:1px;margin-left: -5%;">
-                <strong style="color: white;font-size: 25px;z-index: 1000; font-family: PinyonScript;">Dịch vụ tiện ích
-                  đa
-                  dạng</strong>
-              </div> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item active">
-
-                    <img style="height: 100%;width:100%;" src="https://images5.alphacoders.com/339/339366.jpg" />
-                    <div class="container">
-                        <div class="carousel-caption text-left">
-                            <h1>50% OFF</h1>
-                            <p>BLACK PATHEN</p>
-                            <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Chi tiết</a></p> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item " style="height: 550px;">
-                    <img style="height: 100%;width:100%;" src="https://images4.alphacoders.com/984/984316.jpg" />
-                    <div class=" container">
-                        <div class="carousel-caption text-right">
-                            <h1></h1>
-                            <div style="margin-right: -15%;width: 50%; padding:1px; opacity: 0.8;;margin-left: 70%;">
-                                <strong
-                                    style="color: white;font-size: 20px;z-index: 1000;">{{ 'index.slider' | translate }}</strong>
-                            </div>
-                            <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Chi tiết</a></p> -->
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-    <div class="row" style="padding: 5%;margin-top: 5%;">
-        <div class="col" style="padding: 2%;"><img
-                style="height: 100%;width:100%;border-radius: 50%;display:block; box-shadow: 0 8px 6px -6px black;"
-                src="../../../assets/images/05.jpg" title="Tái sử dụng hệ thống ga cũ" />
-            <a style="padding: 4% 20%;">{{ 'Longbien.station' | translate }}</a>
-        </div>
-        <div class="col" style="padding: 2%;">
-            <img style="height: 100%;width:90%;border-radius: 50%;display:block; box-shadow: 0 8px 6px -6px black;"
-                src="../../../assets/images/8.jpg" title="Ga Hà Nội" />
-            <a style="padding:4% 20%;">{{ 'hangco.station' | translate }}</a>
-        </div>
-        <div class="col" style="padding: 2%;">
-            <img style="height: 100%;width:90%;border-radius: 50%; display:block; box-shadow: 0 8px 6px -6px black;"
-                src="../../../assets/images/10.jpg" title="Phát triển dịch vụ phúc lợi" />
-            <a style="padding:4% 20%;">{{ 'hanoi.station' | translate }}</a>
-        </div>
-        <div class="col" style="padding: 2%;">
-            <img style="height: 100%;width:90%;border-radius: 50%;display:block; box-shadow: 0 8px 6px -6px black;"
-                src=" ../../../assets/images/151.jpg" title="Phát triển đô thị toàn diện" />
-            <a style="padding: 4% 0;">{{ 'hanoi.higherview' | translate }}</a>
-        </div>
-    </div>
     <router-outlet></router-outlet>
 
-    <footer style="background-color: black;backdrop-filter: saturate(240%) blur(20px);width: 100%;margin-top: 5%;">
-        <div class="row">
-            <div class="col-12 col-md" style="margin:1% 5%;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mb-2" role="img"
-                    viewBox="0 0 24 24" focusable="false">
-                    <title>Product</title>
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path
-                        d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94">
-                    </path>
-                </svg>
-                <small class="d-block mb-3 text-muted">© 2020-2030</small>
-            </div>
-            <div class="col-6 col-md">
-                <h5 style="color:white">Features</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Cool stuff</a></li>
-                    <li><a class="text-muted" href="#">Random feature</a></li>
-                    <li><a class="text-muted" href="#">Team feature</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5 style="color:white">Resources</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Resource</a></li>
-                    <li><a class="text-muted" href="#">Resource name</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5 style="color:white">Resources</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Business</a></li>
-                    <li><a class="text-muted" href="#">Education</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5 style="color:white">About</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Team</a></li>
-                    <li><a class="text-muted" href="#">Locations</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+    <app-footer></app-footer>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>

@@ -6,6 +6,7 @@ import { AboutComponent } from './about/about.component';
 import { RoutingComponent } from './routing/routing.component';
 import { RegisterPassengerComponent } from './register-passenger/register-passenger.component';
 import { ComboBoxComponent } from './combo-box/combo-box.component';
+import { LoginComponent } from '../dashboard/login/login.component';
 
 export const DashBoardRoutes: Routes = [
     {
@@ -32,6 +33,10 @@ export const DashBoardRoutes: Routes = [
             {
                 path: 'routing',
                 component: RoutingComponent
+            },
+            {
+                path: 'login',
+                component: LoginComponent
             },
             {
                 path: 'combobox',

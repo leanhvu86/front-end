@@ -1,0 +1,21 @@
+.navhover{
+    color: orange;
+}
+.register-button{
+    border-radius: 5px; top: 10%; right: 5%; position: absolute;
+    color: gray;
+    border: 1px solid rgb(202, 201, 201);
+    font-size: 12px;
+}
+.register-button:hover{
+    color: orange;
+}
+
+.text-muted :hover{
+    color: orange;
+}
+.div-shadow {
+    -webkit-box-shadow: 3px 3px 5px 6px whitesmoke;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 5px 6px whitesmoke;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 5px 6px whitesmoke;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  }

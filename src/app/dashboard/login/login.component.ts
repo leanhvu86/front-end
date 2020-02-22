@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       this.errorMessage = null;
       if (data.body['status'] === 200) {
         this._loginService.updateAuthStatus(true);
-        this._router.navigateByUrl('/home');
+        this._router.navigateByUrl('/');
         let user = data.body;
         for (let key in user) {
           if (key === 'user') {

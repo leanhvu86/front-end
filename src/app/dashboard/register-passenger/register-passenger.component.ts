@@ -16,21 +16,24 @@ export class RegisterPassengerComponent implements OnInit {
   aliaseS: FormArray;
   myInputs: FormArray;
 
+  public showVideoTutorial: boolean = false;
+  public show: boolean = false;
+  public showIngredient: boolean = false;
   constructor(
     private formbuilder: FormBuilder
   ) {
     this.profileForm = this.formbuilder.group({
-      firstName: ['', Validators.required],
-      lastName: [''],
-      contact: this.formbuilder.group({
-        mobileNo: [''],
-        state: [''],
-        city: ['']
-      }),
+      recipeName: ['', Validators.required],
+      content: ['', Validators.required],
+      videoLink: [''],
+      hardLevel: ['', Validators.required],
+      time: ['', Validators.required],
+      ingredients: ['']
+      ,
+      myInputs: this.formbuilder.array([this.addControlNgL() //add duplicate array Validator
+      ]),
       aliases: this.formbuilder.array([this.addControl()
         //add duplicate array Validator
-      ]),
-      myInputs: this.formbuilder.array([this.addControl() //add duplicate array Validator
       ])
     })
   }
@@ -50,11 +53,18 @@ export class RegisterPassengerComponent implements OnInit {
     console.warn(this.profileForm.value);
   }
   onSubmit() {
+    // chưa validate
+    if (this.profileForm.value === undefined) {
+      return;
+    }
     console.warn(this.profileForm.value);
   }
 
   getAliases() {
     return this.profileForm.get('aliases') as FormArray;
+  }
+  getInput() {
+    return this.profileForm.get('myInputs') as FormArray;
   }
 
   addInputs(key) {
@@ -63,18 +73,73 @@ export class RegisterPassengerComponent implements OnInit {
     if (key === 'aliases') {
       // if no duplicate text then
       this.aliaseS.push(this.addControl());
-    } else if (key === 'myInputs ') {
+    } else if (key === 'myInputs') {
       // if no duplicate text then
-      this.myInputs.push(this.addControl())
+      console.log('input');
+      this.myInputs.push(this.addControlNgL())
     }
   }
   deleteAlias(pos) {
     this.aliaseS.removeAt(pos);
   }
 
+  deleteInputs(pos) {
+    this.myInputs.removeAt(pos);
+  }
   addControl() {
     return this.formbuilder.group({
-      name: this.formbuilder.control('', RxwebValidators.unique())
+      name: this.formbuilder.control('', RxwebValidators.unique()),
+      time: this.formbuilder.control('', RxwebValidators.unique()),
+      psnote: this.formbuilder.control('', RxwebValidators.unique()),
+      check: this.formbuilder.control('')
     });
+  }
+  addControlNgL() {
+    console.log('input');
+    return this.formbuilder.group({
+      nameNL: this.formbuilder.control('', RxwebValidators.unique()),
+      ratioq: this.formbuilder.control('', RxwebValidators.unique())
+    });
+  }
+  onChangeofOptions(value: any) {
+    if (this.show === false) {
+      this.show = true;
+      this.addControlNgL();
+      console.log('add');
+    } else {
+      this.show = false;
+      console.log('remove');
+      this.clearFormArray(this.myInputs);
+
+    }
+
+  }
+
+  onChangeofvideo(value: any) {
+    if (this.showVideoTutorial === false) {
+      this.showVideoTutorial = true;
+      console.log('add');
+    } else {
+      this.showVideoTutorial = false;
+      console.log('remove');
+
+    }
+
+  }
+  onChangeofingredient(value: any) {
+    if (this.showIngredient === false) {
+      this.showIngredient = true;
+      console.log('add');
+    } else {
+      this.showIngredient = false;
+      console.log('remove');
+
+    }
+
+  }
+  clearFormArray = (formArray: FormArray) => {
+    while (formArray.length !== 0) {
+      formArray.removeAt(0)
+    }
   }
 }

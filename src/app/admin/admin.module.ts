@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { StationComponent } from './station/station.component';
 
+import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -22,6 +23,7 @@ import { StationComponent } from './station/station.component';
     FormsModule,
     RouterModule.forChild(AdminRoutes),
   ],
+  providers: [CookieService],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],

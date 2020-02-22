@@ -19,6 +19,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { LoginComponent } from './login/login.component';
+import { FooterComponent } from './child/footer/footer.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -28,7 +30,9 @@ import { BrowserModule } from '@angular/platform-browser';
     AccordionGroupComponent,
     AccordionComponent,
     RegisterPassengerComponent,
-    ComboBoxComponent],
+    ComboBoxComponent,
+    LoginComponent,
+    FooterComponent],
   imports: [
     BrowserModule,
     CommonModule,
