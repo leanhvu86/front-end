@@ -35,7 +35,7 @@ export const DashBoardRoutes: Routes = [
                 component: RoutingComponent
             },
             {
-                path: 'login',
+                path: 'loginMember',
                 component: LoginComponent
             },
             {
