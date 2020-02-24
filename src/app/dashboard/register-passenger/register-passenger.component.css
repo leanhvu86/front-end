@@ -6,10 +6,10 @@ nav > .nav.nav-tabs{
   
   }
   #nav-home-tab{
-    border-radius:10px 0 0 10px;
+    border-radius:10px 0 0 0px;
   }
   #nav-profile-tab{
-    border-radius:0 10px  10px 0;
+    border-radius:0 10px  0px 0;
   }
   nav > div a.nav-item.nav-link{
     color:rgb(8, 8, 8);
@@ -60,6 +60,7 @@ nav > .nav.nav-tabs{
      /* border-bottom:5px solid #e9d3d1; */
       padding:30px 25px;
       width: 100%;
+      height: auto;
   }
   nav > div a.nav-item.nav-link:hover{
     background-color: rgb(229, 240, 234);
@@ -74,8 +75,9 @@ nav > .nav.nav-tabs{
       border-radius:0.02 solid;
       
   }
-  #nguyenlieu:hover{
-    background: gainsboro;
+  .nguyenlieu:hover{
+    background: rgb(238, 238, 238);
+    -webkit-tap-highlight-color: transparent;
   }
   .buttonhover:hover{
     color: red;
@@ -118,3 +120,17 @@ border: 1px dotted lightblue;
     display: none;
     font-style: italic;
   } 
+  #containerimage {
+    position: relative;    
+}
+
+#example {
+   position: absolute;
+bottom: 0px;
+   width: 90%;
+   height: 100%; 
+   padding: 5px;
+   background-color: white;
+   border: 2px solid red;
+}
+  

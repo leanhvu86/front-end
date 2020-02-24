@@ -21,6 +21,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './child/footer/footer.component';
+import { CoutryComponent } from './coutry/coutry.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -32,7 +33,8 @@ import { FooterComponent } from './child/footer/footer.component';
     RegisterPassengerComponent,
     ComboBoxComponent,
     LoginComponent,
-    FooterComponent],
+    FooterComponent,
+    CoutryComponent],
   imports: [
     BrowserModule,
     CommonModule,
@@ -53,7 +55,7 @@ import { FooterComponent } from './child/footer/footer.component';
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA
   ],
-  exports: [IndexComponent],
+  exports: [IndexComponent, CoutryComponent],
 })
 export class DashboardModule { }
 // required for AOT compilation

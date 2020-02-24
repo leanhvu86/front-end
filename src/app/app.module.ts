@@ -29,7 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     CloudinaryModule.forRoot(Cloudinary,
       {
-        cloud_name: 'mycompany', upload_preset: 'mypreset',
+        cloud_name: 'am-thuc-an-chay', upload_preset: 'vu-preset',
         //npprivate_cdn: true, 
         cname: 'mycompany.images.com'
       }),

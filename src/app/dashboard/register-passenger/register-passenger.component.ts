@@ -15,7 +15,11 @@ export class RegisterPassengerComponent implements OnInit {
   profileForm: FormGroup;
   aliaseS: FormArray;
   myInputs: FormArray;
-
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+  public index: number = 0;
   public showVideoTutorial: boolean = false;
   public show: boolean = false;
   public showIngredient: boolean = false;
@@ -41,6 +45,24 @@ export class RegisterPassengerComponent implements OnInit {
   ngOnInit() {
     this.aliaseS = this.profileForm.get('aliases') as FormArray;
     this.myInputs = this.profileForm.get('myInputs') as FormArray;
+  }
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview() {
+    // Show preview 
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    }
   }
 
   updateProfile() {
@@ -80,6 +102,8 @@ export class RegisterPassengerComponent implements OnInit {
     }
   }
   deleteAlias(pos) {
+    this.index--;
+    console.log(this.index);
     this.aliaseS.removeAt(pos);
   }
 
@@ -87,7 +111,11 @@ export class RegisterPassengerComponent implements OnInit {
     this.myInputs.removeAt(pos);
   }
   addControl() {
+    this.index++;
+    let id = this.index;
+    console.log(this.index);
     return this.formbuilder.group({
+      index: this.formbuilder.control(id, RxwebValidators.unique()),
       name: this.formbuilder.control('', RxwebValidators.unique()),
       time: this.formbuilder.control('', RxwebValidators.unique()),
       psnote: this.formbuilder.control('', RxwebValidators.unique()),
@@ -114,7 +142,20 @@ export class RegisterPassengerComponent implements OnInit {
     }
 
   }
+  onSearchChange(searchValue: Element): void {
+    console.log(searchValue);
 
+    const togglers = document.querySelectorAll('.radioCheck');
+    //console.log(togglers);
+    togglers.forEach(function (el) {
+      el.addEventListener('keyup', function (e) {
+        //const content = el.innerHTML;
+        //console.log(content);
+        el.nextElementSibling.setAttribute("checked", "checked");
+      })
+    });
+
+  }
   onChangeofvideo(value: any) {
     if (this.showVideoTutorial === false) {
       this.showVideoTutorial = true;

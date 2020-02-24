@@ -1,0 +1,14 @@
+<!-- <div class="custom-control custom-switch" *ngFor="let country of countrys" >
+  <input type="checkbox" class="custom-control-input" name="customSwitches" value={{country.countryCode}}>
+  <label class="custom-control-label" for="customSwitches">{{country.countryName}}</label>
+</div> -->
+<div class="pretty p-switch p-switch p-primary" *ngFor="let country of countrys"
+  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+  <div>
+    <input type="checkbox" value={{country}} />
+    <div class="state">
+      <label>{{country.countryName}}</label>
+    </div>
+  </div>
+
+</div>

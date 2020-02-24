@@ -21,12 +21,12 @@ export const AdminRoutes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'home',
+                redirectTo: 'adminHome',
                 pathMatch: 'full'
             },
 
             {
-                path: 'home',
+                path: 'adminHome',
                 component: StationComponent
             },
             // {

@@ -1,4 +1,4 @@
-<h3 style="margin:0px 35% ; width: 100%;">Tạo và chia sẻ công thức món chay</h3>
+<h3 style="margin:2% 35% ; width: 100%;">Tạo và chia sẻ công thức món chay</h3>
 <div class="container" style="width:100%; border-radius:40px ; ">
   <div class="card " style=" width: 80%;background: white;">
     <br>
@@ -16,16 +16,45 @@
             </div>
           </nav>
           <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <div id="containerimage">
+                <div *ngIf="fileUploadProgress">
+                  Upload progress: {{ fileUploadProgress }}
+                </div>
+                <div class="image-preview mb-3" *ngIf="previewUrl;else other_content"
+                  style="margin-top: 5%; margin-left: 5%;">
+                  <img [src]="previewUrl" height="250" width="95%" />
+                </div>
+                <ng-template #other_content>
+                  <img id="profile-img" style="width:90%;height: 20%; margin-left: 5%;"
+                    src="../../../assets/images/unnamed.png" />
+                </ng-template>
+                <div *ngIf="uploadedFilePath">
+                  {{uploadedFilePath}}
+                </div>
+
+                <input id="example" type="file" name="image" (change)="fileProgress($event)"
+                  style="border-radius: 10px; top: 7%; border: 1px solid gray;display: block; bottom: 0px; left: 5%; right: 0px; opacity: 0;  position: absolute;"
+                  class="upload-button" />
+                <div
+                  style=" border-radius: 5px;background: rgb(218, 212, 212); width: 85%;height: 10%; margin-left: 8%; opacity: 0.7; text-align: center;">
+                  <a style="width: 90%; margin-left: 5%; margin-top: -15%; text-align: center;"> Click để tải ảnh đại
+                    diện
+                    <i class="fa fa-camera" aria-hidden="true"></i></a></div>
+              </div>
+
+              <br>
 
               <input type="text" formControlName="recipeName" class="form-control" required
-                style="width:90%; border-radius:10px; margin:0 5% ;" placeholder="{{ 'ten.cong.thuc' | translate }}" />
+                style="width:90%; border-radius:10px; margin:2% 5% ;" placeholder="{{ 'ten.cong.thuc' | translate }}" />
 
               <br />
               <textarea type="text" formControlName="content" class="form-control" cols="4"
                 placeholder="{{ 'noidung.cong.thuc' | translate }}"
-                style="width:90%;height: 100px; border-radius:10px; margin:0 5% ; text-align: start;padding-top: 0px;">
+                style="width:90%;height: 100px; border-radius:10px; margin:2% 5% ; text-align: start;padding-top: 0px;">
               </textarea> <br />
+
               <div class="row" style="width: 90%; margin: 0 5%;">
                 <input type="text" formControlName="content" class="col" required style="width:40%; border-radius:10px;"
                   placeholder="BXhdkehdfd" /><a class="col" style="float: left;"><strong>Video</strong>(Youtube
@@ -62,7 +91,7 @@
               </div>
               <br />
 
-              <a> {{'nguyenlieu' | translate }}</a>
+              <a style="margin-left: 5%;"> {{'nguyenlieu' | translate }}</a><span style="color: red;">*</span>
               <br />
               <a (click)="onChangeofOptions($event)"
                 style="border-radius: 10px; border: 1px gray; width: 30%;margin-left: 70%;"
@@ -70,8 +99,8 @@
                   liệu</i></a>
               <br />
               <div
-                style="width:90%; position: relative; border-radius:10px; margin:0 5% ; height: 20%; padding: 2px 0 50px 0; border: 2px gray;"
-                id="nguyenlieu">
+                style="width:90%; position: relative; padding-left: 5%;border-radius:10px; margin:0 5% ; height: 20%; padding: 2px 0 50px 0; border: 2px gray;"
+                class="nguyenlieu">
                 <input type="text" formControlName="ingredients" class="form-control" required
                   style="width:96%; border-radius:10px; margin:0 2% ;"
                   placeholder="{{ 'nhap.nguyen.lieu' | translate }}" />
@@ -151,13 +180,14 @@
                         <div class="input-group">
                           <!-- <div class="input-group-prepend">
                             <div class="input-group-text" style="border: none; background: rgb(245, 242, 242);"> -->
-                          <input type="text" class="form-control "
+                          <input type="text" class="form-control radioCheck" (input)="onSearchChange($event.target)"
                             style="width: 100%;border: none; color: gray; font-size: 12px;" formControlName="nameNL"
-                            #input id="{{idd}}" placeholder="Thêm nhóm nguyên liệu"
+                            #textbox ng-model="all" placeholder="Thêm nhóm nguyên liệu"
                             aria-label="Text input with radio button">
                           <input type="radio" aria-label="Radio button for following text input" name="ossm">
 
-                          <label for="ossm" [attr.for]="idd" style="margin-top: 0%; width: 80%;">- đang chọn{{assdd}}
+                          <label for="ossm" style="margin-top: 0%; width: 80%;">- đang chọn
+                            '{{textbox.value.toUpperCase()}}'
                             , thêm nguyên liệu
                             vào đây
                             -</label>
@@ -165,7 +195,7 @@
                           <!-- </div>
                           </div> -->
 
-                          <div style=" right: 0px; position: absolute; margin-top: 10%; ">
+                          <div style=" right: 0px; position: absolute; margin-top: 7%; ">
                             <a (click)="deleteInputs(i)" style="width: 15px; height: auto;" title="Xóa nhóm"><i
                                 class="fa fa-trash-o buttonhover" aria-hidden="true"></i></a>
                           </div>
@@ -185,44 +215,54 @@
                 </div>
               </div>
               <br />
-              <div class="col" formArrayName="aliases">
-                <h3> Công thức</h3>
-
-
-
+              <a style="margin-left: 5%;"> Cách làm</a><span style="color: red;">*</span>
+              <div class="col " formArrayName="aliases">
                 <br />
-                <div [formGroup]="address" *ngFor="let address of aliaseS.controls; let i = index;">
+                <div [formGroup]="address" class="nguyenlieu" *ngFor="let address of aliaseS.controls; let i = index;"
+                  style=" font-size: 10px;width:90%; position: relative; border-radius:10px; margin:0 5% ; height: 200px; padding: 20px 0 50px 0; border: 2px gray;">
                   <label>
-                    <span [disabled]="!profileForm.controls.aliases.valid" (click)="addInputs('aliases')"><i
-                        class="fa fa-plus-circle buttonhover" aria-hidden="true"></i></span>
-                    <input type="text" formControlName="name" class="form-control">
-                    <input type="time" formControlName="time" class="form-control" pattern="HH:mm">
+                    <input formControlName="index" disabled
+                      style="color: white; background: rgb(214, 3, 3); width: 5%;left: 2%; top: 5%; position: absolute; border-radius: 7px; text-align: center; border: 1px solid white;" />
+                    <input type="text" formControlName="name" class="form-control"
+                      style="left: 12%; top: 7%;width: 50%; position: absolute; "
+                      placeholder="tên bước thực hiện nếu có">
+                    <input type="number" formControlName="time" class="form-control" placeholder="thời gian"
+                      style="left: 72%; top: 7%;width: 20%; position: absolute; ">
 
-                    <input type="text" formControlName="psnote" class="form-control">
-                    <input type="checkbox" formControlName="check">
-                    <span (click)="deleteAlias(i)"><i class="fa fa-trash-o buttonhover" aria-hidden="true"></i></span>
+                    <textarea type="text" formControlName="psnote" class="form-control"
+                      placeholder="Nhập hướng dẫn cách làm cho bước {{index}}"
+                      style="left: 12%; top: 40%;width: 80%; height: auto; position: absolute; " cols="8"></textarea>
+                    <input type="checkbox" formControlName="check"
+                      style="position: absolute;right: 10%; bottom: 7%; width: 5%;"><a
+                      style="position: absolute;right: 0%; bottom: 5%; width: 25%;">là bước chuẩn bị</a>
+                    <span (click)="deleteAlias(i)"><i class="fa fa-trash-o fa-2x buttonhover" aria-hidden="true" style="position: absolute;right: 2%; bottom: 2%; width: 30px !important;
+                        height: 30px !important;"></i></span>
                   </label>
+                </div>
+                <div
+                  style="width: 20%;height: auto; background: rgb(125, 149, 219); border-radius: 5px; padding: 3px; color: beige; margin: 2% 5%;">
+                  <a [disabled]="!profileForm.controls.aliases.valid" class="buttonadd"
+                    (click)="addInputs('aliases')">Thêm bước thực
+                    hiện</a>
                 </div>
               </div>
 
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
+              style="height: fit-content;">
 
               <!-- Default switch -->
-              <div class="custom-control custom-switch">
+              <!-- <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="customSwitches">
                 <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
-              </div>
-              <input type="radio" name="ossm">
-              <label for="ossm">CSS is Awesome</label>
-              <input type="radio" name="ossm">
-              <label for="ossm">CSS is Awesome</label>
-              <input type="radio" name="ossm">
-              <label for="ossm">CSS is Awesome</label>
-              <input type="radio" name="ossm">
-              <label for="ossm">CSS is Awesome</label>
-              <input type="radio" name="ossm">
-              <label for="ossm">CSS is Awesome</label>
+              </div> -->
+              <div style="width: 100%; padding-left: 5%;"><a>Phân loại
+                </a></div>
+              <a style="font-size: 12px;width: 100%; padding-left: 5%;">Bước phân loại này sẽ giúp cho người dùng tìm
+                thấy công thức của bạn dễ dàng
+                hơn</a>
+              <div style="width: 100%; padding:2% 5%; "><a>Ẩm thực</a></div>
+              <app-coutry></app-coutry>
               <br>
             </div>
           </div>
@@ -232,8 +272,7 @@
       <div class="col">
         <br>
         <br>
-        <button type="submit">Submit</button>
-        <button type="button" (click)="updateProfile()">Update</button>
+        <button type="submit">Lưu và tiếp tục</button>
       </div>
     </form>
     <br />
