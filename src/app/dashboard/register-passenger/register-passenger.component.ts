@@ -5,6 +5,10 @@ import { Province } from 'src/app/shared/model/province';
 import { Passenger } from 'src/app/shared/model/passenger';
 
 import { RxwebValidators } from "@rxweb/reactive-form-validators"
+import { Country } from 'src/app/shared/model/country';
+import { CountryService } from 'src/app/shared/service/country.service';
+import { FoodType } from 'src/app/shared/model/foodType';
+import { CookWay } from 'src/app/shared/model/cookWay';
 @Component({
   selector: 'app-register-passenger',
   templateUrl: './register-passenger.component.html',
@@ -23,8 +27,14 @@ export class RegisterPassengerComponent implements OnInit {
   public showVideoTutorial: boolean = false;
   public show: boolean = false;
   public showIngredient: boolean = false;
+  public countrys: Country[] = [];
+  public countryArray: Country[] = [];
+  public foodTypes: FoodType[] = [];
+  public foodTypesArray: FoodType[] = [];
+  public cookWays: CookWay[] = [];
+  public cookWayArray: CookWay[] = [];
   constructor(
-    private formbuilder: FormBuilder
+    private formbuilder: FormBuilder, private countryService: CountryService
   ) {
     this.profileForm = this.formbuilder.group({
       recipeName: ['', Validators.required],
@@ -43,6 +53,9 @@ export class RegisterPassengerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getCountrys();
+    this.getFoodTypes();
+    this.getCookWays();
     this.aliaseS = this.profileForm.get('aliases') as FormArray;
     this.myInputs = this.profileForm.get('myInputs') as FormArray;
   }
@@ -79,7 +92,11 @@ export class RegisterPassengerComponent implements OnInit {
     if (this.profileForm.value === undefined) {
       return;
     }
-    console.warn(this.profileForm.value);
+    let recepie = this.profileForm.value;
+    recepie.country = this.countryArray;
+    recepie.foodType = this.foodTypesArray;
+    recepie.cookWayArray = this.cookWayArray;
+    console.warn(recepie);
   }
 
   getAliases() {
@@ -143,17 +160,21 @@ export class RegisterPassengerComponent implements OnInit {
 
   }
   onSearchChange(searchValue: Element): void {
-    console.log(searchValue);
 
-    const togglers = document.querySelectorAll('.radioCheck');
-    //console.log(togglers);
-    togglers.forEach(function (el) {
-      el.addEventListener('keyup', function (e) {
-        //const content = el.innerHTML;
-        //console.log(content);
-        el.nextElementSibling.setAttribute("checked", "checked");
-      })
-    });
+    let id: string = 'radio' + searchValue;
+    console.log(id);
+    //searchValue.nextElementSibling.setAttribute("checked", "checked");
+    const radio: HTMLElement = document.getElementById(id);
+    radio.click();
+    // const togglers = document.querySelectorAll('.radioCheck');
+    // //console.log(togglers);
+    // togglers.forEach(function (el) {
+    //   el.addEventListener('keyup', function (e) {
+    //     //const content = el.innerHTML;
+    //     //console.log(content);
+    //     el.nextElementSibling.setAttribute("checked", "checked");
+    //   })
+    // });
 
   }
   onChangeofvideo(value: any) {
@@ -182,5 +203,94 @@ export class RegisterPassengerComponent implements OnInit {
     while (formArray.length !== 0) {
       formArray.removeAt(0)
     }
+  }
+
+  getCountrys() {
+    this.countryService.getCountrys().subscribe(countrys => {
+      this.countrys = countrys;
+      console.log('countrys' + this.countrys);
+    });
+  }
+  getFoodTypes() {
+    this.countryService.getFoodTypes().subscribe(foodTypes => {
+      this.foodTypes = foodTypes;
+      console.log('foodType' + this.foodTypes);
+    });
+  }
+  getCookWays() {
+    this.countryService.getCookWays().subscribe(cookWay => {
+      this.cookWays = cookWay;
+      console.log('cookWay' + this.cookWays);
+    });
+  }
+  getCheckboxValues(ev, data) {
+    console.log(data);
+    console.log(ev);
+    let country = new Country();
+    country.countryCode = data.countryCode;
+    country.countryName = data.countryName;
+    if (ev.target.checked) {
+      // Pushing the object into array
+      this.countryArray.push(country);
+
+    } else {
+      let removeIndex = this.countryArray.findIndex(itm => itm.countryCode === data.countryCode);
+
+      if (removeIndex !== -1) {
+        this.countryArray.splice(removeIndex, 1);
+      }
+    }
+
+
+    //Duplicates the obj if we uncheck it
+    //How to remove the value from array if we uncheck it
+    console.log(this.countryArray);
+  }
+  getCheckboxValuesFoodType(ev, data) {
+    console.log(data);
+    console.log(ev);
+    let foodType = new FoodType();
+    foodType.foodTypeCode = data.foodTypeCode;
+    foodType.foodTypeName = data.foodTypeName;
+    if (ev.target.checked) {
+      // Pushing the object into array
+      this.foodTypesArray.push(foodType);
+
+    } else {
+      let removeIndex = this.foodTypesArray.findIndex(itm => itm.foodTypeCode === data.foodTypeCode);
+
+      if (removeIndex !== -1) {
+        this.foodTypesArray.splice(removeIndex, 1);
+      }
+    }
+
+
+    //Duplicates the obj if we uncheck it
+    //How to remove the value from array if we uncheck it
+    console.log(this.foodTypesArray);
+  }
+  getCheckboxValuesCookWay(ev, data) {
+    console.log(data);
+    console.log(ev);
+    let cookWay = new CookWay();
+    cookWay.cookWayCode = data.cookWayCode;
+    cookWay.cookWayName = data.cookWayName;
+    if (ev.target.checked) {
+      // Pushing the object into array
+      console.log(cookWay)
+      this.cookWayArray.push(cookWay);
+
+    } else {
+      let removeIndex = this.cookWayArray.findIndex(itm => itm.cookWayCode === data.cookWayCode);
+
+      if (removeIndex !== -1) {
+        this.cookWayArray.splice(removeIndex, 1);
+      }
+    }
+
+
+    //Duplicates the obj if we uncheck it
+    //How to remove the value from array if we uncheck it
+    console.log(this.cookWayArray);
   }
 }

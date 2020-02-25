@@ -22,6 +22,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './child/footer/footer.component';
 import { CoutryComponent } from './coutry/coutry.component';
+import { NavComponent } from './child/nav/nav.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -34,7 +35,8 @@ import { CoutryComponent } from './coutry/coutry.component';
     ComboBoxComponent,
     LoginComponent,
     FooterComponent,
-    CoutryComponent],
+    CoutryComponent,
+    NavComponent],
   imports: [
     BrowserModule,
     CommonModule,

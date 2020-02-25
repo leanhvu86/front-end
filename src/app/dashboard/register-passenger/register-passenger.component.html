@@ -180,11 +180,12 @@
                         <div class="input-group">
                           <!-- <div class="input-group-prepend">
                             <div class="input-group-text" style="border: none; background: rgb(245, 242, 242);"> -->
-                          <input type="text" class="form-control radioCheck" (input)="onSearchChange($event.target)"
+                          <input type="text" class="form-control radioCheck" (input)="onSearchChange(i)"
                             style="width: 100%;border: none; color: gray; font-size: 12px;" formControlName="nameNL"
                             #textbox ng-model="all" placeholder="Thêm nhóm nguyên liệu"
                             aria-label="Text input with radio button">
-                          <input type="radio" aria-label="Radio button for following text input" name="ossm">
+                          <input type="radio" aria-label="Radio button for following text input" name="ossm"
+                            id="radio{{i}}">
 
                           <label for="ossm" style="margin-top: 0%; width: 80%;">- đang chọn
                             '{{textbox.value.toUpperCase()}}'
@@ -233,14 +234,14 @@
                       placeholder="Nhập hướng dẫn cách làm cho bước {{index}}"
                       style="left: 12%; top: 40%;width: 80%; height: auto; position: absolute; " cols="8"></textarea>
                     <input type="checkbox" formControlName="check"
-                      style="position: absolute;right: 10%; bottom: 7%; width: 5%;"><a
-                      style="position: absolute;right: 0%; bottom: 5%; width: 25%;">là bước chuẩn bị</a>
+                      style="position: absolute;right: 10%; bottom: 7%; width: 5%;">
+                    <a style="position: absolute;right: 15%; bottom: 5%; width: 12%;">là bước chuẩn bị</a>
                     <span (click)="deleteAlias(i)"><i class="fa fa-trash-o fa-2x buttonhover" aria-hidden="true" style="position: absolute;right: 2%; bottom: 2%; width: 30px !important;
                         height: 30px !important;"></i></span>
                   </label>
                 </div>
                 <div
-                  style="width: 20%;height: auto; background: rgb(125, 149, 219); border-radius: 5px; padding: 3px; color: beige; margin: 2% 5%;">
+                  style="width: 20%;height: auto; background: rgb(215, 222, 240); border-radius: 5px; padding: 3px; color: gray; margin: 2% 5%;">
                   <a [disabled]="!profileForm.controls.aliases.valid" class="buttonadd"
                     (click)="addInputs('aliases')">Thêm bước thực
                     hiện</a>
@@ -249,7 +250,7 @@
 
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
-              style="height: fit-content;">
+              style="height: 600px;">
 
               <!-- Default switch -->
               <!-- <div class="custom-control custom-switch">
@@ -261,8 +262,40 @@
               <a style="font-size: 12px;width: 100%; padding-left: 5%;">Bước phân loại này sẽ giúp cho người dùng tìm
                 thấy công thức của bạn dễ dàng
                 hơn</a>
-              <div style="width: 100%; padding:2% 5%; "><a>Ẩm thực</a></div>
-              <app-coutry></app-coutry>
+              <div style="width: 100%; padding:2% 5%; "><a>Công thức</a></div>
+              <div class="pretty p-switch p-switch p-primary" *ngFor="let foodType of foodTypes"
+                style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+                <div>
+                  <input type="checkbox" value={{foodType}} (change)="getCheckboxValuesFoodType($event,foodType) " />
+                  <div class=" state">
+                    <label>{{foodType.foodTypeName}}</label>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div style="width: 100%; padding:5% 5%; "><a>Ẩm thực</a></div>
+              <div class="pretty p-switch p-switch p-primary" *ngFor="let country of countrys"
+                style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+                <div>
+                  <input type="checkbox" value={{country}} (change)="getCheckboxValues($event,country) " />
+                  <div class=" state">
+                    <label>{{country.countryName}}</label>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <br>
+              <br>
+              <div style="width: 100%; padding:2% 5%; "><a>Cách thức chế biến</a></div>
+              <div class="pretty p-switch p-switch p-primary" *ngFor="let cookWay of cookWays"
+                style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+                <div>
+                  <input type="checkbox" value={{cookWay}} (change)="getCheckboxValuesCookWay($event,cookWay) " />
+                  <div class=" state">
+                    <label>{{cookWay.cookWayName}}</label>
+                  </div>
+                </div>
+              </div>
               <br>
             </div>
           </div>
@@ -272,11 +305,14 @@
       <div class="col">
         <br>
         <br>
-        <button type="submit">Lưu và tiếp tục</button>
+
+        <button class="btn-grad"
+          style="background-image: linear-gradient(to right, #e52d27 0%, #cf3237  51%, #e4625d  100%); color: white ;border-radius: 5px;width: 30%; margin-left: 35%; height: 50px;"
+          type="submit">Lưu và tiếp tục</button>
       </div>
     </form>
     <br />
     <br />
-    <p>{{profileForm.status}}</p>
+    <!-- <p>{{profileForm.status}}</p> -->
   </div>
 </div>
