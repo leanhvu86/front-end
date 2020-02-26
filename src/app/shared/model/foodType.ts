@@ -1,6 +1,6 @@
 
 export class FoodType {
-    id: string;
+    _id: string;
     foodTypeCode: string;
     foodTypeName: string;
     status: number;

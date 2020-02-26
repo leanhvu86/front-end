@@ -9,6 +9,9 @@ import { Country } from 'src/app/shared/model/country';
 import { CountryService } from 'src/app/shared/service/country.service';
 import { FoodType } from 'src/app/shared/model/foodType';
 import { CookWay } from 'src/app/shared/model/cookWay';
+import { Recipe } from 'src/app/shared/model/recipe';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register-passenger',
   templateUrl: './register-passenger.component.html',
@@ -17,8 +20,8 @@ import { CookWay } from 'src/app/shared/model/cookWay';
 
 export class RegisterPassengerComponent implements OnInit {
   profileForm: FormGroup;
-  aliaseS: FormArray;
-  myInputs: FormArray;
+  cookStep: FormArray;
+  ingredientsGroup: FormArray;
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
@@ -33,34 +36,38 @@ export class RegisterPassengerComponent implements OnInit {
   public foodTypesArray: FoodType[] = [];
   public cookWays: CookWay[] = [];
   public cookWayArray: CookWay[] = [];
+  public message: string = '';
+  submitted = false;
   constructor(
-    private formbuilder: FormBuilder, private countryService: CountryService
+    private formbuilder: FormBuilder, private countryService: CountryService,
+    private recipeService: RecipeService, private _router: Router
   ) {
     this.profileForm = this.formbuilder.group({
-      recipeName: ['', Validators.required],
-      content: ['', Validators.required],
+      recipeName: ['', [Validators.minLength(5), Validators.maxLength(200), Validators.required]],
+      content: ['', [Validators.minLength(20), Validators.maxLength(500), Validators.required]],
       videoLink: [''],
-      hardLevel: ['', Validators.required],
+      hardLevel: [''],
       time: ['', Validators.required],
-      ingredients: ['']
+      ingredients: ['', [Validators.minLength(5), Validators.maxLength(500), Validators.required]]
       ,
-      myInputs: this.formbuilder.array([this.addControlNgL() //add duplicate array Validator
+      ingredientsGroup: this.formbuilder.array([this.addControlNgL() //add duplicate array Validator
       ]),
-      aliases: this.formbuilder.array([this.addControl()
+      cookStep: this.formbuilder.array([this.addControl()
         //add duplicate array Validator
       ])
     })
   }
-
+  get f() { return this.profileForm.controls; }
   ngOnInit() {
     this.getCountrys();
     this.getFoodTypes();
     this.getCookWays();
-    this.aliaseS = this.profileForm.get('aliases') as FormArray;
-    this.myInputs = this.profileForm.get('myInputs') as FormArray;
+    this.cookStep = this.profileForm.get('cookStep') as FormArray;
+    this.ingredientsGroup = this.profileForm.get('ingredientsGroup') as FormArray;
   }
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
+    console.log(this.fileData);
     this.preview();
   }
 
@@ -88,44 +95,86 @@ export class RegisterPassengerComponent implements OnInit {
     console.warn(this.profileForm.value);
   }
   onSubmit() {
+    this.submitted = true;
+    console.log('submit')
     // chưa validate
-    if (this.profileForm.value === undefined) {
+    if (this.profileForm.invalid) {
       return;
     }
-    let recepie = this.profileForm.value;
+    if (this.profileForm.value.cookStep[0].psnote == '') {
+      this.message = 'Vui lòng điền hướng dẫn cho công thức';
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    } else if (this.profileForm.value.cookStep[0].psnote.length < 10) {
+      this.message = 'Hướng dẫn cho công thức có độ dài lớn hơn 10 ký tự';
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    else if (this.profileForm.value.cookStep[0].psnote.length > 500) {
+      this.message = 'Hướng dẫn cho công thức có độ dài nhỏ hơn 500 ký tự';
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    if (this.cookWayArray.length === 0 || this.countryArray.length === 0 || this.foodTypesArray.length === 0) {
+      this.message = 'Vui lòng phân loại cho công thức';
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    this.message === '';
+    let recepie: Recipe = this.profileForm.value;
     recepie.country = this.countryArray;
     recepie.foodType = this.foodTypesArray;
-    recepie.cookWayArray = this.cookWayArray;
-    console.warn(recepie);
+    recepie.cookWay = this.cookWayArray;
+
+    console.log(recepie);
+    this.recipeService.registerRecipe(recepie).subscribe((data) => {
+      const result = data.body
+      if (result['status'] === 200) {
+        this.message = result['message'];
+        const radio: HTMLElement = document.getElementById('modal-button');
+        radio.click();
+        setTimeout(() => {
+          this._router.navigate(['/index']);
+        }, 5000);
+      } else {
+        this.message = result['message'];
+        const radio: HTMLElement = document.getElementById('modal-button');
+        radio.click();
+      }
+    });
   }
 
-  getAliases() {
-    return this.profileForm.get('aliases') as FormArray;
+  getcookStep() {
+    return this.profileForm.get('cookStep') as FormArray;
   }
   getInput() {
-    return this.profileForm.get('myInputs') as FormArray;
+    return this.profileForm.get('ingredientsGroup') as FormArray;
   }
 
   addInputs(key) {
     //if duplicate array Validator  Validates as false then add row otherwise error
 
-    if (key === 'aliases') {
+    if (key === 'cookStep') {
       // if no duplicate text then
-      this.aliaseS.push(this.addControl());
-    } else if (key === 'myInputs') {
+      this.cookStep.push(this.addControl());
+    } else if (key === 'ingredientsGroup') {
       // if no duplicate text then
       console.log('input');
-      this.myInputs.push(this.addControlNgL())
+      this.ingredientsGroup.push(this.addControlNgL())
     }
   }
   deleteAlias(pos) {
     this.index--;
     console.log(this.index);
-    this.aliaseS.removeAt(pos);
+    this.cookStep.removeAt(pos);
   }
 
   deleteInputs(pos) {
-    this.myInputs.removeAt(pos);
+    this.ingredientsGroup.removeAt(pos);
   }
   addControl() {
     this.index++;
@@ -134,7 +183,7 @@ export class RegisterPassengerComponent implements OnInit {
     return this.formbuilder.group({
       index: this.formbuilder.control(id, RxwebValidators.unique()),
       name: this.formbuilder.control('', RxwebValidators.unique()),
-      time: this.formbuilder.control('', RxwebValidators.unique()),
+      time: this.formbuilder.control(''),
       psnote: this.formbuilder.control('', RxwebValidators.unique()),
       check: this.formbuilder.control('')
     });
@@ -154,7 +203,7 @@ export class RegisterPassengerComponent implements OnInit {
     } else {
       this.show = false;
       console.log('remove');
-      this.clearFormArray(this.myInputs);
+      this.clearFormArray(this.ingredientsGroup);
 
     }
 
@@ -163,18 +212,9 @@ export class RegisterPassengerComponent implements OnInit {
 
     let id: string = 'radio' + searchValue;
     console.log(id);
-    //searchValue.nextElementSibling.setAttribute("checked", "checked");
     const radio: HTMLElement = document.getElementById(id);
     radio.click();
-    // const togglers = document.querySelectorAll('.radioCheck');
-    // //console.log(togglers);
-    // togglers.forEach(function (el) {
-    //   el.addEventListener('keyup', function (e) {
-    //     //const content = el.innerHTML;
-    //     //console.log(content);
-    //     el.nextElementSibling.setAttribute("checked", "checked");
-    //   })
-    // });
+
 
   }
   onChangeofvideo(value: any) {

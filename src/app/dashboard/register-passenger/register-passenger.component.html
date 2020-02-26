@@ -42,21 +42,43 @@
                   <a style="width: 90%; margin-left: 5%; margin-top: -15%; text-align: center;"> Click để tải ảnh đại
                     diện
                     <i class="fa fa-camera" aria-hidden="true"></i></a></div>
+
               </div>
 
               <br>
 
-              <input type="text" formControlName="recipeName" class="form-control" required
+              <input type="text" formControlName="recipeName" class="form-control" minlength="5"
+                [ngClass]="{ 'is-invalid': submitted && f.recipeName.errors }"
                 style="width:90%; border-radius:10px; margin:2% 5% ;" placeholder="{{ 'ten.cong.thuc' | translate }}" />
+              <div style="margin-left: 5%;" *ngIf="submitted && f.recipeName.errors" class="invalid-feedback">
+                <div *ngIf="f.recipeName.errors.required">Bạn phải điền tên công thức</div>
 
+              </div>
+              <div *ngIf="f.recipeName.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                Tên công thức chứa ít nhất 5 kí tự.
+              </div>
+              <div *ngIf="f.recipeName.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                Tên công thức chứa nhiều nhất 200 kí tự.
+              </div>
               <br />
-              <textarea type="text" formControlName="content" class="form-control" cols="4"
+              <textarea type="text" formControlName="content" class="form-control" cols="4" minlength="20"
+                [ngClass]="{ 'is-invalid': submitted && f.content.errors }"
                 placeholder="{{ 'noidung.cong.thuc' | translate }}"
-                style="width:90%;height: 100px; border-radius:10px; margin:2% 5% ; text-align: start;padding-top: 0px;">
-              </textarea> <br />
+                style="width:90%;height: 100px; border-radius:10px; margin:0 5% ; text-align: start;padding-top: 0px;">
+              </textarea>
+              <div style="margin-left: 5%;" *ngIf="submitted && f.content.errors" class="invalid-feedback">
+                <div *ngIf="f.content.errors.required">Bạn phải điền nội dung công thức</div>
+              </div>
+              <div *ngIf="f.content.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                Tên công thức chứa ít nhất 20 kí tự.
+              </div>
+              <div *ngIf="f.content.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                Tên công thức chứa nhiều nhất 500 kí tự.
+              </div>
+              <br />
 
               <div class="row" style="width: 90%; margin: 0 5%;">
-                <input type="text" formControlName="content" class="col" required style="width:40%; border-radius:10px;"
+                <input type="text" formControlName="videoLink" class="col" style="width:40%; border-radius:10px;"
                   placeholder="BXhdkehdfd" /><a class="col" style="float: left;"><strong>Video</strong>(Youtube
                   code/link)</a><a *ngIf="!showVideoTutorial" (click)="onChangeofvideo($event)"><i
                     class="fa fa-question-circle buttonhover" aria-hidden="true"></i>
@@ -81,13 +103,18 @@
               <a style="margin-left: 5%;">{{'dokho.thoigian' | translate }}</a>
               <br />
               <div class="row" style="width: 90%; margin: 0 5%;">
-                <select type="text" formControlName="hardLevel" style="width:15%; border-radius:10px; margin:0 5% ; ">
-                  <option value="1">{{'dokho.de' | translate }}</option>
-                  <option value="1">{{'dokho.trungbinh' | translate }}</option>
-                  <option value="1">{{'dokho.kho' | translate }}</option>
-                  <option value="1">{{'dokho.ratkho' | translate }}</option>
+                <select type="text" formControlName="hardLevel"
+                  [ngClass]="{ 'is-invalid': submitted && f.hardLevel.errors }"
+                  style="width:15%; border-radius:10px; margin:0 5% ; " [value]='1'>
+                  <option [value]="1" selected>{{'dokho.de' | translate }}</option>
+                  <option [value]="2">{{'dokho.trungbinh' | translate }}</option>
+                  <option [value]="3">{{'dokho.kho' | translate }}</option>
+                  <option [value]="4">{{'dokho.ratkho' | translate }}</option>
                 </select>
-                <input type=" number" formControlName="time" style="width:10%; border-radius:10px; margin:0 5% ;">Phút
+                <input type="number" formControlName="time" style="width:10%; border-radius:10px; margin:0 5% ;">Phút
+              </div>
+              <div style="margin-left: 5%;" *ngIf="submitted && f.time.errors" class="invalid-feedback">
+                <div *ngIf="f.time.errors.required">Bạn phải nhập thời gian thực hiện</div>
               </div>
               <br />
 
@@ -101,9 +128,10 @@
               <div
                 style="width:90%; position: relative; padding-left: 5%;border-radius:10px; margin:0 5% ; height: 20%; padding: 2px 0 50px 0; border: 2px gray;"
                 class="nguyenlieu">
-                <input type="text" formControlName="ingredients" class="form-control" required
+                <input type="text" formControlName="ingredients" class="form-control" minlength="5"
                   style="width:96%; border-radius:10px; margin:0 2% ;"
                   placeholder="{{ 'nhap.nguyen.lieu' | translate }}" />
+
                 <!-- <span style="margin-left: 80%; border-radius: 10px;" class="buttoncheck buttonhover spancheck"><i
                     class="fa fa-question-circle" aria-hidden="true"></i> Xem
                   hướng
@@ -152,15 +180,26 @@
                     </ul>
                   </div>
                 </div>
+                <div style="margin-left: 5%;" *ngIf="submitted && f.ingredients.errors">
+                  <div *ngIf="f.ingredients.errors.required" style="color: red; font-size: 12PX;">Bạn phải nhập nguyên
+                    liệu</div>
+                </div>
+                <div *ngIf="f.ingredients.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                  Tên công thức chứa ít nhất 20 kí tự.
+                </div>
+                <div *ngIf="f.ingredients.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                  Tên công thức chứa nhiều nhất 500 kí tự.
+                </div>
               </div>
               <br />
               <div *ngIf="show"
                 style="width:90%; position: relative; border-radius:10px; margin:0 5% ; height: 20%; padding: 2px 0 50px 0; border: 2px black; background: rgb(245, 242, 242);">
-                <div class="col" formArrayName="myInputs" style="font-weight: initial;padding: 2px 5px;">Chọn nhóm
+                <div class="col" formArrayName="ingredientsGroup" style="font-weight: initial;padding: 2px 5px;">Chọn
+                  nhóm
                   nguyên
                   liệu
-                  <a (click)="addInputs('myInputs')" style="border-radius: 10px;  position: absolute; right: 0.5%;"
-                    title="Tạo nhóm nguyên liệu"><i
+                  <a (click)="addInputs('ingredientsGroup')"
+                    style="border-radius: 10px;  position: absolute; right: 0.5%;" title="Tạo nhóm nguyên liệu"><i
                       class="fa fa-plus-circle buttoncheck buttonhover spanGroup-ingredient" aria-hidden="true">Tạo nhóm
                       nguyên
                       liệu</i></a>
@@ -170,24 +209,25 @@
                       <a style="font-size: 12px; color: gray;">đã nhóm hoặc chưa có nguyên liệu</a>
                     </div>
                     <div class="col-sm-8">
-                      <div [formGroup]="address" *ngFor="let address of myInputs.controls; let i = index;"
+                      <div [formGroup]="address" *ngFor="let address of ingredientsGroup.controls; let i = index;"
                         style="position: relative;">
 
                         <!-- <input type="radio" formControlName="ratioq" name="a" id="check" value="1"
                           style="width: 5%; float: left;">
                         <input type="text" formControlName="nameNL" class="form-control ingredientGroup"
                           placeholder="Thêm nhóm nguyên liệu"> -->
-                        <div class="input-group">
+                        <div class="input-group" style="position: relative; min-height: 50px;display: block;
+                        overflow:hidden;">
                           <!-- <div class="input-group-prepend">
                             <div class="input-group-text" style="border: none; background: rgb(245, 242, 242);"> -->
                           <input type="text" class="form-control radioCheck" (input)="onSearchChange(i)"
-                            style="width: 100%;border: none; color: gray; font-size: 12px;" formControlName="nameNL"
-                            #textbox ng-model="all" placeholder="Thêm nhóm nguyên liệu"
+                            style="width: 90%; right: 5%;border: none; color: gray; font-size: 12px; position: absolute;"
+                            formControlName="nameNL" #textbox ng-model="all" placeholder="Thêm nhóm nguyên liệu"
                             aria-label="Text input with radio button">
                           <input type="radio" aria-label="Radio button for following text input" name="ossm"
-                            id="radio{{i}}">
+                            style="left: 0%;position: absolute; top: 5%;" id="radio{{i}}">
 
-                          <label for="ossm" style="margin-top: 0%; width: 80%;">- đang chọn
+                          <label for="ossm" style="top: 55%; width: 100%; position: absolute;">- đang chọn
                             '{{textbox.value.toUpperCase()}}'
                             , thêm nguyên liệu
                             vào đây
@@ -196,7 +236,7 @@
                           <!-- </div>
                           </div> -->
 
-                          <div style=" right: 0px; position: absolute; margin-top: 7%; ">
+                          <div style=" right: 0px; position: absolute; top: 7%; ">
                             <a (click)="deleteInputs(i)" style="width: 15px; height: auto;" title="Xóa nhóm"><i
                                 class="fa fa-trash-o buttonhover" aria-hidden="true"></i></a>
                           </div>
@@ -205,21 +245,23 @@
                         </div>
 
                       </div>
-                      <a (click)="addInputs('myInputs')" style="border-radius: 10px;  position: absolute; left: 0.5%;"
-                        title="Tạo nhóm nguyên liệu"><i class="fa fa-plus buttonhover2 " aria-hidden="true"> thêm
-                          nhóm
-                          nguyên
-                          liệu</i></a>
+
                     </div>
                   </div>
 
                 </div>
+                <a (click)="addInputs('ingredientsGroup')"
+                  style="border-radius: 10px;  position: absolute; right:  0.5%;" title="Tạo nhóm nguyên liệu"><i
+                    class="fa fa-plus buttonhover2 " aria-hidden="true"> thêm
+                    nhóm
+                    nguyên
+                    liệu</i></a>
               </div>
               <br />
               <a style="margin-left: 5%;"> Cách làm</a><span style="color: red;">*</span>
-              <div class="col " formArrayName="aliases">
+              <div class="col " formArrayName="cookStep">
                 <br />
-                <div [formGroup]="address" class="nguyenlieu" *ngFor="let address of aliaseS.controls; let i = index;"
+                <div [formGroup]="address" class="nguyenlieu" *ngFor="let address of cookStep.controls; let i = index;"
                   style=" font-size: 10px;width:90%; position: relative; border-radius:10px; margin:0 5% ; height: 200px; padding: 20px 0 50px 0; border: 2px gray;">
                   <label>
                     <input formControlName="index" disabled
@@ -238,12 +280,14 @@
                     <a style="position: absolute;right: 15%; bottom: 5%; width: 12%;">là bước chuẩn bị</a>
                     <span (click)="deleteAlias(i)"><i class="fa fa-trash-o fa-2x buttonhover" aria-hidden="true" style="position: absolute;right: 2%; bottom: 2%; width: 30px !important;
                         height: 30px !important;"></i></span>
+
                   </label>
+
                 </div>
                 <div
                   style="width: 20%;height: auto; background: rgb(215, 222, 240); border-radius: 5px; padding: 3px; color: gray; margin: 2% 5%;">
-                  <a [disabled]="!profileForm.controls.aliases.valid" class="buttonadd"
-                    (click)="addInputs('aliases')">Thêm bước thực
+                  <a [disabled]="!profileForm.controls.cookStep.valid" class="buttonadd"
+                    (click)="addInputs('cookStep')">Thêm bước thực
                     hiện</a>
                 </div>
               </div>
@@ -253,10 +297,6 @@
               style="height: 600px;">
 
               <!-- Default switch -->
-              <!-- <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="customSwitches">
-                <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
-              </div> -->
               <div style="width: 100%; padding-left: 5%;"><a>Phân loại
                 </a></div>
               <a style="font-size: 12px;width: 100%; padding-left: 5%;">Bước phân loại này sẽ giúp cho người dùng tìm
@@ -314,5 +354,27 @@
     <br />
     <br />
     <!-- <p>{{profileForm.status}}</p> -->
+  </div>
+</div>
+<button type="button" class="btn btn-primary" hidden="true" data-toggle="modal" data-target="#exampleModalCenter"
+  id="modal-button">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Vui lòng hoàn tất tạo công thức</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: red;">
+        {{message}}
+      </div>
+    </div>
   </div>
 </div>

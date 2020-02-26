@@ -1,6 +1,6 @@
 
 export class Country {
-    id: string;
+    _id: string;
     countryCode: string;
     countryName: string;
     status: number;
