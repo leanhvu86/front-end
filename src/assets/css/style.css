@@ -949,7 +949,11 @@ h6 {
 .footer-wrap {
 	padding: 40px 0;
 }
-
+.footer{
+	width: 100%;
+	display: block;
+	
+}
 .copyright-text span {
 	font-weight: 500;
 	color: #666;

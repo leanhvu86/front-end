@@ -4,7 +4,8 @@ import { Subject, Observable, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Token } from '../model/token';
 
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, tap } from 'rxjs/operators';
+import { Recipe } from '../model/recipe';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,7 @@ export class RecipeService {
   _isLoggedIn: boolean = false
 
   authSub = new Subject<any>();
-
+  private baseUrl: string = 'http://localhost:8000';
   constructor(private _http: HttpClient, private cookie: CookieService) {
   }
   httpOptions = {
@@ -40,64 +41,11 @@ export class RecipeService {
     return this._http.post("http://localhost:8000/createRecipe", { recipe: recipe }, { observe: "response" });
   }
 
-  updateAuthStatus(value: boolean) {
-    this._isLoggedIn = value
-    this.authSub.next(this._isLoggedIn);
-    localStorage.setItem('isLoggedIn', value ? "true" : "false");
+  getRecipes = (): Observable<Recipe[]> => {
+
+    return this._http.get<Recipe[]>(`${this.baseUrl}/recipes`)
+      .pipe(
+        tap(_ => console.log('load recipes'))
+      );
   }
-
-  getAuthStatus() {
-    this._isLoggedIn = localStorage.getItem('isLoggedIn') == "true" ? true : false;
-    return this._isLoggedIn
-  }
-
-  logoutUser() {
-    this._isLoggedIn = false;
-    this.authSub.next(this._isLoggedIn);
-    localStorage.setItem('isLoggedIn', "false");
-    let token = this.cookie.get('token');
-    console.log('xóa token nè' + token);
-    this.deleteAuth(token).subscribe((data) => {
-      const result = data.body;
-      if (data['status'] === 200) {
-
-        if (result == null) {
-          console.log(result);
-        } else {
-          console.log(result);
-
-          this.cookie.set('token', result[0]);
-        }
-      }
-    });
-    this.cookie.set('token', '');
-
-  }
-
-  // getAuth() {
-  //   return this._http.get("http://localhost:3000/tfa/setup", { observe: 'response' });
-  // }
-
-
-  deleteAuth(token: any) {
-    return this._http.post("http://localhost:8000/deleteToken", { token: token }, { observe: 'response' })
-  }
-  // Error handling 
-  handleError(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    window.alert(errorMessage);
-    return throwError(errorMessage);
-  }
-
-  verifyAuth(email: any) {
-    return this._http.post("http://localhost:8000/currentAuthen", { email: email }, { observe: 'response' })
-  }
-
 }

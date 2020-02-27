@@ -1,4 +1,4 @@
 export default {
-    cloud_name: 'unicodeveloper',
-    upload_preset: 'b9ej8dr5'
+    cloud_name: 'am-thuc-an-chay',
+    upload_preset: 'vu-preset'
 };

@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
             let users = user[key];
             console.log(users.token);
             this.cookie.set('token', users.token);
+            this.cookie.set('isAuthenicate', 'true');
           }
 
         }

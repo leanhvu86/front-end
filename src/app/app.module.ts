@@ -10,7 +10,9 @@ import { ErrorModule } from './error/error.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AdminModule } from './admin/admin.module';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
-import * as  Cloudinary from 'cloudinary-core';
+import * as  cloudinary from 'cloudinary-core';
+
+import cloudinaryConfiguration from './config';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
@@ -27,12 +29,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
-    CloudinaryModule.forRoot(Cloudinary,
-      {
-        cloud_name: 'am-thuc-an-chay', upload_preset: 'vu-preset',
-        //npprivate_cdn: true, 
-        cname: 'mycompany.images.com'
-      }),
     BrowserAnimationsModule,
 
   ],

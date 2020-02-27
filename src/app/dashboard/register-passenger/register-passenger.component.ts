@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, ValidatorFn, FormArray } from '@angular/forms';
 import { ProvinceService } from 'src/app/shared/service/province.service';
 import { Province } from 'src/app/shared/model/province';
 import { Passenger } from 'src/app/shared/model/passenger';
-
+import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 import { RxwebValidators } from "@rxweb/reactive-form-validators"
 import { Country } from 'src/app/shared/model/country';
 import { CountryService } from 'src/app/shared/service/country.service';
@@ -12,6 +12,8 @@ import { CookWay } from 'src/app/shared/model/cookWay';
 import { Recipe } from 'src/app/shared/model/recipe';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { Router } from '@angular/router';
+import { Cloudinary } from '@cloudinary/angular-5.x';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-register-passenger',
   templateUrl: './register-passenger.component.html',
@@ -37,11 +39,22 @@ export class RegisterPassengerComponent implements OnInit {
   public cookWays: CookWay[] = [];
   public cookWayArray: CookWay[] = [];
   public message: string = '';
+  urlArray: Array<Array<String>>[] = [];
   submitted = false;
-  constructor(
+  @Input()
+  responses: Array<any>;
+  oldUrl: string = null;
+  nowUrl: string = null;
+  private hasBaseDropZoneOver: boolean = false;
+  private uploader: FileUploader;
+  private title: string;
+  constructor(private cloudinary: Cloudinary,
+    private zone: NgZone, private http: HttpClient,
     private formbuilder: FormBuilder, private countryService: CountryService,
     private recipeService: RecipeService, private _router: Router
   ) {
+    this.responses = [];
+    this.title = '';
     this.profileForm = this.formbuilder.group({
       recipeName: ['', [Validators.minLength(5), Validators.maxLength(200), Validators.required]],
       content: ['', [Validators.minLength(20), Validators.maxLength(500), Validators.required]],
@@ -64,6 +77,131 @@ export class RegisterPassengerComponent implements OnInit {
     this.getCookWays();
     this.cookStep = this.profileForm.get('cookStep') as FormArray;
     this.ingredientsGroup = this.profileForm.get('ingredientsGroup') as FormArray;
+    // Create the file uploader, wire it to upload to your account
+    const uploaderOptions: FileUploaderOptions = {
+      url: `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/image/upload`,
+      // Upload files automatically upon addition to upload queue
+      autoUpload: true,
+      // Use xhrTransport in favor of iframeTransport
+      isHTML5: true,
+      // Calculate progress independently for each uploaded file
+      removeAfterUpload: true,
+      // XHR request headers
+      headers: [
+        {
+          name: 'X-Requested-With',
+          value: 'XMLHttpRequest'
+        }
+      ]
+    };
+    this.uploader = new FileUploader(uploaderOptions);
+
+    this.uploader.onBuildItemForm = (fileItem: any, form: FormData): any => {
+      // Add Cloudinary's unsigned upload preset to the upload form
+      form.append('upload_preset', this.cloudinary.config().upload_preset);
+      // Add built-in and custom tags for displaying the uploaded photo in the list
+      let tags = 'myphotoalbum';
+      if (this.title) {
+        form.append('context', `photo=${this.title}`);
+        tags = `myphotoalbum,${this.title}`;
+      }
+      // Upload to a custom folder
+      // Note that by default, when uploading via the API, folders are not automatically created in your Media Library.
+      // In order to automatically create the folders based on the API requests,
+      // please go to your account upload settings and set the 'Auto-create folders' option to enabled.
+      form.append('folder', 'angular_sample');
+      // Add custom tags
+      form.append('tags', tags);
+      // Add file to upload
+      form.append('file', fileItem);
+
+      // Use default "withCredentials" value for CORS requests
+      fileItem.withCredentials = false;
+      return { fileItem, form };
+    };
+
+    // Insert or update an entry in the responses array
+    const upsertResponse = fileItem => {
+      // Run the update in a custom zone since for some reason change detection isn't performed
+      // as part of the XHR request to upload the files.
+      // Running in a custom zone forces change detection
+      this.zone.run(() => {
+        // Update an existing entry if it's upload hasn't completed yet
+
+        // Find the id of an existing item
+        const existingId = this.responses.reduce((prev, current, index) => {
+          if (current.file.name === fileItem.file.name && !current.status) {
+            return index;
+          }
+          return prev;
+        }, -1);
+        if (existingId > -1) {
+          // Update existing item with new data
+          this.responses[existingId] = Object.assign(this.responses[existingId], fileItem);
+          if (this.responses[0].data.url != undefined && this.responses[0].data.url !== '') {
+
+            this.oldUrl = this.nowUrl;
+            this.nowUrl = this.responses[0].data.public_id;
+            console.log(this.responses[0].data.public_id);
+            if (this.oldUrl != null && this.oldUrl != '') {
+              console.log(this.oldUrl);
+              console.log(this.nowUrl);
+
+            }
+          }
+          this.previewUrl = this.responses[0].data.url;
+        } else {
+          // Create new response
+          this.responses.push(fileItem);
+        }
+      });
+    };
+
+    // Update model on completion of uploading a file
+    this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) =>
+      upsertResponse(
+        {
+          file: item.file,
+          status,
+          data: JSON.parse(response)
+        }
+      );
+
+    // Update model on upload progress event
+    this.uploader.onProgressItem = (fileItem: any, progress: any) =>
+      upsertResponse(
+        {
+          file: fileItem.file,
+          progress,
+          data: {}
+        }
+      );
+  }
+
+  updateTitle(value: string) {
+    this.title = value;
+  }
+
+  // Delete an uploaded image
+  // Requires setting "Return delete token" to "Yes" in your upload preset configuration
+  // See also https://support.cloudinary.com/hc/en-us/articles/202521132-How-to-delete-an-image-from-the-client-side-
+  deleteImage = function (data: any, index: number) {
+    const url = `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/delete_by_token`;
+    const headers = new Headers({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' });
+    const options = { headers: headers };
+    const body = {
+      token: data.delete_token
+    };
+    this.http.post(url, body, options).subscribe(response => {
+      console.log(`Deleted image - ${data.public_id} ${response.result}`);
+      // Remove deleted item for responses
+      this.responses.splice(index, 1);
+    });
+  };
+
+  fileOverBase(e: any): void {
+    console.log(e);
+    this.hasBaseDropZoneOver = e;
   }
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
@@ -124,22 +262,37 @@ export class RegisterPassengerComponent implements OnInit {
       radio.click();
       return;
     }
+    console.log(this.nowUrl);
+    if (this.nowUrl === null || this.nowUrl === '') {
+      console.log(this.nowUrl);
+      this.message = 'Vui lòng up ảnh hiển thị cho công thức';
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
     this.message === '';
-    let recepie: Recipe = this.profileForm.value;
-    recepie.country = this.countryArray;
-    recepie.foodType = this.foodTypesArray;
-    recepie.cookWay = this.cookWayArray;
-
-    console.log(recepie);
-    this.recipeService.registerRecipe(recepie).subscribe((data) => {
+    let recipe: Recipe = this.profileForm.value;
+    recipe.country = this.countryArray;
+    recipe.foodType = this.foodTypesArray;
+    recipe.cookWay = this.cookWayArray;
+    recipe.imageUrl = this.nowUrl;
+    if (recipe.imageUrl === undefined || recipe.imageUrl === '') {
+      console.log(recipe.imageUrl);
+      this.message = 'Vui lòng up ảnh hiển thị cho công thức';
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    console.log(recipe);
+    this.recipeService.registerRecipe(recipe).subscribe((data) => {
       const result = data.body
       if (result['status'] === 200) {
         this.message = result['message'];
         const radio: HTMLElement = document.getElementById('modal-button');
         radio.click();
         setTimeout(() => {
-          this._router.navigate(['/index']);
-        }, 5000);
+          this.finish();
+        }, 2000);
       } else {
         this.message = result['message'];
         const radio: HTMLElement = document.getElementById('modal-button');
@@ -147,7 +300,12 @@ export class RegisterPassengerComponent implements OnInit {
       }
     });
   }
-
+  finish() {
+    const radio: HTMLElement = document.getElementById('index-home-link');
+    radio.click();
+    console.log('finish');
+    this._router.navigate(['/index']);
+  }
   getcookStep() {
     return this.profileForm.get('cookStep') as FormArray;
   }
@@ -186,6 +344,9 @@ export class RegisterPassengerComponent implements OnInit {
       time: this.formbuilder.control(''),
       psnote: this.formbuilder.control('', RxwebValidators.unique()),
       check: this.formbuilder.control('')
+      // ,
+      // image: this.formbuilder.control(''),
+      // imageArray: this.formbuilder.control('')
     });
   }
   addControlNgL() {
@@ -216,6 +377,38 @@ export class RegisterPassengerComponent implements OnInit {
     radio.click();
 
 
+  }
+  detectFiles(event) {
+    let url;
+    //url = this.urlArray[index];
+    let files = event.target.files;
+    if (files) {
+      for (let file of files) {
+        let reader = new FileReader();
+        reader.onload = (e: any) => {
+          url.push(e.target.result);
+          // let id = 'imageArray' + index;
+          // let multipleUrl: string;
+          // console.log(id);
+
+          // var inputValue = (<HTMLInputElement>document.getElementById(id)).value;
+          // if (inputValue !== '') {
+
+          //   multipleUrl = inputValue + ',' + file.name;
+          // } else {
+          //   multipleUrl = file.name;
+          // }
+          // const radio = (<HTMLInputElement>document.getElementById(id));
+          // radio.value = multipleUrl;
+          // console.log(inputValue);
+          // console.log(multipleUrl);
+
+          // this.urlArray[index] = url;
+        }
+        reader.readAsDataURL(file);
+        console.log(file);
+      }
+    }
   }
   onChangeofvideo(value: any) {
     if (this.showVideoTutorial === false) {

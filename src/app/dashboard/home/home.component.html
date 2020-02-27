@@ -1,1 +1,148 @@
 <app-nav></app-nav>
+<a class="a-title" style="margin-left: 5%; font-size: 20px;">CÔNG THỨC NỔI BẬT</a>
+<div style="width: 90%; margin-left: 5%; min-height: 600px;" class="row" data-aos="fade-in" data-aos-duration="4000">
+
+    <div class=".col-md-8" *ngFor="let recipe of recipes">
+        <div class="hover14 column" style="float: left; margin-left: 3%; width: 30%;">
+            <div>
+                <figure>
+                    <cl-image public-id="{{recipe.imageUrl}}">
+                        <cl-transformation width="200" height="280" crop="crop" quality="auto">
+                        </cl-transformation>
+                    </cl-image>
+                </figure>
+                <a class="link-name"
+                    style="margin-left: 35%; -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    display: -webkit-box;text-decoration: none;text-transform: uppercase; font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(10, 8, 7);"
+                    routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a>
+            </div>
+
+        </div>
+
+        <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"
+        ng-reflect-public-id="mypic">
+        <img
+            src="https://res.cloudinary.com/am-thuc-an-chay/image/upload/v1582782664/angular_sample/{{recipe.imageUrl}}">
+    </cl-image> -->
+        <!-- <cl-image public-id="{{recipe.imageUrl}}">
+                <cl-transformation width="300" height="150" radius="20" crop="pad" border="2px_solid_black" quality="auto" fetch-format="auto">
+                </cl-transformation>
+            </cl-image> -->
+        <!-- <cl-image public-id="{{recipe.imageUrl}}">
+                <cl-transformation width="200" height="300" crop="crop" radius="20" quality="auto">
+                </cl-transformation>
+            </cl-image> -->
+        <!-- <cl-image public-id="{{recipe.imageUrl}}">
+                <cl-transformation width="200" height="300" gravity="auto" background="white" crop="fill_pad"
+                    radius="20" border="1px_solid_grey">>
+                </cl-transformation>
+            </cl-image> -->
+        <!-- <a routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a> -->
+
+    </div>
+
+</div>
+<div class="clearfix"></div>
+<a class="a-title" style="margin-left: 5%; font-size: 20px;">BỘ SƯU TẬP NỔI BẬT</a>
+<div style="width: 90%; margin-left: 5%; min-height: 600px;" class="row" data-aos="fade-in" data-aos-duration="4000">
+
+    <div class=".col-md-8" *ngFor="let recipe of recipes">
+        <div class="hover15 column" style="float: left; margin-left: 3%; width: 30%;">
+            <div>
+                <figure>
+                    <cl-image public-id="{{recipe.imageUrl}}">
+                        <cl-transformation width="200" height="280" crop="crop" quality="auto">
+                        </cl-transformation>
+                    </cl-image>
+                </figure>
+                <a class="link-name"
+                    style="margin-left: 35%; -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    display: -webkit-box;text-decoration: none;text-transform: uppercase; font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
+                    routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a>
+            </div>
+
+        </div>
+
+        <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"
+        ng-reflect-public-id="mypic">
+        <img
+            src="https://res.cloudinary.com/am-thuc-an-chay/image/upload/v1582782664/angular_sample/{{recipe.imageUrl}}">
+    </cl-image> -->
+        <!-- <cl-image public-id="{{recipe.imageUrl}}">
+                <cl-transformation width="300" height="150" radius="20" crop="pad" border="2px_solid_black" quality="auto" fetch-format="auto">
+                </cl-transformation>
+            </cl-image> -->
+        <!-- <cl-image public-id="{{recipe.imageUrl}}">
+                <cl-transformation width="200" height="300" crop="crop" radius="20" quality="auto">
+                </cl-transformation>
+            </cl-image> -->
+        <!-- <cl-image public-id="{{recipe.imageUrl}}">
+                <cl-transformation width="200" height="300" gravity="auto" background="white" crop="fill_pad"
+                    radius="20" border="1px_solid_grey">>
+                </cl-transformation>
+            </cl-image> -->
+        <!-- <a routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a> -->
+
+    </div>
+
+</div>
+<div class="clearfix"></div>
+<a class="a-title" style="margin-left: 5%; font-size: 20px;">TOP THÀNH VIÊN</a>
+<div class="clearfix"></div>
+<div class="clearfix"></div>
+<br><br><br><br>
+<div style="width: 90%; margin-left: 5%; min-height: 600px;" data-aos="fade-in" data-aos-duration="4000">
+
+    <div *ngFor="let recipe of recipes" style=" float: left;border-radius: 50%; background: none; width: 120px;">
+        <div class="memberfunny">
+            <!-- <div>
+                <figure style="padding: 15% 10%;"> -->
+            <!-- <cl-image public-id="{{recipe.imageUrl}}">
+                        <cl-transformation width="200" height="280" crop="crop" quality="auto">
+                        </cl-transformation>
+                    </cl-image> -->
+            <cl-image public-id="{{recipe.imageUrl}}">
+                <cl-transformation width="120" height="120" gravity="face" radius="max" crop="crop">
+                </cl-transformation>
+                <cl-transformation width="60" crop="scale">
+                </cl-transformation>
+            </cl-image>
+            <!-- </figure> -->
+            <a class="link-name"
+                style=" -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    display: -webkit-box;text-decoration: none;text-transform: uppercase; font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
+                routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a>
+            <!-- </div> -->
+
+        </div>
+
+        <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"
+        ng-reflect-public-id="mypic">
+        <img
+            src="https://res.cloudinary.com/am-thuc-an-chay/image/upload/v1582782664/angular_sample/{{recipe.imageUrl}}">
+    </cl-image> -->
+        <!-- <cl-image public-id="{{recipe.imageUrl}}">
+                <cl-transformation width="300" height="150" radius="20" crop="pad" border="2px_solid_black" quality="auto" fetch-format="auto">
+                </cl-transformation>
+            </cl-image> -->
+        <!-- <cl-image public-id="{{recipe.imageUrl}}">
+                <cl-transformation width="200" height="300" crop="crop" radius="20" quality="auto">
+                </cl-transformation>
+            </cl-image> -->
+        <!-- <cl-image public-id="{{recipe.imageUrl}}">
+                <cl-transformation width="200" height="300" gravity="auto" background="white" crop="fill_pad"
+                    radius="20" border="1px_solid_grey">>
+                </cl-transformation>
+            </cl-image> -->
+        <!-- <a routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a> -->
+
+    </div>
+
+</div>
+<div class="clearfix"></div>

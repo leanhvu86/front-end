@@ -5,7 +5,15 @@
   /*
    * Custom translucent site header
    */
-  
+  .a-title{
+    font-size: 14px;
+    color: rgb(212, 209, 209);
+    margin-left: 5%;
+  }
+  .link-name{
+    text-decoration: none;
+    font-style: inherit;
+  }
   .site-header {
     background-color: rgba(0, 0, 0, .85);
     -webkit-backdrop-filter: saturate(180%) blur(20px);

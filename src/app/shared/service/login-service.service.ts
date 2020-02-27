@@ -55,6 +55,7 @@ export class LoginServiceService {
     this._isLoggedIn = false;
     this.authSub.next(this._isLoggedIn);
     localStorage.setItem('isLoggedIn', "false");
+    this.cookie.set('isAuthenicate', '');
     let token = this.cookie.get('token');
     console.log('xóa token nè' + token);
     this.deleteAuth(token).subscribe((data) => {
