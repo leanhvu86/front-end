@@ -2,9 +2,9 @@
 <a class="a-title" style="margin-left: 5%; font-size: 20px;">CÔNG THỨC NỔI BẬT</a>
 <div style="width: 90%; margin-left: 5%; min-height: 600px;" class="row" data-aos="fade-in" data-aos-duration="4000">
 
-    <div class=".col-md-8" *ngFor="let recipe of recipes">
+    <div class=".col-md-8" *ngFor="let recipe of recipes; let i=index" style="position: relative;">
         <div class="hover14 column" style="float: left; margin-left: 3%; width: 30%;">
-            <div>
+            <div routerLink="/detail/{recipe}}">
                 <figure>
                     <cl-image public-id="{{recipe.imageUrl}}">
                         <cl-transformation width="200" height="280" crop="crop" quality="auto">
@@ -16,9 +16,14 @@
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                     display: -webkit-box;text-decoration: none;text-transform: uppercase; font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(10, 8, 7);"
-                    routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a>
+                    routerLink="/detail/{{recipe}}">{{recipe.recipeName}}</a>
             </div>
-
+            <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"><i id="heart{{i}}"
+                    class="fa fa-heart fa-3x heart" aria-hidden="true"></i></span>
+            <ng-template #other_content>
+                <span (click)="dislikeRecipe(recipe,i)"><i class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}"
+                        aria-hidden="true"></i></span>
+            </ng-template>
         </div>
 
         <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"
@@ -49,7 +54,7 @@
 <div style="width: 90%; margin-left: 5%; min-height: 600px;" class="row" data-aos="fade-in" data-aos-duration="4000">
 
     <div class=".col-md-8" *ngFor="let recipe of recipes">
-        <div class="hover15 column" style="float: left; margin-left: 3%; width: 30%;">
+        <div class="hover15 column" style="float: left; margin-left: 3%; width: 30%; position: relative;">
             <div>
                 <figure>
                     <cl-image public-id="{{recipe.imageUrl}}">
@@ -64,7 +69,7 @@
                     display: -webkit-box;text-decoration: none;text-transform: uppercase; font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
                     routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a>
             </div>
-
+            <span (click)="likeRecipe(recipe._id)" class="heart"><i class="fa fa-heart" aria-hidden="true"></i></span>
         </div>
 
         <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"
@@ -97,7 +102,8 @@
 <br><br><br><br>
 <div style="width: 90%; margin-left: 5%; min-height: 600px;" data-aos="fade-in" data-aos-duration="4000">
 
-    <div *ngFor="let recipe of recipes" style=" float: left;border-radius: 50%; background: none; width: 120px;">
+    <div *ngFor="let recipe of recipes"
+        style=" float: left;border-radius: 50%; background: none; width: 120px; position: relative;">
         <div class="memberfunny">
             <!-- <div>
                 <figure style="padding: 15% 10%;"> -->
@@ -116,8 +122,8 @@
                 style=" -webkit-line-clamp: 3;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
-                    display: -webkit-box;text-decoration: none;text-transform: uppercase; font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
-                routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a>
+                    display: -webkit-box;text-decoration: none; font-style: inherit;font-size: 12px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
+                routerLink="/detail/{{recipe._id}}">{{recipe.recipeName}}</a>
             <!-- </div> -->
 
         </div>

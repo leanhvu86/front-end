@@ -314,12 +314,12 @@
             <a class="py-2 d-none d-md-inline-block" href="#"></a>
 
         </div>
-        <div class=" div-shadow" style="position: relative; background: whitesmoke;width: 100%; height: 40px;">
-            <a class="py-2 d-none d-md-inline-block register-button" style="right: 15%;"
+        <div class=" div-shadow" style="position: relative; background: whitesmoke;width: 100%; height: 50px; ">
+            <a class="py-2 d-none d-md-inline-block register-button" style="right: 15%;padding: 2px 8px; "
                 (click)="onChange($event)">{{ 'register.recipe' | translate }}</a>
 
             <a class="py-2 d-none d-md-inline-block register-button" *ngIf="!isAuthenicate;else other_content"
-                (click)="onChangecheck($event)">{{ 'index.register' | translate }}</a>
+                style=" padding: 2px 8px;" (click)="onChangecheck($event)">{{ 'index.register' | translate }}</a>
             <ng-template #other_content>
                 <div class="nav-item avatar dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"

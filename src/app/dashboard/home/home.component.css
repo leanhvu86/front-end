@@ -218,7 +218,31 @@ figure:hover+span {
 	-webkit-transform: scale(1);
 	transform: scale(1);
 }
-
+.heart{
+    display: block;
+	  color: white;
+	  position: absolute;
+	  bottom: 20%;
+	right: 5%;
+	opacity: 0.4;
+	background: none;
+  }
+  .heart:hover{
+	color: red;
+  }
+  
+  .dislikeheart{
+    display: block;
+	  color: red;
+	  position: absolute;
+	  bottom: 20%;
+	right: 5%;
+	opacity: 0.6;
+	background: none;
+  }
+  .dislikeheart:hover{
+	color: white;
+  }
 /* Zoom Out #2 */
 .hover04 figure img {
 	width: 400px;

@@ -48,4 +48,10 @@ export class RecipeService {
         tap(_ => console.log('load recipes'))
       );
   }
+  likeRecipe(interest: any) {
+    return this._http.post("http://localhost:8000/likeRecipe", { interest: interest }, { observe: "response" });
+  }
+  dislikeRecipe(interest: any) {
+    return this._http.post("http://localhost:8000/dislikeRecipe", { interest: interest }, { observe: "response" });
+  }
 }

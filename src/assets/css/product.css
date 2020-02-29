@@ -81,4 +81,17 @@
   }
   
   .overflow-hidden { overflow: hidden; }
+  .heart{
+    display: block;
+    margin-bottom: 20%;
+	  color: white;
+	  position: absolute;
+	  bottom: 20%;
+    left: 90%;
+    border: 1px solid white;
+    background: none;
+  }
+  .heart:hover{
+    color: red;
+  }
   

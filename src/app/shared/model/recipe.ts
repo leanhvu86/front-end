@@ -18,4 +18,5 @@ export class Recipe {
     foodType: FoodType[];
     cookWay: CookWay[];
     status: number;
+    like: boolean;
 }
