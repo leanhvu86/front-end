@@ -1,6 +1,6 @@
 
 export class Province {
-    _id: string;
+    _id: Object;
     provinceId: string;
     provinceName: string;
     status: number;

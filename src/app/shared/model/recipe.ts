@@ -3,13 +3,14 @@ import { FoodType } from './foodType';
 import { CookWay } from './cookWay';
 
 export class Recipe {
-    _id: string;
+    _id: Object;
     imageUrl: string;
     recipeName: string;
     content: string;
     videoLink: string;
     hardLevel: string;
     time: string;
+    ingredientArray: string;
     ingredients: [];
     ingredientsGroup: [];
     cockStep: [];

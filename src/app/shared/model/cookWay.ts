@@ -1,6 +1,6 @@
 
 export class CookWay {
-    _id: string;
+    _id: Object;
     cookWayCode: string;
     cookWayName: string;
     status: number;
