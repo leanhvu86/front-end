@@ -315,8 +315,13 @@
 
         </div>
         <div class=" div-shadow" style="position: relative; background: whitesmoke;width: 100%; height: 50px; ">
+            <div class="form">
+                <input type="text" class="textbox" placeholder="Tìm kiếm công thức">
+                <input title="Search" value="" type="submit" class="button">
+            </div>
             <a class="py-2 d-none d-md-inline-block register-button" style="right: 15%;padding: 2px 8px; "
-                (click)="onChange($event)">{{ 'register.recipe' | translate }}</a>
+                (click)="onChange($event)"><i class="fa fa-pencil-square-o" style="padding: 2px 8px;"
+                    aria-hidden="true"></i>{{ 'register.recipe' | translate }}</a>
 
             <a class="py-2 d-none d-md-inline-block register-button" *ngIf="!isAuthenicate;else other_content"
                 style=" padding: 2px 8px;" (click)="onChangecheck($event)">{{ 'index.register' | translate }}</a>

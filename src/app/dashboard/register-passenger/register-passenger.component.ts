@@ -62,7 +62,7 @@ export class RegisterPassengerComponent implements OnInit {
       videoLink: [''],
       hardLevel: [''],
       time: ['', Validators.required],
-      ingredients: ['', [Validators.minLength(5), Validators.maxLength(500), Validators.required]]
+      ingredientArray: ['', [Validators.minLength(5), Validators.maxLength(500), Validators.required]]
       ,
       ingredientsGroup: this.formbuilder.array([this.addControlNgL() //add duplicate array Validator
       ]),
@@ -73,6 +73,7 @@ export class RegisterPassengerComponent implements OnInit {
   }
   get f() { return this.profileForm.controls; }
   ngOnInit() {
+
     this.getCountrys();
     this.getFoodTypes();
     this.getCookWays();
@@ -286,6 +287,16 @@ export class RegisterPassengerComponent implements OnInit {
       return;
     }
     console.log(recipe);
+    let check = recipe.ingredientArray;
+    let array = this.getingredientArray(check);
+    if (array === undefined || array.length == 0) {
+      this.message = 'Nguyên liệu nhập không hợp lệ vui lòng kiểm tra lại!';
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    recipe.ingredients = array;
+    console.log(array);
     this.recipeService.registerRecipe(recipe).subscribe((data) => {
       const result = data.body
       if (result['status'] === 200) {
@@ -305,11 +316,9 @@ export class RegisterPassengerComponent implements OnInit {
   getingredientArray(url) {
 
     // get query string from url (optional) or window
-    var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
-
+    var queryString = url;
     // we'll store the parameters here
-    // let obj: Ingredient[] = [];
-    let obj = [];
+    let objectArr: Array<Object>[] = [];
     // if query string exists
     if (queryString) {
 
@@ -317,54 +326,32 @@ export class RegisterPassengerComponent implements OnInit {
       queryString = queryString.split('#')[0];
 
       // split our query string into its component parts
-      var arr = queryString.split('&');
+      var arr = queryString.split(';');
+      let arrayTemp;
+      console.log(arr.length);
+      let cut = (arr.length) / 4;
 
-      for (var i = 0; i < arr.length; i++) {
-        // separate the keys and the values
-        var a = arr[i].split('=');
+      let check = (cut - Math.round(cut));
+      if (check > 0.25 || arr.length < 4) {
+        console.log('nguyên liệu nhập không hợp lệ vui lòng kiểm tra lại!');
 
-        // set parameter name and value (use 'true' if empty)
-        var paramName = a[0];
-        var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
-
-        // (optional) keep case consistent
-        paramName = paramName.toLowerCase();
-        if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
-
-        // if the paramName ends with square brackets, e.g. colors[] or colors[2]
-        if (paramName.match(/\[(\d+)?\]$/)) {
-
-          // create key if it doesn't exist
-          var key = paramName.replace(/\[(\d+)?\]/, '');
-          if (!obj[key]) obj[key] = [];
-
-          // if it's an indexed array e.g. colors[2]
-          if (paramName.match(/\[\d+\]$/)) {
-            // get the index value and add the entry at the appropriate position
-            var index = /\[(\d+)\]/.exec(paramName)[1];
-            obj[key][index] = paramValue;
-          } else {
-            // otherwise add the value to the end of the array
-            obj[key].push(paramValue);
-          }
-        } else {
-          // we're dealing with a string
-          if (!obj[paramName]) {
-            // if it doesn't exist, create property
-            obj[paramName] = paramValue;
-          } else if (obj[paramName] && typeof obj[paramName] === 'string') {
-            // if property does exist and it's a string, convert it to an array
-            obj[paramName] = [obj[paramName]];
-            obj[paramName].push(paramValue);
-          } else {
-            // otherwise add the property
-            obj[paramName].push(paramValue);
-          }
-        }
+        return;
       }
-    }
+      cut = Math.round(cut);
+      console.log(cut)
 
-    return obj;
+      for (let i = 0; i < cut; i++) {
+        arrayTemp = arr.slice(4, arr.length);
+        arr = arr.slice(0, 4)
+        objectArr.push(arr);
+        arr = arrayTemp;
+      }
+      arrayTemp = arr.slice(4, arr.length);
+      arr = arr.slice(0, 4)
+      console.log(arr);
+      console.log(objectArr);
+    }
+    return objectArr;
   }
   finish() {
     const radio: HTMLElement = document.getElementById('index-home-link');
@@ -391,6 +378,7 @@ export class RegisterPassengerComponent implements OnInit {
       this.ingredientsGroup.push(this.addControlNgL())
     }
   }
+
   deleteAlias(pos) {
     this.index--;
     console.log(this.index);
@@ -508,7 +496,10 @@ export class RegisterPassengerComponent implements OnInit {
     this.countryService.getCountrys().subscribe(countrys => {
       this.countrys = countrys;
       console.log('countrys' + this.countrys);
+      let check = 'định lượng: 10; đơn vị tính: cái; tên nguyên liệu: búa; ghi chú: ; định lượng: 1; đơn vị tính: con; tên nguyên liệu: gà; ghi chú: heo; định lượng: 5; đơn vị tính: gói; tên nguyên liệu: gia vị; ghi chú: nái;'
+      console.log(this.getingredientArray(check))
     });
+
   }
   getFoodTypes() {
     this.countryService.getFoodTypes().subscribe(foodTypes => {
@@ -592,4 +583,7 @@ export class RegisterPassengerComponent implements OnInit {
     //How to remove the value from array if we uncheck it
     console.log(this.cookWayArray);
   }
+}
+interface Object {
+  [key: string]: any
 }

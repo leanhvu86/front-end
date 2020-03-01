@@ -230,7 +230,18 @@ figure:hover+span {
   .heart:hover{
 	color: red;
   }
-  
+  .play{
+    display: block;
+	  color: white;
+	  position: absolute;
+	  bottom: 20%;
+	right: 5%;
+	opacity: 0.4;
+	background: none;
+  }
+  .play:hover{
+	opacity: 0.8;
+  }
   .dislikeheart{
     display: block;
 	  color: red;
@@ -454,3 +465,80 @@ figure:hover+span {
 		opacity: 0;
 	}
 }
+.form {
+    outline: 0;
+    float: left;
+    /* -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); */
+    /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); */
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    padding-top: 2px ;
+    padding-left: 10px;
+  }
+  
+  .form > .textbox {
+    outline: 0;
+    height: 42px;
+    width: 244px;
+    line-height: 42px;
+    padding: 0 16px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #212121;
+    border: 0;
+    float: left;
+    -webkit-border-radius: 4px 0 0 4px;
+    border-radius:0 4px  4px 0;
+  }
+  
+  .form > .textbox:focus {
+    outline: 0;
+    background-color: #FFF;
+  }
+  
+  .form > .button {
+    outline: 0;
+    background: none;
+    background-color: white;
+    float: left;
+    height: 42px;
+    width: 42px;
+    text-align: center;
+    line-height: 42px;
+    border: 0;
+    color: rgba(252, 103, 5, 0.986);
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 16px;
+    text-rendering: auto;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition: background-color .4s ease;
+    transition: background-color .4s ease;
+    -webkit-border-radius: 0 4px 4px 0;
+    border-radius:  4px 0 0 4px ;
+  }
+  
+  .form > .button:hover {
+    background-color: rgba(252, 103, 5, 0.986);
+  }
+  .glow {
+	font-size: 30px;
+	color: #fff;
+	text-align: center;
+	-webkit-animation: glow 1s ease-in-out infinite alternate;
+	-moz-animation: glow 1s ease-in-out infinite alternate;
+	animation: glow 1s ease-in-out infinite alternate;
+	font-family: inherit;
+  }
+  .filter{
+	  background: white;
+	  height: 100px;
+  }
+  
+  @-webkit-keyframes glow {
+	from {
+	  text-shadow: 0 0 2px #fff, 0 0 20px #fff, 0 0 30px #a1a0a1, 0 0 40px #979797, 0 0 50px #949494, 0 0 60px #b4b4b4, 0 0 70px #afafaf;
+	}
+	
+	to {
+	  text-shadow: 0 0 4px #fff, 0 0 30px #afaeaf, 0 0 40px #b4b3b4, 0 0 50px #acacac, 0 0 60px #a5a4a4, 0 0 70px #afafaf, 0 0 80px #b1afb0;
+	}
+  }

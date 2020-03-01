@@ -3,7 +3,7 @@ import { FoodType } from './foodType';
 import { CookWay } from './cookWay';
 
 export class Recipe {
-    _id: Object;
+    _id: string;
     imageUrl: string;
     recipeName: string;
     content: string;
@@ -11,7 +11,7 @@ export class Recipe {
     hardLevel: string;
     time: string;
     ingredientArray: string;
-    ingredients: [];
+    ingredients: any;
     ingredientsGroup: [];
     cockStep: [];
     country: Country[];

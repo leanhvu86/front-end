@@ -54,4 +54,11 @@ export class RecipeService {
   dislikeRecipe(interest: any) {
     return this._http.post("http://localhost:8000/dislikeRecipe", { interest: interest }, { observe: "response" });
   }
+
+  getRecipeDetail = (id: any): Observable<Recipe> => {
+    const url = `${this.baseUrl}/findRecipe/${id}`;
+    return this._http.get<Recipe>(url).pipe(
+      tap(_ => console.log('ok'))
+    );
+  };
 }

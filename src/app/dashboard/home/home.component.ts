@@ -27,7 +27,8 @@ export class Home2Component implements OnInit {
         recipe.like = false;
         console.log(recipe);
       });
-      this.recipes = recipes;
+      this.recipes = recipes.slice(0, 8);
+
       console.log(this.recipes);
     });
   }

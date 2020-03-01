@@ -139,7 +139,7 @@
                 <div
                   style="width:90%; position: relative; padding-left: 5%;border-radius:10px; margin:0 5% ; height: 20%; padding: 2px 0 50px 0; border: 2px gray;"
                   class="nguyenlieu">
-                  <input type="text" formControlName="ingredients" class="form-control" minlength="5"
+                  <input type="text" formControlName="ingredientArray" class="form-control" minlength="5"
                     style="width:96%; border-radius:10px; margin:0 2% ;"
                     placeholder="{{ 'nhap.nguyen.lieu' | translate }}" />
 
@@ -192,14 +192,15 @@
                       </ul>
                     </div>
                   </div>
-                  <div style="margin-left: 5%;" *ngIf="submitted && f.ingredients.errors">
-                    <div *ngIf="f.ingredients.errors.required" style="color: red; font-size: 12PX;">Bạn phải nhập nguyên
+                  <div style="margin-left: 5%;" *ngIf="submitted && f.ingredientArray.errors">
+                    <div *ngIf="f.ingredientArray.errors.required" style="color: red; font-size: 12PX;">Bạn phải nhập
+                      nguyên
                       liệu</div>
                   </div>
-                  <div *ngIf="f.ingredients.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                  <div *ngIf="f.ingredientArray.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
                     Tên công thức chứa ít nhất 20 kí tự.
                   </div>
-                  <div *ngIf="f.ingredients.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                  <div *ngIf="f.ingredientArray.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
                     Tên công thức chứa nhiều nhất 500 kí tự.
                   </div>
                 </div>
