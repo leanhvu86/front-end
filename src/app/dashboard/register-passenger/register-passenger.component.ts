@@ -40,12 +40,21 @@ export class RegisterPassengerComponent implements OnInit {
   public cookWays: CookWay[] = [];
   public cookWayArray: CookWay[] = [];
   public message: string = '';
+  checkIngredient: boolean = false;
   urlArray: Array<Array<String>>[] = [];
   submitted = false;
   @Input()
   responses: Array<any>;
   oldUrl: string = null;
   nowUrl: string = null;
+  public ingredientArrays: string[] = [];
+  ingredient = {
+    quantitative: '',
+    typeOfquntitative: '',
+    ingredientName: '',
+    note: ''
+
+  }
   private hasBaseDropZoneOver: boolean = false;
   private uploader: FileUploader;
   private title: string;
@@ -63,9 +72,10 @@ export class RegisterPassengerComponent implements OnInit {
       hardLevel: [''],
       time: ['', Validators.required],
       ingredientArray: ['', [Validators.minLength(5), Validators.maxLength(500), Validators.required]]
+      // ,
+      // ingredientsGroup: this.formbuilder.array([this.addControlNgL() //add duplicate array Validator
+      // ])
       ,
-      ingredientsGroup: this.formbuilder.array([this.addControlNgL() //add duplicate array Validator
-      ]),
       cookStep: this.formbuilder.array([this.addControl()
         //add duplicate array Validator
       ])
@@ -78,7 +88,7 @@ export class RegisterPassengerComponent implements OnInit {
     this.getFoodTypes();
     this.getCookWays();
     this.cookStep = this.profileForm.get('cookStep') as FormArray;
-    this.ingredientsGroup = this.profileForm.get('ingredientsGroup') as FormArray;
+    // this.ingredientsGroup = this.profileForm.get('ingredientsGroup') as FormArray;
     // Create the file uploader, wire it to upload to your account
     const uploaderOptions: FileUploaderOptions = {
       url: `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/image/upload`,
@@ -151,7 +161,7 @@ export class RegisterPassengerComponent implements OnInit {
 
             }
           }
-          this.previewUrl = this.responses[0].data.url;
+          this.previewUrl = this.responses[0].data.public_id;
         } else {
           // Create new response
           this.responses.push(fileItem);
@@ -235,6 +245,9 @@ export class RegisterPassengerComponent implements OnInit {
     console.warn(this.profileForm.value);
   }
   onSubmit() {
+    if (this.checkIngredient !== true) {
+      return;
+    }
     this.submitted = true;
     console.log('submit')
     // chưa validate
@@ -421,6 +434,73 @@ export class RegisterPassengerComponent implements OnInit {
       this.clearFormArray(this.ingredientsGroup);
 
     }
+
+  }
+  runScript(e) {
+    //See notes about 'which' and 'key'
+    let ingredientString = e.target.value;
+    ingredientString = ingredientString.trim();
+    if (ingredientString.length > 1) {
+      let arrayTest = ingredientString.split(';');
+      let j = arrayTest.length;
+      if (j > 0) {
+        for (let i = 0; i < j; i++) {
+          console.log(i)
+          let arrTest = arrayTest[i];;
+          arrTest = arrTest.trim();
+          arrTest = arrTest.split(' ');
+          console.log(arrayTest)
+          console.log(arrTest)
+          if (arrTest.length < 1) {
+            this.message = 'Vui lòng nhập lại nguyên liệu cho công thức đúng định dạng';
+            const radio: HTMLElement = document.getElementById('modal-button');
+            radio.click();
+            return;
+          }
+          let quantity = arrTest[0];
+          quantity = quantity.trim()
+          let checkQuan = this.checkQuantity(quantity);
+          if (!checkQuan) {
+            this.message = 'Vui lòng nhập lại số lượng cho nguyên liệu đúng định dạng';
+            const radio: HTMLElement = document.getElementById('modal-button');
+            radio.click();
+            return;
+          }
+          console.log(quantity)
+          this.ingredient.quantitative = quantity;
+          this.ingredient.typeOfquntitative = arrTest[1];
+          if (arrTest.length > 2)
+            this.ingredient.ingredientName = arrTest[2];
+          if (arrTest.length > 3)
+            this.ingredient.note = arrTest[2];
+          console.log(this.ingredient);
+          // this.ingredientArrays['ingerdient'].push(this.ingredient)
+
+        }
+      }
+    }
+    // console.log(this.ingredientArrays)
+  }
+  checkQuantity(str: any) {
+    console.log(str)
+    if (str === '') return false;
+    try {
+      let check = !isNaN(Number(str));
+      if (check === true) {
+        console.log(check)
+        return true;
+      }
+      return false;
+    } catch (error) {
+      let patt = new RegExp("[0-9][/][0-9]");
+      let res = patt.exec(str);
+      console.log(res)
+      if (res !== null) {
+        return true;
+      } else
+        return false;
+    }
+
 
   }
   onSearchChange(searchValue: Element): void {

@@ -24,8 +24,11 @@
                     Upload progress: {{ fileUploadProgress }}
                   </div>
                   <div class="image-preview mb-3" *ngIf="previewUrl;else other_content"
-                    style="margin-top: 5%; margin-left: 5%;">
-                    <img [src]="previewUrl" height="250" width="95%" />
+                    style="margin-top: 5%; margin-left: 13%;">
+                    <cl-image public-id="{{previewUrl}}">
+                      <cl-transformation width="950" height="320" crop="crop" quality="auto">
+                      </cl-transformation>
+                    </cl-image>
                   </div>
                   <ng-template #other_content>
                     <img id="profile-img" style="width:90%;height: 20%; margin-left: 5%;"
@@ -130,18 +133,18 @@
 
                 <a style="margin-left: 5%;"> {{'nguyenlieu' | translate }}</a><span style="color: red;">*</span>
                 <br />
-                <a (click)="onChangeofOptions($event)"
+                <!-- <a (click)="onChangeofOptions($event)"
                   style="border-radius: 10px; border: 1px gray; width: 30%;margin-left: 70%;"
                   title="Gom nguyên liệu theo nhóm"><i class="fa fa-list buttonhover" aria-hidden="true"> Gom nhóm
                     nguyên
-                    liệu</i></a>
+                    liệu</i></a> -->
                 <br />
                 <div
                   style="width:90%; position: relative; padding-left: 5%;border-radius:10px; margin:0 5% ; height: 20%; padding: 2px 0 50px 0; border: 2px gray;"
                   class="nguyenlieu">
                   <input type="text" formControlName="ingredientArray" class="form-control" minlength="5"
                     style="width:96%; border-radius:10px; margin:0 2% ;"
-                    placeholder="{{ 'nhap.nguyen.lieu' | translate }}" />
+                    placeholder="{{ 'nhap.nguyen.lieu' | translate }}" (keyup.enter)="runScript($event)" />
 
                   <!-- <span style="margin-left: 80%; border-radius: 10px;" class="buttoncheck buttonhover spancheck"><i
                     class="fa fa-question-circle" aria-hidden="true"></i> Xem
@@ -165,14 +168,14 @@
                     <div>
                       <ul style="padding-left: 24px; ">
                         <li>Quy cách nhập: <span class="note-gray-highlight">định_lượng</span> <span
-                            class="note-gray-highlight">đơn_vị_tính</span> <span
-                            class="note-gray-highlight">tên_nguyên_liệu</span> <span class="note-gray-highlight">(
+                            class="note-gray-highlight"> đơn_vị_tính</span> <span class="note-gray-highlight">
+                            tên_nguyên_liệu</span> <span class="note-gray-highlight"> (
                             ghi_chú
                             )</span></li>
-                        <li>định_lượng: số lượng; đơn_vị_tính: gram, lít, cái...; tên_nguyên_liệu: tên nguyên liệu;
+                        <li>Định_lượng: số lượng; đơn_vị_tính: gram, lít, cái...; tên_nguyên_liệu: tên nguyên liệu;
                           ghi_chú: diễn giải nếu có </li>
-
-                        <li>
+                        <li>ví dụ: <span class="note-gray-highlight">1/4 con gà; 3 trái ớt (đỏ); 1 lít nước</span>
+                          <!-- <li>
                           <span>Nhập nhiều nguyên liệu hoặc nhóm trên cùng dòng</span>
                           <ul>
                             <li>Nhập nguyên liệu ngăn cách nhau bằng dấu phẩy (,) hoặc chấm phẩy (;)
@@ -180,8 +183,8 @@
                             <li>ví dụ: <span class="note-gray-highlight">1/4 con gà; 3 trái ớt (đỏ); 1 lít nước</span>
                             </li>
                           </ul>
-                        </li>
-                        <!-- <li>
+                        </li> -->
+                          <!-- <li>
                         <span>Nhập nhóm nguyên liệu trên cùng dòng</span>
                         <ul>
                           <li>Nhập nguyên liệu </li>
@@ -205,7 +208,7 @@
                   </div>
                 </div>
                 <br />
-                <div *ngIf="show"
+                <!-- <div *ngIf="show"
                   style="width:90%; position: relative; border-radius:10px; margin:0 5% ; height: 20%; padding: 2px 0 50px 0; border: 2px black; background: rgb(245, 242, 242);">
                   <div class="col" formArrayName="ingredientsGroup" style="font-weight: initial;padding: 2px 5px;">Chọn
                     nhóm
@@ -225,15 +228,9 @@
                       <div class="col-sm-8">
                         <div [formGroup]="address" *ngFor="let address of ingredientsGroup.controls; let i = index;"
                           style="position: relative;">
-
-                          <!-- <input type="radio" formControlName="ratioq" name="a" id="check" value="1"
-                          style="width: 5%; float: left;">
-                        <input type="text" formControlName="nameNL" class="form-control ingredientGroup"
-                          placeholder="Thêm nhóm nguyên liệu"> -->
                           <div class="input-group" style="position: relative; min-height: 50px;display: block;
                         overflow:hidden;">
-                            <!-- <div class="input-group-prepend">
-                            <div class="input-group-text" style="border: none; background: rgb(245, 242, 242);"> -->
+                           
                             <input type="text" class="form-control radioCheck" (input)="onSearchChange(i)"
                               style="width: 90%; right: 5%;border: none; color: gray; font-size: 12px; position: absolute;"
                               formControlName="nameNL" #textbox ng-model="all" placeholder="Thêm nhóm nguyên liệu"
@@ -247,8 +244,7 @@
                               vào đây
                               -</label>
 
-                            <!-- </div>
-                          </div> -->
+                         
 
                             <div style=" right: 0px; position: absolute; top: 7%; ">
                               <a (click)="deleteInputs(i)" style="width: 15px; height: auto;" title="Xóa nhóm"><i
@@ -270,7 +266,7 @@
                       nhóm
                       nguyên
                       liệu</i></a>
-                </div>
+                </div> -->
                 <br />
                 <a style="margin-left: 5%;"> Cách làm</a><span style="color: red;">*</span>
                 <div class="col " formArrayName="cookStep">
