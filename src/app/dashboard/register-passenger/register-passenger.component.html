@@ -118,13 +118,14 @@
                 <div class="row" style="width: 90%; margin: 0 5%;">
                   <select type="text" formControlName="hardLevel"
                     [ngClass]="{ 'is-invalid': submitted && f.hardLevel.errors }"
-                    style="width:15%; border-radius:10px; margin:0 5% ; " [value]='1'>
+                    style="width:15%; border-radius:10px; margin:0 5% ; " [value]='1' id="dokhocheck">
                     <option [value]="1" selected>{{'dokho.de' | translate }}</option>
                     <option [value]="2">{{'dokho.trungbinh' | translate }}</option>
                     <option [value]="3">{{'dokho.kho' | translate }}</option>
                     <option [value]="4">{{'dokho.ratkho' | translate }}</option>
                   </select>
-                  <input type="number" formControlName="time" style="width:10%; border-radius:10px; margin:0 5% ;">Phút
+                  <input type="number" formControlName="time" style="width:10%; border-radius:10px; margin:0 5% ;"
+                    min="0">Phút
                 </div>
                 <div style="margin-left: 5%;" *ngIf="submitted && f.time.errors" class="invalid-feedback">
                   <div *ngIf="f.time.errors.required">Bạn phải nhập thời gian thực hiện</div>
@@ -133,6 +134,17 @@
 
                 <a style="margin-left: 5%;"> {{'nguyenlieu' | translate }}</a><span style="color: red;">*</span>
                 <br />
+                <div *ngFor="let ingredient of ingredientArrays; let i = index"
+                  style="padding-left: 5%; font-size: 10px;">
+                  <a><i class="fa fa-check-circle" aria-hidden="true"
+                      style="margin-right: 3px; color: rgb(24, 231, 24);"></i>{{ingredient.quantitative}}
+                    {{ingredient.typeOfquantitative}}
+                    {{ingredient.ingredientName}}</a>
+                  <a (click)="deleteIngredient(ingredient,i)" style="width: 7px; height: auto; margin-left: 2px;"
+                    title="Xóa nhóm"><i class="fa fa-trash-o buttonhover" aria-hidden="true"></i></a>
+                  <br>
+                  <a>{{ingredient.note}}</a>
+                </div>
                 <!-- <a (click)="onChangeofOptions($event)"
                   style="border-radius: 10px; border: 1px gray; width: 30%;margin-left: 70%;"
                   title="Gom nguyên liệu theo nhóm"><i class="fa fa-list buttonhover" aria-hidden="true"> Gom nhóm
@@ -144,7 +156,8 @@
                   class="nguyenlieu">
                   <input type="text" formControlName="ingredientArray" class="form-control" minlength="5"
                     style="width:96%; border-radius:10px; margin:0 2% ;"
-                    placeholder="{{ 'nhap.nguyen.lieu' | translate }}" (keyup.enter)="runScript($event)" />
+                    placeholder="{{ 'nhap.nguyen.lieu' | translate }}" (keyup.enter)="runScript($event)"
+                    id="ingredientArraye" />
 
                   <!-- <span style="margin-left: 80%; border-radius: 10px;" class="buttoncheck buttonhover spancheck"><i
                     class="fa fa-question-circle" aria-hidden="true"></i> Xem
@@ -273,7 +286,7 @@
                   <br />
                   <div [formGroup]="address" class="nguyenlieu"
                     *ngFor="let address of cookStep.controls; let i = index;"
-                    style=" font-size: 10px;width:90%; position: relative; border-radius:10px; margin:0 5% ; height: 200px; padding: 20px 0 50px 0; border: 2px gray;">
+                    style=" font-size: 10px;width:90%; position: relative; border-radius:10px; margin:0 5% ;margin-bottom: 5%; min-height: 350px; padding: 20px 0 50px 0; border: 2px gray;">
                     <label>
                       <input formControlName="index" disabled
                         style="color: white; background: rgb(214, 3, 3); width: 5%;left: 2%; top: 5%; position: absolute; border-radius: 7px; text-align: center; border: 1px solid white;" />
@@ -281,27 +294,38 @@
                         style="left: 12%; top: 7%;width: 50%; position: absolute; "
                         placeholder="tên bước thực hiện nếu có">
                       <input type="number" formControlName="time" class="form-control" placeholder="thời gian"
-                        style="left: 72%; top: 7%;width: 20%; position: absolute; ">
+                        style="left: 72%; top: 7%;width: 20%; position: absolute; " min="0">
 
                       <textarea type="text" formControlName="psnote" class="form-control"
                         placeholder="Nhập hướng dẫn cách làm cho bước {{index}}"
-                        style="left: 12%; top: 40%;width: 80%; height: auto; position: absolute; " cols="8"></textarea>
+                        style="left: 12%; top: 30%;width: 80%; height: 100px; position: absolute; " cols="8"></textarea>
                       <input type="checkbox" formControlName="check"
-                        style="position: absolute;right: 10%; bottom: 7%; width: 5%;">
-                      <a style="position: absolute;right: 15%; bottom: 5%; width: 12%;">là bước chuẩn bị</a>
+                        style="position: absolute;right: 10%; bottom: 35%; width: 5%;">
+                      <a style="position: absolute;right: 15%; bottom: 33%; width: 12%;">là bước chuẩn bị</a>
                       <span (click)="deleteAlias(i)"><i class="fa fa-trash-o fa-2x buttonhover" aria-hidden="true"
-                          style="position: absolute;right: 2%; bottom: 2%; width: 30px !important;
+                          style="position: absolute;right: 2%; bottom:32%; width: 30px !important;
                         height: 30px !important;"></i></span>
 
                     </label>
-                    <!-- <div style="position: absolute; bottom: 0px; left: 5%;">
-                      Ảnh của bươc
-                      <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">
+                    <a style="position: absolute; bottom: 105px;left: 15px;"> Ảnh của bước:</a>
+                    <div style="position: absolute; bottom: 5px; left: 5%;width: 700px;" class="row ">
+                      <div class=".col-6 .col-md-4 hover" (fileOver)="fileOverBase1($event)"
+                        style="width: 90px;height: 90px; border: 1px solid gray;"
+                        [ngClass]="{'nv-file-over': hasBaseDropZoneOver1}"><input type="file" multiple
+                          formControlName="image" (change)="handleFiles($event,i)"
+                          style="width: 90px;height: 90px;opacity: 0;" /><a
+                          style="position: absolute; left: 37px; top: 33px;"><i class="fa fa-picture-o"
+                            aria-hidden="true"></i></a>
+                      </div>
+                      <div class=".col-md-8" id="gallery{{i}}"
+                        style="position: relative; float: left; padding-left: 5px;">
+
+                      </div>
                     </div>
-                    <input type="file" formControlName="image" multiple (change)="detectFiles($event,i)" />
+                    <!-- <input type="file" formControlName="image" (change)="uploadFile($event,i)" /> -->
                     <input type="text" formControlName="imageArray" class="form-control" id="imageArray{{i}}"
-                      style="left: 12%; top: 7%;width: 50%; position: absolute;" hidden
-                      placeholder="tên bước thực hiện nếu có"> -->
+                      style="left: 12%; bottom: 7%;width: 2px; position: absolute;opacity: 0;" disabled
+                      placeholder="tên bước thực hiện nếu có">
                   </div>
                   <div
                     style="width: 20%;height: auto; background: rgb(215, 222, 240); border-radius: 5px; padding: 3px; color: gray; margin: 2% 5%;">
@@ -373,8 +397,21 @@
       <br />
       <br />
       <!-- <p>{{profileForm.status}}</p> -->
+      <nav>
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+            style="border-radius:0px 0 0 10px;" aria-controls="nav-home" aria-selected="true"><a id="number">01</a>
+            {{ 'cong.thuc' | translate }}</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+            style="border-radius:0 0px  10px 0;" aria-controls="nav-profile" aria-selected="false"> <a
+              id="number">02</a>{{ 'phan.loai' | translate }}
+          </a>
+        </div>
+      </nav>
     </div>
+
   </div>
+
   <button type="button" class="btn btn-primary" hidden="true" data-toggle="modal" data-target="#exampleModalCenter"
     id="modal-button">
     Launch demo modal

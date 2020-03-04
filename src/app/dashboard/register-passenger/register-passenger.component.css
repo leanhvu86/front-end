@@ -125,8 +125,12 @@ border: 1px dotted lightblue;
   } 
   #containerimage {
     position: relative;    
+    min-height: 320px;
 }
-
+.hover{
+  background: white;
+  opacity: 0.5;
+}
 #example {
    position: absolute;
 bottom: 0px;

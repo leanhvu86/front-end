@@ -44,6 +44,7 @@
     "ng6-social-button": "^1.0.5",
     "ngx-cookie-service": "^2.3.0",
     "ngx-counter": "^0.3.2",
+    "ngx-pagination": "^5.0.0",
     "path": "^0.12.7",
     "pretty-checkbox": "^3.0.3",
     "rxjs": "^6.3.3",

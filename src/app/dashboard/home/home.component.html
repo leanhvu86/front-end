@@ -48,7 +48,7 @@
 <a class="a-title" style="margin-left: 5%; font-size: 20px;">CÔNG THỨC NỔI BẬT</a>
 <div style="width: 90%; margin-left: 5%; min-height: auto;" class="row" data-aos="fade-in" data-aos-duration="4000">
 
-    <div class=".col-md-8" *ngFor="let recipe of recipes; let i=index" style="position: relative;">
+    <div class=".col-md-8" *ngFor="let recipe of recipes | paginate: config; let i=index" style="position: relative;">
         <div class="hover14 column" style="float: left; margin-left: 3%; width: 30%;">
             <div [routerLink]="['/detail/', recipe._id]">
                 <figure>
@@ -97,6 +97,8 @@
     </div>
 
 </div>
+<pagination-controls (pageChange)="pageChanged($event)" style="margin-left: 25%;"></pagination-controls>
+
 <div style="background: white; margin-top: 2%;height: 2px;width: 90%;margin-left: 5%; margin-bottom: 2%;"></div>
 <div class="clearfix"></div>
 <a class="a-title" style="margin-left: 5%; font-size: 20px;">BỘ SƯU TẬP NỔI BẬT</a>

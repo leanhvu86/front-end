@@ -12,14 +12,33 @@ declare var $: any;
 })
 export class Home2Component implements OnInit {
   public recipes: Recipe[] = [];
+  config: any;
+  collection = { count: 60, data: [] };
   constructor(
     private translate: TranslateService,
     private cookie: CookieService,
     private recipeService: RecipeService) {
     translate.setDefaultLang('vi');
+    for (var i = 0; i < this.collection.count; i++) {
+      this.collection.data.push(
+        {
+          id: i + 1,
+          value: "items number " + (i + 1)
+        }
+      );
+    }
+
+    this.config = {
+      itemsPerPage: 8,
+      currentPage: 1,
+      totalItems: this.recipes.length
+    };
   }
   ngOnInit() {
     this.getRecipes();
+  }
+  pageChanged(event) {
+    this.config.currentPage = event;
   }
   getRecipes() {
     this.recipeService.getRecipes().subscribe(recipes => {
@@ -27,7 +46,7 @@ export class Home2Component implements OnInit {
         recipe.like = false;
         console.log(recipe);
       });
-      this.recipes = recipes.slice(0, 8);
+      this.recipes = recipes;
 
       console.log(this.recipes);
     });
@@ -50,10 +69,8 @@ export class Home2Component implements OnInit {
     console.log(interestObject)
     this.recipeService.likeRecipe(interestObject).subscribe((data) => {
       if (data.body['status'] === 200) {
-
+        console.log('success')
       }
-
-
     })
   }
   dislikeRecipe(recipe: any, index: any) {

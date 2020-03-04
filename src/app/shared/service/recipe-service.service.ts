@@ -61,4 +61,10 @@ export class RecipeService {
       tap(_ => console.log('ok'))
     );
   };
+  createIngredient(ingredient: any) {
+    return this._http.post("http://localhost:8000/createIngredient", { ingredient: ingredient }, { observe: "response" });
+  }
+  deleteIngredient(ingredient: any) {
+    return this._http.post("http://localhost:8000/deleteIngredient", { ingredient: ingredient }, { observe: "response" });
+  }
 }

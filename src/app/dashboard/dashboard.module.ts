@@ -28,6 +28,7 @@ import * as  cloudinary from 'cloudinary-core';
 import cloudinaryConfiguration from '../config';
 import { FileUploadModule } from 'ng2-file-upload';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -52,6 +53,7 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
     CounterModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
+    NgxPaginationModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

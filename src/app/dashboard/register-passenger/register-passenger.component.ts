@@ -30,6 +30,7 @@ export class RegisterPassengerComponent implements OnInit {
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
   public index: number = 0;
+  public imageIndex: number = 0;
   public showVideoTutorial: boolean = false;
   public show: boolean = false;
   public showIngredient: boolean = false;
@@ -47,15 +48,9 @@ export class RegisterPassengerComponent implements OnInit {
   responses: Array<any>;
   oldUrl: string = null;
   nowUrl: string = null;
-  public ingredientArrays: string[] = [];
-  ingredient = {
-    quantitative: '',
-    typeOfquntitative: '',
-    ingredientName: '',
-    note: ''
-
-  }
+  public ingredientArrays: Object[] = [];
   private hasBaseDropZoneOver: boolean = false;
+  private hasBaseDropZoneOver1: boolean = false;
   private uploader: FileUploader;
   private title: string;
   constructor(private cloudinary: Cloudinary,
@@ -69,9 +64,9 @@ export class RegisterPassengerComponent implements OnInit {
       recipeName: ['', [Validators.minLength(5), Validators.maxLength(200), Validators.required]],
       content: ['', [Validators.minLength(20), Validators.maxLength(500), Validators.required]],
       videoLink: [''],
-      hardLevel: [''],
-      time: ['', Validators.required],
-      ingredientArray: ['', [Validators.minLength(5), Validators.maxLength(500), Validators.required]]
+      hardLevel: ['1', Validators.required],
+      time: ['', [Validators.min(5), Validators.required]],
+      ingredientArray: ['']
       // ,
       // ingredientsGroup: this.formbuilder.array([this.addControlNgL() //add duplicate array Validator
       // ])
@@ -121,7 +116,9 @@ export class RegisterPassengerComponent implements OnInit {
       // Note that by default, when uploading via the API, folders are not automatically created in your Media Library.
       // In order to automatically create the folders based on the API requests,
       // please go to your account upload settings and set the 'Auto-create folders' option to enabled.
-      form.append('folder', 'angular_sample');
+
+
+      //form.append('folder', 'angular_sample');
       // Add custom tags
       form.append('tags', tags);
       // Add file to upload
@@ -210,10 +207,110 @@ export class RegisterPassengerComponent implements OnInit {
       this.responses.splice(index, 1);
     });
   };
+  uploadFile(file: any, index: any) {
 
+    console.log(file);
+    console.log(index);
+    var url = `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/image/upload`;
+    var xhr = new XMLHttpRequest();
+    var fd = new FormData();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+
+    // Update progress (can be used to show progress indicator)
+    xhr.upload.addEventListener("progress", function (e) {
+      var progress = Math.round((e.loaded * 100.0) / e.total);
+      //document.getElementById('progress').style.width = progress + "%";
+
+      console.log(`fileuploadprogress data.loaded: ${e.loaded},
+    data.total: ${e.total}`);
+    });
+    let imageIndex1 = this.imageIndex;
+    xhr.onreadystatechange = function (e) {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        // File uploaded successfully
+        var response = JSON.parse(xhr.responseText);
+        var url = response.secure_url;
+        // Create a thumbnail of the uploaded image, with 150px width
+        var tokens = url.split('/');
+        tokens.splice(-2, 0, 'w_90,h_90,c_scale');
+        var img = new Image(); // HTML5 Constructor
+        img.src = tokens.join('/');
+        img.alt = response.public_id;
+
+
+        let id = 'imageArray' + index;
+        var inputValue = (<HTMLInputElement>document.getElementById(id)).value;
+        img.id = id + '_' + imageIndex1;
+        img.onclick = function () {
+          document.getElementById(galleryID).removeChild(img);
+          let id = 'imageArray' + index;
+          var inputValue = (<HTMLInputElement>document.getElementById(id)).value;
+          console.log(inputValue);
+          let arr = inputValue.split(',');
+          console.log(arr);
+          let id_tag = img.alt;
+          let position = arr.indexOf(id_tag);
+
+          if (~position) arr.splice(position, 1);
+
+          // array = [2, 9]
+          console.log(arr.toString());
+          const radio = (<HTMLInputElement>document.getElementById(id));
+          radio.value = arr.toString();
+        };
+        img.alt = 'Bạn muốn xóa ảnh?';
+        inputValue = inputValue + response.public_id + ',';
+        inputValue = inputValue.trim();
+        console.log(inputValue);
+        const radio = (<HTMLInputElement>document.getElementById(id));
+        radio.value = inputValue;
+        console.log(radio.value);
+        let galleryID = 'gallery' + index;
+        document.getElementById(galleryID).appendChild(img);
+      }
+    };
+    let tags = 'myphotoalbum';
+    fd.append('upload_preset', this.cloudinary.config().upload_preset);
+    fd.append('tags', tags); // Optional - add tag for image admin in Cloudinary
+    fd.append('file', file);
+    file.withCredentials = false;
+    xhr.send(fd);
+    this.imageIndex++;
+  }
+  handleFiles(event: any, index: any) {
+
+
+    let files = event.target.files;
+    console.log(files)
+    for (let i = 0; i < files.length; i++) {
+      if (files.length > 5) {
+        this.message = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước!';
+        const radio: HTMLElement = document.getElementById('modal-button');
+        radio.click();
+        return;
+      }
+      let id = 'imageArray' + index;
+      var inputValue = (<HTMLInputElement>document.getElementById(id)).value;
+      let arr = inputValue.split(',');
+      console.log(' imageArray nè' + inputValue);
+      if (arr.length > 5) {
+        this.message = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước !';
+        const radio: HTMLElement = document.getElementById('modal-button');
+        radio.click();
+        return;
+      }
+      this.uploadFile(files[i], index); // call the function to upload the file
+    }
+  };
   fileOverBase(e: any): void {
     console.log(e);
     this.hasBaseDropZoneOver = e;
+  }
+  fileOverBase1(e: any): void {
+    console.log(e);
+    this.hasBaseDropZoneOver1 = e;
   }
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
@@ -245,11 +342,16 @@ export class RegisterPassengerComponent implements OnInit {
     console.warn(this.profileForm.value);
   }
   onSubmit() {
-    if (this.checkIngredient !== true) {
-      return;
-    }
     this.submitted = true;
     console.log('submit')
+    console.log(this.nowUrl);
+    if (this.nowUrl === null || this.nowUrl === '') {
+      console.log(this.nowUrl);
+      this.message = 'Vui lòng up ảnh hiển thị cho công thức';
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
     // chưa validate
     if (this.profileForm.invalid) {
       return;
@@ -277,17 +379,17 @@ export class RegisterPassengerComponent implements OnInit {
       radio.click();
       return;
     }
-    console.log(this.nowUrl);
-    if (this.nowUrl === null || this.nowUrl === '') {
-      console.log(this.nowUrl);
-      this.message = 'Vui lòng up ảnh hiển thị cho công thức';
+
+    this.message === '';
+    let recipe: Recipe = this.profileForm.value;
+    //recipe.ingredientArray = this.getingredientArray(recipe.ingredients);
+    console.log(recipe.time);
+    if (parseInt(recipe.time) < 0) {
+      this.message = 'Thời gian thực hiện phải lớn hơn 0';
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
-    this.message === '';
-    let recipe: Recipe = this.profileForm.value;
-    //recipe.ingredientArray = this.getingredientArray(recipe.ingredients);
     recipe.country = this.countryArray;
     recipe.foodType = this.foodTypesArray;
     recipe.cookWay = this.cookWayArray;
@@ -300,16 +402,15 @@ export class RegisterPassengerComponent implements OnInit {
       return;
     }
     console.log(recipe);
-    let check = recipe.ingredientArray;
-    let array = this.getingredientArray(check);
-    if (array === undefined || array.length == 0) {
-      this.message = 'Nguyên liệu nhập không hợp lệ vui lòng kiểm tra lại!';
+
+    if (this.ingredientArrays === undefined || this.ingredientArrays.length == 0) {
+      this.message = 'Bạn chưa nhập nguyên liệu của công thức';
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
-    recipe.ingredients = array;
-    console.log(array);
+    recipe.ingredients = this.ingredientArrays;
+    console.log(this.ingredientArrays);
     this.recipeService.registerRecipe(recipe).subscribe((data) => {
       const result = data.body
       if (result['status'] === 200) {
@@ -326,46 +427,8 @@ export class RegisterPassengerComponent implements OnInit {
       }
     });
   }
-  getingredientArray(url) {
 
-    // get query string from url (optional) or window
-    var queryString = url;
-    // we'll store the parameters here
-    let objectArr: Array<Object>[] = [];
-    // if query string exists
-    if (queryString) {
 
-      // stuff after # is not part of query string, so get rid of it
-      queryString = queryString.split('#')[0];
-
-      // split our query string into its component parts
-      var arr = queryString.split(';');
-      let arrayTemp;
-      console.log(arr.length);
-      let cut = (arr.length) / 4;
-
-      let check = (cut - Math.round(cut));
-      if (check > 0.25 || arr.length < 4) {
-        console.log('nguyên liệu nhập không hợp lệ vui lòng kiểm tra lại!');
-
-        return;
-      }
-      cut = Math.round(cut);
-      console.log(cut)
-
-      for (let i = 0; i < cut; i++) {
-        arrayTemp = arr.slice(4, arr.length);
-        arr = arr.slice(0, 4)
-        objectArr.push(arr);
-        arr = arrayTemp;
-      }
-      arrayTemp = arr.slice(4, arr.length);
-      arr = arr.slice(0, 4)
-      console.log(arr);
-      console.log(objectArr);
-    }
-    return objectArr;
-  }
   finish() {
     const radio: HTMLElement = document.getElementById('index-home-link');
     radio.click();
@@ -410,10 +473,9 @@ export class RegisterPassengerComponent implements OnInit {
       name: this.formbuilder.control('', RxwebValidators.unique()),
       time: this.formbuilder.control(''),
       psnote: this.formbuilder.control('', RxwebValidators.unique()),
-      check: this.formbuilder.control('')
-      // ,
-      // image: this.formbuilder.control(''),
-      // imageArray: this.formbuilder.control('')
+      check: this.formbuilder.control(''),
+      image: this.formbuilder.control(''),
+      imageArray: this.formbuilder.control('')
     });
   }
   addControlNgL() {
@@ -448,6 +510,7 @@ export class RegisterPassengerComponent implements OnInit {
           console.log(i)
           let arrTest = arrayTest[i];;
           arrTest = arrTest.trim();
+          let arrtemp = arrTest;
           arrTest = arrTest.split(' ');
           console.log(arrayTest)
           console.log(arrTest)
@@ -467,19 +530,64 @@ export class RegisterPassengerComponent implements OnInit {
             return;
           }
           console.log(quantity)
-          this.ingredient.quantitative = quantity;
-          this.ingredient.typeOfquntitative = arrTest[1];
+          let not = '';
+          let typeOfqu = arrTest[1];
+          let ingredientNam;
           if (arrTest.length > 2)
-            this.ingredient.ingredientName = arrTest[2];
-          if (arrTest.length > 3)
-            this.ingredient.note = arrTest[2];
-          console.log(this.ingredient);
-          // this.ingredientArrays['ingerdient'].push(this.ingredient)
+            ingredientNam = arrTest[2];
+          if (arrTest.length > 3) {
+            let notePoisition = arrtemp.indexOf(ingredientNam);
+            if (notePoisition !== undefined && notePoisition > 0) {
+              not = arrtemp.slice(notePoisition, arrtemp.length);
+            }
+          };
+          if (arrTest.length >= 2) {
 
+            let ingredient = new Object({
+
+              quantitative: quantity,
+              typeOfquantitative: typeOfqu,
+              ingredientName: ingredientNam,
+              note: not
+            })
+            // this.ingredientArrays['ingerdient'].push(this.ingredient)
+            this.recipeService.createIngredient(ingredient).subscribe((data) => {
+              const result = data.body
+              console.log(data);
+              if (result != undefined) {
+                let tmessage = result['message'];
+                console.log(tmessage);
+                this.ingredientArrays.push(result);
+
+                const radio = (<HTMLInputElement>document.getElementById('ingredientArraye'));
+                radio.value = '';
+                console.log(this.ingredientArrays);
+              } else {
+                let tmessage = result['message'];
+                console.log(tmessage);
+              }
+            });
+          }
         }
       }
     }
     // console.log(this.ingredientArrays)
+  }
+  deleteIngredient(ingredient: any, index: any) {
+    console.log(ingredient);
+    console.log(index)
+    this.recipeService.deleteIngredient(ingredient).subscribe((data) => {
+      const result = data.body
+      console.log(data);
+      if (result != undefined) {
+        let tmessage = result['message'];
+        console.log(tmessage);
+        this.ingredientArrays.splice(index, 1);
+      } else {
+        let tmessage = result['message'];
+        console.log(tmessage);
+      }
+    });
   }
   checkQuantity(str: any) {
     console.log(str)
@@ -576,10 +684,8 @@ export class RegisterPassengerComponent implements OnInit {
     this.countryService.getCountrys().subscribe(countrys => {
       this.countrys = countrys;
       console.log('countrys' + this.countrys);
-      let check = 'định lượng: 10; đơn vị tính: cái; tên nguyên liệu: búa; ghi chú: ; định lượng: 1; đơn vị tính: con; tên nguyên liệu: gà; ghi chú: heo; định lượng: 5; đơn vị tính: gói; tên nguyên liệu: gia vị; ghi chú: nái;'
-      console.log(this.getingredientArray(check))
-    });
 
+    });
   }
   getFoodTypes() {
     this.countryService.getFoodTypes().subscribe(foodTypes => {
