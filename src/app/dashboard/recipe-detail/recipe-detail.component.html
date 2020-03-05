@@ -87,11 +87,49 @@
     </div>
     <span *ngIf="recipe.videoLink"><img src="../../../assets/images/video-color-gray.png"
         style="top:175px;left:355px;width: 50px;height: 50px; position: absolute; opacity: 0.5;" /></span>
-    <div class="card " style="background: #e9ebee; ">
+    <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
+      <div class="row">
+
+        <div class="col col-lg-2">
+          <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
+            <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill" background="#e9ebee">
+            </cl-transformation>
+            <cl-transformation width="75" crop="scale">
+            </cl-transformation>
+          </cl-image>
+
+        </div>
+        <div class="col">
+          <div class="row atitle"><a>Công thức đăng bởi</a></div>
+          <div class="row"><a>{{recipe.user.name}}</a></div>
+          <div class="row"><a>{{recipe.user.totalPoint}}&#160;&#160;&#160;&#160;công
+              thức</a><a>&#160;&#160;&#160;&#160;{{recipe.user.totalPoint}}&#160;&#160;&#160;&#160;điểm</a></div>
+        </div>
+        <div class="col col-lg-2">
+          <button title="Quan tâm" ng-click="follow()" class="button1">
+            <!-- ngIf: status != 1 --><span ng-if="status != 1" class="ng-scope">Quan tâm</span>
+            <!-- end ngIf: status != 1 -->
+          </button>
+        </div>
+
+      </div>
+      <div class="row" style="padding: 20px;">
+
+        <div class="col col-lg-2">
+
+        </div>
+        <div class="col" style="text-align:start;">
+          <a>{{recipe.content}}</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card " style="background: #e9ebee;padding: 20px 0; margin-top: 10px; border: none; box-shadow: none;">
 
       <div class="row">
         <div class="col ">
-          <nav style="background: white; border-radius: 10px 10px 10px 10px; padding: 5px 5px;">
+          <nav style="background: white; border-radius: 10px 10px 10px 10px;">
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
               <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
                 aria-controls="nav-home" aria-selected="true" style="font-size: 14px;">
@@ -101,19 +139,39 @@
               </a>
             </div>
           </nav>
+
           <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
 
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <div style="background: white; border-radius: 10px; padding: 5px 0;">
+              <div
+                style="background: white; border-radius: 10px; padding-top: 30px; min-height:300px;padding-left: 15px;">
 
 
                 <div class="row">
-                  <div class="col-sm-6 col-md-8"> <a style="font-size: 14px; ">Nguyên liệu làm&#160;&#160;
-                      &#160;{{recipe.recipeName}}</a></div>
-                  <div class="col-6 col-md-4"> <a>Phần ăn</a></div>
+                  <div class="col-sm-6 col-md-8" style="text-align:start;"> <a
+                      style="font-size: 20px;font-weight: 600; ">Nguyên liệu
+                      làm
+                      &#160;{{recipe.recipeName}}</a>
+                    <br><a class="atitle">cho <span style="color: red; margin-left: 5px;">{{multiplyElement}}</span>
+                      Phần ăn </a>
+
+                  </div>
+                  <div class="col-6 col-md-4"><i class="fa fa-cutlery fa-lg" style="color: rgb(155, 15, 15);"
+                      aria-hidden="true"></i>&#160;
+                    <a>Phần ăn</a>&#160;&#160;&#160;&#160;&#160;<input type="number" id="multiplyElement"
+                      [(ngModel)]="multiplyElement" style="width: 46px;height: 25px;margin-right: 5px;" /><i
+                      (click)="countIngrefient(multiplyElement)" class="fa fa-refresh fa-lg" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <div *ngFor=" let ingredient of recipe.ingredients; let i =index">
+                  <div style="width: 50%; float: left;text-align: left;padding-top:20px ;">
+                    <a> <i class="fa fa-check fa-lg" style="color: rgb(95, 228, 6);" aria-hidden="true"></i>
+                      {{ingredient.ingredientName}}&#160;&#160;&#160;<a id="quantity{{i}}"></a></a>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="clearfix"></div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
               style="height: 600px;">
 

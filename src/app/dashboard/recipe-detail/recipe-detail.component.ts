@@ -14,6 +14,7 @@ import { UserService } from 'src/app/shared/service/user.service.';
 })
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
+  multiplyElement: number = 4;
   like: boolean = false;
   constructor(private route: ActivatedRoute,
     private cookie: CookieService, private recipeService: RecipeService, private userService: UserService) { }
