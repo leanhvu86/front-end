@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Recipe } from 'src/app/shared/model/recipe';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { CookieService } from 'ngx-cookie-service';
+import { UserService } from 'src/app/shared/service/user.service.';
 
 declare var $: any;
 @Component({
@@ -17,7 +18,7 @@ export class Home2Component implements OnInit {
   constructor(
     private translate: TranslateService,
     private cookie: CookieService,
-    private recipeService: RecipeService) {
+    private recipeService: RecipeService, private userService: UserService) {
     translate.setDefaultLang('vi');
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
@@ -55,9 +56,11 @@ export class Home2Component implements OnInit {
     console.log(recipe);
     console.log(index);
     recipe.like = true;
-    let email = this.cookie.get('email');
+
+    console.log(recipe.user.email)
+    let user = recipe.user;
     let interestObject = new Object({
-      user: email,
+      user: user,
       objectId: recipe,
       objectType: '2'
     })
@@ -65,21 +68,31 @@ export class Home2Component implements OnInit {
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'red';
     radio.style.opacity = '0.8';
-    console.log(radio)
     console.log(interestObject)
     this.recipeService.likeRecipe(interestObject).subscribe((data) => {
-      if (data.body['status'] === 200) {
+      if (data !== undefined) {
         console.log('success')
+        let userObject = new Object({
+          email: user.email
+        })
+        this.userService.likeAddPoint(userObject).subscribe((data) => {
+          if (data.body['status'] === 200) {
+            console.log('success')
+
+          }
+        });
       }
-    })
+    });
+
   }
   dislikeRecipe(recipe: any, index: any) {
     console.log(recipe);
     console.log(index);
     recipe.like = false;
-    let email = this.cookie.get('email');
+    console.log(recipe.user.email)
+    let user = recipe.user;
     let interestObject = new Object({
-      user: email,
+      user: user,
       objectId: recipe,
       objectType: '2'
     })
@@ -87,11 +100,19 @@ export class Home2Component implements OnInit {
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'white';
     radio.style.opacity = '0.4';
-    console.log(radio)
+    console.log(recipe.user.email)
     console.log(interestObject)
     this.recipeService.dislikeRecipe(interestObject).subscribe((data) => {
-      if (data.body['status'] === 200) {
+      if (data !== undefined) {
+        let userObject = new Object({
+          email: user.email
+        })
+        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+          if (data.body['status'] === 200) {
+            console.log('success')
 
+          }
+        });
       }
 
 

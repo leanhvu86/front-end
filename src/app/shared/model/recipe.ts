@@ -19,4 +19,7 @@ export class Recipe {
     cookWay: CookWay[];
     status: number;
     like: boolean;
+    totalPoint: number;
+    doneCount: number;
+    user: any
 }

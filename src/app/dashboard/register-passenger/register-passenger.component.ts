@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { Cloudinary } from '@cloudinary/angular-5.x';
 import { HttpClient } from '@angular/common/http';
 import { Ingredient } from '../../shared/model/ingredient';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-register-passenger',
   templateUrl: './register-passenger.component.html',
@@ -56,7 +57,7 @@ export class RegisterPassengerComponent implements OnInit {
   constructor(private cloudinary: Cloudinary,
     private zone: NgZone, private http: HttpClient,
     private formbuilder: FormBuilder, private countryService: CountryService,
-    private recipeService: RecipeService, private _router: Router
+    private recipeService: RecipeService, private _router: Router, private cookie: CookieService
   ) {
     this.responses = [];
     this.title = '';
@@ -390,6 +391,8 @@ export class RegisterPassengerComponent implements OnInit {
       radio.click();
       return;
     }
+
+    recipe.user = this.cookie.get('email');
     recipe.country = this.countryArray;
     recipe.foodType = this.foodTypesArray;
     recipe.cookWay = this.cookWayArray;
@@ -417,9 +420,7 @@ export class RegisterPassengerComponent implements OnInit {
         this.message = result['message'];
         const radio: HTMLElement = document.getElementById('modal-button');
         radio.click();
-        setTimeout(() => {
-          this.finish();
-        }, 2000);
+        this.finish();
       } else {
         this.message = result['message'];
         const radio: HTMLElement = document.getElementById('modal-button');
