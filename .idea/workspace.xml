@@ -22,15 +22,20 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="F:/resource/cooky/www.cooky.vn" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/app/shared/service" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="F:/nodeJs/angular7-google-authenication/angular-node-mfauth/front-end/node_modules/tslint" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="ts.external.directory.path" value="F:\dự án 2\front end\front-end\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\dự án 2\front end\front-end\src\app\shared\service" />
+    </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
     <configuration name="E2E Tests" type="JavaScriptTestRunnerProtractor">
@@ -80,6 +85,9 @@
       <workItem from="1577473907772" duration="198000" />
       <workItem from="1581564738576" duration="2870000" />
       <workItem from="1581585055629" duration="93000" />
+      <workItem from="1583575885892" duration="1318000" />
+      <workItem from="1583577796481" duration="1372000" />
+      <workItem from="1583631836566" duration="3012000" />
     </task>
     <servers />
   </component>
@@ -87,14 +95,18 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="127" key="FileChooserDialogImpl" timestamp="1581585143198">
+    <state x="463" y="127" key="FileChooserDialogImpl" timestamp="1583577884799">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="463" y="127" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1581585143198" />
-    <state x="390" y="125" width="586" height="488" key="find.popup" timestamp="1581566811961">
+    <state x="463" y="127" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1583577884799" />
+    <state x="186" y="15" key="SettingsEditor" timestamp="1583578258011">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="390" y="125" width="586" height="488" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1581566811961" />
+    <state x="186" y="15" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1583578258011" />
+    <state x="390" y="125" width="586" height="488" key="find.popup" timestamp="1583576393637">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="390" y="125" width="586" height="488" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1583576393637" />
   </component>
   <component name="masterDetails">
     <states>

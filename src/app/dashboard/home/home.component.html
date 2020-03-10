@@ -52,17 +52,12 @@
         <div class="hover14 column" style="float: left; margin-left: 3%; width: 30%;">
             <div [routerLink]="['/detail/', recipe._id]">
                 <figure>
-                    <cl-image public-id="{{recipe.imageUrl}}">
+                    <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 15px;">
                         <cl-transformation width="200" height="280" crop="crop" quality="auto">
                         </cl-transformation>
                     </cl-image>
                 </figure>
-                <a class="link-name"
-                    style="margin-left: 35%; -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    display: -webkit-box;text-decoration: none;text-transform: uppercase; font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(10, 8, 7);"
-                    [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</a>
+
             </div>
             <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"><i id="heart{{i}}"
                     class="fa fa-heart fa-3x heart" aria-hidden="true"></i></span>
@@ -72,6 +67,9 @@
             </ng-template>
             <span *ngIf="!recipe.videoLink"><i class="fa fa-play-circle-o fa-3x play" aria-hidden="true"
                     style="top:40%;left:55%;width: 30%;"></i></span>
+            <a class="link-name" style="text-decoration: none;text-transform: uppercase; 
+                font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(10, 8, 7);"
+                [routerLink]="['/detail/', this.recipe._id]">{{recipe.recipeName}}</a>
         </div>
 
         <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"

@@ -26,7 +26,7 @@
                   <div class="image-preview mb-3" *ngIf="previewUrl;else other_content"
                     style="margin-top: 5%; margin-left: 13%;">
                     <cl-image public-id="{{previewUrl}}">
-                      <cl-transformation width="950" height="320" crop="crop" quality="auto">
+                      <cl-transformation width="620" height="320" crop="scale" quality="auto">
                       </cl-transformation>
                     </cl-image>
                   </div>
@@ -118,7 +118,8 @@
                 <div class="row" style="width: 90%; margin: 0 5%;">
                   <select type="text" formControlName="hardLevel"
                     [ngClass]="{ 'is-invalid': submitted && f.hardLevel.errors }"
-                    style="width:15%; border-radius:10px; margin:0 5% ; " [value]='1' id="dokhocheck">
+                    style="width:15%; border-radius:10px; margin:0 5% ; " id="dokhocheck">
+                    <option></option>
                     <option [value]="1" selected>{{'dokho.de' | translate }}</option>
                     <option [value]="2">{{'dokho.trungbinh' | translate }}</option>
                     <option [value]="3">{{'dokho.kho' | translate }}</option>
@@ -127,6 +128,10 @@
                   <input type="number" formControlName="time" style="width:10%; border-radius:10px; margin:0 5% ;"
                     min="0">Phút
                 </div>
+                <div style="margin-left: 5%;" *ngIf="submitted && f.hardLevel.errors" class="invalid-feedback">
+                  <div *ngIf="f.hardLevel.errors.required">Bạn phải độ khó của công thức</div>
+                </div>
+                <br>
                 <div style="margin-left: 5%;" *ngIf="submitted && f.time.errors" class="invalid-feedback">
                   <div *ngIf="f.time.errors.required">Bạn phải nhập thời gian thực hiện</div>
                 </div>
@@ -243,7 +248,7 @@
                           style="position: relative;">
                           <div class="input-group" style="position: relative; min-height: 50px;display: block;
                         overflow:hidden;">
-                           
+
                             <input type="text" class="form-control radioCheck" (input)="onSearchChange(i)"
                               style="width: 90%; right: 5%;border: none; color: gray; font-size: 12px; position: absolute;"
                               formControlName="nameNL" #textbox ng-model="all" placeholder="Thêm nhóm nguyên liệu"
@@ -257,7 +262,7 @@
                               vào đây
                               -</label>
 
-                         
+
 
                             <div style=" right: 0px; position: absolute; top: 7%; ">
                               <a (click)="deleteInputs(i)" style="width: 15px; height: auto;" title="Xóa nhóm"><i
@@ -389,9 +394,9 @@
           <br>
           <br>
 
-          <button class="btn-grad"
+          <a class="btn-grad"
             style="background-image: linear-gradient(to right, #e52d27 0%, #cf3237  51%, #e4625d  100%); color: white ;border-radius: 5px;width: 30%; margin-left: 35%; height: 50px;"
-            type="submit">Lưu và tiếp tục</button>
+            (click)="onSubmit()">Lưu công thức</a>
         </div>
       </form>
       <br />

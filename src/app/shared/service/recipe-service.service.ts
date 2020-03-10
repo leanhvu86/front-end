@@ -55,16 +55,17 @@ export class RecipeService {
     return this._http.post("http://localhost:8000/dislikeRecipe", { interest: interest }, { observe: "response" });
   }
 
-  getRecipeDetail = (id: any): Observable<Recipe> => {
+  getRecipeDetail = (id: string): Observable<Recipe> => {
     const url = `${this.baseUrl}/findRecipe/${id}`;
     return this._http.get<Recipe>(url).pipe(
-      tap(_ => console.log('ok'))
+      tap(_ => console.log('helo'))
     );
-  };
+    //return this._http.post("http://localhost:8000/findRecipe", { id: id }, { observe: "response" });
+  }
   createIngredient(ingredient: any) {
-    return this._http.post("http://localhost:8000/createIngredient", { ingredient: ingredient }, { observe: "response" });
+    return this._http.post('http://localhost:8000/createIngredient', { ingredient }, { observe: 'response' });
   }
   deleteIngredient(ingredient: any) {
-    return this._http.post("http://localhost:8000/deleteIngredient", { ingredient: ingredient }, { observe: "response" });
+    return this._http.post('http://localhost:8000/deleteIngredient', { ingredient }, { observe: 'response' });
   }
 }
