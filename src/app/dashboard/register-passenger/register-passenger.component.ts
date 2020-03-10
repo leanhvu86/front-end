@@ -630,11 +630,22 @@ export class RegisterPassengerComponent implements OnInit {
           let ingredientNam;
           if (arrTest.length > 2) {
             ingredientNam = arrTest[2];
+            if (arrTest.length > 3) {
+              var format = /[()]/;
+              if (format.test(arrTest[3]) !== true) {
+                ingredientNam += ' ' + arrTest[3];
+              }
+            } else if (arrTest.length > 4) {
+              var format = /[()]/;
+              if (format.test(arrTest[4]) !== true) {
+                ingredientNam += ' ' + arrTest[4];
+              }
+            }
           }
           if (arrTest.length > 3) {
-            const notePoisition = arrtemp.indexOf(ingredientNam);
+            const notePoisition = arrtemp.indexOf('(');
             if (notePoisition !== undefined && notePoisition > 0) {
-              not = arrtemp.slice(notePoisition, arrtemp.length);
+              not = arrtemp.slice(notePoisition - 1, arrtemp.length);
             }
           }
 

@@ -4,11 +4,13 @@ import { Subject, Observable, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Token } from '../model/token';
 
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, tap } from 'rxjs/operators';
+import { User } from '../model/user';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  private baseUrl: string = 'http://localhost:8000';
   headerOptions: any = null
 
   _isLoggedIn: boolean = false
@@ -102,5 +104,12 @@ export class UserService {
   }
   dislikeremovePoint(user: any) {
     return this._http.post("http://localhost:8000/removePoint", { user: user }, { observe: "response" });
+  }
+  getRecipes = (): Observable<User[]> => {
+
+    return this._http.get<User[]>(`${this.baseUrl}/getUsers`)
+      .pipe(
+        tap(_ => console.log('load users'))
+      );
   }
 }
