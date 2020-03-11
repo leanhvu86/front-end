@@ -71,7 +71,8 @@
                 <i class="fa fa-clock-o stats-ico" aria-hidden="true"> {{recipe.time}}ph</i>
             </div>
             <div style="top:340px;left: 43px; position: absolute; font-size: 12px;opacity: 0.8;  ">&#160;
-                <i class="fa fa-bar-chart stats-ico" aria-hidden="true"> {{recipe.viewCount}}</i>
+                <i class="fa fa-bar-chart stats-ico" aria-hidden="true"><a *ngIf="{{recipe.viewCount}}">
+                        {{recipe.viewCount}}</a></i>
             </div>
             <div style="top:340px;left: 78px; position: absolute; font-size: 12px;opacity: 0.8;  ">
                 <i class="fa fa-bolt stats-ico" aria-hidden="true">&#160;{{recipe.hardLevel}}</i>
