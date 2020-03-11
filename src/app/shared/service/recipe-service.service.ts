@@ -51,6 +51,9 @@ export class RecipeService {
   likeRecipe(interest: any) {
     return this._http.post("http://localhost:8000/likeRecipe", { interest: interest }, { observe: "response" });
   }
+  addComment(comment: any) {
+    return this._http.post("http://localhost:8000/addComment", { comment: comment }, { observe: "response" });
+  }
   dislikeRecipe(interest: any) {
     return this._http.post("http://localhost:8000/dislikeRecipe", { interest: interest }, { observe: "response" });
   }

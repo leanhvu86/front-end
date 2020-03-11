@@ -37,7 +37,7 @@ export class IndexComponent implements OnInit {
       this.title.setTitle(name);
     });
 
-    this.isAuthenicate = localStorage.getItem('isLoggedIn') == "true" ? true : false;
+    this.isAuthenicate = this.cookie.get('email') !== "" ? false : true;
 
   }
   loginUser() {

@@ -18,6 +18,7 @@ export class RecipeDetailComponent implements OnInit {
   multiplyElement: number = 4;
   oldMultiplyElement: number;
   like: boolean = false;
+  done: boolean = false;
   showImageStep: boolean = false;
   prepared: number;
   totalCookingTime: number;
@@ -151,9 +152,36 @@ export class RecipeDetailComponent implements OnInit {
     });
 
   }
-  addComment(even: any) {
-    const radio: HTMLElement = document.getElementById('nav-profile-tab');
-    radio.click();
+  addDoneRecipe(recipe: any) {
+    console.log(recipe);
+    this.done = true;
+    let user = this.cookie.get('email');
+    console.log(recipe)
+    let doneObject = new Object({
+      user: user,
+      recipe: recipe,
+      type: 1,
+      content: '',
+      imageUrl: ''
+    })
+    console.log(doneObject)
+    this.recipeService.addComment(doneObject).subscribe((data) => {
+      if (data !== undefined) {
+        console.log(data)
+        this.recipe = data.body['recipe']
+        console.log('success')
+        // let userObject = new Object({
+        //   email: user.email
+        // })
+        // this.userService.likeAddPoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+
+        //   }
+        // });
+      }
+    });
+
   }
   dislikeRecipe(recipe: any) {
     console.log(recipe);

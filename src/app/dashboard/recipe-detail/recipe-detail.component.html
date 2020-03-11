@@ -57,7 +57,7 @@
                     *ngIf="!like;else other_content"
                     style="width: 30px;height: 30px; margin-left: 2px; opacity: 0.8;" />
                   <ng-template #other_content>
-                    <img src="../../../assets/images/heart-o.png" (click)="dislikeRecipe(recipe,i)"
+                    <img src="../../../assets/images/heart-o.red.png" (click)="dislikeRecipe(recipe,i)"
                       style="width: 30px;height: 30px; margin-left: 2px;opacity: 1;" />
 
                   </ng-template>&#160;&#160;&#160;&#160;{{recipe.totalPoint}}
@@ -65,7 +65,7 @@
               </div>
               <div class="col">
 
-                <a (click)="addComment($event)"><img src="../../../assets/images/check-o.gray.png"
+                <a (click)="addDoneRecipe(recipe)"><img src="../../../assets/images/check-o.gray.png"
                     style="width: 30px;height: 30px; margin-left: 2px;" />&#160;&#160;&#160;&#160;{{recipe.doneCount}}</a>
 
               </div>
@@ -75,9 +75,7 @@
             <div class="row row-cols-2" style="margin-top: 5px; font-weight: 500;font-size: 14px;">
               <div class="col"> <a>Lượt thích</a></div>
               <div class="col">
-
                 <a>Đã thực hiện</a>
-
               </div>
               <div class="col"><a>Lưu lại</a></div>
             </div>
