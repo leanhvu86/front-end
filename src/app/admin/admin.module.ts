@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { AdminRoutes } from './admin.routing';
 import { RegisterComponent } from './register/register.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StationComponent } from './station/station.component';
 
 import { CookieService } from 'ngx-cookie-service';
@@ -20,6 +20,7 @@ import { CookieService } from 'ngx-cookie-service';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild(AdminRoutes),
   ],

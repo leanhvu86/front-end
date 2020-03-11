@@ -8,6 +8,7 @@ import { RegisterPassengerComponent } from './register-passenger/register-passen
 import { ComboBoxComponent } from './combo-box/combo-box.component';
 import { LoginComponent } from '../dashboard/login/login.component';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
+import { RecipeComponent } from './recipe/recipe.component';
 
 export const DashBoardRoutes: Routes = [
     {
@@ -46,6 +47,10 @@ export const DashBoardRoutes: Routes = [
             {
                 path: 'detail/:id',
                 component: RecipeDetailComponent
+            },
+            {
+                path: 'recipe',
+                component: RecipeComponent
             }
         ]
     }

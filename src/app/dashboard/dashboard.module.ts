@@ -29,6 +29,7 @@ import cloudinaryConfiguration from '../config';
 import { FileUploadModule } from 'ng2-file-upload';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { RecipeComponent } from './recipe/recipe.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -43,7 +44,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FooterComponent,
     CoutryComponent,
     NavComponent,
-    RecipeDetailComponent],
+    RecipeDetailComponent,
+    RecipeComponent],
   imports: [
     BrowserModule,
     CommonModule,
