@@ -10,6 +10,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StationComponent } from './station/station.component';
 
 import { CookieService } from 'ngx-cookie-service';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -22,6 +23,7 @@ import { CookieService } from 'ngx-cookie-service';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    NgxPaginationModule,
     RouterModule.forChild(AdminRoutes),
   ],
   providers: [CookieService],

@@ -13,7 +13,7 @@ export class Recipe {
     ingredientArray: string;
     ingredients: any;
     ingredientsGroup: [];
-    cockStep: [];
+    cockStep: any;
     country: Country[];
     foodType: FoodType[];
     cookWay: CookWay[];
@@ -21,5 +21,8 @@ export class Recipe {
     like: boolean;
     totalPoint: number;
     doneCount: number;
-    user: any
+    user: any;
+    description: string;
+    createAt: any;
+    updateAt: any;
 }

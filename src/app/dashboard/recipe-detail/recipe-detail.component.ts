@@ -14,8 +14,14 @@ import { UserService } from 'src/app/shared/service/user.service.';
 })
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
+  cookSteps: [] = [];
   multiplyElement: number = 4;
+  oldMultiplyElement: number;
   like: boolean = false;
+  done: boolean = false;
+  showImageStep: boolean = false;
+  prepared: number;
+  totalCookingTime: number;
   constructor(private route: ActivatedRoute,
     private cookie: CookieService, private recipeService: RecipeService, private userService: UserService) { }
   id: string;
@@ -28,10 +34,93 @@ export class RecipeDetailComponent implements OnInit {
     console.log(this.id);
     this.recipeService.getRecipeDetail(this.id).subscribe(data => {
 
-      this.recipe = data['recipe'];
-      this.recipe.like = false;
-      console.log(this.recipe);
+      console.log(data['recipe'])
+      this.recipe
+      let recipeTem = data['recipe'];
+      this.recipe = recipeTem;
+      if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
+        for (let ingredient of this.recipe.ingredients) {
+          console.log(ingredient)
+          let quantity = parseInt(ingredient.quantitative) * this.multiplyElement;
+          ingredient.quantitative = quantity;
+          this.oldMultiplyElement = this.multiplyElement;
+        }
+      }
+      if (this.recipe !== undefined && this.recipe.cockStep.length > 0) {
+        for (let ingredient of this.recipe.ingredients) {
+          console.log(ingredient)
+          let quantity = parseInt(ingredient.quantitative) * this.multiplyElement;
+          ingredient.quantitative = quantity;
+          this.oldMultiplyElement = this.multiplyElement;
+        }
+        for (let cookStep of this.recipe.cockStep) {
+          let arrayTemp = cookStep.image;
+          cookStep.image = arrayTemp.split(',');
+          cookStep.check = true;
+        }
+        this.cookSteps = this.recipe.cockStep;
+        console.log(this.cookSteps)
+      }
+
     });
+  }
+  countIngredient(multiplyElement: any) {
+    console.log(this.multiplyElement)
+    if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
+      for (let ingredient of this.recipe.ingredients) {
+        console.log(ingredient)
+        let quantity = parseInt(ingredient.quantitative) / this.oldMultiplyElement * this.multiplyElement;
+        ingredient.quantitative = quantity;
+      }
+      this.oldMultiplyElement = this.multiplyElement;
+    }
+  }
+  fullImage() {
+    var arrayNoimag = Array.from(document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>)
+    arrayNoimag.forEach((element) => {
+      console.log(element)
+      element.style.height = '300px';
+      element.style.minHeight = '400px'
+    })
+    var arrayNoimag = Array.from(document.getElementsByClassName('bigContent') as HTMLCollectionOf<HTMLElement>)
+    arrayNoimag.forEach((element) => {
+      console.log(element)
+      element.style.height = '300px';
+      element.style.minHeight = '400px'
+    })
+    this.showImageStep = false;
+    console.log(this.showImageStep)
+  }
+  icon = 'highlight_off';
+
+  public changeIcon(event: any, index: number) {
+    console.log('click' + event)
+    console.log('click' + index)
+    const id = 'icon' + index;
+    const radio: HTMLElement = document.getElementById(id);
+
+    if (radio.style.color === 'lightgreen') {
+      radio.style.color = 'gray'
+    } else {
+      radio.style.color = 'lightgreen'
+    }
+
+  }
+  noImage() {
+    var arrayNoimag = Array.from(document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>)
+    arrayNoimag.forEach((element) => {
+      console.log(element)
+      element.style.height = '150px';
+      element.style.minHeight = '150px'
+    })
+    var arrayNoimag = Array.from(document.getElementsByClassName('bigContent') as HTMLCollectionOf<HTMLElement>)
+    arrayNoimag.forEach((element) => {
+      console.log(element)
+      element.style.height = '150px';
+      element.style.minHeight = '150px'
+    })
+    this.showImageStep = true;
+    console.log(this.showImageStep)
   }
   likeRecipe(recipe: any) {
     console.log(recipe);
@@ -63,9 +152,36 @@ export class RecipeDetailComponent implements OnInit {
     });
 
   }
-  addComment(even: any) {
-    const radio: HTMLElement = document.getElementById('nav-profile-tab');
-    radio.click();
+  addDoneRecipe(recipe: any) {
+    console.log(recipe);
+    this.done = true;
+    let user = this.cookie.get('email');
+    console.log(recipe)
+    let doneObject = new Object({
+      user: user,
+      recipe: recipe,
+      type: 1,
+      content: '',
+      imageUrl: ''
+    })
+    console.log(doneObject)
+    this.recipeService.addComment(doneObject).subscribe((data) => {
+      if (data !== undefined) {
+        console.log(data)
+        this.recipe = data.body['recipe']
+        console.log('success')
+        // let userObject = new Object({
+        //   email: user.email
+        // })
+        // this.userService.likeAddPoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+
+        //   }
+        // });
+      }
+    });
+
   }
   dislikeRecipe(recipe: any) {
     console.log(recipe);
