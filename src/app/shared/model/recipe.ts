@@ -21,6 +21,7 @@ export class Recipe {
     like: boolean;
     totalPoint: number;
     doneCount: number;
+    viewCount: number;
     user: any;
     description: string;
     createAt: any;

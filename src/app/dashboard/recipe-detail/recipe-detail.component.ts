@@ -58,6 +58,19 @@ export class RecipeDetailComponent implements OnInit {
           cookStep.image = arrayTemp.split(',');
           cookStep.check = true;
         }
+        if (this.recipe.hardLevel !== undefined) {
+          if (this.recipe.hardLevel === '') {
+            this.recipe.hardLevel = 'Không xác định';
+          } else if (this.recipe.hardLevel === '1') {
+            this.recipe.hardLevel = 'Dễ';
+          } else if (this.recipe.hardLevel === '2') {
+            this.recipe.hardLevel = 'Trung bình';
+          } else if (this.recipe.hardLevel === '3') {
+            this.recipe.hardLevel = 'Khó';
+          } else if (this.recipe.hardLevel === '4') {
+            this.recipe.hardLevel = 'Rất khó';
+          }
+        }
         this.cookSteps = this.recipe.cockStep;
         console.log(this.cookSteps)
       }

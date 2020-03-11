@@ -49,77 +49,37 @@
 <div style="width: 90%; margin-left: 5%; min-height: auto;" class="row" data-aos="fade-in" data-aos-duration="4000">
 
     <div class=".col-md-8" *ngFor="let recipe of recipes | paginate: config; let i=index" style="position: relative;">
-        <div class="hover14 column" style="float: left; margin-left: 3%; width: 30%;">
+        <div class="hover15 column"
+            style="float: left; margin-left: 3%; width: 30%; position: relative; text-align: center;">
             <div [routerLink]="['/detail/', recipe._id]">
                 <figure>
-                    <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 15px;">
+                    <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
                         <cl-transformation width="200" height="280" crop="crop" quality="auto">
                         </cl-transformation>
                     </cl-image>
                 </figure>
 
             </div>
-            <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"><i id="heart{{i}}"
-                    class="fa fa-heart fa-3x heart" aria-hidden="true"></i></span>
-            <ng-template #other_content>
-                <span (click)="dislikeRecipe(recipe,i)"><i class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}"
-                        aria-hidden="true"></i></span>
-            </ng-template>
-            <span *ngIf="!recipe.videoLink"><i class="fa fa-play-circle-o fa-3x play" aria-hidden="true"
-                    style="top:40%;left:55%;width: 30%;"></i></span>
-            <a class="link-name" style="text-decoration: none;text-transform: uppercase; 
-                font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(10, 8, 7);"
-                [routerLink]="['/detail/', this.recipe._id]">{{recipe.recipeName}}</a>
-        </div>
-
-        <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"
-        ng-reflect-public-id="mypic">
-        <img
-            src="https://res.cloudinary.com/am-thuc-an-chay/image/upload/v1582782664/angular_sample/{{recipe.imageUrl}}">
-    </cl-image> -->
-        <!-- <cl-image public-id="{{recipe.imageUrl}}">
-                <cl-transformation width="300" height="150" radius="20" crop="pad" border="2px_solid_black" quality="auto" fetch-format="auto">
-                </cl-transformation>
-            </cl-image> -->
-        <!-- <cl-image public-id="{{recipe.imageUrl}}">
-                <cl-transformation width="200" height="300" crop="crop" radius="20" quality="auto">
-                </cl-transformation>
-            </cl-image> -->
-        <!-- <cl-image public-id="{{recipe.imageUrl}}">
-                <cl-transformation width="200" height="300" gravity="auto" background="white" crop="fill_pad"
-                    radius="20" border="1px_solid_grey">>
-                </cl-transformation>
-            </cl-image> -->
-        <!-- <a routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a> -->
-
-    </div>
-
-</div>
-<pagination-controls (pageChange)="pageChanged($event)" style="margin-left: 25%;"></pagination-controls>
-
-<div style="background: white; margin-top: 2%;height: 2px;width: 90%;margin-left: 5%; margin-bottom: 2%;"></div>
-<div class="clearfix"></div>
-<a class="a-title" style="margin-left: 5%; font-size: 20px;">BỘ SƯU TẬP NỔI BẬT</a>
-<div style="width: 90%; margin-left: 5%; min-height: 600px;" class="row" data-aos="fade-in" data-aos-duration="4000">
-
-    <div class=".col-md-8" *ngFor="let recipe of recipes">
-        <div [routerLink]="['/detail/', recipe._id]" class="hover15 column"
-            style="float: left; margin-left: 3%; width: 30%; position: relative;">
-            <div>
-                <figure>
-                    <cl-image public-id="{{recipe.imageUrl}}">
-                        <cl-transformation width="200" height="280" crop="crop" quality="auto">
-                        </cl-transformation>
-                    </cl-image>
-                </figure>
-                <a class="link-name"
-                    style="margin-left: 35%; -webkit-line-clamp: 3;
+            <a class="link-name"
+                style="bottom:20px;left: 100px; -webkit-line-clamp: 3; position: absolute;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                     display: -webkit-box;text-decoration: none;text-transform: uppercase; font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
-                    [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</a>
-            </div>
+                [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</a>
 
+            <div style="top:340px;left:  2px; position: absolute; font-size: 12px; opacity: 0.8; ">&#160;
+                <i class="fa fa-clock-o stats-ico" aria-hidden="true"> {{recipe.time}}ph</i>
+            </div>
+            <div style="top:340px;left: 43px; position: absolute; font-size: 12px;opacity: 0.8;  ">&#160;
+                <i class="fa fa-bar-chart stats-ico" aria-hidden="true"> {{recipe.viewCount}}</i>
+            </div>
+            <div style="top:340px;left: 78px; position: absolute; font-size: 12px;opacity: 0.8;  ">
+                <i class="fa fa-bolt stats-ico" aria-hidden="true">&#160;{{recipe.hardLevel}}</i>
+            </div>
+            <div
+                style="top:370px;left: 50px; position: absolute; font-size: 12px;opacity: 0.8; width: 240px; height: 1px; background: gray;  ">
+
+            </div>
             <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"
                 style="position: absolute; left:270px; bottom: 20%;"><i id="heart{{i}}" class="fa fa-heart fa-3x heart"
                     aria-hidden="true"></i></span>
@@ -127,36 +87,61 @@
                 <span (click)="dislikeRecipe(recipe,i)"><i class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}"
                         aria-hidden="true"></i></span>
             </ng-template>
+            <div style="top:375px;left: -20px; position: absolute; font-size: 12px; ">
+                <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
+                    <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill"
+                        background="#e9ebee">
+                    </cl-transformation>
+                    <cl-transformation width="75" crop="scale">
+                    </cl-transformation>
+                </cl-image>
+                <a>&#160;{{recipe.user.name}}</a>
+            </div>
+            <span *ngIf="!recipe.videoLink"><i class="fa fa-play-circle-o fa-3x play" aria-hidden="true"
+                    style="top:40%;left:155px;width: 30%;"></i></span>
         </div>
-
-        <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"
-        ng-reflect-public-id="mypic">
-        <img
-            src="https://res.cloudinary.com/am-thuc-an-chay/image/upload/v1582782664/angular_sample/{{recipe.imageUrl}}">
-    </cl-image> -->
-        <!-- <cl-image public-id="{{recipe.imageUrl}}">
-                <cl-transformation width="300" height="150" radius="20" crop="pad" border="2px_solid_black" quality="auto" fetch-format="auto">
-                </cl-transformation>
-            </cl-image> -->
-        <!-- <cl-image public-id="{{recipe.imageUrl}}">
-                <cl-transformation width="200" height="300" crop="crop" radius="20" quality="auto">
-                </cl-transformation>
-            </cl-image> -->
-        <!-- <cl-image public-id="{{recipe.imageUrl}}">
-                <cl-transformation width="200" height="300" gravity="auto" background="white" crop="fill_pad"
-                    radius="20" border="1px_solid_grey">>
-                </cl-transformation>
-            </cl-image> -->
-        <!-- <a routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a> -->
-
     </div>
 
+</div>
+<br><br><br>
+<pagination-controls (pageChange)="pageChanged($event)" style="margin-left: 25%;"></pagination-controls>
+
+<div style="background: white; margin-top: 2%;height: 2px;width: 90%;margin-left: 5%; margin-bottom: 2%;"></div>
+<div class="clearfix"></div>
+<a class="a-title" style="margin-left: 5%; font-size: 20px;">BỘ SƯU TẬP NỔI BẬT</a>
+<!------------------ Hover Effect Style : Demo - 15 --------------->
+<div class="container mt-40">
+
+    <div class="row mt-30">
+        <div class="col-md-3 col-sm-6" *ngFor="let recipe of recipes;let i = index">
+            <div class="box15">
+                <cl-image public-id="{{recipe.imageUrl}}">
+                    <cl-transformation width="255" height="349" crop="scale" quality="auto" radius="2">
+                    </cl-transformation>
+                </cl-image>
+                <div class="box-content">
+                    <h3 class="title" [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</h3>
+                    <ul class="icon">
+                        <li *ngIf="!recipe.videoLink"><a><i class="fa fa-play-circle-o"></i></a></li>
+                        <li><a><i class="fa fa-heart " id="heart{{i}}" (click)="likeRecipe(recipe,i)"
+                                    *ngIf="!recipe.like;else other_content"></i>
+                                <ng-template #other_content> <i class="fa fa-heart " id="heart{{i}}"
+                                        (click)="dislikeRecipe(recipe,i)" aria-hidden="true"></i> </ng-template>
+
+                            </a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 <div style="background: white; margin-top: 2%;height: 2px;width: 90%;margin-left: 5%; margin-bottom: 2%;"></div>
 <div class="clearfix"></div>
 <a class="a-title" style="margin-left: 5%; font-size: 20px;">TOP THÀNH VIÊN</a>
-<div class="clearfix"></div>
-<br><br><br><br>
+<div class="clearfix" style="width: 50px;"></div>
+<br><br><br><br><br><br><br>
 <div style="width: 90%; margin-left: 5%; min-height: auto;" data-aos="fade-in" data-aos-duration="4000">
 
     <div *ngFor="let recipe of recipes"
