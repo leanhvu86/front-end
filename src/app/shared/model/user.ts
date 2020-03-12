@@ -5,7 +5,7 @@ export class User {
     name: String;
     imageUrl: String;
     totalPoint: Number;
-    user_type: Number;
+    role: Number;
     birthday: string;
     gender: Number;
     address: string;
@@ -13,5 +13,5 @@ export class User {
     createAt: string;
     updateAt: string;
     status: Number;
-    warning_report: Number;
+    warningReport: Number;
 }
