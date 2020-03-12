@@ -27,18 +27,32 @@ export class LoginComponent implements OnInit {
     this._loginService.loginAuth(this.userObject).subscribe((data) => {
       this.errorMessage = null;
       if (data.body['status'] === 200) {
-        this._loginService.updateAuthStatus(true);
-        this._router.navigateByUrl('/adminHome');
+
         let user = data.body;
+        let role;
+        let users;
         for (let key in user) {
           if (key === 'user') {
-            let users = user[key];
+            users = user[key];
+            console.log(user);
             console.log(users.token);
-            this.cookie.set('token', users.token);
-            this.cookie.set('isAuthenicate', 'true');
+
+          } else if (key === 'role') {
+            role = user[key];
+            console.log(role);
+
           }
 
         }
+        if (parseInt(role) < 1) {
+          console.log('member')
+          this.errorMessage = 'Bạn không có thẩm quyền truy cập';
+          return;
+        }
+        this._loginService.updateAuthStatus(true);
+        this._router.navigateByUrl('/adminHome');
+        this.cookie.set('token', users.token);
+        this.cookie.set('isAuthenicate', 'true');
         sessionStorage.setItem('user', this.userObject.email);
         this.cookie.set('email', this.userObject.email);
       }
