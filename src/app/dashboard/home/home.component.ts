@@ -48,7 +48,21 @@ export class Home2Component implements OnInit {
         console.log(recipe);
       });
       this.recipes = recipes;
-
+      for (let recipe of this.recipes) {
+        if (recipe.hardLevel !== undefined) {
+          if (recipe.hardLevel === '') {
+            recipe.hardLevel = 'Ko XĐ';
+          } else if (recipe.hardLevel === '1') {
+            recipe.hardLevel = 'Dễ';
+          } else if (recipe.hardLevel === '2') {
+            recipe.hardLevel = 'TB';
+          } else if (recipe.hardLevel === '3') {
+            recipe.hardLevel = 'Khó';
+          } else if (recipe.hardLevel === '4') {
+            recipe.hardLevel = 'R khó';
+          }
+        }
+      }
       console.log(this.recipes);
     });
   }
@@ -83,7 +97,7 @@ export class Home2Component implements OnInit {
         });
       }
     });
-
+    console.log(recipe.like);
   }
   dislikeRecipe(recipe: any, index: any) {
     console.log(recipe);
@@ -117,6 +131,7 @@ export class Home2Component implements OnInit {
 
 
     })
+    console.log(recipe.like);
   }
 }
 

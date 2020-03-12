@@ -40,8 +40,7 @@
           <div class="row">
             <div class="col"><a style="color: orange;font-size: 16px;font-weight:bolder;">04</a> &#160;<a
                 class="atitle">người</a></div>
-            <div class="col" *ngIf="!recipe.hardLevel"><a
-                style="color: orange;font-size: 16px;font-weight:bolder;">{{recipe.hardLevel}}</a></div>
+            <div class="col" *ngIf="recipe.hardLevel"><a style="font-size: 16px;">{{recipe.hardLevel}}</a></div>
           </div>
         </div>
         <div class="col"></div>
@@ -83,12 +82,13 @@
         </div>
       </div>
     </div>
-    <span *ngIf="recipe.videoLink"><img src="../../../assets/images/video-color-gray.png"
-        style="top:175px;left:355px;width: 50px;height: 50px; position: absolute; opacity: 0.5;" /></span>
+    <span *ngIf="recipe.videoLink"><img src="../../../assets/images/cooky-video-play-fill-2.png"
+        style="top:250px;left:360px;width: 50px;height: 50px; position: absolute;" /></span>
     <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
       <div class="row">
 
         <div class="col col-lg-2">
+
           <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
             <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill" background="#e9ebee">
             </cl-transformation>
