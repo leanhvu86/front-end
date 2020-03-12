@@ -6,15 +6,18 @@
        <div class="result-recipe-item">
          <div class="item-inner">
            <div class="item-photo">
-             <a href="">
-               <img src="{{recipe.imageUrl}}" alt="" class="iamge"/>
+             <a routerLink="/detail/{{recipe.id}}">
+              <cl-image public-id="{{recipe.imageUrl}}" class="iamge">
+                <cl-transformation height="240" radius="30" width="240" crop="scale">
+                </cl-transformation>
+              </cl-image>
              </a>
            </div>
            <div class="item-infor">
              <div class="item-header">
                <div class="title-one">
    <h2>
-     <a href="">{{recipe.recipeName}}</a>
+     <a routerLink="/detail/{{recipe.id}}">{{recipe.recipeName}}</a>
    </h2>
                </div>
                <div class="title-two">
@@ -35,9 +38,8 @@
                    <a href="">
                      <i class="fa fa-bookmark 5x"></i>
                    </a>
-                           </div>
+                    </div>
                </div>
-              
              </div>
            </div>
          </div>
@@ -45,6 +47,8 @@
       </div>
     </div>
      </div>
-   </div>
+   </div> 
+   
    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
    
