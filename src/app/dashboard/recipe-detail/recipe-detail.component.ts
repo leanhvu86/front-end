@@ -165,6 +165,16 @@ export class RecipeDetailComponent implements OnInit {
     });
 
   }
+  // hàm này a tạo sáng nay để e tái sử dụng được.
+  // luồng như sau nè
+  // khi người dùng nhấn thực hiện thì mặc định sẽ tạo 1 bản ghi bình luôn với type =1  nghĩa là đã thực hiện
+  // khi e tạo bình luận thì e phải tạo bản ghi với type =0 nghĩa là chưa thực hiện
+  // nếu người dùng của em vừa bình luận vừa thực hiện thì a sẽ làm 1 hàm khác. hiện tại 
+  // hai ae cứ sử dụng chung hàm này đi. k có front end thì back end khó ra bug lắm thế nên a mới kêu e build haha
+  // cái node js debug hơi khó. nên có những thứ cần thiết front end thì phải ra front end. cái thêm công thức
+  // k có front end thì k debug nổi mà ra bug cơ nó có tận gần 20 properties.. 4 cái array haha thua
+  // good luck 
+  // mà luồng
   addDoneRecipe(recipe: any) {
     console.log(recipe);
     this.done = true;
