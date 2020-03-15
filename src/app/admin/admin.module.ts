@@ -9,21 +9,28 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StationComponent } from './station/station.component';
 
+import { OrderModule } from 'ngx-order-pipe'; // <- import OrderModule
+
 import { CookieService } from 'ngx-cookie-service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
 @NgModule({
   declarations: [
     HeaderComponent,
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    StationComponent
+    StationComponent,
+    RecipeAccessComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     NgxPaginationModule,
+    Ng2SearchPipeModule,
+    OrderModule,
     RouterModule.forChild(AdminRoutes),
   ],
   providers: [CookieService],

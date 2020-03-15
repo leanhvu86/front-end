@@ -4,7 +4,8 @@
     <a class="glow" style="color: white; top: 15%;left: 33%; position: absolute;">Ẩm thực món chay truyền thống</a>
     <div class="form" style="width: 50%; margin-top: 10%; margin-left: 25%;">
         <input title="Search" value="" type="submit" class="button">
-        <input type="text" class="textbox" placeholder="Tìm kiếm công thức" style="width: 90%;">
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+            placeholder="Tìm kiêm công thức" style="width: 90%;">
 
     </div>
     <div style="width: 90%; top: 70%; left: 5%;   height:100px;position: absolute;">
@@ -48,7 +49,8 @@
 <a class="a-title" style="margin-left: 5%; font-size: 20px;">CÔNG THỨC NỔI BẬT</a>
 <div style="width: 90%; margin-left: 5%; min-height: auto;" class="row" data-aos="fade-in" data-aos-duration="4000">
 
-    <div class=".col-md-8" *ngFor="let recipe of recipes | paginate: config; let i=index" style="position: relative;">
+    <div class=".col-md-8" *ngFor="let recipe of recipes| filter:searchText | paginate: config; let i=index"
+        style="position: relative;margin-bottom: 100px;">
         <div class="hover15 column"
             style="float: left; margin-left: 3%; width: 30%; position: relative; text-align: center;">
             <div [routerLink]="['/detail/', recipe._id]">
@@ -61,7 +63,7 @@
 
             </div>
             <a class="link-name"
-                style="bottom:20px;left: 100px; -webkit-line-clamp: 3; position: absolute;
+                style="bottom:20px;left: 80px; -webkit-line-clamp: 3; position: absolute; min-width:150px;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                     display: -webkit-box;text-decoration: none;text-transform: uppercase; font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
@@ -87,8 +89,8 @@
                 style="position: absolute; left:270px; bottom: 20%;"><i id="heart{{i}}" class="fa fa-heart fa-3x heart"
                     aria-hidden="true"></i></span>
             <ng-template #other_content>
-                <span (click)="dislikeRecipe(recipe,i)"><i class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}"
-                        aria-hidden="true"></i></span>
+                <span (click)="dislikeRecipe(recipe,i)" style="position: absolute; left:270px; bottom: 20%;"><i
+                        class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
             </ng-template>
             <div style="top:375px;left: -20px; position: absolute; font-size: 12px; ">
                 <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
@@ -198,3 +200,52 @@
 
 </div>
 <div class="clearfix"></div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" *ngIf="!isAuthenicate"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Đăng nhập</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card card-container" style="max-width: 500px;">
+                    <img id="profile-img" class="profile-img-card" src="../../../assets/images/avatar_2x.png" />
+                    <form class="form-signin" (ngSubmit)="loginUser()" #loginForm="ngForm">
+                        <input type="text" id="email" class="form-control" name="email" autocomplete="off"
+                            #uname="ngModel" [(ngModel)]="userObject.email" placeholder="email"
+                            title="Please enter the email" required autofocus>
+                        <input type="password" id="password" class="form-control" name="password" autocomplete="off"
+                            #upass="ngModel" [(ngModel)]="userObject.password" placeholder="Password"
+                            title="Please enter the password" required>
+                        <input type="text" id="authcode" class="form-control" *ngIf="this.tfaFlag" name="authcode"
+                            autocomplete="off" #authcode="ngModel" [(ngModel)]="userObject.authcode"
+                            placeholder="Two-Factor Auth code" title="Please enter the code" required>
+                        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
+                            [disabled]="email?.errors?.required || upass?.errors?.required || (this.tfaFlag && authcode?.errors?.required)">Đăng
+                            nhập</button>
+                        <p style="text-align:center;">Tài khoản mới ? <a [routerLink]="['/register']">Đăng ký</a>
+                        </p>
+                        <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">{{errorMessage}}</p>
+                    </form>
+                    <hr style="border-top: 1px solid #eee;">
+                    <!-- <div class="row">
+                    <div class="col-6">
+                        <button class="loginBtn loginBtn--facebook">
+                            Login with Facebook
+                        </button>
+                    </div>
+                    <div class="col-6 text-right">
+                        <button class="loginBtn loginBtn--google">
+                            Login with Google
+                        </button>
+                    </div>
+                </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

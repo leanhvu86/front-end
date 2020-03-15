@@ -79,7 +79,7 @@ nav > div a.nav-item.nav-link.active:after
   /* position: relative;
   bottom: -60px;
   left: -10%; */
-  border:2px solid #dad8d7;
+  border:2px solid #f3f3f3;
   border-radius:10px 10px;
 }
 /* #nav-tabContent{
@@ -94,7 +94,7 @@ nav > div a.nav-item.nav-link.active:after
     height: auto;
 }
 nav > div a.nav-item.nav-link:hover{
-  background-color: rgb(229, 240, 234);
+  background-color: rgb(255, 255, 255);
   background-position: right center;}
 nav > div a.nav-item.nav-link:focus
 {
@@ -105,4 +105,11 @@ nav > div a.nav-item.nav-link:focus
     /* background-color: rgb(232, 240, 237); */
     border-radius:0.02 solid;
     
+}
+.button_change{
+  border-radius: 5px;
+  padding: 5px 50 px;
+  background: white;
+  font-style: inherit;
+  color: black;
 }

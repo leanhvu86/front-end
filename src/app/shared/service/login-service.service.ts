@@ -26,7 +26,8 @@ export class LoginServiceService {
     if (userObj.authcode) {
       console.log('Appending headers');
       this.headerOptions = new HttpHeaders({
-        'x-tfa': userObj.authcode
+        'x-tfa': userObj.authcode,
+        'Authorization': 'Bear' + 'fdasfsafasfsafasfdsdafdasfaf'
       });
     }
     return this._http.post("http://localhost:8000/login", { user: userObj }, { observe: 'response', headers: this.headerOptions });
@@ -56,6 +57,7 @@ export class LoginServiceService {
     this.authSub.next(this._isLoggedIn);
     localStorage.setItem('isLoggedIn', "false");
     this.cookie.set('isAuthenicate', '');
+    this.cookie.set('email', '');
     let token = this.cookie.get('token');
     console.log('xóa token nè' + token);
     this.deleteAuth(token).subscribe((data) => {
@@ -81,6 +83,10 @@ export class LoginServiceService {
 
 
   deleteAuth(token: any) {
+    this.headerOptions = new HttpHeaders({
+      'x-access-token': token,
+      'Authorization': 'Bear' + token
+    });
     return this._http.post("http://localhost:8000/deleteToken", { token: token }, { observe: 'response' })
   }
   // Error handling 

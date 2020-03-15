@@ -53,7 +53,7 @@
   .form > .button {
     outline: 0;
     background: none;
-    background-color: rgba(38, 50, 56, 0.8);
+    background-color: rgba(255, 234, 166, 0.8);
     float: left;
     height: 42px;
     width: 42px;
@@ -67,8 +67,8 @@
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     -webkit-transition: background-color .4s ease;
     transition: background-color .4s ease;
-    -webkit-border-radius: 0 4px 4px 0;
-    border-radius: 0 4px 4px 0;
+    -webkit-border-radius:  4px 0 0 4px ;
+    border-radius:  4px 0 0 4px ;
   }
   
   .form > .button:hover {

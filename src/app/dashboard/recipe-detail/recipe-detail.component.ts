@@ -193,15 +193,6 @@ export class RecipeDetailComponent implements OnInit {
         console.log(data)
         this.recipe = data.body['recipe']
         console.log('success')
-        // let userObject = new Object({
-        //   email: user.email
-        // })
-        // this.userService.likeAddPoint(userObject).subscribe((data) => {
-        //   if (data.body['status'] === 200) {
-        //     console.log('success')
-
-        //   }
-        // });
       }
     });
 

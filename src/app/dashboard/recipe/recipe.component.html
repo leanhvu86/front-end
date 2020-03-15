@@ -1,54 +1,51 @@
-
 <div class="container-fluid1">
   <div class="container">
-   <div class="col">
-     <div class="row-3" *ngFor="let recipe of recipies|paginate:{itemsPerPage: 12, currentPage:p}">
-       <div class="result-recipe-item">
-         <div class="item-inner">
-           <div class="item-photo">
-             <a routerLink="/detail/{{recipe.id}}">
-              <cl-image public-id="{{recipe.imageUrl}}" class="iamge">
-                <cl-transformation height="240" radius="30" width="240" crop="scale">
-                </cl-transformation>
-              </cl-image>
-             </a>
-           </div>
-           <div class="item-infor">
-             <div class="item-header">
-               <div class="title-one">
-   <h2>
-     <a routerLink="/detail/{{recipe.id}}">{{recipe.recipeName}}</a>
-   </h2>
-               </div>
-               <div class="title-two">
-     <span>{{recipe.ingredients}}</span>
-               </div>
-               <div class="title-three">
-       
-               </div>
-              
-               <div class="item-footer">
-                 <div class="recipe-by">
-       <a href="">
-         <img src="{{recipe.user.imageUrl}}" alt="" class="images"/>
-         recipe.user.name
-       </a>
-                 </div>
-                 <div class="recipe-acts">
-                   <a href="">
-                     <i class="fa fa-bookmark 5x"></i>
-                   </a>
-                    </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
+    <div class="col">
+      <div class="row-3" *ngFor="let recipe of recipies|paginate:{itemsPerPage: 12, currentPage:p}">
+        <div class="result-recipe-item">
+          <div class="item-inner">
+            <div class="item-photo">
+              <a routerLink="/detail/{{recipe.id}}">
+                <cl-image public-id="{{recipe.imageUrl}}" class="iamge">
+                  <cl-transformation height="240" radius="30" width="240" crop="scale">
+                  </cl-transformation>
+                </cl-image>
+              </a>
+            </div>
+            <div class="item-infor">
+              <div class="item-header">
+                <div class="title-one">
+                  <h2>
+                    <a routerLink="/detail/{{recipe.id}}">{{recipe.recipeName}}</a>
+                  </h2>
+                </div>
+                <div class="title-two">
+                  <span>{{recipe.ingredients}}</span>
+                </div>
+                <div class="title-three">
+
+                </div>
+
+                <div class="item-footer">
+                  <div class="recipe-by">
+                    <a href="">
+                      <img src="{{recipe.user.imageUrl}}" alt="" class="images" />
+                      recipe.user.name
+                    </a>
+                  </div>
+                  <div class="recipe-acts">
+                    <a href="">
+                      <i class="fa fa-bookmark 5x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-     </div>
-   </div> 
-   
-   <pagination-controls (pageChange)="p = $event"></pagination-controls>
-  
-   
+  </div>
+</div>
+<div class="clearfix"></div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

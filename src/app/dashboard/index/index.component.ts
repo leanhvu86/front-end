@@ -38,7 +38,7 @@ export class IndexComponent implements OnInit {
     });
 
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
-
+    console.log(this.cookie.get('email') + 'email nè');
   }
   loginUser() {
     console.log(this.userObject.email + " user đăng nhập");

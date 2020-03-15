@@ -38,7 +38,7 @@ body {
   }
   
   .active, .accordion:hover {
-    background-color: #ccc;
+    background-color: rgb(235, 235, 235);
   }
   
   .panel {

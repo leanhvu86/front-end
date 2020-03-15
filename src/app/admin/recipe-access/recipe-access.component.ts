@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { User } from 'src/app/shared/model/user';
 import { OrderPipe } from 'ngx-order-pipe';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import { Recipe } from 'src/app/shared/model/recipe';
 
 @Component({
-  selector: 'app-station',
-  templateUrl: './station.component.html',
-  styleUrls: ['./station.component.css']
+  selector: 'app-recipe-access',
+  templateUrl: './recipe-access.component.html',
+  styleUrls: ['./recipe-access.component.css']
 })
-export class StationComponent implements OnInit {
-  users: User[] = [];
+export class RecipeAccessComponent implements OnInit {
+
+  users: Recipe[] = [];
   config: any;
   searchText;
   collection = { count: 60, data: [] };
 
-  constructor(private userService: UserService, private orderPipe: OrderPipe) {
+  constructor(private userService: RecipeService, private orderPipe: OrderPipe) {
     this.collection = orderPipe.transform(this.collection, 'info.name');
     console.log(this.collection);
     for (var i = 0; i < this.collection.count; i++) {

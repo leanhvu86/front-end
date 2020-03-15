@@ -1,5 +1,5 @@
 <ul *ngIf="recipe" class="breadcrumb nomargin">
-  <li><a class="atitle" routerLink="/routing" target="_self">Công thức /</a></li>
+  <li><a class="atitle" routerLink="/recipe" target="_self">Công thức /</a></li>
   <li><a class="atitle" routerLink="/about" target="_self">#Tag /</a></li>
   <li class="active"><a class="atitle">{{recipe.recipeName}}</a></li>
 </ul>
@@ -244,14 +244,14 @@
             </div>
 
             <!-- <p>{{profileForm.status}}</p> -->
-            <nav>
+            <nav style="width: 100%; background: white; border-radius:0 0 10px 10px; height: 60px; padding: 5px 0;">
               <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-                  style="border-radius:0px 0 0 10px;font-size: 14px;" aria-controls="nav-home" aria-selected="true">
-                  {{ 'cong.thuc' | translate }}</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                  style="border-radius:0 0px  10px 0; font-size: 14px;" aria-controls="nav-profile"
-                  aria-selected="false">Bình luận
+                <a class="button_change" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                  style="font-size: 14px;margin-left: 35px;" aria-controls="nav-home" aria-selected="true">
+                  <i class="fa fa-angle-double-left" aria-hidden="true"></i> {{ 'cong.thuc' | translate }}</a>
+                <a class="button_change" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                  style=" font-size: 14px; margin-left: 550px;" aria-controls="nav-profile" aria-selected="false">Bình
+                  luận <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                 </a>
               </div>
             </nav>

@@ -1,7 +1,7 @@
 <h5 style="color: orange;">Danh sách thành viên</h5>
 <div class="search-hero">
   <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-    placeholder="&#61442;  Tìm kiếm thành viên">
+    placeholder="&#61442;  Tìm kiêm thành viên">
 </div>
 <div *ngFor="let user of users | filter:searchText| orderBy: key : reverse| paginate: config; let i=index">
   <cl-image public-id="jbiajl3qqdzshdw0z749.jpg">
@@ -23,9 +23,7 @@
           Email <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
         <th>Token</th>
         <th>Ảnh</th>
-        <th [class.active]="order === 'info.totalPoint'" (click)="setOrder('info.totalPoint')"
-          class="mdl-data-table__cell--non-numeric">
-          Tổng điểm <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
+        <th>Tổng điểm</th>
       </tr>
     </thead>
     <tbody
@@ -34,12 +32,12 @@
       <tr>
         <td>{{i+1}}</td>
         <td style="max-width: 50px;">{{user.name}}</td>
-        <td style="max-width: 80px;">{{user.email}}</td>
+        <td style="max-width: 80px;">{{user.time}}</td>
         <td style="max-width: 100px;
         overflow: visible;
-        text-overflow: initial;word-wrap: break-word;">{{user.hash}}</td>
+        text-overflow: initial;word-wrap: break-word;">{{user.hardLevel}}</td>
         <td>{{user.imageUrl}} </td>
-        <td>{{user.totalPoint}}</td>
+        <td>{{user.viewPoint}}</td>
       </tr>
     </tbody>
   </table>

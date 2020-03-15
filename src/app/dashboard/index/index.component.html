@@ -316,8 +316,9 @@
         </div>
         <div class=" div-shadow" style="position: relative; background: whitesmoke;width: 100%; height: 50px; ">
             <div class="form">
-                <input type="text" class="textbox" placeholder="Tìm kiếm công thức">
                 <input title="Search" value="" type="submit" class="button">
+                <input type="text" class="textbox" placeholder="Tìm kiếm công thức">
+
             </div>
             <a class="py-2 d-none d-md-inline-block register-button" style="right: 15%;padding: 2px 8px; "
                 (click)="onChange($event)"><i class="fa fa-pencil-square-o" style="padding: 2px 8px;"
@@ -334,7 +335,6 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" style="margin-top: -2%;"
                         aria-labelledby="navbarDropdownMenuLink-44">
-                        <a class="dropdown-item" href="#">Điểm thưởng</a>
                         <a class="dropdown-item" href="#">Quản lý tài khoản</a>
                         <a class="dropdown-item" href="#">Công thức của tôi</a>
                         <a class="dropdown-item" href="#">Bộ sưu tập của tôi</a>
@@ -382,7 +382,7 @@
                             <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">{{errorMessage}}</p>
                         </form>
                         <hr style="border-top: 1px solid #eee;">
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-6">
                                 <button class="loginBtn loginBtn--facebook">
                                     Login with Facebook
@@ -393,7 +393,7 @@
                                     Login with Google
                                 </button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

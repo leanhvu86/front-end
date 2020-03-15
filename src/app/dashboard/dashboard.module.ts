@@ -30,6 +30,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RecipeComponent } from './recipe/recipe.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -54,6 +55,7 @@ import { RecipeComponent } from './recipe/recipe.component';
     RouterModule.forChild(DashBoardRoutes),
     CounterModule.forRoot(),
     ReactiveFormsModule,
+    Ng2SearchPipeModule,
     FormsModule,
     NgxPaginationModule,
     TranslateModule.forRoot({

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginServiceService } from 'src/app/shared/service/login-service.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Token } from 'src/app/shared/model/token';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   emailObject = {
     email: ""
   }
-  constructor(private _loginService: LoginServiceService, private cookie: CookieService) {
+  constructor(private _loginService: LoginServiceService, private cookie: CookieService, private _router: Router) {
     // this.getAuthDetails();
   }
 
@@ -41,6 +42,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
+  logout() {
+    this._loginService.logoutUser()
+    this._router.navigate(['/login'])
+  }
 
 }
