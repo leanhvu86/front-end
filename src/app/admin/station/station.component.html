@@ -4,11 +4,7 @@
     placeholder="&#61442;  Tìm kiếm thành viên">
 </div>
 <div *ngFor="let user of users | filter:searchText| orderBy: key : reverse| paginate: config; let i=index">
-  <cl-image public-id="jbiajl3qqdzshdw0z749.jpg">
-    <cl-transformation aspect-ratio="1:1" background="#262c35" border="5px_solid_rgb:ff0000" gravity="auto" radius="max"
-      width="1000" crop="fill">
-    </cl-transformation>
-  </cl-image>
+
 </div>
 <div class="table-responsive">
   <table class="table table-striped table-sm">
@@ -38,7 +34,12 @@
         <td style="max-width: 100px;
         overflow: visible;
         text-overflow: initial;word-wrap: break-word;">{{user.hash}}</td>
-        <td>{{user.imageUrl}} </td>
+        <td>
+          <cl-image public-id="{{user.imageUrl}} ">
+            <cl-transformation aspect-ratio="1:1" gravity="auto" radius="max" height="150" width="150" crop="fill">
+            </cl-transformation>
+          </cl-image>
+        </td>
         <td>{{user.totalPoint}}</td>
       </tr>
     </tbody>

@@ -63,10 +63,10 @@
 
             </div>
             <a class="link-name"
-                style="bottom:20px;left: 80px; -webkit-line-clamp: 3; position: absolute; min-width:150px;
+                style="bottom:20px;left: 80px; -webkit-line-clamp: 3; position: absolute; min-width:150px; max-width: 200px;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
-                    display: -webkit-box;text-decoration: none;text-transform: uppercase; font-style: inherit;font-size: 14px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
+                    display: -webkit-box;text-decoration: none; font-style: inherit;font-size: 16px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
                 [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</a>
 
             <div style="top:340px;left:  2px; position: absolute; font-size: 12px; opacity: 0.8; ">&#160;
@@ -94,7 +94,7 @@
             </ng-template>
             <div style="top:375px;left: -20px; position: absolute; font-size: 12px; ">
                 <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
-                    <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill"
+                    <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
                         background="#e9ebee">
                     </cl-transformation>
                     <cl-transformation width="75" crop="scale">
@@ -102,8 +102,8 @@
                 </cl-image>
                 <a>&#160;{{recipe.user.name}}</a>
             </div>
-            <span *ngIf="!recipe.videoLink"><i class="fa fa-play-circle-o fa-3x play" aria-hidden="true"
-                    style="top:40%;left:155px;width: 30%;"></i></span>
+            <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
+                    aria-hidden="true" style="top:40%;left:155px;width: 30%;"></i></span>
         </div>
     </div>
 
@@ -118,7 +118,7 @@
 <div class="container mt-40">
 
     <div class="row mt-30">
-        <div class="col-md-3 col-sm-6" *ngFor="let recipe of recipes;let i = index">
+        <div class="col-md-3 col-sm-6" *ngFor="let recipe of recipes;let i = index" style="margin-top: 50px;">
             <div class="box15">
                 <cl-image public-id="{{recipe.imageUrl}}">
                     <cl-transformation width="255" height="349" crop="scale" quality="auto" radius="2">

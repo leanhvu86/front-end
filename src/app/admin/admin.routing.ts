@@ -4,6 +4,8 @@ import { Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { StationComponent } from './station/station.component';
+import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
+import { RecipeCheckComponent } from './recipe-check/recipe-check.component';
 
 export const AdminRoutes: Routes = [
     { path: 'admin', redirectTo: '/login', pathMatch: 'full' },
@@ -29,14 +31,15 @@ export const AdminRoutes: Routes = [
                 path: 'adminHome',
                 component: StationComponent
             },
-            // {
-            //     path: 'station',
+            {
+                path: 'recipeAccess',
+                component: RecipeAccessComponent
 
-            // },
-            // {
-            //     path: 'product-info',
-            //     component: ProductInfoComponent
-            // },
+            },
+            {
+                path: 'detailRecipe/:id',
+                component: RecipeCheckComponent
+            },
             // {
             //     path: 'product-info-detail/:id',
             //     component: ProductInfoDetailComponent

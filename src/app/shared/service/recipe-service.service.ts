@@ -50,6 +50,12 @@ export class RecipeService {
         tap(_ => console.log('load recipes'))
       );
   }
+  getAllRecipes = (): Observable<Recipe[]> => {
+    return this._http.get<Recipe[]>(`${this.baseUrl}/getAllRecipes`)
+      .pipe(
+        tap(_ => console.log('load getAllRecipes'))
+      );
+  }
   likeRecipe(interest: any) {
     return this._http.post(`${this.baseUrl}/likeRecipe`, { interest: interest }, { observe: "response" });
   }

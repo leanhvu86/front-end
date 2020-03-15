@@ -15,6 +15,8 @@ export class IndexComponent implements OnInit {
     email: "",
     password: ""
   }
+  message = '';
+  isModeration: boolean = false;
   showModal: boolean = false;
   addPassenger: boolean = false;
   addGallery: boolean = true;
@@ -36,9 +38,11 @@ export class IndexComponent implements OnInit {
     this.translate.get('Ẩm thực món chay').subscribe(name => {
       this.title.setTitle(name);
     });
-
+    this.isModeration = this.cookie.get('role') !== '' ? true : false;
+    console.log(this.isModeration)
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     console.log(this.cookie.get('email') + 'email nè');
+
   }
   loginUser() {
     console.log(this.userObject.email + " user đăng nhập");
@@ -54,8 +58,17 @@ export class IndexComponent implements OnInit {
             let users = user[key];
             console.log(users.token);
             this.cookie.set('token', users.token);
+            this.cookie.set('isAuthenicate', '1');
           }
-
+          if (key === 'role') {
+            let role = user[key];
+            this.cookie.set('role', role);
+            console.log(role)
+            if (role !== undefined && role !== '') {
+              this.isModeration = true
+              console.log(role)
+            }
+          }
         }
         this.showModal = false;
         const radio: HTMLElement = document.getElementById('close-modal');
@@ -97,6 +110,15 @@ export class IndexComponent implements OnInit {
     const radio: HTMLElement = document.getElementById('modal-button');
     radio.click();
   }
+  redirect() {
+    if (this.isModeration === false) {
+      alert('Vui lòng liên hệ với ban quản trị để được phép đăng nhập')
+
+    } else {
+
+      this._router.navigate(['/adminHome']);
+    }
+  }
   useLanguage(language: string) {
     this.translate.use(language);
     console.log(language);
@@ -118,5 +140,9 @@ export class IndexComponent implements OnInit {
     this._router.navigate(['/index']);
     this.isAuthenicate = false;
     this.showModal = false;
+    let token = this.cookie.get('token');
+    if (token !== '') {
+      this.cookie.set('token', '');
+    }
   }
 }

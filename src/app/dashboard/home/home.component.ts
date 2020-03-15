@@ -119,6 +119,11 @@ export class Home2Component implements OnInit {
       console.log(this.recipes);
     });
   }
+  video(link: any) {
+    console.log(link)
+    var url = 'https://www.google.com/?hl=hi';
+    window.open(url);
+  }
   likeRecipe(recipe: any, index: any) {
     console.log(recipe);
     console.log(index);

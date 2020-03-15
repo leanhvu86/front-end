@@ -335,9 +335,10 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" style="margin-top: -2%;"
                         aria-labelledby="navbarDropdownMenuLink-44">
-                        <a class="dropdown-item" href="#">Quản lý tài khoản</a>
-                        <a class="dropdown-item" href="#">Công thức của tôi</a>
-                        <a class="dropdown-item" href="#">Bộ sưu tập của tôi</a>
+                        <a class="dropdown-item">Quản lý tài khoản</a>
+                        <a class="dropdown-item" (click)='redirect()'>Trang quản trị</a>
+                        <a class="dropdown-item">Công thức của tôi</a>
+                        <a class="dropdown-item">Bộ sưu tập của tôi</a>
                         <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
 
                     </div>

@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { Recipe } from 'src/app/shared/model/recipe';
+import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { UserService } from 'src/app/shared/service/user.service.';
 
 @Component({
-  selector: 'app-recipe-detail',
-  templateUrl: './recipe-detail.component.html',
-  styleUrls: ['./recipe-detail.component.css']
+  selector: 'app-recipe-check',
+  templateUrl: './recipe-check.component.html',
+  styleUrls: ['./recipe-check.component.css']
 })
-export class RecipeDetailComponent implements OnInit {
+export class RecipeCheckComponent implements OnInit {
   recipe: Recipe;
   cookSteps: [] = [];
   multiplyElement: number = 4;

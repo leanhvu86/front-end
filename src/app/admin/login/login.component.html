@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="card card-container"  style="max-width: 500px;">
+  <div class="card card-container" style="max-width: 500px;">
     <img id="profile-img" class="profile-img-card" src="../../../assets/images/avatar_2x.png" />
     <form class="form-signin" (ngSubmit)="loginUser()" #loginForm="ngForm">
       <input type="text" id="email" class="form-control" name="email" autocomplete="off" #uname="ngModel"
@@ -16,16 +16,16 @@
       <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">{{errorMessage}}</p>
     </form>
     <hr style="border-top: 1px solid #eee;">
-                            <div class="row">
-                                <div class="col-6">
-                                    <button class="loginBtn loginBtn--facebook">
-                                        Login with Facebook
-                                    </button>
-                                </div>
-                                <div class="col-6 text-right">
-                                    <button class="loginBtn loginBtn--google">
-                                        Login with Google
-                                    </button>
-                                </div>
+    <div class="row">
+      <div class="col-6">
+        <button class="loginBtn loginBtn--facebook">
+          Login with Facebook
+        </button>
+      </div>
+      <div class="col-6 text-right">
+        <button class="loginBtn loginBtn--google">
+          Login with Google
+        </button>
+      </div>
+    </div>
   </div>
-</div>

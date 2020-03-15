@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { OrderPipe } from 'ngx-order-pipe';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { Recipe } from 'src/app/shared/model/recipe';
@@ -8,14 +8,14 @@ import { Recipe } from 'src/app/shared/model/recipe';
   templateUrl: './recipe-access.component.html',
   styleUrls: ['./recipe-access.component.css']
 })
-export class RecipeAccessComponent implements OnInit {
+export class RecipeAccessComponent implements AfterViewInit {
 
-  users: Recipe[] = [];
+  recipes: Recipe[] = [];
   config: any;
   searchText;
   collection = { count: 60, data: [] };
 
-  constructor(private userService: RecipeService, private orderPipe: OrderPipe) {
+  constructor(private recipeservice: RecipeService, private orderPipe: OrderPipe) {
     this.collection = orderPipe.transform(this.collection, 'info.name');
     console.log(this.collection);
     for (var i = 0; i < this.collection.count; i++) {
@@ -30,26 +30,44 @@ export class RecipeAccessComponent implements OnInit {
     this.config = {
       itemsPerPage: 10,
       currentPage: 1,
-      totalItems: this.users.length
+      totalItems: this.recipes.length
     };
+  }
+  ngAfterViewInit(): void {
+    this.getRecipes()
   }
   order: string = 'info.name';
   reverse: boolean = false;
-  ngOnInit() {
-    this.getRecipes()
-  }
   pageChanged(event) {
     this.config.currentPage = event;
   }
   getRecipes() {
-    this.userService.getRecipes().subscribe(users => {
-      this.users = users;
-      for (let user of this.users) {
-        if (user.imageUrl === undefined) {
-          user.imageUrl = 'jbiajl3qqdzshdw0z749'
+    this.recipeservice.getAllRecipes().subscribe(recipes => {
+      this.recipes = recipes;
+      for (let recipe of this.recipes) {
+        if (recipe.imageUrl === undefined) {
+          recipe.imageUrl = 'jbiajl3qqdzshdw0z749'
+        }
+        if (recipe.hardLevel !== undefined) {
+          if (recipe.hardLevel === '') {
+            recipe.hardLevel = 'Không xác định';
+          } else if (recipe.hardLevel === '1') {
+            recipe.hardLevel = 'Dễ';
+          } else if (recipe.hardLevel === '2') {
+            recipe.hardLevel = 'Trung bình';
+          } else if (recipe.hardLevel === '3') {
+            recipe.hardLevel = 'Khó';
+          } else if (recipe.hardLevel === '4') {
+            recipe.hardLevel = 'Rất khó';
+          }
+        }
+        if (recipe.status === 1) {
+          recipe.status = 'Đã duyệt'
+        } else {
+          recipe.status = 'Chưa duyệt'
         }
       }
-      console.log(this.users);
+      console.log(this.recipes);
     });
   }
 

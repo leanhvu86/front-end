@@ -1,0 +1,260 @@
+<div class="row" *ngIf="recipe" style="padding: 0 15px; ">
+  <div class="col-8" style="position: relative; font-size: 13px; text-align: center; ">
+    <div class="image-preview mb-3" style="margin-top: 5%;border-radius: 20px;background: white;">
+      <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 60px;">
+        <cl-transformation width="650" height="350" crop="scale" quality="auto" radius="20">
+        </cl-transformation>
+      </cl-image>
+      <div style="background: white; margin-top: 2%;height: 2px;width: 90%;margin-left: 5%; margin-bottom: 2%;"></div>
+      <a>Loại món: </a> <a class="atitle1"> {{recipe.foodType[0].foodTypeName}}</a> <a> Cách thức thực hiện: </a>
+      <a class="atitle1">
+        {{recipe.cookWay[0].cookWayName}}</a>
+
+      <h4 style=" text-transform: uppercase;margin-top: 25px; margin-bottom: 35px;"> {{recipe.recipeName}}</h4>
+      <div class="row row-cols-4">
+        <div class="col"></div>
+        <div class="col">
+
+          <div class="row">
+            <div class="col">Nguyên liệu</div>
+            <div class="col">Thực hiện</div>
+          </div>
+          <div class="row">
+            <div class="col"><a
+                style="color: orange; font-size: 16px;font-weight:bolder;">{{recipe.ingredients.length}}</a></div>
+            <div class="col"><a style="color: orange;font-size: 16px;font-weight:bolder;">{{recipe.time}}</a> &#160;<a
+                class="atitle">h</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <div class="col">Phần</div>
+            <div class="col">Độ khó</div>
+          </div>
+          <div class="row">
+            <div class="col"><a style="color: orange;font-size: 16px;font-weight:bolder;">04</a> &#160;<a
+                class="atitle">người</a></div>
+            <div class="col" *ngIf="recipe.hardLevel"><a style="font-size: 16px;">{{recipe.hardLevel}}</a></div>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div style="background: #f4f4f4; height: 100px; border-radius: 0 0 20px 20px; margin-top: 30px; padding: 30px;">
+        <div class="row row-cols-2" style="padding-right: 80px;padding-left: 80px;">
+          <div class="col">
+            <div class="row row-cols-2">
+              <div class="col">
+
+
+                <a><img src="../../../assets/images/heart-o.png" (click)="likeRecipe(recipe)"
+                    *ngIf="!like;else other_content"
+                    style="width: 30px;height: 30px; margin-left: 2px; opacity: 0.8;" />
+                  <ng-template #other_content>
+                    <img src="../../../assets/images/heart-o.red.png" (click)="dislikeRecipe(recipe,i)"
+                      style="width: 30px;height: 30px; margin-left: 2px;opacity: 1;" />
+
+                  </ng-template>&#160;&#160;&#160;&#160;{{recipe.totalPoint}}
+                </a>
+              </div>
+              <div class="col">
+
+                <a (click)="addDoneRecipe(recipe)"><img src="../../../assets/images/check-o.gray.png"
+                    style="width: 30px;height: 30px; margin-left: 2px;" />&#160;&#160;&#160;&#160;{{recipe.doneCount}}</a>
+
+              </div>
+              <div class="col"> <a><img src="../../../assets/images/bookmark.lightgray.png"
+                    style="width: 30px;height: 30px;" /></a></div>
+            </div>
+            <div class="row row-cols-2" style="margin-top: 5px; font-weight: 500;font-size: 14px;">
+              <div class="col"> <a>Lượt thích</a></div>
+              <div class="col">
+                <a>Đã thực hiện</a>
+              </div>
+              <div class="col"><a>Lưu lại</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span *ngIf="recipe.videoLink"><img src="../../../assets/images/cooky-video-play-fill-2.png"
+        style="top:250px;left:360px;width: 50px;height: 50px; position: absolute;" /></span>
+    <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
+      <div class="row">
+
+        <div class="col col-lg-2">
+
+          <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
+            <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill" background="#e9ebee">
+            </cl-transformation>
+            <cl-transformation width="75" crop="scale">
+            </cl-transformation>
+          </cl-image>
+
+        </div>
+        <div class="col">
+          <div class="row atitle"><a>Công thức đăng bởi</a></div>
+          <div class="row"><a>{{recipe.user.name}}</a></div>
+          <div class="row"><a>{{recipe.user.totalPoint}}&#160;&#160;&#160;&#160;công
+              thức</a><a>&#160;&#160;&#160;&#160;{{recipe.user.totalPoint}}&#160;&#160;&#160;&#160;điểm</a></div>
+        </div>
+        <div class="col col-lg-2">
+          <button title="Quan tâm" ng-click="follow()" class="button1">
+            <!-- ngIf: status != 1 --><span ng-if="status != 1" class="ng-scope">Quan tâm</span>
+            <!-- end ngIf: status != 1 -->
+          </button>
+        </div>
+
+      </div>
+      <div class="row" style="padding: 20px;">
+
+        <div class="col col-lg-2">
+
+        </div>
+        <div class="col" style="text-align:start;">
+          <a>Bình luận</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card " style="background: #e9ebee;padding: 20px 0; margin-top: 10px; border: none; box-shadow: none;">
+
+      <div class="row">
+        <div class="col ">
+          <nav style="background: white; border-radius: 10px 10px 10px 10px;">
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                aria-controls="nav-home" aria-selected="true" style="font-size: 14px;">
+                Công thức</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                aria-controls="nav-profile" aria-selected="false" style="font-size: 14px;">Bình luận
+              </a>
+            </div>
+          </nav>
+
+          <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <div
+                style="background: white; border-radius: 10px; padding-top: 30px; min-height:200px;padding-left: 15px;">
+
+
+                <div class="row">
+                  <div class="col-sm-6 col-md-8" style="text-align:start;"> <a
+                      style="font-size: 20px;font-weight: 500;font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Nguyên
+                      liệu
+                      làm
+                      &#160;{{recipe.recipeName}}</a>
+                    <br><a class="atitle">cho <span style="color: red; margin-left: 5px;">{{multiplyElement}}</span>
+                      Phần ăn </a>
+
+                  </div>
+                  <div class="col-6 col-md-4"><i class="fa fa-cutlery fa-lg" style="color: rgb(155, 15, 15);"
+                      aria-hidden="true"></i>&#160;
+                    <a>Phần ăn</a>&#160;&#160;&#160;&#160;&#160;<input type="number" id="multiplyElement"
+                      [(ngModel)]="multiplyElement" style="width: 46px;height: 25px;margin-right: 5px;" /><a><i
+                        (click)="countIngredient(multiplyElement)" class="fa fa-refresh fa-lg"
+                        aria-hidden="true"></i></a>
+                  </div>
+                </div>
+                <div *ngFor=" let ingredient of recipe.ingredients; let i =index">
+                  <div style="width: 50%; float: left;text-align: left;padding-top:20px ;">
+                    <a> <i class="fa fa-check fa-lg" style="color: rgb(95, 228, 6);" aria-hidden="true"></i>
+                      {{ingredient.ingredientName}}&#160;&#160;&#160;<a>{{ingredient.quantitative}}</a>&#160;&#160;
+                      {{ingredient.typeOfquantitative}}</a>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div
+                style="background: white; border-radius: 10px; padding-top: 30px; min-height:800px;padding-left: 15px; text-align: left;">
+
+
+                <div class="row">
+                  <div class="col-sm-6 col-md-8" style="text-align:start;"> <a
+                      style="font-size: 20px;font-weight: 500; font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Cách
+                      làm
+                      &#160;{{recipe.recipeName}}</a>
+                    <br><a class="atitle" (click)="fullImage()"><i style="color: rgb(134, 54, 54); margin-right: 5px;"
+                        class="fa fa-list fa-lg" aria-hidden="true"></i>
+                      Xem đầy đủ </a><a class="atitle" (click)="noImage()"><i class="fa fa-file-text-o fa-lg"
+                        aria-hidden="true"></i>
+                      Không hình </a>
+
+                  </div>
+                  <div class="col-6 col-md-4">
+
+                    <a>Thực hiện:&#160;&#160;&#160;&#160;&#160; {{recipe.doneCount}}</a>
+                  </div>
+                </div>
+                <hr>
+                <a class="atitle" style="margin-left:5%; font-size: 25px; color: #c5c5c5;"> Thực hiện</a>
+                <div *ngFor=" let cookStep of cookSteps; let i =index" style="min-height: 400px; height: auto;"
+                  class="bigContent">
+                  <div style="position: relative; height: auto;min-height: 400px; " class="noImage">
+                    <div
+                      style="border-radius: 5px;position: absolute;text-align: center; top:60px; left: 50px;
+                      padding-top: 5px; width: 70px; color: rgb(179, 179, 179);; background: #f8f8f8; border: 1px solid #c5c5c5;">
+                      <a>Bước </a>
+                      <br>
+                      <a>{{i+1}}</a>
+                      <br>
+                      <a>___</a><br>
+                      <i class="fa fa-check-circle fa-lg" id="icon{{i}}" aria-hidden="true"
+                        (click)="changeIcon($event,i)"></i>
+                    </div>
+                    <div
+                      style=" position: absolute; top:60px; right: 0; width: 560px;text-align: left;padding-bottom: 5px; padding-left: 50px;">
+                      <div class="row"> <a> {{cookStep.psnote}}</a></div>
+                      <div class="row" style="margin: 10px 10px; padding: 0 0;" *ngIf="!showImageStep">
+                        <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
+                          <cl-transformation height="100" width="100" crop="scale">
+                          </cl-transformation>
+                        </cl-image> -->
+                        <div class=".col-md-8" style="max-width: 200px;" id="image{{i}}"
+                          *ngFor="let imageUrl of cookStep.image; let i = index">
+                          <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
+                            <cl-transformation height="125" radius="20" width="125" crop="scale">
+                            </cl-transformation>
+                            <cl-transformation angle="0">
+                            </cl-transformation>
+                          </cl-image>
+
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
+              style="height: 600px;">
+
+              <!-- Default switch -->
+              <div style="width: 100%; padding-left: 5%;"><a>Phân loại
+                </a></div>
+
+            </div>
+
+            <!-- <p>{{profileForm.status}}</p> -->
+            <nav style="width: 100%; background: white; border-radius:0 0 10px 10px; height: 60px; padding: 5px 0;">
+              <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <a class="button_change" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                  style="font-size: 14px;margin-left: 35px;" aria-controls="nav-home" aria-selected="true">
+                  <i class="fa fa-angle-double-left" aria-hidden="true"></i> Công thức</a>
+                <a class="button_change" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                  style=" font-size: 14px; margin-left: 550px;" aria-controls="nav-profile" aria-selected="false">Bình
+                  luận <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </nav>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-4" style="min-height: 500px;  border-radius: 5px; "></div>
+    </div>

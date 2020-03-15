@@ -1,14 +1,10 @@
-<h5 style="color: orange;">Danh sách thành viên</h5>
+<h5 style="color: orange;">Danh sách công thức</h5>
 <div class="search-hero">
   <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-    placeholder="&#61442;  Tìm kiêm thành viên">
+    placeholder="&#61442;  Tìm kiêm công thức">
 </div>
-<div *ngFor="let user of users | filter:searchText| orderBy: key : reverse| paginate: config; let i=index">
-  <cl-image public-id="jbiajl3qqdzshdw0z749.jpg">
-    <cl-transformation aspect-ratio="1:1" background="#262c35" border="5px_solid_rgb:ff0000" gravity="auto" radius="max"
-      width="1000" crop="fill">
-    </cl-transformation>
-  </cl-image>
+<div *ngFor="let recipe of recipes | filter:searchText| orderBy: key : reverse| paginate: config; let i=index">
+
 </div>
 <div class="table-responsive">
   <table class="table table-striped table-sm">
@@ -17,27 +13,40 @@
         <th>STT</th>
         <th [class.active]="order === 'info.name'" (click)="setOrder('info.name')"
           class="mdl-data-table__cell--non-numeric">
-          Tên thành viên <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
-        <th [class.active]="order === 'info.name'" (click)="setOrder('info.email')"
+          Tên công thức<span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
+        <th [class.active]="order === 'info.email'" (click)="setOrder('info.email')"
           class="mdl-data-table__cell--non-numeric">
-          Email <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
-        <th>Token</th>
+          Thời gian nấu <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
+        <th>Độ khó</th>
+        <th>Đăng bởi</th>
         <th>Ảnh</th>
-        <th>Tổng điểm</th>
+        <th [class.active]="order === 'info.totalPoint'" (click)="setOrder('info.totalPoint')"
+          class="mdl-data-table__cell--non-numeric">
+          Lượt yêu thích <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
+        <th [class.active]="order === 'info.viewCount'" (click)="setOrder('info.viewCount')"
+          class="mdl-data-table__cell--non-numeric">
+          Lượt xem <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
+        <th>Trạng thái</th>
       </tr>
     </thead>
     <tbody
-      *ngFor="let user of users | orderBy: order:reverse:'case-insensitive'| filter:searchText| paginate: config; let i=index">
+      *ngFor="let recipe of recipes | orderBy: order:reverse:'case-insensitive'| filter:searchText| paginate: config; let i=index">
 
       <tr>
         <td>{{i+1}}</td>
-        <td style="max-width: 50px;">{{user.name}}</td>
-        <td style="max-width: 80px;">{{user.time}}</td>
-        <td style="max-width: 100px;
-        overflow: visible;
-        text-overflow: initial;word-wrap: break-word;">{{user.hardLevel}}</td>
-        <td>{{user.imageUrl}} </td>
-        <td>{{user.viewPoint}}</td>
+        <td style="max-width: 50px;" [routerLink]="['/detailRecipe/', recipe._id]">{{recipe.recipeName}}</td>
+        <td style="max-width: 80px;">{{recipe.time}}&#160;&#160;phút</td>
+        <td style="max-width: 60px;">{{recipe.hardLevel}}</td>
+        <td style="max-width: 60px;">{{recipe.user.name}}</td>
+        <td [routerLink]="['/detailRecipe/', recipe._id]">
+          <cl-image public-id="{{recipe.imageUrl}}">
+            <cl-transformation aspect-ratio="1:1" gravity="auto" width="100" height="100" crop="fill">
+            </cl-transformation>
+          </cl-image>
+        </td>
+        <td style="max-width: 60px;">{{recipe.totalPoint}}&#160;&#160;lượt</td>
+        <td style="max-width: 60px;">{{recipe.viewCount}}&#160;&#160;lượt</td>
+        <td style="max-width: 60px;">{{recipe.status}}</td>
       </tr>
     </tbody>
   </table>

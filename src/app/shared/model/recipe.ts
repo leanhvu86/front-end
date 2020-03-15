@@ -17,7 +17,7 @@ export class Recipe {
     country: Country[];
     foodType: FoodType[];
     cookWay: CookWay[];
-    status: number;
+    status: any;
     like: boolean;
     totalPoint: any;
     doneCount: any;
