@@ -17,8 +17,8 @@ export class RecipeService {
   _isLoggedIn: boolean = false
 
   authSub = new Subject<any>();
-  private baseUrl: string = 'http://localhost:8000';
-  // private baseUrl: string = AppSetting.BASE_SERVER_URL;
+  // private baseUrl: string = 'http://localhost:8000';
+  private baseUrl: string = AppSetting.BASE_SERVER_URL;
   constructor(private _http: HttpClient, private cookie: CookieService) {
   }
   httpOptions = {

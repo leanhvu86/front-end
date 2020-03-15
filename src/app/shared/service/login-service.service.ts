@@ -4,6 +4,7 @@ import { Subject, Observable, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Token } from '../model/token';
 
+import { AppSetting } from '../../appsetting'
 import { retry, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { retry, catchError } from 'rxjs/operators';
 export class LoginServiceService {
   headerOptions: any = null
 
+  private baseUrl: string = AppSetting.BASE_SERVER_URL;
   _isLoggedIn: boolean = false
 
   authSub = new Subject<any>();
@@ -30,7 +32,7 @@ export class LoginServiceService {
         'Authorization': 'Bear' + 'fdasfsafasfsafasfdsdafdasfaf'
       });
     }
-    return this._http.post("http://localhost:8000/login", { user: userObj }, { observe: 'response', headers: this.headerOptions });
+    return this._http.post(`${this.baseUrl}/login`, { user: userObj }, { observe: 'response', headers: this.headerOptions });
   }
 
   // setupAuth(email: any) {
@@ -38,7 +40,7 @@ export class LoginServiceService {
   // }
 
   registerUser(userObj: any) {
-    return this._http.post("http://localhost:8000/register", { user: userObj }, { observe: "response" });
+    return this._http.post(`${this.baseUrl}/register`, { user: userObj }, { observe: "response" });
   }
 
   updateAuthStatus(value: boolean) {
@@ -87,7 +89,7 @@ export class LoginServiceService {
       'x-access-token': token,
       'Authorization': 'Bear' + token
     });
-    return this._http.post("http://localhost:8000/deleteToken", { token: token }, { observe: 'response' })
+    return this._http.post(`${this.baseUrl}/deleteToken`, { token: token }, { observe: 'response' })
   }
   // Error handling 
   handleError(error) {
@@ -104,7 +106,7 @@ export class LoginServiceService {
   }
 
   verifyAuth(email: any) {
-    return this._http.post("http://localhost:8000/currentAuthen", { email: email }, { observe: 'response' })
+    return this._http.post(`${this.baseUrl}/currentAuthen`, { email: email }, { observe: 'response' })
   }
 
 }

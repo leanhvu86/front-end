@@ -4,13 +4,15 @@ import { catchError, map, tap } from 'rxjs/operators';
 // @ts-ignore
 import { cookStep } from '../model/cookStep';
 import { Observable } from 'rxjs';
+
+import { AppSetting } from '../../appsetting'
 import { callbackify } from 'util';
 @Injectable({
   providedIn: 'root'
 })
 export class CookStepService {
   headerOptions: any = null
-  private baseUrl = 'http://localhost:8000';
+  private baseUrl = AppSetting.BASE_SERVER_URL;
   constructor(private http: HttpClient) {
   }
 
@@ -27,7 +29,7 @@ export class CookStepService {
   }
   // tslint:disable-next-line:no-shadowed-variable
   createCookSteps(cookSteps: any) {
-    return this.http.post('http://localhost:8000/createMultipleCookStep', { cookSteps }, { observe: 'response' });
+    return this.http.post(`${this.baseUrl}/createMultipleCookStep`, { cookSteps }, { observe: 'response' });
   }
 }
 

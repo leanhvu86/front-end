@@ -5,12 +5,14 @@ import { Observable } from 'rxjs';
 import { Country } from '../model/country';
 import { FoodType } from '../model/foodType';
 import { CookWay } from '../model/cookWay';
+
+import { AppSetting } from '../../appsetting'
 @Injectable({
   providedIn: 'root'
 })
 export class CountryService {
   headerOptions: any = null
-  private baseUrl: string = 'http://localhost:8000';
+  private baseUrl: string = AppSetting.BASE_SERVER_URL;
   constructor(private _http: HttpClient) {
   }
 
