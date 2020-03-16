@@ -86,6 +86,11 @@ export class RecipeCheckComponent implements OnInit {
       this.oldMultiplyElement = this.multiplyElement;
     }
   }
+  video(link: any) {
+    console.log(link)
+    var url = 'https://www.youtube.com/watch?v=' + link;
+    window.open(url, "MsgWindow", "width=600,height=400");
+  }
   fullImage() {
     var arrayNoimag = Array.from(document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>)
     arrayNoimag.forEach((element) => {

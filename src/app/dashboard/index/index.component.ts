@@ -53,7 +53,16 @@ export class IndexComponent implements OnInit {
 
 
         let user = data.body;
+        let role;
         for (let key in user) {
+          if (key === 'role') {
+            role = user[key];
+            console.log(role);
+          }
+          if (parseInt(role) === -1) {
+            this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
+            return;
+          }
           if (key === 'user') {
             let users = user[key];
             console.log(users.token);
@@ -61,7 +70,7 @@ export class IndexComponent implements OnInit {
             this.cookie.set('isAuthenicate', '1');
           }
           if (key === 'role') {
-            let role = user[key];
+            role = user[key];
             this.cookie.set('role', role);
             console.log(role)
             if (role !== undefined && role !== '') {
