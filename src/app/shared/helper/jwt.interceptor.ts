@@ -20,7 +20,8 @@ export class JwtInterceptor implements HttpInterceptor {
     } else {
       const tokens = sessionStorage.getItem('token')
       console.log(tokens)
-      request = request.clone({ headers: request.headers.set('x-access-token', tokens) });
+      request = request.clone({ headers: request.headers.set('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzBlZDQ3NDUwNjEyMTViODhjNjFhNCIsImlhdCI6MTU4NDQ1OTA3OSwiZXhwIjoxNTg0NTQ1NDc5fQ.gE-4nDkfQCUXiq1_Vuppe523MY8L6oey4jcnNawm1vk') });
+      //request = request.clone({ headers: request.headers.set('x-access-token', tokens) });
     }
 
     if (!request.headers.has('Content-Type')) {
