@@ -3,6 +3,7 @@
   <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
     placeholder="&#61442;  Tìm kiếm thành viên">
 </div>
+<a style="color: greenyellow;">{{message}}</a>
 <div *ngFor="let user of users | filter:searchText| orderBy: key : reverse| paginate: config; let i=index">
 
 </div>
@@ -11,7 +12,7 @@
     <thead>
       <tr>
         <th>STT</th>
-        <th [class.active]="order === 'info.name'" (click)="setOrder('info.name')"
+        <th [class.active]="order === 'info.name'" (click)="setOrder('info.name')" style="max-width: 50px;"
           class="mdl-data-table__cell--non-numeric">
           Tên thành viên <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
         <th [class.active]="order === 'info.name'" (click)="setOrder('info.email')"
@@ -22,6 +23,9 @@
         <th [class.active]="order === 'info.totalPoint'" (click)="setOrder('info.totalPoint')"
           class="mdl-data-table__cell--non-numeric">
           Tổng điểm <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
+        <th style="max-width: 80px;">Thêm quản trị</th>
+        <th style="max-width: 50px;">Báo cáo</th>
+        <th style="max-width: 50px;">Khóa TK</th>
       </tr>
     </thead>
     <tbody
@@ -33,14 +37,30 @@
         <td style="max-width: 80px;">{{user.email}}</td>
         <td style="max-width: 100px;
         overflow: visible;
-        text-overflow: initial;word-wrap: break-word;">{{user.hash}}</td>
+        text-overflow: initial;word-wrap: break-word;">{{user.salt}}</td>
         <td>
           <cl-image public-id="{{user.imageUrl}} ">
-            <cl-transformation aspect-ratio="1:1" gravity="auto" radius="max" height="150" width="150" crop="fill">
+            <cl-transformation aspect-ratio="1:1" gravity="auto" radius="max" height="70" width="70" crop="fill">
             </cl-transformation>
           </cl-image>
         </td>
         <td>{{user.totalPoint}}</td>
+        <td><button style="width: 120px;" title="Quản trị" (click)="updateRole(user)" class="button1">
+            <span class="ng-scope">{{user.role}}</span>
+
+          </button>
+        </td>
+        <td style="max-width: 50px;">
+          <button title="Báo cáo" (click)="updateReport(user)" class="button1"
+            style="margin-left: 10px; border:  2px solid red; min-width: 50px;">
+            <span class="ng-scope">{{user.warningReport}}</span>
+
+          </button></td>
+        <td style="max-width: 50px;"><button title="Khóa TK" (click)="bannedUser(user)" class="button1"
+            style="margin-left: 10px; border:  2px solid red;">
+            <span class="ng-scope">{{user.status}}</span>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

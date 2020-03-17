@@ -18,7 +18,9 @@ export class JwtInterceptor implements HttpInterceptor {
     if (token) {
       request = request.clone({ headers: request.headers.set('x-access-token', token) });
     } else {
-      request = request.clone({ headers: request.headers.set('x-access-token', 'checktoken') });
+      const tokens = sessionStorage.getItem('token')
+      console.log(tokens)
+      request = request.clone({ headers: request.headers.set('x-access-token', tokens) });
     }
 
     if (!request.headers.has('Content-Type')) {

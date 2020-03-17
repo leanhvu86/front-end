@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     password: ""
   }
   errorMessage: string = null
-  constructor(private _loginService: LoginServiceService, private _router: Router, private cookie: CookieService) {
+  constructor(private cookie: CookieService, private _loginService: LoginServiceService, private _router: Router) {
   }
 
   ngOnInit() {
@@ -30,13 +30,14 @@ export class LoginComponent implements OnInit {
 
         let user = data.body;
         let role;
+        let token;
         let users;
         for (let key in user) {
           if (key === 'user') {
             users = user[key];
             console.log(user);
-            console.log(users.token);
-
+            token = users.token;
+            console.log(users.token)
           } else if (key === 'role') {
             role = user[key];
             console.log(role);
@@ -53,12 +54,14 @@ export class LoginComponent implements OnInit {
           this.errorMessage = 'Bạn không có thẩm quyền truy cập';
           return;
         }
+
+        sessionStorage.setItem('token', token);
+        this.cookie.set('isAuthenicate', 'true');
+        this.cookie.set('email', this.userObject.email);
+        sessionStorage.setItem('user', this.userObject.email);
         this._loginService.updateAuthStatus(true);
         this._router.navigateByUrl('/adminHome');
-        this.cookie.set('token', users.token);
-        this.cookie.set('isAuthenicate', 'true');
-        sessionStorage.setItem('user', this.userObject.email);
-        this.cookie.set('email', this.userObject.email);
+
       }
       if (data.body['status'] === 206) {
         this.tfaFlag = true;

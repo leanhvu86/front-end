@@ -59,6 +59,7 @@ export class LoginServiceService {
     this.authSub.next(this._isLoggedIn);
     localStorage.setItem('isLoggedIn', "false");
     this.cookie.set('isAuthenicate', '');
+    sessionStorage.setItem('token', '');
     this.cookie.set('email', '');
     this.cookie.set('role', '');
     let token = this.cookie.get('token');

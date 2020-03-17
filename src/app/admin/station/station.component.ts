@@ -14,7 +14,11 @@ export class StationComponent implements OnInit {
   config: any;
   searchText;
   collection = { count: 60, data: [] };
-
+  userObject = {
+    role: 0,
+    id: '',
+  }
+  message: string = '';
   constructor(private userService: UserService, private orderPipe: OrderPipe) {
     this.collection = orderPipe.transform(this.collection, 'info.name');
     console.log(this.collection);
@@ -48,6 +52,23 @@ export class StationComponent implements OnInit {
         if (user.imageUrl === undefined) {
           user.imageUrl = 'jbiajl3qqdzshdw0z749'
         }
+        console.log(user)
+        if (user.role === -1) {
+          user.role = 'Chưa xác thực'
+        } else if (user.role === 0) {
+          user.role = 'Thành viên'
+        } else if (user.role === 1) {
+          user.role = 'Quản trị'
+        } else if (user.role > 1) {
+          user.role = 'Admin'
+        } else {
+          user.role = 'Khóa'
+        }
+        if (user.status === 1) {
+          user.status = 'Khóa'
+        } else {
+          user.status = 'Mở khóa'
+        }
       }
       console.log(this.users);
     });
@@ -59,5 +80,32 @@ export class StationComponent implements OnInit {
     }
 
     this.order = value;
+  }
+  updateRole(user: any) {
+    this.userObject.role = 1;
+    this.userObject.id = user._id;
+    this.userService.updateRole(this.userObject).subscribe(data => {
+      if (data.body['status'] === 200) {
+        user = data.body['user']
+        for (let userAccess of this.users) {
+          if (userAccess.email === user.email) {
+            userAccess = user;
+            this.users = this.users.filter(user => user._id !== userAccess._id);
+            user.role = 'Quản trị'
+            this.users.push(user)
+            this.message = 'Thêm quản trị viên thành công'
+            setTimeout(() => {
+              this.message = ''
+            }, 5000);
+          }
+        }
+      }
+    })
+  }
+  updateReport(id: any) {
+    console.log(id)
+  }
+  bannedUser(id: any) {
+    console.log(id)
   }
 }

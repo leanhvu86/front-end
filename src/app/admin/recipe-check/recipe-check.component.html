@@ -1,15 +1,16 @@
 <div class="row" *ngIf="recipe" style="padding: 0 15px; ">
   <div class="col-8" style="position: relative; font-size: 13px; text-align: center; ">
     <div class="image-preview mb-3" style="border-radius: 20px;background: white;">
+      <h4>{{errorMessage}}</h4>
       <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 60px;">
         <cl-transformation width="650" height="350" crop="scale" quality="auto" radius="20">
         </cl-transformation>
       </cl-image>
       <h4 style=" text-transform: uppercase;margin-top: 25px; margin-bottom: 15px;"> {{recipe.recipeName}}</h4> <button
-        title="Duyệt" ng-click="acceptRecipe()" class="button1">
+        title="Duyệt" (click)="acceptRecipe($event)" class="button1">
         <!-- ngIf: status != 1 --><span class="ng-scope">Duyệt </span>
         <!-- end ngIf: status != 1 -->
-      </button> <button title="Từ chối" ng-click="declineRecipe()" class="button1"
+      </button> <button title="Từ chối" (click)="declineRecipe($event)" class="button1"
         style="margin-left: 50px; border:  2px solid red;">
         <!-- ngIf: status != 1 --><span class="ng-scope">Từ chối</span>
         <!-- end ngIf: status != 1 -->
@@ -250,7 +251,7 @@
         </div>
         <span *ngIf="recipeView.videoLink" (click)='video(recipeView.videoLink)'><img
             src="../../../assets/images/cooky-video-play-fill-2.png"
-            style="top:130px;left:90px;width: 50px;height: 50px; position: absolute;" /></span>
+            style="top:100px;left:70px;width: 50px;height: 50px; position: absolute;" /></span>
         <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
           <div class="row">
 
@@ -330,15 +331,12 @@
               </div>
             </div>
             <hr>
-            <div *ngFor=" let cookStep of cookStepsView; let j =index" style="min-height: 400px; height: auto;">
-              <div style="position: relative; height: auto;min-height: 400px;margin-top: 10px; " class="noImage">
+            <div *ngFor=" let cookStep of cookStepsView; let j =index" style="min-height: 400px; height: auto;"
+              class="bigC">
+              <div style="position: relative; height: auto;min-height: 400px;margin-top: 10px; " class="noImage1">
                 <div
-                  style="border: 1px solid gray; border-radius: 5px; background: rgb(230, 230, 230); padding: 5px 5px; text-align: center;width: 50px !important;">
-                  <a>Bước </a>
-                  <br>
-                  <a>{{j+1}}</a>
-                  <br>
-                  <a>___</a><br>
+                  style="border: 1px solid gray; border-radius: 5px; background: rgb(230, 230, 230); padding: 5px 5px; text-align: center;width: 60px !important;height: 50px;">
+                  <a>Bước {{j+1}}</a>
                   <i class="fa fa-check-circle fa-lg" id="iconTab{{j}}" aria-hidden="true"
                     (click)="changeIconTab($event,j)"></i>
                 </div>

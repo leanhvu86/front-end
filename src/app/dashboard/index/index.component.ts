@@ -96,7 +96,7 @@ export class IndexComponent implements OnInit {
       if (data.body['status'] === 206) {
         this.tfaFlag = true;
       }
-      if (data.body['status'] === 403) {
+      if (data.body['status'] !== 200) {
         this.errorMessage = data.body['message'];
       }
       if (data.body['status'] === 404) {
