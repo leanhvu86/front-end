@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserService } from 'src/app/shared/service/user.service.';
 import { LoginServiceService } from 'src/app/shared/service/login-service.service';
 import { Router } from '@angular/router';
+import { Interest } from 'src/app/shared/model/interest';
 
 declare var $: any;
 @Component({
@@ -15,6 +16,7 @@ declare var $: any;
 })
 export class Home2Component implements OnInit {
   public recipes: Recipe[] = [];
+  public interests: Interest[] = [];
   config: any;
   userObject = {
     email: "",
@@ -105,10 +107,37 @@ export class Home2Component implements OnInit {
   }
   getRecipes() {
     this.recipeService.getRecipes().subscribe(recipes => {
-      recipes.forEach(function (recipe) {
-        recipe.like = false;
-        console.log(recipe);
-      });
+      if (this.userObject.email !== '') {
+        this.recipeService.findInterest(this.userObject.email).subscribe(interests => {
+          this.interests.forEach(function (interest) {
+            if (interest.objectType = 2) {
+              this.interests.push(interest)
+            }
+          });
+          console.log(this.interests);
+        })
+        recipes.forEach(function (recipe) {
+          if (this.interests !== undefined && this.interests.length > 0) {
+            this.interests.forEach(function (interest) {
+              if (interest.recipe.like === true) {
+                recipe.like = true
+              } else {
+                recipe.like = false
+              }
+              console.log(recipe);
+            });
+          } else {
+            recipe.like = false;
+          }
+          console.log(recipe);
+        });
+      } else {
+        recipes.forEach(function (recipe) {
+          recipe.like = false
+          console.log(recipe);
+        });
+      }
+
       this.recipes = recipes;
       for (let recipe of this.recipes) {
         if (recipe.hardLevel !== undefined) {

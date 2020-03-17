@@ -85,6 +85,9 @@ export class LoginServiceService {
   //   return this._http.get("http://localhost:3000/tfa/setup", { observe: 'response' });
   // }
 
+  testEmail(email: any) {
+    return this._http.post(`${this.baseUrl}/testEmail`, { email: email }, { observe: 'response' })
+  }
 
   deleteAuth(token: any) {
     this.headerOptions = new HttpHeaders({

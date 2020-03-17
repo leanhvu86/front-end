@@ -33,6 +33,7 @@ import { RecipeComponent } from './recipe/recipe.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ScrollTopComponent } from './scroll-top/scroll-top.component';
+import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -75,6 +76,7 @@ import { ScrollTopComponent } from './scroll-top/scroll-top.component';
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA
   ],
+  providers: [CookieService],
   exports: [IndexComponent, CoutryComponent],
 })
 export class DashboardModule { }

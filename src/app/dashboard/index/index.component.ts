@@ -15,6 +15,7 @@ export class IndexComponent implements OnInit {
     email: "",
     password: ""
   }
+  imageUrl: string = 'jbiajl3qqdzshdw0z749'
   message = '';
   isModeration: boolean = false;
   showModal: boolean = false;
@@ -42,7 +43,14 @@ export class IndexComponent implements OnInit {
     console.log(this.isModeration)
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     console.log(this.cookie.get('email') + 'email nè');
-
+    this.getImage();
+  }
+  getImage() {
+    let email = this.cookie.get('email');
+    this._loginService.testEmail(email).subscribe(data => {
+      let user = data.body['user'];
+      this.imageUrl = user.imageUrl
+    })
   }
   loginUser() {
     console.log(this.userObject.email + " user đăng nhập");
@@ -58,6 +66,10 @@ export class IndexComponent implements OnInit {
           if (key === 'role') {
             role = user[key];
             console.log(role);
+          }
+          if (key === 'image') {
+            this.imageUrl = user[key];
+            console.log(this.imageUrl);
           }
           if (parseInt(role) === -1) {
             this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
