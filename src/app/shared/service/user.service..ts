@@ -1,30 +1,29 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject, Observable, throwError } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
-import { Token } from '../model/token';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Subject, Observable, throwError } from "rxjs";
+import { CookieService } from "ngx-cookie-service";
+import { Token } from "../model/token";
 
-import { AppSetting } from '../../appsetting'
-import { retry, catchError, tap } from 'rxjs/operators';
-import { User } from '../model/user';
+import { AppSetting } from "../../appsetting";
+import { retry, catchError, tap } from "rxjs/operators";
+import { User } from "../model/user";
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class UserService {
   private baseUrl: string = AppSetting.BASE_SERVER_URL;
-  headerOptions: any = null
+  headerOptions: any = null;
 
-  _isLoggedIn: boolean = false
+  _isLoggedIn: boolean = false;
 
   authSub = new Subject<any>();
 
-  constructor(private _http: HttpClient, private cookie: CookieService) {
-  }
+  constructor(private _http: HttpClient, private cookie: CookieService) {}
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     })
-  }
+  };
   // loginAuth(userObj: any) {
   //   if (userObj.authcode) {
   //     console.log('Appending headers');
@@ -82,11 +81,10 @@ export class UserService {
   //   return this._http.get("http://localhost:3000/tfa/setup", { observe: 'response' });
   // }
 
-
   // deleteAuth(token: any) {
   //   return this._http.post("http://localhost:8000/deleteToken", { token: token }, { observe: 'response' })
   // }
-  // // Error handling 
+  // // Error handling
   // handleError(error) {
   //   let errorMessage = '';
   //   if (error.error instanceof ErrorEvent) {
@@ -101,16 +99,29 @@ export class UserService {
   // }
 
   likeAddPoint(user: any) {
-    return this._http.post(`${this.baseUrl}/addPoint`, { user: user }, { observe: "response" });
+    return this._http.post(
+      `${this.baseUrl}/addPoint`,
+      { user: user },
+      { observe: "response" }
+    );
   }
   dislikeremovePoint(user: any) {
-    return this._http.post(`${this.baseUrl}/removePoint`, { user: user }, { observe: "response" });
+    return this._http.post(
+      `${this.baseUrl}/removePoint`,
+      { user: user },
+      { observe: "response" }
+    );
   }
   getRecipes = (): Observable<User[]> => {
-
-    return this._http.get<User[]>(`${this.baseUrl}/getUsers`)
-      .pipe(
-        tap(_ => console.log('load users'))
-      );
+    return this._http
+      .get<User[]>(`${this.baseUrl}/getUsers`)
+      .pipe(tap(_ => console.log("load users")));
+  };
+  testEmail(email: any) {
+    return this._http.post(
+      `${this.baseUrl}/testEmail`,
+      { email: email },
+      { observe: "response" }
+    );
   }
 }
