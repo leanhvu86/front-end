@@ -1,81 +1,35 @@
 <div class="row" *ngIf="recipe" style="padding: 0 15px; ">
   <div class="col-8" style="position: relative; font-size: 13px; text-align: center; ">
-    <div class="image-preview mb-3" style="margin-top: 5%;border-radius: 20px;background: white;">
+    <div class="image-preview mb-3" style="border-radius: 20px;background: white;">
       <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 60px;">
         <cl-transformation width="650" height="350" crop="scale" quality="auto" radius="20">
         </cl-transformation>
       </cl-image>
-      <div style="background: white; margin-top: 2%;height: 2px;width: 90%;margin-left: 5%; margin-bottom: 2%;"></div>
-      <a>Loại món: </a> <a class="atitle1"> {{recipe.foodType[0].foodTypeName}}</a> <a> Cách thức thực hiện: </a>
-      <a class="atitle1">
-        {{recipe.cookWay[0].cookWayName}}</a>
+      <h4 style=" text-transform: uppercase;margin-top: 25px; margin-bottom: 15px;"> {{recipe.recipeName}}</h4> <button
+        title="Duyệt" ng-click="acceptRecipe()" class="button1">
+        <!-- ngIf: status != 1 --><span class="ng-scope">Duyệt </span>
+        <!-- end ngIf: status != 1 -->
+      </button> <button title="Từ chối" ng-click="declineRecipe()" class="button1"
+        style="margin-left: 50px; border:  2px solid red;">
+        <!-- ngIf: status != 1 --><span class="ng-scope">Từ chối</span>
+        <!-- end ngIf: status != 1 -->
+      </button>
+      <div style="text-align: left; padding: 10px 50px;">
+        <a>Loại món: </a> <a class="atitle1" *ngFor="let foodType of recipe.foodType"> {{foodType.foodTypeName}},</a>
+        <br><br> <a> Cách thức thực hiện: </a>
+        <a class="atitle1" *ngFor="let cookWays of recipe.cookWay">
+          {{cookWays.cookWayName}}, </a>
 
-      <h4 style=" text-transform: uppercase;margin-top: 25px; margin-bottom: 35px;"> {{recipe.recipeName}}</h4>
-      <div class="row row-cols-4">
-        <div class="col"></div>
-        <div class="col">
-
-          <div class="row">
-            <div class="col">Nguyên liệu</div>
-            <div class="col">Thực hiện</div>
-          </div>
-          <div class="row">
-            <div class="col"><a
-                style="color: orange; font-size: 16px;font-weight:bolder;">{{recipe.ingredients.length}}</a></div>
-            <div class="col"><a style="color: orange;font-size: 16px;font-weight:bolder;">{{recipe.time}}</a> &#160;<a
-                class="atitle">h</a>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="row">
-            <div class="col">Phần</div>
-            <div class="col">Độ khó</div>
-          </div>
-          <div class="row">
-            <div class="col"><a style="color: orange;font-size: 16px;font-weight:bolder;">04</a> &#160;<a
-                class="atitle">người</a></div>
-            <div class="col" *ngIf="recipe.hardLevel"><a style="font-size: 16px;">{{recipe.hardLevel}}</a></div>
-          </div>
-        </div>
-        <div class="col"></div>
       </div>
-      <div style="background: #f4f4f4; height: 100px; border-radius: 0 0 20px 20px; margin-top: 30px; padding: 30px;">
-        <div class="row row-cols-2" style="padding-right: 80px;padding-left: 80px;">
-          <div class="col">
-            <div class="row row-cols-2">
-              <div class="col">
-
-
-                <a><img src="../../../assets/images/heart-o.png" (click)="likeRecipe(recipe)"
-                    *ngIf="!like;else other_content"
-                    style="width: 30px;height: 30px; margin-left: 2px; opacity: 0.8;" />
-                  <ng-template #other_content>
-                    <img src="../../../assets/images/heart-o.red.png" (click)="dislikeRecipe(recipe,i)"
-                      style="width: 30px;height: 30px; margin-left: 2px;opacity: 1;" />
-
-                  </ng-template>&#160;&#160;&#160;&#160;{{recipe.totalPoint}}
-                </a>
-              </div>
-              <div class="col">
-
-                <a (click)="addDoneRecipe(recipe)"><img src="../../../assets/images/check-o.gray.png"
-                    style="width: 30px;height: 30px; margin-left: 2px;" />&#160;&#160;&#160;&#160;{{recipe.doneCount}}</a>
-
-              </div>
-              <div class="col"> <a><img src="../../../assets/images/bookmark.lightgray.png"
-                    style="width: 30px;height: 30px;" /></a></div>
-            </div>
-            <div class="row row-cols-2" style="margin-top: 5px; font-weight: 500;font-size: 14px;">
-              <div class="col"> <a>Lượt thích</a></div>
-              <div class="col">
-                <a>Đã thực hiện</a>
-              </div>
-              <div class="col"><a>Lưu lại</a></div>
-            </div>
-          </div>
-        </div>
+      <div class="row" style="text-align: left; padding: 10px 50px;">
+        <div class="col">Nguyên liệu: {{recipe.ingredients.length}}</div>
+        <div class="col">Thực hiện: {{recipe.time}} phút</div>
       </div>
+      <div class="row" style="text-align: left; padding: 10px 50px;">
+        <div class="col">Khẩu phần ăn: 04 người</div>
+        <div class="col">Độ khó: {{recipe.hardLevel}}</div>
+      </div>
+
     </div>
     <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><img
         src="../../../assets/images/cooky-video-play-fill-2.png"
@@ -100,10 +54,7 @@
               thức</a><a>&#160;&#160;&#160;&#160;{{recipe.user.totalPoint}}&#160;&#160;&#160;&#160;điểm</a></div>
         </div>
         <div class="col col-lg-2">
-          <button title="Quan tâm" ng-click="follow()" class="button1">
-            <!-- ngIf: status != 1 --><span ng-if="status != 1" class="ng-scope">Quan tâm</span>
-            <!-- end ngIf: status != 1 -->
-          </button>
+
         </div>
 
       </div>
@@ -193,7 +144,7 @@
                 <a class="atitle" style="margin-left:5%; font-size: 25px; color: #c5c5c5;"> Thực hiện</a>
                 <div *ngFor=" let cookStep of cookSteps; let i =index" style="min-height: 400px; height: auto;"
                   class="bigContent">
-                  <div style="position: relative; height: auto;min-height: 400px; " class="noImage">
+                  <div style="position: relative; height: auto;min-height: 400px;margin-top: 10px; " class="noImage">
                     <div
                       style="border-radius: 5px;position: absolute;text-align: center; top:60px; left: 50px;
                       padding-top: 5px; width: 70px; color: rgb(179, 179, 179);; background: #f8f8f8; border: 1px solid #c5c5c5;">
@@ -257,5 +208,170 @@
 
         </div>
       </div>
-      <div class="col-4" style="min-height: 500px;  border-radius: 5px; "></div>
     </div>
+  </div>
+  <div class="col-4" style="min-height: 300px; height: 2150px; border-radius: 5px; background: white;">
+    <a style="margin-top: 50px;">CÔNG THỨC LIÊN QUAN</a>
+    <hr>
+    <div class="row">
+      <div class="col" *ngFor="let recipe of recipes;let i = index" (click)="showRecipe(recipe)">
+        <cl-image public-id="{{recipe.imageUrl}}">
+          <cl-transformation width="150" height="150" crop="scale" quality="auto" radius="20">
+          </cl-transformation>
+        </cl-image>
+        <br>
+        <a>{{recipe.recipeName}}</a>
+        <br><a>{{recipe.viewCount}} <a style="color: #c5c5c5;">lượt xem</a> {{recipe.time}} phút</a>
+      </div>
+      <div class="row" *ngIf="recipeView" style="padding: 50px 55px; ">
+        <div class="image-preview mb-3" style="border-radius: 20px;background: white;">
+          <cl-image public-id="{{recipeView.imageUrl}}" style="margin-top: 60px;">
+            <cl-transformation width="200" height="200" crop="scale" quality="auto" radius="20">
+            </cl-transformation>
+          </cl-image>
+          <h4 style=" text-transform: uppercase;margin-top: 25px; margin-bottom: 15px;"> {{recipeView.recipeName}}
+          </h4>
+          <div style="text-align: left; padding: 10px 0;">
+            <a>Loại món: </a> <a class="atitle1" *ngFor="let foodType of recipeView.foodType">
+              {{foodType.foodTypeName}},</a>
+            <br><br> <a> Cách thức thực hiện: </a>
+            <a class="atitle1" *ngFor="let cookWays of recipeView.cookWay">
+              {{cookWays.cookWayName}}, </a>
+
+          </div>
+          <div class="row" style="text-align: left; padding: 10px 0;">
+            <div class="col">Nguyên liệu: {{recipeView.ingredients.length}}</div>
+            <div class="col">Thực hiện: {{recipeView.time}} phút</div>
+          </div>
+          <div class="row" style="text-align: left; padding: 10px 0;">
+            <div class="col">Khẩu phần ăn: 04 người</div>
+            <div class="col">Độ khó: {{recipeView.hardLevel}}</div>
+          </div>
+        </div>
+        <span *ngIf="recipeView.videoLink" (click)='video(recipeView.videoLink)'><img
+            src="../../../assets/images/cooky-video-play-fill-2.png"
+            style="top:130px;left:90px;width: 50px;height: 50px; position: absolute;" /></span>
+        <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
+          <div class="row">
+
+            <div class="col col-lg-2">
+
+              <cl-image public-id="{{recipeView.user.imageUrl}}" style="border-radius: 50px;">
+                <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill"
+                  background="#e9ebee">
+                </cl-transformation>
+                <cl-transformation width="75" crop="scale">
+                </cl-transformation>
+              </cl-image>
+
+            </div>
+            <div class="col" style="margin-left: 60px;text-align: center; ">
+              <div class="row atitle"><a>Đăng bởi</a></div>
+              <div class="row"><a>{{recipeView.user.name}}</a></div>
+
+              <div class="row">
+                <a>{{recipeView.user.totalPoint}}&#160;công
+                  thức</a>
+              </div>
+              <div class="row">
+                <a>{{recipeView.user.totalPoint}}&#160;&#160;điểm</a>
+              </div>
+
+            </div>
+            <div class="col col-lg-2">
+
+            </div>
+
+          </div>
+          <div class="row" style="padding: 20px;">
+            <div class="row">
+              <div class="col-sm-6 col-md-8" style="text-align:start;"> <a
+                  style="font-size: 20px;font-weight: 500;font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Nguyên
+                  liệu
+                </a>
+                <br><a class="atitle">cho <span style="color: red; margin-left: 5px;">{{multiplyElement}}</span>
+                  Phần ăn </a>
+
+              </div>
+              <div class="col-6 col-md-4">
+                <input type="number" id="multiplyElement" [(ngModel)]="multiplyElement"
+                  style="width: 46px;height: 25px;margin-right: 5px;" /><a><i (click)="countIngredient(multiplyElement)"
+                    class="fa fa-refresh fa-lg" aria-hidden="true"></i></a>
+              </div>
+            </div>
+            <div *ngFor=" let ingredient of recipeView.ingredients; let j =index">
+              <div style="float: left;text-align: left;padding-top:20px ; padding-left: 30px;">
+                <a> <i class="fa fa-check fa-lg" style="color: rgb(95, 228, 6);" aria-hidden="true"></i>
+                  {{ingredient.ingredientName}}&#160;&#160;&#160;<a>{{ingredient.quantitative}}</a>&#160;&#160;
+                  {{ingredient.typeOfquantitative}}</a>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div
+            style="background: white; border-radius: 10px; padding-top: 30px; min-height:800px;padding-left: 15px; text-align: left;">
+
+
+            <div class="row"> <a
+                style="font-size: 20px;font-weight: 500; font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Cách
+                làm</a>
+            </div>
+            <div class="row">
+              <div class="row">
+                <div class="col" style="width:250px;">
+                  <a class="atitle" (click)="fullImage()"><i style="color: rgb(134, 54, 54);" class="fa fa-list fa-lg"
+                      aria-hidden="true"></i>
+                    Xem đầy đủ </a>
+                </div>
+                <div class="col">
+                  <a class="atitle" (click)="noImage()"><i class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>
+                    Không hình </a>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div *ngFor=" let cookStep of cookStepsView; let j =index" style="min-height: 400px; height: auto;">
+              <div style="position: relative; height: auto;min-height: 400px;margin-top: 10px; " class="noImage">
+                <div
+                  style="border: 1px solid gray; border-radius: 5px; background: rgb(230, 230, 230); padding: 5px 5px; text-align: center;width: 50px !important;">
+                  <a>Bước </a>
+                  <br>
+                  <a>{{j+1}}</a>
+                  <br>
+                  <a>___</a><br>
+                  <i class="fa fa-check-circle fa-lg" id="iconTab{{j}}" aria-hidden="true"
+                    (click)="changeIconTab($event,j)"></i>
+                </div>
+                <div>
+                  <div class="row" style="padding: 5px 5px;"> <a> {{cookStep.psnote}}</a></div>
+                  <div class="row" style="margin: 10px 10px; padding: 0 0;" *ngIf="!showImageStep">
+                    <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
+                                <cl-transformation height="100" width="100" crop="scale">
+                                </cl-transformation>
+                              </cl-image> -->
+                    <div class=".col-md-8" style="max-width: 200px;" id="image{{i}}"
+                      *ngFor="let imageUrl of cookStep.image; let i = index">
+                      <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
+                        <cl-transformation height="80" radius="5" width="80" crop="scale">
+                        </cl-transformation>
+                        <cl-transformation angle="0">
+                        </cl-transformation>
+                      </cl-image>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-scroll-top></app-scroll-top>

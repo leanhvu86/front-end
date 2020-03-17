@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from 'src/app/shared/model/recipe';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { UserService } from 'src/app/shared/service/user.service.';
@@ -12,7 +12,9 @@ import { UserService } from 'src/app/shared/service/user.service.';
 })
 export class RecipeCheckComponent implements OnInit {
   recipe: Recipe;
+  recipeView: Recipe;
   cookSteps: [] = [];
+  cookStepsView: [] = [];
   multiplyElement: number = 4;
   oldMultiplyElement: number;
   like: boolean = false;
@@ -20,25 +22,28 @@ export class RecipeCheckComponent implements OnInit {
   showImageStep: boolean = false;
   prepared: number;
   totalCookingTime: number;
-  constructor(private route: ActivatedRoute,
-    private cookie: CookieService, private recipeService: RecipeService, private userService: UserService) { }
+  recipes: Recipe[] = [];
+  errorMessage: string;
+  constructor(
+    private route: ActivatedRoute,
+    private _router: Router,
+    private cookie: CookieService,
+    private recipeService: RecipeService,
+    private userService: UserService) { }
   id: string;
   ngOnInit() {
     this.getRecipeDetail();
+
   }
   getRecipeDetail() {
-    console.log('recipe');
     this.id = this.route.snapshot.params.id;
-    console.log(this.id);
     this.recipeService.getRecipeDetail(this.id).subscribe(data => {
 
-      console.log(data['recipe'])
       this.recipe
       let recipeTem = data['recipe'];
       this.recipe = recipeTem;
       if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
         for (let ingredient of this.recipe.ingredients) {
-          console.log(ingredient)
           let quantity = parseInt(ingredient.quantitative) * this.multiplyElement;
           ingredient.quantitative = quantity;
           this.oldMultiplyElement = this.multiplyElement;
@@ -46,7 +51,6 @@ export class RecipeCheckComponent implements OnInit {
       }
       if (this.recipe !== undefined && this.recipe.cockStep.length > 0) {
         for (let ingredient of this.recipe.ingredients) {
-          console.log(ingredient)
           let quantity = parseInt(ingredient.quantitative) * this.multiplyElement;
           ingredient.quantitative = quantity;
           this.oldMultiplyElement = this.multiplyElement;
@@ -70,49 +74,141 @@ export class RecipeCheckComponent implements OnInit {
           }
         }
         this.cookSteps = this.recipe.cockStep;
-        console.log(this.cookSteps)
       }
-
+      this.getRecipes()
     });
   }
+  getRecipes() {
+    this.recipeService.getRecipes().subscribe(recipeArray => {
+      let arr: Recipe[] = [];
+      for (let recip of recipeArray) {
+        for (let cookCheck of this.recipe.cookWay) {
+          let cookWayArr = recip.cookWay;
+          for (let cokkway of cookWayArr) {
+            if (cookCheck.cookWayCode === cokkway.cookWayCode) {
+              arr.push(recip);
+            }
+          }
+        }
+      }
+      this.recipes = arr.filter(function (item, pos) {
+        return arr.indexOf(item) == pos;
+      });
+
+      console.log(this.recipes);
+    });
+  }
+  showRecipe(recipe: Recipe) {
+    console.log(recipe);
+    if (recipe !== undefined && recipe.ingredients.length > 0) {
+      for (let ingredient of recipe.ingredients) {
+        let quantity = parseInt(ingredient.quantitative) * this.multiplyElement;
+        ingredient.quantitative = quantity;
+        this.oldMultiplyElement = this.multiplyElement;
+      }
+    }
+    if (recipe !== undefined && recipe.cockStep.length > 0) {
+      for (let ingredient of recipe.ingredients) {
+        let quantity = parseInt(ingredient.quantitative) * this.multiplyElement;
+        ingredient.quantitative = quantity;
+        this.oldMultiplyElement = this.multiplyElement;
+      }
+      for (let cookStep of recipe.cockStep) {
+        let arrayTemp = cookStep.image;
+        if (arrayTemp.indexOf(',') >= 0) {
+          cookStep.image = arrayTemp.split(',');
+          cookStep.check = true;
+        }
+
+      }
+      if (recipe.hardLevel !== undefined) {
+        if (recipe.hardLevel === '') {
+          recipe.hardLevel = 'Không xác định';
+        } else if (recipe.hardLevel === '1') {
+          recipe.hardLevel = 'Dễ';
+        } else if (recipe.hardLevel === '2') {
+          recipe.hardLevel = 'Trung bình';
+        } else if (recipe.hardLevel === '3') {
+          recipe.hardLevel = 'Khó';
+        } else if (recipe.hardLevel === '4') {
+          recipe.hardLevel = 'Rất khó';
+        }
+      }
+      this.cookStepsView = recipe.cockStep;
+    }
+    this.recipeView = recipe
+  }
   countIngredient(multiplyElement: any) {
-    console.log(this.multiplyElement)
     if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
       for (let ingredient of this.recipe.ingredients) {
-        console.log(ingredient)
         let quantity = parseInt(ingredient.quantitative) / this.oldMultiplyElement * this.multiplyElement;
         ingredient.quantitative = quantity;
       }
       this.oldMultiplyElement = this.multiplyElement;
     }
   }
+  acceptRecipe() {
+    this.recipeService.acceptRecipe(this.recipe).subscribe(data => {
+      const result = data.body
+      console.log(result['status'] + "fdsfsfd")
+      if (result['status'] === 200) {
+        alert('Xác nhận công thức thành công')
+        this.errorMessage = result['message'];
+        setTimeout(() => {
+          this._router.navigate(['/recipeAccess']);
+        }, 2000);
+      } else if (result['status'] !== 200) {
+        this.errorMessage = result['message'];
+      }
+    })
+  }
+  declineRecipe() {
+    this.recipeService.declineRecipe(this.recipe).subscribe(data => {
+      const result = data.body
+      console.log(result['status'] + "fdsfsfd")
+      if (result['status'] === 200) {
+        alert('Từ chối công thức thành công')
+        this.errorMessage = result['message'];
+        setTimeout(() => {
+          this._router.navigate(['/recipeAccess']);
+        }, 2000);
+      } else if (result['status'] !== 200) {
+        this.errorMessage = result['message'];
+      }
+    })
+  }
   video(link: any) {
-    console.log(link)
     var url = 'https://www.youtube.com/watch?v=' + link;
     window.open(url, "MsgWindow", "width=600,height=400");
   }
   fullImage() {
     var arrayNoimag = Array.from(document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>)
     arrayNoimag.forEach((element) => {
-      console.log(element)
       element.style.height = '300px';
       element.style.minHeight = '400px'
     })
     var arrayNoimag = Array.from(document.getElementsByClassName('bigContent') as HTMLCollectionOf<HTMLElement>)
     arrayNoimag.forEach((element) => {
-      console.log(element)
       element.style.height = '300px';
       element.style.minHeight = '400px'
     })
     this.showImageStep = false;
-    console.log(this.showImageStep)
   }
   icon = 'highlight_off';
 
   public changeIcon(event: any, index: number) {
-    console.log('click' + event)
-    console.log('click' + index)
     const id = 'icon' + index;
+    const radio: HTMLElement = document.getElementById(id);
+
+    if (radio.style.color === 'lightgreen') {
+      radio.style.color = 'gray'
+    } else {
+      radio.style.color = 'lightgreen'
+    }
+
+  }
+  public changeIconTab(event: any, index: number) {
+    const id = 'iconTab' + index;
     const radio: HTMLElement = document.getElementById(id);
 
     if (radio.style.color === 'lightgreen') {
@@ -125,108 +221,17 @@ export class RecipeCheckComponent implements OnInit {
   noImage() {
     var arrayNoimag = Array.from(document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>)
     arrayNoimag.forEach((element) => {
-      console.log(element)
       element.style.height = '150px';
       element.style.minHeight = '150px'
     })
     var arrayNoimag = Array.from(document.getElementsByClassName('bigContent') as HTMLCollectionOf<HTMLElement>)
     arrayNoimag.forEach((element) => {
-      console.log(element)
       element.style.height = '150px';
       element.style.minHeight = '150px'
     })
     this.showImageStep = true;
-    console.log(this.showImageStep)
   }
-  likeRecipe(recipe: any) {
-    console.log(recipe);
-    this.like = true;
 
-    console.log(recipe.user.email)
-    let user = recipe.user;
-    let interestObject = new Object({
-      user: user,
-      objectId: recipe,
-      objectType: '2'
-    })
-    console.log(interestObject)
-    this.recipeService.likeRecipe(interestObject).subscribe((data) => {
-      if (data !== undefined) {
-        console.log(data)
-        this.recipe = data.body['recipe']
-        console.log('success')
-        let userObject = new Object({
-          email: user.email
-        })
-        this.userService.likeAddPoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
 
-          }
-        });
-      }
-    });
-
-  }
-  // hàm này a tạo sáng nay để e tái sử dụng được.
-  // luồng như sau nè
-  // khi người dùng nhấn thực hiện thì mặc định sẽ tạo 1 bản ghi bình luôn với type =1  nghĩa là đã thực hiện
-  // khi e tạo bình luận thì e phải tạo bản ghi với type =0 nghĩa là chưa thực hiện
-  // nếu người dùng của em vừa bình luận vừa thực hiện thì a sẽ làm 1 hàm khác. hiện tại 
-  // hai ae cứ sử dụng chung hàm này đi. k có front end thì back end khó ra bug lắm thế nên a mới kêu e build haha
-  // cái node js debug hơi khó. nên có những thứ cần thiết front end thì phải ra front end. cái thêm công thức
-  // k có front end thì k debug nổi mà ra bug cơ nó có tận gần 20 properties.. 4 cái array haha thua
-  // good luck 
-  // mà luồng
-  addDoneRecipe(recipe: any) {
-    console.log(recipe);
-    this.done = true;
-    let user = this.cookie.get('email');
-    console.log(recipe)
-    let doneObject = new Object({
-      user: user,
-      recipe: recipe,
-      type: 1,
-      content: '',
-      imageUrl: ''
-    })
-    console.log(doneObject)
-    this.recipeService.addComment(doneObject).subscribe((data) => {
-      if (data !== undefined) {
-        console.log(data)
-        this.recipe = data.body['recipe']
-        console.log('success')
-      }
-    });
-
-  }
-  dislikeRecipe(recipe: any) {
-    console.log(recipe);
-    this.like = false;
-    console.log(recipe.user.email)
-    let user = recipe.user;
-    let interestObject = new Object({
-      user: user,
-      objectId: recipe,
-      objectType: '2'
-    })
-    console.log(recipe.user.email)
-    console.log(interestObject)
-    this.recipeService.dislikeRecipe(interestObject).subscribe((data) => {
-      if (data !== undefined) {
-        console.log(data)
-        this.recipe.totalPoint--;
-        let userObject = new Object({
-          email: user.email
-        })
-        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
-      }
-    })
-  }
 }
 

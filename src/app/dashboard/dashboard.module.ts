@@ -32,6 +32,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RecipeComponent } from './recipe/recipe.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -48,7 +49,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     NavComponent,
     RecipeDetailComponent,
     RecipeComponent,
-    WelcomeComponent],
+    WelcomeComponent,
+    ScrollTopComponent],
   imports: [
     BrowserModule,
     CommonModule,

@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   errorMessage: string = null;
   registerForm: FormGroup;
   submitted = false;
-
+  message: string = null;
   userObject = {
     user: "",
     password: "",
@@ -60,10 +60,12 @@ export class RegisterComponent implements OnInit {
       const result = data.body
       console.log(result['status'] + "fdsfsfd")
       if (result['status'] === 200) {
-        this.errorMessage = result['message'];
+        this.message = result['message'];
+        const radio: HTMLElement = document.getElementById('modal-button');
+        radio.click();
         setTimeout(() => {
-          this._router.navigate(['/login']);
-        }, 2000);
+          this._router.navigate(['/']);
+        }, 5000);
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
       }

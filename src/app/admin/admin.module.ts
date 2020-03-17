@@ -19,6 +19,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
 import { RecipeCheckComponent } from './recipe-check/recipe-check.component';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -27,7 +28,8 @@ import { CloudinaryModule } from '@cloudinary/angular-5.x';
     RegisterComponent,
     StationComponent,
     RecipeAccessComponent,
-    RecipeCheckComponent
+    RecipeCheckComponent,
+    ScrollTopComponent
   ],
   imports: [
     CommonModule,
