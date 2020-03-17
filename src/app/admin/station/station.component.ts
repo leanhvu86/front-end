@@ -102,10 +102,45 @@ export class StationComponent implements OnInit {
       }
     })
   }
-  updateReport(id: any) {
-    console.log(id)
+  updateReport(user: any) {
+    this.userObject.role = 1;
+    this.userObject.id = user._id;
+    this.userService.updateReport(this.userObject).subscribe(data => {
+      if (data.body['status'] === 200) {
+        user = data.body['user']
+        for (let userAccess of this.users) {
+          if (userAccess.email === user.email) {
+            userAccess = user;
+            this.users = this.users.filter(user => user._id !== userAccess._id);
+            this.users.push(user)
+            this.message = 'Báo cáo thành viên thành công'
+            setTimeout(() => {
+              this.message = ''
+            }, 5000);
+          }
+        }
+      }
+    })
   }
-  bannedUser(id: any) {
-    console.log(id)
+  bannedUser(user: any) {
+    this.userObject.role = 1;
+    this.userObject.id = user._id;
+    this.userService.updateRole(this.userObject).subscribe(data => {
+      if (data.body['status'] === 200) {
+        user = data.body['user']
+        for (let userAccess of this.users) {
+          if (userAccess.email === user.email) {
+            userAccess = user;
+            this.users = this.users.filter(user => user._id !== userAccess._id);
+            user.role = 'Quản trị'
+            this.users.push(user)
+            this.message = 'Thêm quản trị viên thành công'
+            setTimeout(() => {
+              this.message = ''
+            }, 5000);
+          }
+        }
+      }
+    })
   }
 }
