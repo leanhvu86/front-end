@@ -44,6 +44,10 @@ export class LoginComponent implements OnInit {
           }
 
         }
+        if (parseInt(role) === -1) {
+          this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
+          return;
+        }
         if (parseInt(role) < 1) {
           console.log('member')
           this.errorMessage = 'Bạn không có thẩm quyền truy cập';
@@ -59,7 +63,7 @@ export class LoginComponent implements OnInit {
       if (data.body['status'] === 206) {
         this.tfaFlag = true;
       }
-      if (data.body['status'] === 403) {
+      if (data.body['status'] !== 200) {
         this.errorMessage = data.body['message'];
       }
       if (data.body['status'] === 404) {

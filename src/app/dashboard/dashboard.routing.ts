@@ -9,6 +9,7 @@ import { ComboBoxComponent } from './combo-box/combo-box.component';
 import { LoginComponent } from '../dashboard/login/login.component';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeComponent } from './recipe/recipe.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 export const DashBoardRoutes: Routes = [
     {
@@ -51,7 +52,11 @@ export const DashBoardRoutes: Routes = [
             {
                 path: 'recipe',
                 component: RecipeComponent
-            }
+            },
+            {
+                path: 'active/:id',
+                component: WelcomeComponent
+            },
         ]
     }
 ];

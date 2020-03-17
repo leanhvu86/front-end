@@ -43,11 +43,22 @@ export class RecipeService {
   registerRecipe(recipe: any) {
     return this._http.post(`${this.baseUrl}/createRecipe`, { recipe: recipe }, { observe: "response" });
   }
-
+  acceptRecipe(recipe: any) {
+    return this._http.post(`${this.baseUrl}/acceptRecipe`, { recipe: recipe }, { observe: "response" });
+  }
+  declineRecipe(recipe: any) {
+    return this._http.post(`${this.baseUrl}/declineRecipe`, { recipe: recipe }, { observe: "response" });
+  }
   getRecipes = (): Observable<Recipe[]> => {
     return this._http.get<Recipe[]>(`${this.baseUrl}/recipes`)
       .pipe(
         tap(_ => console.log('load recipes'))
+      );
+  }
+  getAllRecipes = (): Observable<Recipe[]> => {
+    return this._http.get<Recipe[]>(`${this.baseUrl}/getAllRecipes`)
+      .pipe(
+        tap(_ => console.log('load getAllRecipes'))
       );
   }
   likeRecipe(interest: any) {

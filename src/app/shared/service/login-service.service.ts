@@ -60,6 +60,7 @@ export class LoginServiceService {
     localStorage.setItem('isLoggedIn', "false");
     this.cookie.set('isAuthenicate', '');
     this.cookie.set('email', '');
+    this.cookie.set('role', '');
     let token = this.cookie.get('token');
     console.log('xóa token nè' + token);
     this.deleteAuth(token).subscribe((data) => {

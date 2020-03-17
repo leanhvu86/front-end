@@ -66,7 +66,16 @@ export class Home2Component implements OnInit {
 
 
         let user = data.body;
+        let role;
         for (let key in user) {
+          if (key === 'role') {
+            role = user[key];
+            console.log(role);
+          }
+          if (parseInt(role) === -1) {
+            this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
+            return;
+          }
           if (key === 'user') {
             let users = user[key];
             console.log(users.token);
@@ -118,6 +127,11 @@ export class Home2Component implements OnInit {
       }
       console.log(this.recipes);
     });
+  }
+  video(link: any) {
+    console.log(link)
+    var url = 'https://www.youtube.com/watch?v=' + link;
+    window.open(url, "MsgWindow", "width=600,height=400");
   }
   likeRecipe(recipe: any, index: any) {
     console.log(recipe);

@@ -11,10 +11,15 @@ import { StationComponent } from './station/station.component';
 
 import { OrderModule } from 'ngx-order-pipe'; // <- import OrderModule
 
+import * as  cloudinary from 'cloudinary-core';
+import cloudinaryConfiguration from '../config';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
+import { RecipeCheckComponent } from './recipe-check/recipe-check.component';
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -22,7 +27,9 @@ import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
     LoginComponent,
     RegisterComponent,
     StationComponent,
-    RecipeAccessComponent
+    RecipeAccessComponent,
+    RecipeCheckComponent,
+    ScrollTopComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +39,8 @@ import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
     Ng2SearchPipeModule,
     OrderModule,
     RouterModule.forChild(AdminRoutes),
+
+    CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
   ],
   providers: [CookieService],
   schemas: [
