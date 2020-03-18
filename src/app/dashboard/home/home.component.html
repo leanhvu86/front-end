@@ -127,7 +127,7 @@
                 <div class="box-content">
                     <h3 class="title" [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</h3>
                     <ul class="icon">
-                        <li *ngIf="!recipe.videoLink"><a><i class="fa fa-play-circle-o"></i></a></li>
+                        <li *ngIf="recipe.videoLink"><a><i class="fa fa-play-circle-o"></i></a></li>
                         <li><a><i class="fa fa-heart " id="heart{{i}}" (click)="likeRecipe(recipe,i)"
                                     *ngIf="!recipe.like;else other_content"></i>
                                 <ng-template #other_content> <i class="fa fa-heart " id="heart{{i}}"

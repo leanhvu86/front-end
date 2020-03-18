@@ -18,6 +18,7 @@ export class StationComponent implements OnInit {
     role: 0,
     id: '',
   }
+
   message: string = '';
   constructor(private userService: UserService, private orderPipe: OrderPipe) {
     this.collection = orderPipe.transform(this.collection, 'info.name');
@@ -66,11 +67,6 @@ export class StationComponent implements OnInit {
           user.role = 'Admin'
         } else {
           user.role = 'Khóa'
-        }
-        if (user.status === 1) {
-          user.status = 'Khóa'
-        } else {
-          user.status = 'Mở khóa'
         }
       }
       console.log(this.users);
@@ -128,11 +124,6 @@ export class StationComponent implements OnInit {
             } else {
               user.role = 'Khóa'
             }
-            if (user.status === 1) {
-              user.status = 'Khóa'
-            } else {
-              user.status = 'Mở khóa'
-            }
             if (user.imageUrl === undefined) {
               user.imageUrl = 'jbiajl3qqdzshdw0z749'
             }
@@ -147,6 +138,7 @@ export class StationComponent implements OnInit {
     })
   }
   bannedUser(user: any) {
+    console.log('banned user')
     this.userObject.id = user._id;
     this.userService.bannedUser(this.userObject).subscribe(data => {
       if (data.body['status'] === 200) {
@@ -169,11 +161,6 @@ export class StationComponent implements OnInit {
             } else {
               user.role = 'Khóa'
             }
-            if (user.status === 1) {
-              user.status = 'Khóa'
-            } else {
-              user.status = 'Mở khóa'
-            }
             this.users.push(user)
             this.message = 'Thêm quản trị viên thành công'
             setTimeout(() => {
@@ -184,4 +171,34 @@ export class StationComponent implements OnInit {
       }
     })
   }
+  activeMember(user: any) {
+    console.log('active user')
+    let userTemp = user
+    this.userService.activeMember(user._id).subscribe(data => {
+      this.users = this.users.filter(user => user._id !== userTemp._id);
+
+      console.log(data)
+      user = data
+      user.block = false;
+      if (user.imageUrl === undefined) {
+        user.imageUrl = 'jbiajl3qqdzshdw0z749'
+      }
+      console.log(user)
+      if (user.role === -1) {
+        user.role = 'Chưa xác thực'
+      } else if (user.role === 0) {
+        user.role = 'Thành viên'
+      } else if (user.role === 1) {
+        user.role = 'Quản trị'
+      } else if (user.role > 1) {
+        user.role = 'Admin'
+      } else {
+        user.role = 'Khóa'
+      }
+      this.users.push(user)
+
+
+    })
+  }
+
 }

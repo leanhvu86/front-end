@@ -49,7 +49,9 @@ export class IndexComponent implements OnInit {
     let email = this.cookie.get('email');
     this._loginService.testEmail(email).subscribe(data => {
       let user = data.body['user'];
-      this.imageUrl = user.imageUrl
+      if (user !== undefined && user.imageUrl !== '') {
+        this.imageUrl = user.imageUrl
+      }
     })
   }
   loginUser() {
