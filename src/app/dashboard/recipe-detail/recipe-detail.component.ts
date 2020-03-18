@@ -37,7 +37,7 @@ export class RecipeDetailComponent implements OnInit {
     private cookie: CookieService,
     private recipeService: RecipeService,
     private userService: UserService
-  ) { }
+  ) {}
   id: string;
   ngOnInit() {
     this.getRecipeDetail();
@@ -125,21 +125,21 @@ export class RecipeDetailComponent implements OnInit {
     console.log(file);
     const url = `https://api.cloudinary.com/v1_1/${
       this.cloudinary.config().cloud_name
-      }/image/upload`;
+    }/image/upload`;
     const xhr = new XMLHttpRequest();
     const fd = new FormData();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
     // Update progress (can be used to show progress indicator)
-    xhr.upload.addEventListener("progress", function (e) {
+    xhr.upload.addEventListener("progress", function(e) {
       const progress = Math.round((e.loaded * 100.0) / e.total);
       // document.getElementById('progress').style.width = progress + "%";
 
       console.log(`fileuploadprogress data.loaded: ${e.loaded},
     data.total: ${e.total}`);
     });
-    xhr.onreadystatechange = function (e) {
+    xhr.onreadystatechange = function(e) {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // File uploaded successfully
         const response = JSON.parse(xhr.responseText);
@@ -154,9 +154,10 @@ export class RecipeDetailComponent implements OnInit {
         const id = "imageArray";
         inputValue = (document.getElementById(id) as HTMLInputElement).value;
         img.id = id + "_";
-        img.onclick = function () {
+        img.onclick = function() {
           // xử lí xóa ảnh khi click thì  phải xóa ở trong imageArray( xóa public_id của ảnh trên cloud)
           document.getElementById(galleryID).removeChild(img);
+
           const id = "imageArray";
           const inputValue = (document.getElementById(id) as HTMLInputElement)
             .value;
@@ -175,7 +176,6 @@ export class RecipeDetailComponent implements OnInit {
           const radio = document.getElementById(id) as HTMLInputElement;
           radio.value = arr.toString();
         };
-        img.alt = "Bạn muốn xóa ảnh?";
         inputValue = inputValue + response.public_id + ",";
         inputValue = inputValue.trim();
         console.log(inputValue);
@@ -209,8 +209,8 @@ export class RecipeDetailComponent implements OnInit {
     }
   }
   video(link: any) {
-    console.log(link)
-    var url = 'https://www.youtube.com/watch?v=' + link;
+    console.log(link);
+    var url = "https://www.youtube.com/watch?v=" + link;
     window.open(url, "MsgWindow", "width=600,height=400");
   }
   fullImage() {
@@ -350,9 +350,13 @@ export class RecipeDetailComponent implements OnInit {
       imageUrl: inputValue
     });
     console.log(doneObject);
+    if (this.userObject.content === null) {
+      this.errorMessage = "Không để trống nội dung bình luận";
+    }
     this.recipeService.addComment(doneObject).subscribe(data => {
       if (data !== undefined) {
         console.log(data);
+
         this.recipe = data.body["recipe"];
         console.log("success");
       }
@@ -372,7 +376,7 @@ export class RecipeDetailComponent implements OnInit {
     console.log(interestObject);
     this.recipeService.dislikeRecipe(interestObject).subscribe(data => {
       if (data !== undefined) {
-        console.log(data)
+        console.log(data);
         this.recipe.totalPoint--;
         let userObject = new Object({
           email: user.email
