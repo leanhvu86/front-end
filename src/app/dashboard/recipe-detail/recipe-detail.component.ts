@@ -157,6 +157,7 @@ export class RecipeDetailComponent implements OnInit {
         img.onclick = function() {
           // xử lí xóa ảnh khi click thì  phải xóa ở trong imageArray( xóa public_id của ảnh trên cloud)
           document.getElementById(galleryID).removeChild(img);
+
           const id = "imageArray";
           const inputValue = (document.getElementById(id) as HTMLInputElement)
             .value;
@@ -209,8 +210,8 @@ export class RecipeDetailComponent implements OnInit {
     }
   }
   video(link: any) {
-    console.log(link)
-    var url = 'https://www.youtube.com/watch?v=' + link;
+    console.log(link);
+    var url = "https://www.youtube.com/watch?v=" + link;
     window.open(url, "MsgWindow", "width=600,height=400");
   }
   fullImage() {
@@ -350,9 +351,13 @@ export class RecipeDetailComponent implements OnInit {
       imageUrl: inputValue
     });
     console.log(doneObject);
+    if (this.userObject.content === null) {
+      this.errorMessage = "Không để trống nội dung bình luận";
+    }
     this.recipeService.addComment(doneObject).subscribe(data => {
       if (data !== undefined) {
         console.log(data);
+
         this.recipe = data.body["recipe"];
         console.log("success");
       }
@@ -372,13 +377,8 @@ export class RecipeDetailComponent implements OnInit {
     console.log(interestObject);
     this.recipeService.dislikeRecipe(interestObject).subscribe(data => {
       if (data !== undefined) {
-<<<<<<< HEAD
         console.log(data);
-        this.recipe = data.body["recipe"];
-=======
-        console.log(data)
         this.recipe.totalPoint--;
->>>>>>> 2cbfc830096f9bfaef01ea74b615abf0f5bf5da5
         let userObject = new Object({
           email: user.email
         });
