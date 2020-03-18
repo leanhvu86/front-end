@@ -23,7 +23,7 @@ export class RecipeCheckComponent implements OnInit {
   prepared: number;
   totalCookingTime: number;
   recipes: Recipe[] = [];
-  errorMessage: string;
+  errorMessage: string = '';
   constructor(
     private route: ActivatedRoute,
     private _router: Router,
@@ -147,12 +147,11 @@ export class RecipeCheckComponent implements OnInit {
       this.oldMultiplyElement = this.multiplyElement;
     }
   }
-  acceptRecipe() {
+  acceptRecipe(event: any) {
     this.recipeService.acceptRecipe(this.recipe).subscribe(data => {
       const result = data.body
       console.log(result['status'] + "fdsfsfd")
       if (result['status'] === 200) {
-        alert('Xác nhận công thức thành công')
         this.errorMessage = result['message'];
         setTimeout(() => {
           this._router.navigate(['/recipeAccess']);
@@ -162,12 +161,11 @@ export class RecipeCheckComponent implements OnInit {
       }
     })
   }
-  declineRecipe() {
+  declineRecipe(event: any) {
     this.recipeService.declineRecipe(this.recipe).subscribe(data => {
       const result = data.body
       console.log(result['status'] + "fdsfsfd")
       if (result['status'] === 200) {
-        alert('Từ chối công thức thành công')
         this.errorMessage = result['message'];
         setTimeout(() => {
           this._router.navigate(['/recipeAccess']);
@@ -188,6 +186,16 @@ export class RecipeCheckComponent implements OnInit {
       element.style.minHeight = '400px'
     })
     var arrayNoimag = Array.from(document.getElementsByClassName('bigContent') as HTMLCollectionOf<HTMLElement>)
+    arrayNoimag.forEach((element) => {
+      element.style.height = '300px';
+      element.style.minHeight = '400px'
+    })
+    var arrayNoimage = Array.from(document.getElementsByClassName('noImage1') as HTMLCollectionOf<HTMLElement>)
+    arrayNoimag.forEach((element) => {
+      element.style.height = '300px';
+      element.style.minHeight = '400px'
+    })
+    var arrayNoimag = Array.from(document.getElementsByClassName('bigC') as HTMLCollectionOf<HTMLElement>)
     arrayNoimag.forEach((element) => {
       element.style.height = '300px';
       element.style.minHeight = '400px'
@@ -224,7 +232,17 @@ export class RecipeCheckComponent implements OnInit {
       element.style.height = '150px';
       element.style.minHeight = '150px'
     })
+    var arrayNoimage = Array.from(document.getElementsByClassName('noImage1') as HTMLCollectionOf<HTMLElement>)
+    arrayNoimag.forEach((element) => {
+      element.style.height = '100px';
+      element.style.minHeight = '100px'
+    })
     var arrayNoimag = Array.from(document.getElementsByClassName('bigContent') as HTMLCollectionOf<HTMLElement>)
+    arrayNoimag.forEach((element) => {
+      element.style.height = '150px';
+      element.style.minHeight = '150px'
+    })
+    var arrayNoimag = Array.from(document.getElementsByClassName('bigC') as HTMLCollectionOf<HTMLElement>)
     arrayNoimag.forEach((element) => {
       element.style.height = '150px';
       element.style.minHeight = '150px'

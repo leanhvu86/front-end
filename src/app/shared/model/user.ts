@@ -5,13 +5,13 @@ export class User {
     name: String;
     imageUrl: String;
     totalPoint: Number;
-    role: Number;
+    role: any;
     birthday: string;
     gender: Number;
     address: string;
     province: string;
     createAt: string;
     updateAt: string;
-    status: Number;
+    status: any;
     warningReport: Number;
 }

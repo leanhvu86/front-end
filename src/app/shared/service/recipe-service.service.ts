@@ -70,13 +70,13 @@ export class RecipeService {
   dislikeRecipe(interest: any) {
     return this._http.post(`${this.baseUrl}/dislikeRecipe`, { interest: interest }, { observe: "response" });
   }
-  // findInterest = (user: any): Observable<Interest> => {
-  //   const url = `${this.baseUrl}/findRecipe/${user}`;
-  //   return this._http.get<Interest[]>(url)
-  //     .pipe(
-  //       tap(_ => console.log('load interests'))
-  //     );
-  // }
+  findInterest = (user: any): Observable<Interest[]> => {
+    const url = `${this.baseUrl}/findInterest/${user}`;
+    return this._http.get<Interest[]>(url)
+      .pipe(
+        tap(_ => console.log('load interests'))
+      );
+  }
   getRecipeDetail = (id: string): Observable<Recipe> => {
     const url = `${this.baseUrl}/findRecipe/${id}`;
     return this._http.get<Recipe>(url).pipe(

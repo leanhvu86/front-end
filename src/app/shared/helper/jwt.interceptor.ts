@@ -15,10 +15,16 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = this.cookie.get('token');
     console.log('handle request' + token)
+    const tokens = sessionStorage.getItem('token')
+    console.log(tokens)
     if (token) {
       request = request.clone({ headers: request.headers.set('x-access-token', token) });
+    } else if (tokens) {
+      request = request.clone({ headers: request.headers.set('x-access-token', tokens) });
     } else {
-      request = request.clone({ headers: request.headers.set('x-access-token', 'checktoken') });
+
+      request = request.clone({ headers: request.headers.set('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzBlZDQ3NDUwNjEyMTViODhjNjFhNCIsImlhdCI6MTU4NDQ1OTA3OSwiZXhwIjoxNTg0NTQ1NDc5fQ.gE-4nDkfQCUXiq1_Vuppe523MY8L6oey4jcnNawm1vk') });
+
     }
 
     if (!request.headers.has('Content-Type')) {

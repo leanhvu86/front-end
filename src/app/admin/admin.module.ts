@@ -13,7 +13,6 @@ import { OrderModule } from 'ngx-order-pipe'; // <- import OrderModule
 
 import * as  cloudinary from 'cloudinary-core';
 import cloudinaryConfiguration from '../config';
-import { CookieService } from 'ngx-cookie-service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
@@ -42,7 +41,7 @@ import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 
     CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
   ],
-  providers: [CookieService],
+  providers: [],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],

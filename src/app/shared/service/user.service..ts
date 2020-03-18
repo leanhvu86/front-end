@@ -105,6 +105,15 @@ export class UserService {
       { observe: "response" }
     );
   }
+  updateRole(user: any) {
+    return this._http.post(`${this.baseUrl}/updateRole`, { user: user }, { observe: "response" });
+  }
+  updateReport(user: any) {
+    return this._http.post(`${this.baseUrl}/updateReport`, { user: user }, { observe: "response" });
+  }
+  bannedUser(user: any) {
+    return this._http.post(`${this.baseUrl}/bannedUser`, { user: user }, { observe: "response" });
+  }
   dislikeremovePoint(user: any) {
     return this._http.post(
       `${this.baseUrl}/removePoint`,
