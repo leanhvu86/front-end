@@ -13,6 +13,7 @@ export class User {
     createAt: string;
     updateAt: string;
     status: any;
-    warningReport: Number;
+    warningReport: any;
     block: any;
+    isAdmin: boolean;
 }

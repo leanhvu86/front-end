@@ -7,6 +7,7 @@ import { UserService } from 'src/app/shared/service/user.service.';
 import { LoginServiceService } from 'src/app/shared/service/login-service.service';
 import { Router } from '@angular/router';
 import { Interest } from 'src/app/shared/model/interest';
+import { User } from 'src/app/shared/model/user';
 
 declare var $: any;
 @Component({
@@ -22,6 +23,8 @@ export class Home2Component implements OnInit {
     email: "",
     password: ""
   }
+  imageUrl: string = 'jbiajl3qqdzshdw0z749'
+  topUsers: User[] = []
   tfaFlag: boolean = false
   errorMessage: string = null
   showModal: boolean = false;
@@ -55,6 +58,7 @@ export class Home2Component implements OnInit {
   }
   ngOnInit() {
     this.getRecipes();
+    this.getTopUser()
   }
   pageChanged(event) {
     this.config.currentPage = event;
@@ -211,6 +215,17 @@ export class Home2Component implements OnInit {
 
     })
     console.log(recipe.like);
+  }
+  getTopUser() {
+    this.userService.getTopUsers().subscribe(users => {
+      console.log(users)
+      this.topUsers = users
+      for (let user of this.topUsers) {
+        if (user.imageUrl === undefined) {
+          user.imageUrl = this.imageUrl
+        }
+      }
+    })
   }
 }
 

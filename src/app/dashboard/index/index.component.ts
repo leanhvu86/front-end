@@ -4,6 +4,9 @@ import { Title } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { LoginServiceService } from '../../shared/service/login-service.service'
+import { UserService } from 'src/app/shared/service/user.service.';
+import { User } from 'src/app/shared/model/user';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -23,12 +26,15 @@ export class IndexComponent implements OnInit {
   addGallery: boolean = true;
   errorMessage: string = null
   isAuthenicate: boolean = false;
+  userMessage: Message[] = [];
+  newMessage: boolean = false
   constructor(
     private title: Title,
     private translate: TranslateService,
     private cookie: CookieService,
     private _loginService: LoginServiceService,
-    private _router: Router
+    private _router: Router,
+    private userService: UserService
   ) {
 
     translate.setDefaultLang('vi');
@@ -44,6 +50,7 @@ export class IndexComponent implements OnInit {
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     console.log(this.cookie.get('email') + 'email nè');
     this.getImage();
+    this.getMessage()
   }
   getImage() {
     let email = this.cookie.get('email');
@@ -51,8 +58,33 @@ export class IndexComponent implements OnInit {
       let user = data.body['user'];
       if (user !== undefined && user.imageUrl !== '') {
         this.imageUrl = user.imageUrl
+
       }
     })
+  }
+  changeStatus(event: any) {
+    this.newMessage = false
+  }
+  getMessage() {
+    this.userMessage = [];
+    let email = this.cookie.get('email');
+    if (email !== '') {
+      this.userObject.email = email
+      this.userService.findMessage(this.userObject).subscribe(data => {
+        let temp = data.body['message']
+        for (let mess of temp) {
+          if (mess.news === 1) {
+            this.newMessage = true
+            mess.news = true
+          } else {
+            mess.news = false
+          }
+          this.userMessage.push(mess)
+        }
+        console.log(this.userMessage)
+        console.log(this.newMessage)
+      })
+    }
   }
   loginUser() {
     console.log(this.userObject.email + " user đăng nhập");
@@ -99,10 +131,11 @@ export class IndexComponent implements OnInit {
         sessionStorage.setItem('user', this.userObject.email);
         this.cookie.set('email', this.userObject.email);
         this.isAuthenicate = true;
+        this.getMessage()
         if (this.addPassenger == true) {
           console.log('true');
           this._router.navigate(['/addPassenger']);
-
+          this.addPassenger = false;
         } else {
           this._router.navigate(['/index']);
         }
@@ -168,4 +201,5 @@ export class IndexComponent implements OnInit {
       this.cookie.set('token', '');
     }
   }
+
 }

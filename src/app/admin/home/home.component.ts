@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  imageUrl: string = '';
+  image: boolean = false;
   tfa: Token;
   authcode: string = "";
   errorMessage: string = null;
@@ -22,8 +23,18 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getImage()
   }
-
+  getImage() {
+    let email = this.cookie.get('email');
+    this._loginService.testEmail(email).subscribe(data => {
+      let user = data.body['user'];
+      if (user !== undefined && user.imageUrl !== '') {
+        this.imageUrl = user.imageUrl
+        this.image = true
+      }
+    })
+  }
   getAuthDetails() {
     let email = this.cookie.get('email');
     console.log(email);
