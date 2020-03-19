@@ -34,6 +34,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 import { CookieService } from 'ngx-cookie-service';
+import { UserinforComponent } from './userinfor/userinfor.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -51,7 +52,8 @@ import { CookieService } from 'ngx-cookie-service';
     RecipeDetailComponent,
     RecipeComponent,
     WelcomeComponent,
-    ScrollTopComponent],
+    ScrollTopComponent,
+    UserinforComponent],
   imports: [
     BrowserModule,
     CommonModule,
