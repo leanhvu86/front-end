@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
           this.errorMessage = 'Bạn không có thẩm quyền truy cập';
           return;
         }
-
+        this.cookie.set('token', token);
         sessionStorage.setItem('token', token);
         this.cookie.set('isAuthenicate', 'true');
         this.cookie.set('email', this.userObject.email);

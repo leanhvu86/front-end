@@ -270,7 +270,6 @@ export class RegisterPassengerComponent implements OnInit {
           const radio = (document.getElementById(id) as HTMLInputElement);
           radio.value = arr.toString();
         };
-        img.alt = 'Bạn muốn xóa ảnh?';
         inputValue = inputValue + response.public_id + ',';
         inputValue = inputValue.trim();
         console.log(inputValue);

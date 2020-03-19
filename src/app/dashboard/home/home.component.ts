@@ -107,36 +107,12 @@ export class Home2Component implements OnInit {
   }
   getRecipes() {
     this.recipeService.getRecipes().subscribe(recipes => {
-      if (this.userObject.email !== '') {
-        this.recipeService.findInterest(this.userObject.email).subscribe(interests => {
-          this.interests.forEach(function (interest) {
-            if (interest.objectType = 2) {
-              this.interests.push(interest)
-            }
-          });
-          console.log(this.interests);
-        })
-        recipes.forEach(function (recipe) {
-          if (this.interests !== undefined && this.interests.length > 0) {
-            this.interests.forEach(function (interest) {
-              if (interest.recipe.like === true) {
-                recipe.like = true
-              } else {
-                recipe.like = false
-              }
-              console.log(recipe);
-            });
-          } else {
-            recipe.like = false;
-          }
-          console.log(recipe);
-        });
-      } else {
-        recipes.forEach(function (recipe) {
-          recipe.like = false
-          console.log(recipe);
-        });
-      }
+      recipes.forEach(function (recipe) {
+        recipe.like = false
+        if (recipe.user.imageUrl === undefined) {
+          recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+        }
+      });
 
       this.recipes = recipes;
       for (let recipe of this.recipes) {

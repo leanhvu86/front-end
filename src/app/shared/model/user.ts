@@ -14,4 +14,5 @@ export class User {
     updateAt: string;
     status: any;
     warningReport: Number;
+    block: any;
 }

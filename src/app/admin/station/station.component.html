@@ -24,7 +24,7 @@
           class="mdl-data-table__cell--non-numeric">
           Tổng điểm <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
         <th style="max-width: 80px;">Thêm quản trị</th>
-        <th style="max-width: 50px;">Báo cáo</th>
+        <!-- <th style="max-width: 50px;">Báo cáo</th> -->
         <th style="max-width: 50px;">Khóa TK</th>
       </tr>
     </thead>
@@ -50,16 +50,21 @@
 
           </button>
         </td>
-        <td style="max-width: 50px;">
+        <!-- <td style="max-width: 50px;">
           <button title="Báo cáo" (click)="updateReport(user)" class="button1"
             style="margin-left: 10px; border:  2px solid red; min-width: 50px;">
             <span class="ng-scope">{{user.warningReport}}</span>
 
-          </button></td>
-        <td style="max-width: 50px;"><button title="Khóa TK" (click)="bannedUser(user)" class="button1"
-            style="margin-left: 10px; border:  2px solid red;">
-            <span class="ng-scope">{{user.status}}</span>
+          </button></td> -->
+
+        <td><button style="width: 100px;" title="Quản trị" (click)="bannedUser(user)" class="button1"
+            *ngIf="user.status===1; else other_content">
+            <span class="ng-scope"></span>Khóa
           </button>
+          <ng-template #other_content>
+            <button style="width: 100px;" title="Quản trị" (click)="activeMember(user)" class="button1">
+              <span class="ng-scope"></span>Mở khóa
+            </button></ng-template>
         </td>
       </tr>
     </tbody>
