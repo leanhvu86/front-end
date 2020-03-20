@@ -16,3 +16,11 @@
   .form-control::placeholder  {
     font-family: FontAwesome;
   }
+  .ahover:hover{
+    transform: scale(1.5);
+  }
+  .texthover:hover{
+    font-size: 16px;
+    color: orange;
+    background: rgb(246, 247, 246);
+  }

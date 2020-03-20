@@ -24,6 +24,7 @@ export class RecipeCheckComponent implements OnInit {
   totalCookingTime: number;
   recipes: Recipe[] = [];
   errorMessage: string = '';
+  message: string = '';
   constructor(
     private route: ActivatedRoute,
     private _router: Router,
@@ -85,7 +86,7 @@ export class RecipeCheckComponent implements OnInit {
         for (let cookCheck of this.recipe.cookWay) {
           let cookWayArr = recip.cookWay;
           for (let cokkway of cookWayArr) {
-            if (cookCheck.cookWayCode === cokkway.cookWayCode) {
+            if (cookCheck.cookWayCode === cokkway.cookWayCode && recip._id !== this.recipe._id) {
               arr.push(recip);
             }
           }
@@ -148,28 +149,44 @@ export class RecipeCheckComponent implements OnInit {
     }
   }
   acceptRecipe(event: any) {
+    if (this.recipe.status == 1) {
+      this.errorMessage = 'Công thức này đã được duyệt'
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
     this.recipeService.acceptRecipe(this.recipe).subscribe(data => {
       const result = data.body
       console.log(result['status'] + "fdsfsfd")
       if (result['status'] === 200) {
-        this.errorMessage = result['message'];
+        this.message = result['message'];
+        const radio: HTMLElement = document.getElementById('modal-button');
+        radio.click();
         setTimeout(() => {
           this._router.navigate(['/recipeAccess']);
-        }, 2000);
+        }, 5000);
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
       }
     })
   }
   declineRecipe(event: any) {
+    if (this.recipe.status == -1) {
+      this.errorMessage = 'Công thức này đã bị từ chối'
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
     this.recipeService.declineRecipe(this.recipe).subscribe(data => {
       const result = data.body
       console.log(result['status'] + "fdsfsfd")
       if (result['status'] === 200) {
         this.errorMessage = result['message'];
+        const radio: HTMLElement = document.getElementById('modal-button');
+        radio.click();
         setTimeout(() => {
           this._router.navigate(['/recipeAccess']);
-        }, 2000);
+        }, 5000);
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
       }

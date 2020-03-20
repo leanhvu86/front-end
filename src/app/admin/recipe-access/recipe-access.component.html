@@ -32,17 +32,20 @@
     <tbody
       *ngFor="let recipe of recipes | orderBy: order:reverse:'case-insensitive'| filter:searchText| paginate: config; let i=index">
 
-      <tr>
+      <tr class="texthover">
         <td>{{i+1}}</td>
-        <td style="max-width: 50px;" [routerLink]="['/detailRecipe/', recipe._id]">{{recipe.recipeName}}</td>
+        <td style="max-width: 50px;" [routerLink]="['/detailRecipe/', recipe._id]">
+          {{recipe.recipeName}}</td>
         <td style="max-width: 80px;">{{recipe.time}}&#160;&#160;phút</td>
         <td style="max-width: 60px;">{{recipe.hardLevel}}</td>
         <td style="max-width: 60px;">{{recipe.user.name}}</td>
-        <td [routerLink]="['/detailRecipe/', recipe._id]">
-          <cl-image public-id="{{recipe.imageUrl}}">
-            <cl-transformation aspect-ratio="1:1" gravity="auto" width="100" height="100" crop="fill">
-            </cl-transformation>
-          </cl-image>
+        <td [routerLink]="['/detailRecipe/', recipe._id]" class="ahover">
+          <a title="{{recipe.recipeName}}">
+            <cl-image public-id="{{recipe.imageUrl}}">
+              <cl-transformation aspect-ratio="1:1" gravity="auto" width="100" height="100" crop="fill">
+              </cl-transformation>
+            </cl-image>
+          </a>
         </td>
         <td style="max-width: 60px;">{{recipe.totalPoint}}&#160;&#160;lượt</td>
         <td style="max-width: 60px;">{{recipe.viewCount}}&#160;&#160;lượt</td>

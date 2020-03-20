@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
           return;
         }
         this.cookie.set('token', token);
+        this.cookie.set('role', role);
         sessionStorage.setItem('token', token);
         this.cookie.set('isAuthenicate', 'true');
         this.cookie.set('email', this.userObject.email);

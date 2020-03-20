@@ -7,6 +7,7 @@ import { Token } from "../model/token";
 import { AppSetting } from "../../appsetting";
 import { retry, catchError, tap } from "rxjs/operators";
 import { User } from "../model/user";
+import { Message } from '../model/message';
 @Injectable({
   providedIn: "root"
 })
@@ -18,7 +19,7 @@ export class UserService {
 
   authSub = new Subject<any>();
 
-  constructor(private _http: HttpClient, private cookie: CookieService) {}
+  constructor(private _http: HttpClient, private cookie: CookieService) { }
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
@@ -126,6 +127,11 @@ export class UserService {
       .get<User[]>(`${this.baseUrl}/getUsers`)
       .pipe(tap(_ => console.log("load users")));
   };
+  getTopUsers = (): Observable<User[]> => {
+    return this._http
+      .get<User[]>(`${this.baseUrl}/getTopUsers`)
+      .pipe(tap(_ => console.log("load getTopUsers")));
+  };
   testEmail(email: any) {
     return this._http.post(
       `${this.baseUrl}/testEmail`,
@@ -139,5 +145,8 @@ export class UserService {
       tap(_ => console.log('helo'))
     );
     //return this._http.post("http://localhost:8000/findRecipe", { id: id }, { observe: "response" });
+  }
+  findMessage(user: any) {
+    return this._http.post(`${this.baseUrl}/findMessage`, { user: user }, { observe: "response" });
   }
 }

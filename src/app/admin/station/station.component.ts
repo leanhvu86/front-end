@@ -3,6 +3,7 @@ import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { UserService } from 'src/app/shared/service/user.service.';
 import { User } from 'src/app/shared/model/user';
 import { OrderPipe } from 'ngx-order-pipe';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-station',
@@ -18,11 +19,15 @@ export class StationComponent implements OnInit {
     role: 0,
     id: '',
   }
-
+  admin: boolean = false;
   message: string = '';
-  constructor(private userService: UserService, private orderPipe: OrderPipe) {
+  constructor(
+    private userService: UserService,
+    private orderPipe: OrderPipe,
+    private cookies: CookieService
+  ) {
     this.collection = orderPipe.transform(this.collection, 'info.name');
-    console.log(this.collection);
+
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
         {
@@ -42,6 +47,10 @@ export class StationComponent implements OnInit {
   reverse: boolean = false;
   ngOnInit() {
     this.getStaff()
+    let role = this.cookies.get('role')
+    if (parseInt(role) > 1) {
+      this.admin = true
+    }
   }
   pageChanged(event) {
     this.config.currentPage = event;
@@ -56,20 +65,25 @@ export class StationComponent implements OnInit {
         if (user.imageUrl === undefined) {
           user.imageUrl = 'jbiajl3qqdzshdw0z749'
         }
-        console.log(user)
+        user.isAdmin === false
         if (user.role === -1) {
           user.role = 'Chưa xác thực'
         } else if (user.role === 0) {
           user.role = 'Thành viên'
         } else if (user.role === 1) {
           user.role = 'Quản trị'
+          user.isAdmin === true
         } else if (user.role > 1) {
+          user.isAdmin === true
           user.role = 'Admin'
         } else {
           user.role = 'Khóa'
         }
+        let userAccess = user;
+        this.users = this.users.filter(use => use._id !== userAccess._id);
+
+        this.users.push(user)
       }
-      console.log(this.users);
     });
   }
 
@@ -81,7 +95,11 @@ export class StationComponent implements OnInit {
     this.order = value;
   }
   updateRole(user: any) {
-    this.userObject.role = 1;
+    if (user.warningReport === 0) {
+      this.userObject.role = 1;
+    } else {
+      this.userObject.role = 0;
+    }
     this.userObject.id = user._id;
     this.userService.updateRole(this.userObject).subscribe(data => {
       if (data.body['status'] === 200) {
@@ -90,7 +108,19 @@ export class StationComponent implements OnInit {
           if (userAccess.email === user.email) {
             userAccess = user;
             this.users = this.users.filter(user => user._id !== userAccess._id);
-            user.role = 'Quản trị'
+            if (user.role === -1) {
+              user.role = 'Chưa xác thực'
+            } else if (user.role === 0) {
+              user.role = 'Thành viên'
+            } else if (user.role === 1) {
+              user.role = 'Quản trị'
+              user.isAdmin === true
+            } else if (user.role > 1) {
+              user.isAdmin === true
+              user.role = 'Admin'
+            } else {
+              user.role = 'Khóa'
+            }
             if (user.imageUrl === undefined) {
               user.imageUrl = 'jbiajl3qqdzshdw0z749'
             }
@@ -177,21 +207,22 @@ export class StationComponent implements OnInit {
     this.userService.activeMember(user._id).subscribe(data => {
       this.users = this.users.filter(user => user._id !== userTemp._id);
 
-      console.log(data)
       user = data
       user.block = false;
       if (user.imageUrl === undefined) {
         user.imageUrl = 'jbiajl3qqdzshdw0z749'
       }
-      console.log(user)
+      user.isAdmin = false;
       if (user.role === -1) {
         user.role = 'Chưa xác thực'
       } else if (user.role === 0) {
         user.role = 'Thành viên'
       } else if (user.role === 1) {
+        user.isAdmin = true;
         user.role = 'Quản trị'
       } else if (user.role > 1) {
         user.role = 'Admin'
+        user.isAdmin = true;
       } else {
         user.role = 'Khóa'
       }

@@ -1,7 +1,7 @@
 <div class="row" *ngIf="recipe" style="padding: 0 15px; ">
   <div class="col-8" style="position: relative; font-size: 13px; text-align: center; ">
     <div class="image-preview mb-3" style="border-radius: 20px;background: white;">
-      <h4>{{errorMessage}}</h4>
+
       <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 60px;">
         <cl-transformation width="650" height="350" crop="scale" quality="auto" radius="20">
         </cl-transformation>
@@ -34,7 +34,7 @@
     </div>
     <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><img
         src="../../../assets/images/cooky-video-play-fill-2.png"
-        style="top:250px;left:360px;width: 50px;height: 50px; position: absolute;" /></span>
+        style="top:220px;left:340px;width: 50px;height: 50px; position: absolute;" /></span>
     <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
       <div class="row">
 
@@ -211,8 +211,9 @@
       </div>
     </div>
   </div>
-  <div class="col-4" style="min-height: 300px; height: 2150px; border-radius: 5px; background: white;">
-    <a style="margin-top: 50px;">CÔNG THỨC LIÊN QUAN</a>
+  <div class="col-4" style="min-height: 300px; height: 2150px;margin-top: 5px; border-radius: 15px; background: white;">
+    <br><br>
+    <a style="margin-top: 50px; font-size: 15px;">CÔNG THỨC LIÊN QUAN</a>
     <hr>
     <div class="row">
       <div class="col" *ngFor="let recipe of recipes;let i = index" (click)="showRecipe(recipe)">
@@ -251,7 +252,7 @@
         </div>
         <span *ngIf="recipeView.videoLink" (click)='video(recipeView.videoLink)'><img
             src="../../../assets/images/cooky-video-play-fill-2.png"
-            style="top:100px;left:70px;width: 50px;height: 50px; position: absolute;" /></span>
+            style="top:140px;left:70px;width: 50px;height: 50px; position: absolute;" /></span>
         <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
           <div class="row">
 
@@ -371,5 +372,29 @@
     </div>
   </div>
 </div>
+<a type="button" class="py-2 d-none d-md-inline-block register-button" hidden="true" data-toggle="modal"
+  data-target="#exampleModalCenter" id="modal-button">
+</a>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" *ngIf="!isAuthenicate"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Thông báo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card card-container" style="max-width: 500px; font-size: 18px;">
 
+          <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">{{errorMessage}}</p>
+          <p style="text-align:center;" *ngIf="message">{{message}}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <app-scroll-top></app-scroll-top>

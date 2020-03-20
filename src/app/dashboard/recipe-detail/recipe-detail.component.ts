@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { RecipeService } from "src/app/shared/service/recipe-service.service";
@@ -8,6 +8,8 @@ import { CookieService } from "ngx-cookie-service";
 import { UserService } from "src/app/shared/service/user.service.";
 
 import { Cloudinary } from "@cloudinary/angular-5.x";
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { LoginServiceService } from 'src/app/shared/service/login-service.service';
 @Component({
   selector: "app-recipe-detail",
   templateUrl: "./recipe-detail.component.html",
@@ -21,7 +23,17 @@ export class RecipeDetailComponent implements OnInit {
     image: "",
     imageUrl: ""
   };
-
+  userLogin = {
+    email: "",
+    password: ""
+  }
+  isAuthenicate: boolean = false;
+  showModal: boolean = false;
+  isModeration: boolean = false;
+  imageUrl: string = 'jbiajl3qqdzshdw0z749'
+  recipes: Recipe[] = [];
+  checkDone: boolean = false;
+  registerForm: FormGroup;
   private hasBaseDropZoneOver1 = false;
   errorMessage: string = null;
   multiplyElement: number = 4;
@@ -31,24 +43,33 @@ export class RecipeDetailComponent implements OnInit {
   showImageStep: boolean = false;
   prepared: number;
   totalCookingTime: number;
+
   constructor(
     private cloudinary: Cloudinary,
     private route: ActivatedRoute,
     private cookie: CookieService,
     private recipeService: RecipeService,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private _loginService: LoginServiceService,
+    private formBuilder: FormBuilder,
+    private _router: Router,
+  ) { }
   id: string;
   ngOnInit() {
-    this.getRecipeDetail();
+    this.getRecipeDetail(); this.registerForm = this.formBuilder.group({
+
+      content: [''],
+      image: [''],
+      imageUrl: ['']
+    });
+    this.isModeration = this.cookie.get('role') !== '' ? true : false;
+    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
   }
+  get f() { return this.registerForm.controls; }
+
   getRecipeDetail() {
-    console.log("recipe");
     this.id = this.route.snapshot.params.id;
-    console.log(this.id);
     this.recipeService.getRecipeDetail(this.id).subscribe(data => {
-      console.log(data["recipe"]);
-      this.recipe;
       let recipeTem = data["recipe"];
       this.recipe = recipeTem;
       if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
@@ -62,7 +83,7 @@ export class RecipeDetailComponent implements OnInit {
       }
       if (this.recipe !== undefined && this.recipe.cockStep.length > 0) {
         for (let ingredient of this.recipe.ingredients) {
-          console.log(ingredient);
+
           let quantity =
             parseInt(ingredient.quantitative) * this.multiplyElement;
           ingredient.quantitative = quantity;
@@ -87,8 +108,88 @@ export class RecipeDetailComponent implements OnInit {
           }
         }
         this.cookSteps = this.recipe.cockStep;
-        console.log(this.cookSteps);
+
+        this.getRecipes()
       }
+    });
+
+  }
+  loginUser() {
+    console.log(this.userLogin.email + " user đăng nhập");
+    this._loginService.loginAuth(this.userLogin).subscribe((data) => {
+      this.errorMessage = null;
+      if (data.body['status'] === 200) {
+        this._loginService.updateAuthStatus(true);
+
+
+        let user = data.body;
+        let role;
+        for (let key in user) {
+          if (key === 'role') {
+            role = user[key];
+            console.log(role);
+          }
+          if (key === 'image') {
+            this.imageUrl = user[key];
+            console.log(this.imageUrl);
+          }
+          if (parseInt(role) === -1) {
+            this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
+            return;
+          }
+          if (key === 'user') {
+            let users = user[key];
+            console.log(users.token);
+            this.cookie.set('token', users.token);
+            this.cookie.set('isAuthenicate', '1');
+          }
+          if (key === 'role') {
+            role = user[key];
+            this.cookie.set('role', role);
+            console.log(role)
+            if (role !== undefined && role !== '') {
+              this.isModeration = true
+              console.log(role)
+            }
+          }
+        }
+        this.showModal = false;
+        const radio: HTMLElement = document.getElementById('close-modal');
+        radio.click();
+        sessionStorage.setItem('user', this.userLogin.email);
+        this.cookie.set('email', this.userLogin.email);
+        this.isAuthenicate = true;
+        console.log('true');
+        console.log(this.recipe._id)
+        window.location.reload();
+      }
+      if (data.body['status'] !== 200) {
+        this.errorMessage = data.body['message'];
+      }
+      if (data.body['status'] === 404) {
+        this.errorMessage = data.body['message'];
+      }
+    })
+  }
+  getRecipes() {
+    console.log(this.recipe)
+    this.recipeService.getRecipes().subscribe(recipeArray => {
+      let arr: Recipe[] = [];
+      for (let recip of recipeArray) {
+        for (let cookCheck of this.recipe.cookWay) {
+          let cookWayArr = recip.cookWay;
+          for (let cokkway of cookWayArr) {
+            if (cookCheck.cookWayCode === cokkway.cookWayCode && recip._id !== this.recipe._id) {
+              arr.push(recip);
+            }
+          }
+        }
+      }
+      this.recipes = arr.filter(function (item, pos) {
+        return arr.indexOf(item) == pos;
+      });
+
+      console.log(this.recipes);
     });
   }
   fileOverBase1(e: any): void {
@@ -121,25 +222,30 @@ export class RecipeDetailComponent implements OnInit {
     }
   }
   uploadFile(file: any) {
+    if (this.isAuthenicate == false) {
+      const radio: HTMLElement = document.getElementById("modal-button1");
+      radio.click();
+      return;
+    }
     let inputValue;
     console.log(file);
     const url = `https://api.cloudinary.com/v1_1/${
       this.cloudinary.config().cloud_name
-    }/image/upload`;
+      }/image/upload`;
     const xhr = new XMLHttpRequest();
     const fd = new FormData();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
     // Update progress (can be used to show progress indicator)
-    xhr.upload.addEventListener("progress", function(e) {
+    xhr.upload.addEventListener("progress", function (e) {
       const progress = Math.round((e.loaded * 100.0) / e.total);
       // document.getElementById('progress').style.width = progress + "%";
 
       console.log(`fileuploadprogress data.loaded: ${e.loaded},
     data.total: ${e.total}`);
     });
-    xhr.onreadystatechange = function(e) {
+    xhr.onreadystatechange = function (e) {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // File uploaded successfully
         const response = JSON.parse(xhr.responseText);
@@ -154,7 +260,7 @@ export class RecipeDetailComponent implements OnInit {
         const id = "imageArray";
         inputValue = (document.getElementById(id) as HTMLInputElement).value;
         img.id = id + "_";
-        img.onclick = function() {
+        img.onclick = function () {
           // xử lí xóa ảnh khi click thì  phải xóa ở trong imageArray( xóa public_id của ảnh trên cloud)
           document.getElementById(galleryID).removeChild(img);
 
@@ -276,6 +382,11 @@ export class RecipeDetailComponent implements OnInit {
     console.log(this.showImageStep);
   }
   likeRecipe(recipe: any) {
+    if (this.isAuthenicate == false) {
+      const radio: HTMLElement = document.getElementById("modal-button1");
+      radio.click();
+      return;
+    }
     console.log(recipe);
     this.like = true;
 
@@ -303,21 +414,16 @@ export class RecipeDetailComponent implements OnInit {
       }
     });
   }
-  // hàm này a tạo sáng nay để e tái sử dụng được.
-  // luồng như sau nè
-  // khi người dùng nhấn thực hiện thì mặc định sẽ tạo 1 bản ghi bình luôn với type =1  nghĩa là đã thực hiện
-  // khi e tạo bình luận thì e phải tạo bản ghi với type =0 nghĩa là chưa thực hiện
-  // nếu người dùng của em vừa bình luận vừa thực hiện thì a sẽ làm 1 hàm khác. hiện tại
-  // hai ae cứ sử dụng chung hàm này đi. k có front end thì back end khó ra bug lắm thế nên a mới kêu e build haha
-  // cái node js debug hơi khó. nên có những thứ cần thiết front end thì phải ra front end. cái thêm công thức
-  // k có front end thì k debug nổi mà ra bug cơ nó có tận gần 20 properties.. 4 cái array haha thua
-  // good luck
-  // mà luồng
+
   addDoneRecipe(recipe: any) {
+    if (this.isAuthenicate == false) {
+      const radio: HTMLElement = document.getElementById("modal-button1");
+      radio.click();
+      return;
+    }
     console.log(recipe);
     this.done = true;
     let user = this.cookie.get("email");
-    console.log(recipe);
     let doneObject = new Object({
       user: user,
       recipe: recipe,
@@ -335,8 +441,21 @@ export class RecipeDetailComponent implements OnInit {
     });
   }
   addComment() {
+    if (this.isAuthenicate == false) {
+      const radio: HTMLElement = document.getElementById("modal-button1");
+      radio.click();
+      return;
+    }
+    console.log(this.registerForm.value)
     console.log(this.recipe);
+    this.userObject = this.registerForm.value;
     this.done = true;
+    let typeDone
+    if (this.checkDone === true) {
+      typeDone = 1
+    } else {
+      typeDone = 0
+    }
     let user = this.cookie.get("email");
     console.log(this.userObject);
     const inputValue = (document.getElementById(
@@ -345,7 +464,7 @@ export class RecipeDetailComponent implements OnInit {
     let doneObject = new Object({
       user: user,
       recipe: this.recipe,
-      type: 0,
+      type: typeDone,
       content: this.userObject.content,
       imageUrl: inputValue
     });

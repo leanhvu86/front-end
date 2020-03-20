@@ -12,19 +12,19 @@
     <thead>
       <tr>
         <th>STT</th>
-        <th [class.active]="order === 'info.name'" (click)="setOrder('info.name')" style="max-width: 50px;"
+        <th [class.active]="order === 'info.name'" (click)="setOrder('info.name')" style="max-width: 100px;"
           class="mdl-data-table__cell--non-numeric">
           Tên thành viên <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
-        <th [class.active]="order === 'info.name'" (click)="setOrder('info.email')"
+        <th [class.active]="order === 'info.name'" (click)="setOrder('info.email')" style="min-width: 150px;"
           class="mdl-data-table__cell--non-numeric">
           Email <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
-        <th>Token</th>
+        <!-- <th>Token</th> -->
         <th>Ảnh</th>
         <th [class.active]="order === 'info.totalPoint'" (click)="setOrder('info.totalPoint')"
           class="mdl-data-table__cell--non-numeric">
           Tổng điểm <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
-        <th style="max-width: 80px;">Thêm quản trị</th>
-        <!-- <th style="max-width: 50px;">Báo cáo</th> -->
+        <th style="max-width: 80px;">Vai trò</th>
+        <th *ngIf="admin" style="max-width: 50px;">Thêm quản trị</th>
         <th style="max-width: 50px;">Khóa TK</th>
       </tr>
     </thead>
@@ -32,22 +32,26 @@
       *ngFor="let user of users | orderBy: order:reverse:'case-insensitive'| filter:searchText| paginate: config; let i=index">
 
       <tr>
-        <td>{{i+1}}</td>
-        <td style="max-width: 50px;">{{user.name}}</td>
-        <td style="max-width: 80px;">{{user.email}}</td>
-        <td style="max-width: 100px;
+        <td style="background: white; padding-top: 20px; text-align: center;">{{i+1}}</td>
+        <td style="max-width: 50px;background: white;padding-top: 20px; text-align: center;">{{user.name}}</td>
+        <td style="max-width: 80px;background: white;padding-top: 20px; text-align: center;">{{user.email}}</td>
+        <!-- <td style="max-width: 100px;
         overflow: visible;
-        text-overflow: initial;word-wrap: break-word;">{{user.salt}}</td>
-        <td>
+        text-overflow: initial;word-wrap: break-word;">{{user.salt}}</td> -->
+        <td style="background: white;">
           <cl-image public-id="{{user.imageUrl}} ">
             <cl-transformation aspect-ratio="1:1" gravity="auto" radius="max" height="70" width="70" crop="fill">
             </cl-transformation>
           </cl-image>
         </td>
-        <td>{{user.totalPoint}}</td>
-        <td><button style="width: 120px;" title="Quản trị" (click)="updateRole(user)" class="button1">
-            <span class="ng-scope">{{user.role}}</span>
-
+        <td style="background: white;padding-top: 20px; text-align: center;">{{user.totalPoint}}</td>
+        <td style="background: white;padding-top: 20px; text-align: center;">{{user.role}}</td>
+        <td *ngIf="admin" style="background: white;padding-top: 20px; text-align: center;">
+          <button style="width: 100px; background: white; border: 1px solid greenyellow;" title="Phân quyền"
+            (click)="updateRole(user)" class="button1">
+            <span *ngIf="user.warningReport!==0; else other_content1" class="ng-scope">Hạ cấp</span>
+            <ng-template #other_content1> <span class="ng-scope">Quản trị</span>
+            </ng-template>
           </button>
         </td>
         <!-- <td style="max-width: 50px;">
@@ -57,12 +61,14 @@
 
           </button></td> -->
 
-        <td><button style="width: 100px;" title="Quản trị" (click)="bannedUser(user)" class="button1"
-            *ngIf="user.status===1; else other_content">
+        <td style="background: white;padding-top: 20px; text-align: center;"><button
+            style="width: 100px; background: white;border: 1px solid red;" title="Khóa" (click)="bannedUser(user)"
+            class="button1" *ngIf="user.status===1; else other_content">
             <span class="ng-scope"></span>Khóa
           </button>
           <ng-template #other_content>
-            <button style="width: 100px;" title="Quản trị" (click)="activeMember(user)" class="button1">
+            <button style="width: 100px;background: white;border: 1px solid greenyellow;" title="Mở khóa"
+              (click)="activeMember(user)" class="button1">
               <span class="ng-scope"></span>Mở khóa
             </button></ng-template>
         </td>
