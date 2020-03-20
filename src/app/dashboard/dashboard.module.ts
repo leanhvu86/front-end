@@ -35,6 +35,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 import { CookieService } from 'ngx-cookie-service';
 import { UserinforComponent } from './userinfor/userinfor.component';
+import { Ng5SliderModule } from "ng5-slider";
 @NgModule({
   declarations: [
     IndexComponent,
@@ -58,6 +59,7 @@ import { UserinforComponent } from './userinfor/userinfor.component';
     BrowserModule,
     CommonModule,
     FileUploadModule,
+    Ng5SliderModule,
     JwSocialButtonsModule,
     RouterModule.forChild(DashBoardRoutes),
     CounterModule.forRoot(),
