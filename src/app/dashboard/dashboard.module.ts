@@ -36,6 +36,7 @@ import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 import { CookieService } from 'ngx-cookie-service';
 import { UserinforComponent } from './userinfor/userinfor.component';
 import { Ng5SliderModule } from "ng5-slider";
+import { MemberinforComponent } from './memberinfor/memberinfor.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -54,7 +55,8 @@ import { Ng5SliderModule } from "ng5-slider";
     RecipeComponent,
     WelcomeComponent,
     ScrollTopComponent,
-    UserinforComponent],
+    UserinforComponent,
+    MemberinforComponent],
   imports: [
     BrowserModule,
     CommonModule,

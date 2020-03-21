@@ -8,8 +8,8 @@ import { CookieService } from "ngx-cookie-service";
 import { UserService } from "src/app/shared/service/user.service.";
 
 import { Cloudinary } from "@cloudinary/angular-5.x";
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { LoginServiceService } from 'src/app/shared/service/login-service.service';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { LoginServiceService } from "src/app/shared/service/login-service.service";
 @Component({
   selector: "app-recipe-detail",
   templateUrl: "./recipe-detail.component.html",
@@ -26,11 +26,12 @@ export class RecipeDetailComponent implements OnInit {
   userLogin = {
     email: "",
     password: ""
-  }
+  };
+  submitted = false;
   isAuthenicate: boolean = false;
   showModal: boolean = false;
   isModeration: boolean = false;
-  imageUrl: string = 'jbiajl3qqdzshdw0z749'
+  imageUrl: string = "jbiajl3qqdzshdw0z749";
   recipes: Recipe[] = [];
   checkDone: boolean = false;
   registerForm: FormGroup;
@@ -52,20 +53,23 @@ export class RecipeDetailComponent implements OnInit {
     private userService: UserService,
     private _loginService: LoginServiceService,
     private formBuilder: FormBuilder,
-    private _router: Router,
-  ) { }
+    private _router: Router
+  ) {}
   id: string;
   ngOnInit() {
-    this.getRecipeDetail(); this.registerForm = this.formBuilder.group({
+    this.getRecipeDetail();
+    this.registerForm = this.formBuilder.group({
+      content: ["", Validators.required],
 
-      content: [''],
-      image: [''],
-      imageUrl: ['']
+      image: [""],
+      imageUrl: [""]
     });
-    this.isModeration = this.cookie.get('role') !== '' ? true : false;
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    this.isModeration = this.cookie.get("role") !== "" ? true : false;
+    this.isAuthenicate = this.cookie.get("email") !== "" ? true : false;
   }
-  get f() { return this.registerForm.controls; }
+  get f() {
+    return this.registerForm.controls;
+  }
 
   getRecipeDetail() {
     this.id = this.route.snapshot.params.id;
@@ -83,7 +87,6 @@ export class RecipeDetailComponent implements OnInit {
       }
       if (this.recipe !== undefined && this.recipe.cockStep.length > 0) {
         for (let ingredient of this.recipe.ingredients) {
-
           let quantity =
             parseInt(ingredient.quantitative) * this.multiplyElement;
           ingredient.quantitative = quantity;
@@ -109,83 +112,84 @@ export class RecipeDetailComponent implements OnInit {
         }
         this.cookSteps = this.recipe.cockStep;
 
-        this.getRecipes()
+        this.getRecipes();
       }
     });
-
   }
   loginUser() {
     console.log(this.userLogin.email + " user đăng nhập");
-    this._loginService.loginAuth(this.userLogin).subscribe((data) => {
+    this._loginService.loginAuth(this.userLogin).subscribe(data => {
       this.errorMessage = null;
-      if (data.body['status'] === 200) {
+      if (data.body["status"] === 200) {
         this._loginService.updateAuthStatus(true);
-
 
         let user = data.body;
         let role;
         for (let key in user) {
-          if (key === 'role') {
+          if (key === "role") {
             role = user[key];
             console.log(role);
           }
-          if (key === 'image') {
+          if (key === "image") {
             this.imageUrl = user[key];
             console.log(this.imageUrl);
           }
           if (parseInt(role) === -1) {
-            this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
+            this.errorMessage = "Bạn chưa xác thực email đã đăng ký";
             return;
           }
-          if (key === 'user') {
+          if (key === "user") {
             let users = user[key];
             console.log(users.token);
-            this.cookie.set('token', users.token);
-            this.cookie.set('isAuthenicate', '1');
+            this.cookie.set("token", users.token);
+            this.cookie.set("isAuthenicate", "1");
           }
-          if (key === 'role') {
+          if (key === "role") {
             role = user[key];
-            this.cookie.set('role', role);
-            console.log(role)
-            if (role !== undefined && role !== '') {
-              this.isModeration = true
-              console.log(role)
+            this.cookie.set("role", role);
+            console.log(role);
+            if (role !== undefined && role !== "") {
+              this.isModeration = true;
+              console.log(role);
             }
           }
         }
         this.showModal = false;
-        const radio: HTMLElement = document.getElementById('close-modal');
+        const radio: HTMLElement = document.getElementById("close-modal");
         radio.click();
-        sessionStorage.setItem('user', this.userLogin.email);
-        this.cookie.set('email', this.userLogin.email);
+        sessionStorage.setItem("user", this.userLogin.email);
+        this.cookie.set("email", this.userLogin.email);
         this.isAuthenicate = true;
-        console.log('true');
-        console.log(this.recipe._id)
+        console.log("true");
+        console.log(this.recipe._id);
         window.location.reload();
       }
-      if (data.body['status'] !== 200) {
-        this.errorMessage = data.body['message'];
+      if (data.body["status"] !== 200) {
+        this.errorMessage = data.body["message"];
       }
-      if (data.body['status'] === 404) {
-        this.errorMessage = data.body['message'];
+      if (data.body["status"] === 404) {
+        this.errorMessage = data.body["message"];
       }
-    })
+    });
   }
   getRecipes() {
-    console.log(this.recipe)
+    console.log(this.recipe);
     this.recipeService.getRecipes().subscribe(recipeArray => {
       let arr: Recipe[] = [];
       for (let recip of recipeArray) {
         for (let cookCheck of this.recipe.cookWay) {
           let cookWayArr = recip.cookWay;
           for (let cokkway of cookWayArr) {
-            if (cookCheck.cookWayCode === cokkway.cookWayCode && recip._id !== this.recipe._id) {
+            if (
+              cookCheck.cookWayCode === cokkway.cookWayCode &&
+              recip._id !== this.recipe._id
+            ) {
               arr.push(recip);
             }
           }
         }
       }
-      this.recipes = arr.filter(function (item, pos) {
+      this.recipes = arr.filter(function(item, pos) {
         return arr.indexOf(item) == pos;
       });
 
@@ -231,21 +235,21 @@ export class RecipeDetailComponent implements OnInit {
     console.log(file);
     const url = `https://api.cloudinary.com/v1_1/${
       this.cloudinary.config().cloud_name
-      }/image/upload`;
+    }/image/upload`;
     const xhr = new XMLHttpRequest();
     const fd = new FormData();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
     // Update progress (can be used to show progress indicator)
-    xhr.upload.addEventListener("progress", function (e) {
+    xhr.upload.addEventListener("progress", function(e) {
       const progress = Math.round((e.loaded * 100.0) / e.total);
       // document.getElementById('progress').style.width = progress + "%";
 
       console.log(`fileuploadprogress data.loaded: ${e.loaded},
     data.total: ${e.total}`);
     });
-    xhr.onreadystatechange = function (e) {
+    xhr.onreadystatechange = function(e) {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // File uploaded successfully
         const response = JSON.parse(xhr.responseText);
@@ -260,7 +264,7 @@ export class RecipeDetailComponent implements OnInit {
         const id = "imageArray";
         inputValue = (document.getElementById(id) as HTMLInputElement).value;
         img.id = id + "_";
-        img.onclick = function () {
+        img.onclick = function() {
           // xử lí xóa ảnh khi click thì  phải xóa ở trong imageArray( xóa public_id của ảnh trên cloud)
           document.getElementById(galleryID).removeChild(img);
 
@@ -441,20 +445,24 @@ export class RecipeDetailComponent implements OnInit {
     });
   }
   addComment() {
+    this.submitted = true;
+    if (this.registerForm.invalid) {
+      return;
+    }
     if (this.isAuthenicate == false) {
       const radio: HTMLElement = document.getElementById("modal-button1");
       radio.click();
       return;
     }
-    console.log(this.registerForm.value)
+    console.log(this.registerForm.value);
     console.log(this.recipe);
     this.userObject = this.registerForm.value;
     this.done = true;
-    let typeDone
+    let typeDone;
     if (this.checkDone === true) {
-      typeDone = 1
+      typeDone = 1;
     } else {
-      typeDone = 0
+      typeDone = 0;
     }
     let user = this.cookie.get("email");
     console.log(this.userObject);
@@ -469,9 +477,7 @@ export class RecipeDetailComponent implements OnInit {
       imageUrl: inputValue
     });
     console.log(doneObject);
-    if (this.userObject.content === null) {
-      this.errorMessage = "Không để trống nội dung bình luận";
-    }
+
     this.recipeService.addComment(doneObject).subscribe(data => {
       if (data !== undefined) {
         console.log(data);

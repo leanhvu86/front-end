@@ -1,3 +1,4 @@
+import { MemberinforComponent } from "./memberinfor/memberinfor.component";
 import { UserinforComponent } from "./userinfor/userinfor.component";
 import { Routes } from "@angular/router";
 import { IndexComponent } from "./index/index.component";
@@ -61,6 +62,10 @@ export const DashBoardRoutes: Routes = [
       {
         path: "user-infor",
         component: UserinforComponent
+      },
+      {
+        path: "member-infor",
+        component: MemberinforComponent
       }
     ]
   }
