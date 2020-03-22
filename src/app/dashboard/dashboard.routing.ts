@@ -13,6 +13,7 @@ import { LoginComponent } from "../dashboard/login/login.component";
 import { RecipeDetailComponent } from "./recipe-detail/recipe-detail.component";
 import { RecipeComponent } from "./recipe/recipe.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
+import { GalleryComponent } from './gallery/gallery.component';
 
 export const DashBoardRoutes: Routes = [
   {
@@ -61,6 +62,11 @@ export const DashBoardRoutes: Routes = [
         component: WelcomeComponent
       },
       {
+
+        path: "gallery",
+        component: GalleryComponent
+      }, {
+
         path: "user-infor",
         component: UserinforComponent
       },

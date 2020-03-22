@@ -496,7 +496,9 @@ export class RegisterPassengerComponent implements OnInit {
             this.message = result['message'];
             const radio: HTMLElement = document.getElementById('modal-button');
             radio.click();
-            this.finish();
+            setTimeout(() => {
+              this._router.navigate(['/recipe']);
+            }, 5000);
           } else {
             this.message = result['message'];
             const radio: HTMLElement = document.getElementById('modal-button');
@@ -515,7 +517,7 @@ export class RegisterPassengerComponent implements OnInit {
     const radio: HTMLElement = document.getElementById('index-home-link');
     radio.click();
     console.log('finish');
-    this._router.navigate(['/index']);
+    this._router.navigateByUrl('/index');
   }
 
   getcookStep() {

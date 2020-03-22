@@ -201,7 +201,7 @@ figure:hover+span {
 	margin-right:15%;
 	margin-left:15%;
 	transition: all .2s ease-in-out; 
-	width: 260px;
+	width: 100px;
 }
 .memberfunny:hover{
 	transform: scale(1.1); 
@@ -1017,4 +1017,46 @@ body{background-color:#f1f1f2}
 	  
 	border-bottom: 1px dotted black;
   }
+  .button_slidehr {
+	/* color: #156466; */
+	/* border: 1px solid rgba(21,100,102,0.35); */
+	border-radius: 0px;
+	/* extend left padding */
+	padding: 18px 15px 18px 62px;
+	position: relative;
+	display: inline-block;
+	font-family: Verdana;
+	font-size: 14px;
+	margin-left: 20px;
+	letter-spacing: 1px;
+	/* background-color: rgba(255,255,255,0.3); */
+	cursor: pointer;
+	/* box-shadow: inset 0 0 0 0 #156466; */
+	-webkit-transition: ease-out 0.4s;
+	-moz-transition: ease-out 0.4s;
+	transition: ease-out 0.4s;
+  }
   
+  .slide_downhr:hover {
+	color:white;
+	/* border: 1px solid transparent; */
+	/* box-shadow: inset 0 100px 0 0 #156466; */
+  }
+  
+  .button_slidehr:hover:after {
+	background-image: url(https://res.cloudinary.com/am-thuc-an-chay/image/upload/v1584789262/j103enk0iuwvb8zlwbwk.png);
+  }
+  
+  .button_slidehr:after {
+	content: "";
+	display: inline-block;
+	position: absolute;
+	left: 10px;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url(https://res.cloudinary.com/am-thuc-an-chay/image/upload/v1584789263/vqbbffrxjfgxd8idxdmr.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: auto 80%;
+  }

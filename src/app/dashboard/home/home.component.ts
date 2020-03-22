@@ -8,6 +8,8 @@ import { LoginServiceService } from 'src/app/shared/service/login-service.servic
 import { Router } from '@angular/router';
 import { Interest } from 'src/app/shared/model/interest';
 import { User } from 'src/app/shared/model/user';
+import { GalleryService } from 'src/app/shared/service/gallery.service';
+import { Gallery } from 'src/app/shared/model/gallery';
 
 declare var $: any;
 @Component({
@@ -27,17 +29,26 @@ export class Home2Component implements OnInit {
   topUsers: User[] = []
   tfaFlag: boolean = false
   errorMessage: string = null
+  message: string = null
   showModal: boolean = false;
   isAuthenicate: boolean = false;
   searchText;
   collection = { count: 60, data: [] };
+  galleryTop: Gallery[] = []
+  personalGallery: Gallery[] = []
+  addRecipe = Recipe
+  galleryObject = {
+    _id: "",
+    recipe: Recipe
+  };
   constructor(
     private translate: TranslateService,
     private cookie: CookieService,
     private recipeService: RecipeService,
     private _loginService: LoginServiceService,
     private userService: UserService,
-    private _router: Router) {
+    private _router: Router,
+    private galleryService: GalleryService) {
     translate.setDefaultLang('vi');
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
@@ -59,56 +70,115 @@ export class Home2Component implements OnInit {
   ngOnInit() {
     this.getRecipes();
     this.getTopUser()
+    this.getTopGalleries()
+    this.getPersonalGallery()
   }
   pageChanged(event) {
     this.config.currentPage = event;
   }
-  loginUser() {
-    console.log(this.userObject.email + " user đăng nhập");
-    this._loginService.loginAuth(this.userObject).subscribe((data) => {
-      this.errorMessage = null;
-      if (data.body['status'] === 200) {
-        this._loginService.updateAuthStatus(true);
-
-
-        let user = data.body;
-        let role;
-        for (let key in user) {
-          if (key === 'role') {
-            role = user[key];
-            console.log(role);
-          }
-          if (parseInt(role) === -1) {
-            this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
-            return;
-          }
-          if (key === 'user') {
-            let users = user[key];
-            console.log(users.token);
-            this.cookie.set('token', users.token);
-          }
-
+  getTopGalleries() {
+    this.galleryService.getTopGalleryies().subscribe(galleries => {
+      this.galleryTop = galleries
+      for (let gallery of galleries) {
+        if (gallery.recipe.length > 0) {
+          gallery.image = gallery.recipe[0].imageUrl
+        } else {
+          gallery.image = 'fvt7rkr59r9d7wk8ndbd'
         }
-        this.showModal = false;
-        const radio: HTMLElement = document.getElementById('close-modal');
-        radio.click();
-        sessionStorage.setItem('user', this.userObject.email);
-        this.cookie.set('email', this.userObject.email);
-        this.isAuthenicate = true;
-        this._router.navigate(['/index']);
-
-      }
-      if (data.body['status'] === 206) {
-        this.tfaFlag = true;
-      }
-      if (data.body['status'] === 403) {
-        this.errorMessage = data.body['message'];
-      }
-      if (data.body['status'] === 404) {
-        this.errorMessage = data.body['message'];
+        gallery.like = false
       }
     })
   }
+  getPersonalGallery() {
+    this.userObject.email = this.cookie.get('email')
+    if (this.userObject.email !== '') {
+      this.galleryService.findGallery(this.userObject).subscribe(data => {
+        if (data.body != null) {
+          this.personalGallery = data.body['gallerys']
+          if (this.personalGallery != undefined) {
+            for (let gallery of this.personalGallery) {
+              if (gallery.recipe.length > 0) {
+                gallery.image = gallery.recipe[0].imageUrl
+              } else {
+                gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+              }
+            }
+          }
+          console.log(this.personalGallery)
+        }
+      })
+    }
+  }
+  addBookmark(recipe: any) {
+    console.log(recipe)
+    this.addRecipe = recipe
+    const radio: HTMLElement = document.getElementById('modal-button1');
+    radio.click();
+  }
+  addRecipeBookMark(gallery: any) {
+    console.log(gallery)
+    this.galleryObject._id = gallery
+    this.galleryObject.recipe = this.addRecipe
+    console.log(this.galleryObject)
+    this.galleryService.addGallery(this.galleryObject).subscribe(data => {
+      if (data.body['status'] === 200) {
+        let gallery = data.body['gallery']
+        console.log(gallery)
+        this.message = data.body['message']
+        setTimeout(() => {
+          const radio: HTMLElement = document.getElementById('close-modal');
+          radio.click();
+        }, 5000);
+      }
+    })
+  }
+  // loginUser() {
+  //   console.log(this.userObject.email + " user đăng nhập");
+  //   this._loginService.loginAuth(this.userObject).subscribe((data) => {
+  //     this.errorMessage = null;
+  //     if (data.body['status'] === 200) {
+  //       this._loginService.updateAuthStatus(true);
+
+
+  //       let user = data.body;
+  //       let role;
+  //       for (let key in user) {
+  //         if (key === 'role') {
+  //           role = user[key];
+  //           console.log(role);
+  //         }
+  //         if (parseInt(role) === -1) {
+  //           this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
+  //           return;
+  //         }
+  //         if (key === 'user') {
+  //           let users = user[key];
+  //           console.log(users.token);
+  //           this.cookie.set('token', users.token);
+  //         }
+
+  //       }
+  //       this.showModal = false;
+  //       const radio: HTMLElement = document.getElementById('close-modal');
+  //       radio.click();
+  //       sessionStorage.setItem('user', this.userObject.email);
+  //       this.cookie.set('email', this.userObject.email);
+  //       this.isAuthenicate = true;
+  //       this._router.navigateByUrl('/index');
+  //       // this._router.navigate(['/home']);
+
+  //     }
+  //     if (data.body['status'] === 206) {
+  //       this.tfaFlag = true;
+  //     }
+  //     if (data.body['status'] === 403) {
+  //       this.errorMessage = data.body['message'];
+  //     }
+  //     if (data.body['status'] === 404) {
+  //       this.errorMessage = data.body['message'];
+  //     }
+  //   })
+  // }
   getRecipes() {
     this.recipeService.getRecipes().subscribe(recipes => {
       recipes.forEach(function (recipe) {
@@ -218,7 +288,6 @@ export class Home2Component implements OnInit {
   }
   getTopUser() {
     this.userService.getTopUsers().subscribe(users => {
-      console.log(users)
       this.topUsers = users
       for (let user of this.topUsers) {
         if (user.imageUrl === undefined) {

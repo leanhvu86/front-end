@@ -34,6 +34,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 import { CookieService } from 'ngx-cookie-service';
+import { GalleryComponent } from './gallery/gallery.component';
+import { GalleryDetailComponent } from './gallery-detail/gallery-detail.component';
+
 import { UserinforComponent } from './userinfor/userinfor.component';
 import { Ng5SliderModule } from "ng5-slider";
 import { MemberinforComponent } from './memberinfor/memberinfor.component';
@@ -56,6 +59,10 @@ import { MyrecipeComponent } from './myrecipe/myrecipe.component';
     RecipeComponent,
     WelcomeComponent,
     ScrollTopComponent,
+
+    GalleryComponent,
+    GalleryDetailComponent,
+
     UserinforComponent,
     MemberinforComponent,
     MyrecipeComponent],
