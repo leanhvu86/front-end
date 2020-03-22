@@ -63,7 +63,7 @@
     text-align: center;
     line-height: 42px;
     border: 0;
-    color: #FFF;
+    color: rgba(252, 103, 5, 0.986);
     font: normal normal normal 14px/1 FontAwesome;
     font-size: 16px;
     text-rendering: auto;
@@ -76,4 +76,5 @@
   
   .form > .button:hover {
     background-color: rgba(252, 103, 5, 0.986);
+    color: white;
   }
