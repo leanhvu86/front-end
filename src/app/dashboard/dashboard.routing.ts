@@ -67,15 +67,15 @@ export const DashBoardRoutes: Routes = [
         component: GalleryComponent
       }, {
 
-        path: "user/info",
+        path: "user/info/:id",
         component: UserinforComponent
       },
       {
-        path: "member/info",
+        path: "member/info/:id",
         component: MemberinforComponent
       },
       {
-        path: "personal/recipe",
+        path: "personal/recipe/:id",
         component: MyrecipeComponent
       },
       {
