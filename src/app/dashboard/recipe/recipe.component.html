@@ -1,13 +1,24 @@
 <div class="container-fluid1">
   <div class="container">
     <div class="col">
-      <div class="row-3" *ngFor="let recipe of recipies|paginate:{itemsPerPage: 12, currentPage:p}">
+      <div
+        class="row-3"
+        *ngFor="
+          let recipe of recipies
+            | paginate: { itemsPerPage: 20, currentPage: p }
+        "
+      >
         <div class="result-recipe-item">
           <div class="item-inner">
             <div class="item-photo">
-              <a routerLink="/detail/{{recipe.id}}">
-                <cl-image public-id="{{recipe.imageUrl}}" class="iamge">
-                  <cl-transformation height="240" radius="30" width="240" crop="scale">
+              <a [routerLink]="['/detail/', recipe._id]">
+                <cl-image public-id="{{ recipe.imageUrl }}" class="iamge">
+                  <cl-transformation
+                    height="240"
+                    radius="30"
+                    width="240"
+                    crop="scale"
+                  >
                   </cl-transformation>
                 </cl-image>
               </a>
@@ -16,24 +27,41 @@
               <div class="item-header">
                 <div class="title-one">
                   <h2>
-                    <a routerLink="/detail/{{recipe.id}}">{{recipe.recipeName}}</a>
+                    <a [routerLink]="['/detail/', recipe._id]">{{
+                      recipe.recipeName
+                    }}</a>
                   </h2>
                 </div>
                 <div class="title-two">
-                  <span>{{recipe.ingredients}}</span>
+                  <span>{{ recipe.ingredients[0].ingredientName }}</span>
                 </div>
-                <div class="title-three">
-
-                </div>
+                <div class="title-three"></div>
 
                 <div class="item-footer">
                   <div class="recipe-by">
-                    <a href="">
-                      <img src="{{recipe.user.imageUrl}}" alt="" class="images" />
-                      recipe.user.name
-                    </a>
+                    <div [routerLink]="['/detail/', recipe._id]">
+                      <figure style="    margin-bottom: -1px;">
+                        <cl-image
+                          public-id="{{ recipe.imageUrl }}"
+                          style="height: 50px;
+                          border-radius: 50%;
+                          width: 40%;"
+                        >
+                          <cl-transformation
+                            width="200"
+                            height="280"
+                            crop="crop"
+                            quality="auto"
+                          >
+                          </cl-transformation>
+                        </cl-image>
+                      </figure>
+                    </div>
                   </div>
-                  <div class="recipe-acts">
+                  <span style="    margin-left: -59px;">
+                    {{ recipe.user.name }}</span
+                  >
+                  <div class="recipe-acts" style="margin-top: 11px;">
                     <a href="">
                       <i class="fa fa-bookmark 5x"></i>
                     </a>

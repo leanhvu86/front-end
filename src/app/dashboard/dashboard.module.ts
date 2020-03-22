@@ -36,6 +36,11 @@ import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 import { CookieService } from 'ngx-cookie-service';
 import { GalleryComponent } from './gallery/gallery.component';
 import { GalleryDetailComponent } from './gallery-detail/gallery-detail.component';
+
+import { UserinforComponent } from './userinfor/userinfor.component';
+import { Ng5SliderModule } from "ng5-slider";
+import { MemberinforComponent } from './memberinfor/memberinfor.component';
+import { MyrecipeComponent } from './myrecipe/myrecipe.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -54,13 +59,18 @@ import { GalleryDetailComponent } from './gallery-detail/gallery-detail.componen
     RecipeComponent,
     WelcomeComponent,
     ScrollTopComponent,
+
     GalleryComponent,
-    GalleryDetailComponent
-  ],
+    GalleryDetailComponent,
+
+    UserinforComponent,
+    MemberinforComponent,
+    MyrecipeComponent],
   imports: [
     BrowserModule,
     CommonModule,
     FileUploadModule,
+    Ng5SliderModule,
     JwSocialButtonsModule,
     RouterModule.forChild(DashBoardRoutes),
     CounterModule.forRoot(),
