@@ -66,6 +66,7 @@ export class IndexComponent implements OnInit {
     this.newMessage = false
   }
   getMessage() {
+    console.log('get message')
     this.userMessage = [];
     let email = this.cookie.get('email');
     if (email !== '') {
@@ -137,7 +138,8 @@ export class IndexComponent implements OnInit {
           this._router.navigate(['/addPassenger']);
           this.addPassenger = false;
         } else {
-          this._router.navigate(['/index']);
+          window.location.reload()
+          // this._router.navigate(['/index']);
         }
       }
       if (data.body['status'] === 206) {

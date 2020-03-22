@@ -92,7 +92,7 @@
                 <span (click)="dislikeRecipe(recipe,i)" style="position: absolute; left:270px; bottom: 20%;"><i
                         class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
             </ng-template>
-            <div style="top:375px;left: -20px; position: absolute; font-size: 12px; ">
+            <div style="top:375px;left: 40px; position: absolute; font-size: 12px;margin-left: 10px; ">
                 <a title="{{recipe.user.name}}">
                     <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
                         <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
@@ -100,8 +100,10 @@
                         </cl-transformation>
                         <cl-transformation width="75" crop="scale">
                         </cl-transformation>
-                    </cl-image>
+                    </cl-image>{{recipe.user.name}}
                 </a>
+                <a class="button_slidehr slide_downhr" style="margin-left: 50px;" id="bookmark{{i}}"
+                    (click)="addBookmark(recipe)"></a>
             </div>
             <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
                     aria-hidden="true" style="top:40%;left:155px;width: 30%;"></i></span>
@@ -119,20 +121,21 @@
 <div class="container mt-40">
 
     <div class="row mt-30">
-        <div class="col-md-3 col-sm-6" *ngFor="let recipe of recipes;let i = index" style="margin-top: 50px;">
+        <div class="col-md-3 col-sm-6" *ngFor="let gallery of galleryTop;let i = index" style="margin-top: 50px;">
             <div class="box15">
-                <cl-image public-id="{{recipe.imageUrl}}">
+                <cl-image public-id="{{gallery.image}}">
                     <cl-transformation width="255" height="349" crop="scale" quality="auto" radius="2">
                     </cl-transformation>
                 </cl-image>
                 <div class="box-content">
-                    <h3 class="title" [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</h3>
-                    <ul class="icon">
-                        <li *ngIf="recipe.videoLink"><a><i class="fa fa-play-circle-o"></i></a></li>
-                        <li><a><i class="fa fa-heart " id="heart{{i}}" (click)="likeRecipe(recipe,i)"
-                                    *ngIf="!recipe.like;else other_content"></i>
-                                <ng-template #other_content> <i class="fa fa-heart " id="heart{{i}}"
-                                        (click)="dislikeRecipe(recipe,i)" aria-hidden="true"></i> </ng-template>
+                    <h3 class="title" style=" width: 96% ; text-align: center;"
+                        [routerLink]="['/detail/', gallery._id]">{{gallery.name}}
+                    </h3>
+
+                    <ul class="icon" style=" bottom:100px ;">
+                        <li><a><i class="fa fa-heart " *ngIf="!gallery.like;else other_content"></i>
+                                <ng-template #other_content> <i class="fa fa-heart " aria-hidden="true"></i>
+                                </ng-template>
 
                             </a></li>
 
@@ -169,16 +172,11 @@
                     </cl-transformation>
                 </cl-image>
             </a>
-            <!-- <a class="link-name"
-                style=" -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    display: -webkit-box;text-decoration: none; font-style: inherit;font-size: 12px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
-                routerLink="/detail/{{recipe._id}}">{{recipe.recipeName}}</a> -->
+
             <!-- </div> -->
 
         </div>
-
+        <!-- <a class="link-name" routerLink="/detail/{{recipe._id}}">{{user.userName}}</a> -->
         <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"
         ng-reflect-public-id="mypic">
         <img
@@ -204,7 +202,7 @@
 </div>
 <div class="clearfix"></div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" *ngIf="!isAuthenicate"
+<!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" *ngIf="!isAuthenicate"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -235,18 +233,45 @@
                         <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">{{errorMessage}}</p>
                     </form>
                     <hr style="border-top: 1px solid #eee;">
-                    <!-- <div class="row">
-                    <div class="col-6">
-                        <button class="loginBtn loginBtn--facebook">
-                            Login with Facebook
-                        </button>
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" id="modal-button1"
+    hidden>Large modal</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" style="height: auto;min-height: 600px;">
+    <div class="modal-dialog modal-lg" role="document" style="height: auto;min-height: 600px;">
+        <div class="modal-content" style="height: auto; margin-bottom: 50px;min-height: 600px;">
+            <div class="modal-header">
+                <ha class="modal-title" id="exampleModalLongTitle">Danh sách bộ sưu tập</ha>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="container mt-40">
+                <h5 class="text-left">Bộ sưu tập cá nhân</h5>
+                {{message}}
+                <div class="row mt-30">
+                    <div class="col-md-4 col-sm-6" *ngFor="let gallery of personalGallery" style="margin-bottom: 30px;">
+                        <div class="box3" (click)="addRecipeBookMark(gallery._id)">
+                            <cl-image public-id="{{gallery.image}}">
+                                <cl-transformation height="171" width="235" crop="scale">
+                                </cl-transformation>
+                            </cl-image>
+                            <div class="box-content">
+                                <a class="title" style="font-size: 14px;">{{gallery.name}}</a>
+                                <div style="float: left; width: 100%; height:0.5px; background: white;"></div>
+                                <p class="description">
+                                    {{gallery.content}}
+                                </p>
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-6 text-right">
-                        <button class="loginBtn loginBtn--google">
-                            Login with Google
-                        </button>
-                    </div>
-                </div> -->
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 export class Comment {
   id: Object;
-  // user:String;
+  user: String;
   recipe: Object;
   content: String;
   imageUrl: String;

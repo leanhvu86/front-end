@@ -56,7 +56,8 @@ export class RecipeDetailComponent implements OnInit {
   ) { }
   id: string;
   ngOnInit() {
-    this.getRecipeDetail(); this.registerForm = this.formBuilder.group({
+    this.getRecipeDetail();
+    this.registerForm = this.formBuilder.group({
 
       content: [''],
       image: [''],

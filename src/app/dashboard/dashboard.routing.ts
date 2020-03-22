@@ -1,4 +1,3 @@
-import { UserinforComponent } from "./userinfor/userinfor.component";
 import { Routes } from "@angular/router";
 import { IndexComponent } from "./index/index.component";
 import { Home2Component } from "../dashboard/home/home.component";
@@ -11,6 +10,7 @@ import { LoginComponent } from "../dashboard/login/login.component";
 import { RecipeDetailComponent } from "./recipe-detail/recipe-detail.component";
 import { RecipeComponent } from "./recipe/recipe.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
+import { GalleryComponent } from './gallery/gallery.component';
 
 export const DashBoardRoutes: Routes = [
   {
@@ -59,8 +59,8 @@ export const DashBoardRoutes: Routes = [
         component: WelcomeComponent
       },
       {
-        path: "user-infor",
-        component: UserinforComponent
+        path: "gallery",
+        component: GalleryComponent
       }
     ]
   }
