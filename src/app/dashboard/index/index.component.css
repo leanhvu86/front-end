@@ -1,76 +1,79 @@
-.navhover{
-    color: orange;
+.navhover {
+  color: orange;
 }
-.register-button{
-    border-radius: 5px; top: 10%; right: 5%; position: absolute;
-    color: gray;
-    border: 1px solid rgb(202, 201, 201);
-    font-size: 12px;
+.register-button {
+  border-radius: 5px;
+  top: 10%;
+  right: 5%;
+  position: absolute;
+  color: gray;
+  border: 1px solid rgb(202, 201, 201);
+  font-size: 12px;
 }
-.register-button:hover{
-    color: orange;
-    z-index: 1000;
+.register-button:hover {
+  color: orange;
+  z-index: 1000;
 }
 
-.text-muted :hover{
-    color: orange;
+.text-muted :hover {
+  color: orange;
 }
 /* .div-shadow {
-    -webkit-box-shadow: 3px 3px 5px 6px whitesmoke;  
-    -moz-box-shadow:    3px 3px 5px 6px whitesmoke;  
-    box-shadow:         3px 3px 5px 6px whitesmoke; 
+    -webkit-box-shadow: 3px 3px 5px 6px whitesmoke;
+    -moz-box-shadow:    3px 3px 5px 6px whitesmoke;
+    box-shadow:         3px 3px 5px 6px whitesmoke;
   } */
-  .form {
-    outline: 0;
-    float: left;
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    padding-top: 2px ;
-    padding-left: 10px;
-  }
-  
-  .form > .textbox {
-    outline: 0;
-    height: 42px;
-    width: 244px;
-    line-height: 42px;
-    padding: 0 16px;
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #212121;
-    border: 0;
-    float: left;
-    -webkit-border-radius: 4px 0 0 4px;
-    border-radius: 4px 0 0 4px;
-  }
-  
-  .form > .textbox:focus {
-    outline: 0;
-    background-color: #FFF;
-  }
-  
-  .form > .button {
-    outline: 0;
-    background: none;
-    background-color: rgba(255, 234, 166, 0.8);
-    float: left;
-    height: 42px;
-    width: 42px;
-    text-align: center;
-    line-height: 42px;
-    border: 0;
-    color: #FFF;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: 16px;
-    text-rendering: auto;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition: background-color .4s ease;
-    transition: background-color .4s ease;
-    -webkit-border-radius:  4px 0 0 4px ;
-    border-radius:  4px 0 0 4px ;
-  }
-  
-  .form > .button:hover {
-    background-color: rgba(252, 103, 5, 0.986);
-  }
+.form {
+  outline: 0;
+  float: left;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  padding-left: 10px;
+}
+
+.form > .textbox {
+  outline: 0;
+  height: 42px;
+  width: 96%;
+  line-height: 42px;
+  padding: 0 16px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #212121;
+  border: 0;
+  float: left;
+  -webkit-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+
+.form > .textbox:focus {
+  outline: 0;
+  background-color: #fff;
+}
+
+.form > .button {
+  outline: 0;
+  background: none;
+  background-color: rgba(255, 234, 166, 0.8);
+  float: left;
+  height: 42px;
+  width: 46px;
+  text-align: center;
+  line-height: 42px;
+  border: 0;
+  color: #fff;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 16px;
+  text-rendering: auto;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-transition: background-color 0.4s ease;
+  transition: background-color 0.4s ease;
+  -webkit-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+
+.form > .button:hover {
+  background-color: rgba(252, 103, 5, 0.986);
+}

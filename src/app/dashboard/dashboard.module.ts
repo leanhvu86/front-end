@@ -37,6 +37,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserinforComponent } from './userinfor/userinfor.component';
 import { Ng5SliderModule } from "ng5-slider";
 import { MemberinforComponent } from './memberinfor/memberinfor.component';
+import { MyrecipeComponent } from './myrecipe/myrecipe.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -56,7 +57,8 @@ import { MemberinforComponent } from './memberinfor/memberinfor.component';
     WelcomeComponent,
     ScrollTopComponent,
     UserinforComponent,
-    MemberinforComponent],
+    MemberinforComponent,
+    MyrecipeComponent],
   imports: [
     BrowserModule,
     CommonModule,

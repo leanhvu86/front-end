@@ -1,3 +1,4 @@
+import { MyrecipeComponent } from "./myrecipe/myrecipe.component";
 import { MemberinforComponent } from "./memberinfor/memberinfor.component";
 import { UserinforComponent } from "./userinfor/userinfor.component";
 import { Routes } from "@angular/router";
@@ -66,6 +67,10 @@ export const DashBoardRoutes: Routes = [
       {
         path: "member-infor",
         component: MemberinforComponent
+      },
+      {
+        path: "my-recipe",
+        component: MyrecipeComponent
       }
     ]
   }
