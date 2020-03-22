@@ -1,0 +1,125 @@
+.account-sidebar .sidebar-head {
+  text-align: center;
+}
+.account-sidebar .profile-avatar {
+  overflow: hidden;
+  text-align: center;
+}
+.account-sidebar {
+  color: #333;
+  min-height: 600px;
+  width: 300px;
+  float: left;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  border: 0.5px solid #ddd;
+  margin-right: 35px;
+  margin-left: 28px;
+}
+.page-account-info {
+  overflow: hidden;
+  background: #fff;
+  border: 0.5px solid #ddd;
+  padding: 15px;
+  border-radius: 12px;
+}
+.a-image {
+  display: block;
+  overflow: hidden;
+  border-radius: 50%;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+}
+.mem-statis-box {
+  margin: 15px 0;
+  overflow: hidden;
+  text-align: center;
+}
+.headline {
+  font-size: 18px;
+  padding: 10px 0;
+  display: block;
+}
+.val {
+  border: 0.5px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.newbee {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  width: 20%;
+  height: 12px;
+  display: block;
+  margin: 0;
+  outline: 0;
+  float: left;
+  border-right: 0.5px solid #e0e0e0;
+  background: #f6f6f6;
+}
+.tastee {
+  width: 20%;
+  height: 12px;
+  display: block;
+  margin: 0;
+  outline: 0;
+  float: left;
+  border-right: 0.5px solid #e0e0e0;
+  background: #f6f6f6;
+}
+.cookee {
+  width: 20%;
+  height: 12px;
+  display: block;
+  margin: 0;
+  outline: 0;
+  float: left;
+  border-right: 0.5px solid #e0e0e0;
+  background: #f6f6f6;
+}
+.chefee {
+  width: 20%;
+  height: 12px;
+  display: block;
+  margin: 0;
+  outline: 0;
+  float: left;
+  border-right: 0.5px solid #e0e0e0;
+  background: #f6f6f6;
+}
+.mastee {
+  width: 20%;
+  height: 12px;
+  display: block;
+  margin: 0;
+  outline: 0;
+  float: left;
+  border-right: 0.5px solid #e0e0e0;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  background: #f6f6f6;
+}
+.mem-statis-box .val .mastee {
+  border-right: 0;
+}
+.headline {
+  font-size: 18px;
+  padding: 10px 0;
+  display: block;
+}
+.val {
+  border: 0.5px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.menu-list-a {
+  padding: 15px 0;
+  border-bottom: 0.5px dashed #eee;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.hover-a:hover {
+  color: #ff00ff;
+}

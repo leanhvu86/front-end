@@ -1,0 +1,273 @@
+.account-sidebar .sidebar-head {
+  text-align: center;
+}
+.account-sidebar .profile-avatar {
+  overflow: hidden;
+  text-align: center;
+}
+.account-sidebar {
+  color: #333;
+  min-height: 600px;
+  width: 300px;
+  float: left;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  border: 0.5px solid #ddd;
+  margin-right: 35px;
+  margin-left: 28px;
+}
+.page-account-info {
+  overflow: hidden;
+  background: #fff;
+  border: 0.5px solid #ddd;
+  padding: 15px;
+  border-radius: 12px;
+}
+.a-image {
+  display: block;
+  overflow: hidden;
+  border-radius: 50%;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+}
+.mem-statis-box {
+  margin: 15px 0;
+  overflow: hidden;
+  text-align: center;
+}
+.headline {
+  font-size: 18px;
+  padding: 10px 0;
+  display: block;
+}
+.val {
+  border: 0.5px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.newbee {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  width: 20%;
+  height: 12px;
+  display: block;
+  margin: 0;
+  outline: 0;
+  float: left;
+  border-right: 0.5px solid #e0e0e0;
+  background: #f6f6f6;
+}
+.tastee {
+  width: 20%;
+  height: 12px;
+  display: block;
+  margin: 0;
+  outline: 0;
+  float: left;
+  border-right: 0.5px solid #e0e0e0;
+  background: #f6f6f6;
+}
+.cookee {
+  width: 20%;
+  height: 12px;
+  display: block;
+  margin: 0;
+  outline: 0;
+  float: left;
+  border-right: 0.5px solid #e0e0e0;
+  background: #f6f6f6;
+}
+.chefee {
+  width: 20%;
+  height: 12px;
+  display: block;
+  margin: 0;
+  outline: 0;
+  float: left;
+  border-right: 0.5px solid #e0e0e0;
+  background: #f6f6f6;
+}
+.mastee {
+  width: 20%;
+  height: 12px;
+  display: block;
+  margin: 0;
+  outline: 0;
+  float: left;
+  border-right: 0.5px solid #e0e0e0;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  background: #f6f6f6;
+}
+.mem-statis-box .val .mastee {
+  border-right: 0;
+}
+.headline {
+  font-size: 18px;
+  padding: 10px 0;
+  display: block;
+}
+.val {
+  border: 0.5px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.menu-list-a {
+  padding: 15px 0;
+  border-bottom: 0.5px dashed #eee;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.hover-a:hover {
+  color: #ff00ff;
+}
+.page-profile-header {
+  height: 342px;
+  min-height: inherit;
+  clear: both;
+  border-radius: 16px;
+  background-color: #fff;
+}
+.profile-cover-photo {
+  position: absolute;
+  bottom: 0;
+  background: url(/imgs/member-kitchen.jpg) no-repeat left center;
+  background-size: cover;
+  margin-left: 320px;
+  top: 179px;
+  right: 0;
+  left: 70px;
+}
+.profile-info-container {
+  position: absolute;
+  background: #fff;
+  width: 320px;
+  height: 100%;
+  top: 178px;
+  left: 103px;
+  padding: 30px;
+}
+.profile-photo {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  background: #f6f6f6;
+  border-radius: 50%;
+  position: relative;
+  margin: 0 auto;
+}
+.avt {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.profile-info {
+  font-size: 18px;
+  position: relative;
+  text-align: center;
+}
+.clearfix {
+  clear: both;
+}
+.profile-name {
+  font-size: 24px;
+  text-align: center;
+  display: block;
+}
+.profile-info .profile-name h1 {
+  font-size: 24px;
+  margin: 10px 0 0 0;
+}
+.profile-stats {
+  clear: both;
+  overflow: hidden;
+  padding: 5px 0;
+  text-align: center;
+}
+.stats-item {
+  padding: 6px;
+  clear: both;
+  overflow: hidden;
+  font-size: 14px;
+}
+.stats-text {
+  display: block;
+  float: left;
+  margin-right: 6px;
+  text-align: right;
+  color: #b2b2b2;
+  width: 100px;
+}
+.stats-count {
+  color: #000;
+  font-weight: 700;
+}
+.favourite {
+  position: relative;
+  font-size: 14px;
+  min-width: 166px;
+  text-align: center;
+}
+.profile-container {
+  padding-top: 30px;
+  overflow: hidden;
+}
+
+.member-recipe-item {
+  width: 25%;
+  float: left;
+  padding: 15px;
+}
+.item-inner {
+  overflow: hidden;
+  padding: 15px;
+  border: 0.5px solid #ddd;
+  border-radius: 12px;
+}
+.item-photo {
+  border-radius: 12px;
+  background-color: #f4f4f4;
+  overflow: hidden;
+  position: relative;
+}
+.btn-add-favourite {
+  text-decoration: none !important;
+  color: #ddd;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1;
+}
+.fa-heart {
+  width: 28px;
+  height: 28px;
+  background-size: 28px 28px;
+}
+.item-info {
+  padding: 10px 0;
+  overflow: hidden;
+}
+.namenamename {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  white-space: nowrap;
+  line-height: 120%;
+  font-size: 16px;
+  font-weight: 700;
+  max-height: 40px;
+}
+.desc {
+  font-size: 12px;
+  color: #b2b2b2;
+  height: 40px;
+  overflow: hidden;
+  padding: 4px 0;
+}
+.item-footer {
+  border-top: 0.5px solid #ddd;
+  padding-top: 10px;
+}
