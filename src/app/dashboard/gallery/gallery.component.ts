@@ -20,6 +20,10 @@ export class GalleryComponent implements OnInit {
     name: "",
     user: ""
   };
+  userObject = {
+    email: "",
+    password: ""
+  }
   message: String = ''
   gallerys: Gallery[] = [];
   galleryTop: Gallery[] = [];
@@ -52,20 +56,28 @@ export class GalleryComponent implements OnInit {
   }
   getTopGalleries() {
     this.galleryService.getTopGalleryies().subscribe(galleries => {
-      this.galleryTop = galleries
+
       for (let gallery of galleries) {
-        if (gallery.image === '' && gallery.recipe.length > 0) {
+
+        if (gallery.recipe.length > 0) {
+          console.log(gallery.recipe.length)
           gallery.image = gallery.recipe[0].imageUrl
-        } else if (gallery.image === '') {
+        } else {
+          console.log(gallery.recipe.length)
           gallery.image = 'fvt7rkr59r9d7wk8ndbd'
         }
       }
+      this.galleryTop = galleries
+      console.log(this.galleryTop)
     })
   }
   getGalleries() {
-    this.galleryService.getGalleryies().subscribe(galleries => {
-      this.gallerys = galleries
-      for (let gallery of galleries) {
+    this.userObject.email = this.cookie.get('email')
+    this.galleryService.findGallery(this.userObject).subscribe(galleries => {
+
+
+      this.gallerys = galleries.body['gallerys']
+      for (let gallery of this.gallerys) {
         if (gallery.recipe.length > 0) {
           gallery.image = gallery.recipe[0].imageUrl
         } else {

@@ -1,6 +1,6 @@
 export class Gallery {
   id: Object;
-  user: String;
+  user: any;
   name: String;
   content: String;
   recipe: any;
