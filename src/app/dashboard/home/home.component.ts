@@ -90,26 +90,32 @@ export class Home2Component implements OnInit {
     })
   }
   getPersonalGallery() {
-    this.userObject.email = this.cookie.get('email')
-    if (this.userObject.email !== '') {
-      this.galleryService.findGallery(this.userObject).subscribe(data => {
-        if (data.body != null) {
-          this.personalGallery = data.body['gallerys']
-          if (this.personalGallery != undefined) {
-            for (let gallery of this.personalGallery) {
+    let email = this.cookie.get('email')
+
+    if (email !== '') {
+      this.galleryService.getGalleryies().subscribe(data => {
+        console.log(data)
+        if (data != null) {
+          for (let gallery of data) {
+            if (gallery.user.email === email) {
               if (gallery.recipe.length > 0) {
                 gallery.image = gallery.recipe[0].imageUrl
               } else {
                 gallery.image = 'fvt7rkr59r9d7wk8ndbd'
               }
+              this.personalGallery.push(gallery)
             }
           }
-          console.log(this.personalGallery)
         }
       })
     }
   }
   addBookmark(recipe: any) {
+    if (this.isAuthenicate !== true) {
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
     console.log(recipe)
     this.addRecipe = recipe
     const radio: HTMLElement = document.getElementById('modal-button1');
@@ -117,6 +123,14 @@ export class Home2Component implements OnInit {
   }
   addRecipeBookMark(gallery: any) {
     console.log(gallery)
+    if (gallery.recipe !== undefined) {
+      for (let recipe of gallery.recipe) {
+        if (recipe.name === this.addRecipe.name) {
+          this.message = 'Công thức đã có trong bộ sưu tập'
+          return
+        }
+      }
+    }
     this.galleryObject._id = gallery
     this.galleryObject.recipe = this.addRecipe
     console.log(this.galleryObject)
@@ -128,7 +142,8 @@ export class Home2Component implements OnInit {
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
-        }, 5000);
+        }, 4000);
+        this.message = ''
       }
     })
   }
@@ -254,10 +269,14 @@ export class Home2Component implements OnInit {
   dislikeRecipe(recipe: any, index: any) {
     console.log(recipe);
     console.log(index);
+    if (this.isAuthenicate !== true) {
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
     recipe.like = false;
     console.log(recipe.user.email)
     let user = recipe.user;
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     let interestObject = new Object({
       user: user,
       objectId: recipe,

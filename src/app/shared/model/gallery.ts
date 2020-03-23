@@ -8,4 +8,5 @@ export class Gallery {
   image: String;
   description: String;
   like: any;
+  updateAr: any;
 }

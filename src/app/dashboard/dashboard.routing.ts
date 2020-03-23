@@ -14,6 +14,7 @@ import { RecipeDetailComponent } from "./recipe-detail/recipe-detail.component";
 import { RecipeComponent } from "./recipe/recipe.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
 import { GalleryComponent } from './gallery/gallery.component';
+import { GalleryDetailComponent } from './gallery-detail/gallery-detail.component';
 
 export const DashBoardRoutes: Routes = [
   {
@@ -80,7 +81,7 @@ export const DashBoardRoutes: Routes = [
       },
       {
         path: "galleryDetail/:id",
-        component: WelcomeComponent
+        component: GalleryDetailComponent
       }
     ]
   }

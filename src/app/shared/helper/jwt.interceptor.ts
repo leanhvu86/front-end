@@ -14,9 +14,8 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private cookie: CookieService) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = this.cookie.get('token');
-    console.log('handle request' + token)
+
     const tokens = sessionStorage.getItem('token')
-    console.log(tokens)
     if (token) {
       request = request.clone({ headers: request.headers.set('x-access-token', token) });
     } else if (tokens) {
@@ -36,7 +35,7 @@ export class JwtInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          console.log('event--->>>', event);
+
         }
         return event;
       }));

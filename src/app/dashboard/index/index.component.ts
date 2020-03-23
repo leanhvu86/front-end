@@ -46,9 +46,7 @@ export class IndexComponent implements OnInit {
       this.title.setTitle(name);
     });
     this.isModeration = this.cookie.get('role') !== '' ? true : false;
-    console.log(this.isModeration)
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
-    console.log(this.cookie.get('email') + 'email nè');
     this.getImage();
     this.getMessage()
   }
@@ -58,7 +56,7 @@ export class IndexComponent implements OnInit {
       let user = data.body['user'];
       if (user !== undefined && user.imageUrl !== '') {
         this.imageUrl = user.imageUrl
-
+        console.log(user)
       }
     })
   }
@@ -66,7 +64,6 @@ export class IndexComponent implements OnInit {
     this.newMessage = false
   }
   getMessage() {
-    console.log('get message')
     this.userMessage = [];
     let email = this.cookie.get('email');
     if (email !== '') {
@@ -82,8 +79,6 @@ export class IndexComponent implements OnInit {
           }
           this.userMessage.push(mess)
         }
-        console.log(this.userMessage)
-        console.log(this.newMessage)
       })
     }
   }
@@ -100,11 +95,9 @@ export class IndexComponent implements OnInit {
         for (let key in user) {
           if (key === 'role') {
             role = user[key];
-            console.log(role);
           }
           if (key === 'image') {
             this.imageUrl = user[key];
-            console.log(this.imageUrl);
           }
           if (parseInt(role) === -1) {
             this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
@@ -113,7 +106,9 @@ export class IndexComponent implements OnInit {
           if (key === 'user') {
             let users = user[key];
             console.log(users.token);
+            this.cookie.set('token', '');
             this.cookie.set('token', users.token);
+            this.cookie.set('isAuthenicate', '');
             this.cookie.set('isAuthenicate', '1');
           }
           if (key === 'role') {
@@ -130,6 +125,7 @@ export class IndexComponent implements OnInit {
         const radio: HTMLElement = document.getElementById('close-modal');
         radio.click();
         sessionStorage.setItem('user', this.userObject.email);
+        this.cookie.set('email', '');
         this.cookie.set('email', this.userObject.email);
         this.isAuthenicate = true;
         this.getMessage()

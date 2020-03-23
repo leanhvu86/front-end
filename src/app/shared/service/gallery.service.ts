@@ -44,5 +44,11 @@ export class GalleryService {
   addGallery(gallery: any) {
     return this.http.post(`${this.baseUrl}/addGallery`, { gallery: gallery }, { observe: 'response' });
   }
+  galleryDetail = (id: string): Observable<Gallery> => {
+    const url = `${this.baseUrl}/galleryDetail/${id}`;
+    return this.http.get<Gallery>(url).pipe(
+      tap(_ => console.log('Gallery'))
+    );
+  }
 }
 

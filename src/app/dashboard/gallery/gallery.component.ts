@@ -43,7 +43,7 @@ export class GalleryComponent implements OnInit {
       content: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(500)]]
       // , image: ['']
     });
-    this.getGalleries()
+    this.getPersonalGallery()
     this.getTopGalleries()
   }
 
@@ -71,20 +71,26 @@ export class GalleryComponent implements OnInit {
       console.log(this.galleryTop)
     })
   }
-  getGalleries() {
-    this.userObject.email = this.cookie.get('email')
-    this.galleryService.findGallery(this.userObject).subscribe(galleries => {
+  getPersonalGallery() {
+    let email = this.cookie.get('email')
 
-
-      this.gallerys = galleries.body['gallerys']
-      for (let gallery of this.gallerys) {
-        if (gallery.recipe.length > 0) {
-          gallery.image = gallery.recipe[0].imageUrl
-        } else {
-          gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+    if (email !== '') {
+      this.galleryService.getGalleryies().subscribe(data => {
+        console.log(data)
+        if (data != null) {
+          for (let gallery of data) {
+            if (gallery.user.email === email) {
+              if (gallery.recipe.length > 0) {
+                gallery.image = gallery.recipe[0].imageUrl
+              } else {
+                gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+              }
+              this.gallerys.push(gallery)
+            }
+          }
         }
-      }
-    })
+      })
+    }
   }
   addGallery() {
     this.submitted = true;
@@ -103,6 +109,7 @@ export class GalleryComponent implements OnInit {
         if (tem.image == '') {
           tem.image = 'fvt7rkr59r9d7wk8ndbd'
         }
+        this.registerForm.reset()
         this.gallerys.push(tem)
       }
     })

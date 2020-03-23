@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col" style="padding-right: 0px;" *ngFor="let gallery of galleryTop">
       <div class="box21" style="height: 360px; width: 250px; margin: 5px 5px; padding-right: 0px; border-radius: 10px;">
-        <cl-image public-id="fvt7rkr59r9d7wk8ndbd.jpg">
+        <cl-image public-id="{{gallery.image}}">
           <cl-transformation height="360" radius="0" width="250" crop="lfill">
           </cl-transformation>
           <cl-transformation angle="0">
@@ -15,7 +15,7 @@
         <div class="box-content">
           <h4 class="title">{{gallery.name}}</h4>
           <p class="description">{{gallery.content}}</p>
-          <a class="read-more" href="#">xem chi tiết</a>
+          <a class="read-more" [routerLink]="['/galleryDetail/', gallery._id]">xem chi tiết</a>
         </div>
       </div>
     </div>
