@@ -4,7 +4,7 @@ export class User {
     email: string;
     name: String;
     imageUrl: String;
-    totalPoint: Number;
+    totalPoint: any;
     role: any;
     birthday: string;
     gender: Number;
@@ -16,4 +16,6 @@ export class User {
     warningReport: any;
     block: any;
     isAdmin: boolean;
+    dercoratingImage: String;
+    level: any;
 }
