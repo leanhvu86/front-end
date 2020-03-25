@@ -64,6 +64,11 @@ export class MemberinforComponent implements OnInit {
           if (gallerys !== undefined) {
             for (let gallery of gallerys) {
               if (gallery.user._id === user._id) {
+                if (gallery.recipe.length > 0) {
+                  gallery.image = gallery.recipe[0].imageUrl
+                } else {
+                  gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+                }
                 this.memberGallery.push(gallery)
               }
             }

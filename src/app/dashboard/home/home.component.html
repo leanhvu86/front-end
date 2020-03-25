@@ -93,7 +93,7 @@
                         class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
             </ng-template>
             <div style="top:375px;left: 40px; position: absolute; font-size: 12px;margin-left: 10px; ">
-                <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]">
+                <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]" style="color: black;">
                     <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
                         <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
                             background="#e9ebee">

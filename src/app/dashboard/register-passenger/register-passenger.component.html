@@ -401,14 +401,16 @@
       <br />
       <br />
       <!-- <p>{{profileForm.status}}</p> -->
-      <nav>
+      <nav style="width: 100%; background: white; border-radius:0 0 10px 10px; height: 60px; padding: 5px 0;">
         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-            style="border-radius:0px 0 0 10px;" aria-controls="nav-home" aria-selected="true"><a id="number">01</a>
-            {{ 'cong.thuc' | translate }}</a>
-          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-            style="border-radius:0 0px  10px 0;" aria-controls="nav-profile" aria-selected="false"> <a
-              id="number">02</a>{{ 'phan.loai' | translate }}
+          <a class="button_change" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+            style="font-size: 14px;margin-left: 35px; color: black;" aria-controls="nav-home" aria-selected="true">
+            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            {{ "cong.thuc" | translate }}</a>
+          <a class="button_change" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+            style=" font-size: 14px; margin-left: 600px; color: black;" aria-controls="nav-profile"
+            aria-selected="false">Phân loại
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
           </a>
         </div>
       </nav>

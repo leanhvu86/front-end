@@ -16,6 +16,7 @@ import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 export class GalleryDetailComponent implements OnInit {
 
   id: string = '';
+  galleryCheck: boolean = false;
   gallery: Gallery
   checkRecipe: boolean = false
   public recipes: Recipe[] = []; userObject = {
@@ -27,6 +28,7 @@ export class GalleryDetailComponent implements OnInit {
     _id: "",
     recipe: Recipe
   };
+  personalCheck: boolean = false;
   imageUrl: String = 'jbiajl3qqdzshdw0z749'
   isAuthenicate: boolean = false
   personalGallery: Gallery[] = []
@@ -44,6 +46,8 @@ export class GalleryDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.personalCheck = false;
     this.getGalleryDetail()
     this.getPersonalGallery()
   }
@@ -52,12 +56,15 @@ export class GalleryDetailComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
     this.galleryService.galleryDetail(this.id).subscribe(data => {
       this.gallery = data['gallery']
-      if (this.gallery.recipe.length > 0) {
-        this.checkRecipe = true
-        this.recipes = this.gallery.recipe
-      }
-      if (this.gallery.user.imageUrl !== '') {
-        this.imageUrl = this.gallery.user.imageUrl
+      if (this.gallery !== undefined) {
+        if (this.gallery.recipe.length > 0) {
+          this.checkRecipe = true
+          this.recipes = this.gallery.recipe
+        }
+        if (this.gallery.user.imageUrl !== '') {
+          this.imageUrl = this.gallery.user.imageUrl
+        }
+        this.galleryCheck = true
       }
     })
   }
@@ -91,6 +98,10 @@ export class GalleryDetailComponent implements OnInit {
               }
               this.personalGallery.push(gallery)
             }
+          }
+          if (this.personalGallery.length > 0) {
+            this.personalCheck = true;
+            console.log(this.personalGallery.length)
           }
         }
       })

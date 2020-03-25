@@ -5,40 +5,20 @@
     <a class="atitle">{{ recipe.recipeName }}</a>
   </li>
 </ul>
-<div
-  class="row"
-  *ngIf="recipe"
-  style="width: 90%;margin-left: 5%;padding: 0 15px; "
->
-  <div
-    class="col-8"
-    style="position: relative; font-size: 13px; text-align: center; "
-  >
-    <div
-      class="image-preview mb-3"
-      style="margin-top: 5%;border-radius: 20px;background: white;"
-    >
+<div class="row" *ngIf="recipe" style="width: 90%;margin-left: 5%;padding: 0 15px; ">
+  <div class="col-8" style="position: relative; font-size: 13px; text-align: center; ">
+    <div class="image-preview mb-3" style="margin-top: 5%;border-radius: 20px;background: white;">
       <cl-image public-id="{{ recipe.imageUrl }}" style="margin-top: 60px;">
-        <cl-transformation
-          width="650"
-          height="350"
-          crop="scale"
-          quality="auto"
-          radius="20"
-        >
+        <cl-transformation width="650" height="350" crop="scale" quality="auto" radius="20">
         </cl-transformation>
       </cl-image>
-      <div
-        style="background: white; margin-top: 2%;height: 2px;width: 90%;margin-left: 5%; margin-bottom: 2%;"
-      ></div>
+      <div style="background: white; margin-top: 2%;height: 2px;width: 90%;margin-left: 5%; margin-bottom: 2%;"></div>
       <a>Loại món: </a>
       <a class="atitle1"> {{ recipe.foodType[0].foodTypeName }}</a>
       <a> Cách thức thực hiện: </a>
       <a class="atitle1"> {{ recipe.cookWay[0].cookWayName }}</a>
 
-      <h4
-        style=" text-transform: uppercase;margin-top: 25px; margin-bottom: 35px;"
-      >
+      <h4 style=" text-transform: uppercase;margin-top: 25px; margin-bottom: 35px;">
         {{ recipe.recipeName }}
       </h4>
       <div class="row row-cols-4">
@@ -69,9 +49,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <a style="color: orange;font-size: 16px;font-weight:bolder;"
-                >04</a
-              >
+              <a style="color: orange;font-size: 16px;font-weight:bolder;">04</a>
               &#160;<a class="atitle">người</a>
             </div>
             <div class="col" *ngIf="recipe.hardLevel">
@@ -81,53 +59,30 @@
         </div>
         <div class="col"></div>
       </div>
-      <div
-        style="background: #f4f4f4; height: 100px; border-radius: 0 0 20px 20px; margin-top: 30px; padding: 30px;"
-      >
-        <div
-          class="row row-cols-2"
-          style="padding-right: 80px;padding-left: 80px;"
-        >
+      <div style="background: #f4f4f4; height: 100px; border-radius: 0 0 20px 20px; margin-top: 30px; padding: 30px;">
+        <div class="row row-cols-2" style="padding-right: 80px;padding-left: 80px;">
           <div class="col">
             <div class="row row-cols-2">
               <div class="col">
-                <a
-                  ><img
-                    src="../../../assets/images/heart-o.png"
-                    (click)="likeRecipe(recipe)"
+                <a><img src="../../../assets/images/heart-o.png" (click)="likeRecipe(recipe)"
                     *ngIf="!like; else other_content"
-                    style="width: 30px;height: 30px; margin-left: 2px; opacity: 0.8;"
-                  />
+                    style="width: 30px;height: 30px; margin-left: 2px; opacity: 0.8;" />
                   <ng-template #other_content>
-                    <img
-                      src="../../../assets/images/heart-o.red.png"
-                      (click)="dislikeRecipe(recipe, i)"
-                      style="width: 30px;height: 30px; margin-left: 2px;opacity: 1;"
-                    />
+                    <img src="../../../assets/images/heart-o.red.png" (click)="dislikeRecipe(recipe, i)"
+                      style="width: 30px;height: 30px; margin-left: 2px;opacity: 1;" />
                   </ng-template>
                   &#160;&#160;&#160;&#160;{{ recipe.totalPoint }}
                 </a>
               </div>
               <div class="col">
-                <a (click)="addDoneRecipe(recipe)"
-                  ><img
-                    src="../../../assets/images/check-o.gray.png"
-                    style="width: 30px;height: 30px; margin-left: 2px;"
-                  />&#160;&#160;&#160;&#160;{{ recipe.doneCount }}</a
-                >
+                <a (click)="addDoneRecipe(recipe)"><img src="../../../assets/images/check-o.gray.png"
+                    style="width: 30px;height: 30px; margin-left: 2px;" />&#160;&#160;&#160;&#160;{{ recipe.doneCount }}</a>
               </div>
               <div class="col">
-                <a
-                  ><img
-                    src="../../../assets/images/bookmark.lightgray.png"
-                    style="width: 30px;height: 30px;"
-                /></a>
+                <a><img src="../../../assets/images/bookmark.lightgray.png" style="width: 30px;height: 30px;" /></a>
               </div>
             </div>
-            <div
-              class="row row-cols-2"
-              style="margin-top: 5px; font-weight: 500;font-size: 14px;"
-            >
+            <div class="row row-cols-2" style="margin-top: 5px; font-weight: 500;font-size: 14px;">
               <div class="col"><a>Lượt thích</a></div>
               <div class="col">
                 <a>Đã thực hiện</a>
@@ -138,28 +93,13 @@
         </div>
       </div>
     </div>
-    <span *ngIf="recipe.videoLink"
-      ><img
-        src="../../../assets/images/cooky-video-play-fill-2.png"
-        style="top:250px;left:360px;width: 50px;height: 50px; position: absolute;"
-    /></span>
-    <div
-      style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;"
-    >
+    <span *ngIf="recipe.videoLink"><img src="../../../assets/images/cooky-video-play-fill-2.png"
+        style="top:250px;left:360px;width: 50px;height: 50px; position: absolute;" /></span>
+    <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
       <div class="row">
         <div class="col col-lg-2">
-          <cl-image
-            public-id="{{ recipe.user.imageUrl }}"
-            style="border-radius: 50px;"
-          >
-            <cl-transformation
-              width="150"
-              height="150"
-              gravity="face"
-              radius="max"
-              crop="fill"
-              background="#e9ebee"
-            >
+          <cl-image public-id="{{ recipe.user.imageUrl }}" style="border-radius: 50px;">
+            <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill" background="#e9ebee">
             </cl-transformation>
             <cl-transformation width="75" crop="scale"> </cl-transformation>
           </cl-image>
@@ -170,19 +110,14 @@
             <a>{{ recipe.user.name }}</a>
           </div>
           <div class="row">
-            <a>{{ recipe.user.totalPoint }}&#160;&#160;&#160;&#160;công thức</a
-            ><a
-              >&#160;&#160;&#160;&#160;{{
+            <a>{{ recipe.user.totalPoint }}&#160;&#160;&#160;&#160;công thức</a><a>&#160;&#160;&#160;&#160;{{
                 recipe.user.totalPoint
-              }}&#160;&#160;&#160;&#160;điểm</a
-            >
+              }}&#160;&#160;&#160;&#160;điểm</a>
           </div>
         </div>
         <div class="col col-lg-2">
           <button title="Quan tâm" ng-click="follow()" class="button1">
-            <!-- ngIf: status != 1 --><span ng-if="status != 1" class="ng-scope"
-              >Quan tâm</span
-            >
+            <!-- ngIf: status != 1 --><span ng-if="status != 1" class="ng-scope">Quan tâm</span>
             <!-- end ngIf: status != 1 -->
           </button>
         </div>
@@ -195,58 +130,30 @@
       </div>
     </div>
 
-    <div
-      class="card "
-      style="background: #e9ebee;padding: 20px 0; margin-top: 10px; border: none; box-shadow: none;"
-    >
+    <div class="card " style="background: #e9ebee;padding: 20px 0; margin-top: 10px; border: none; box-shadow: none;">
       <div class="row">
         <div class="col ">
           <nav style="background: white; border-radius: 10px 10px 10px 10px;">
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-              <a
-                class="nav-item nav-link active"
-                id="nav-home-tab"
-                data-toggle="tab"
-                href="#nav-home"
-                role="tab"
-                aria-controls="nav-home"
-                aria-selected="true"
-                style="font-size: 14px;"
-              >
-                {{ "cong.thuc" | translate }}</a
-              >
-              <a
-                class="nav-item nav-link"
-                id="nav-profile-tab"
-                data-toggle="tab"
-                href="#nav-profile"
-                role="tab"
-                aria-controls="nav-profile"
-                aria-selected="false"
-                style="font-size: 14px;"
-                >Bình luận
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                aria-controls="nav-home" aria-selected="true" style="font-size: 14px;">
+                {{ "cong.thuc" | translate }}</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                aria-controls="nav-profile" aria-selected="false" style="font-size: 14px;">Bình luận
               </a>
             </div>
           </nav>
 
           <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-            <div
-              class="tab-pane fade show active"
-              id="nav-home"
-              role="tabpanel"
-              aria-labelledby="nav-home-tab"
-            >
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
               <div
-                style="background: white; border-radius: 10px; padding-top: 30px; min-height:200px;padding-left: 15px;"
-              >
+                style="background: white; border-radius: 10px; padding-top: 30px; min-height:200px;padding-left: 15px;">
                 <div class="row">
                   <div class="col-sm-6 col-md-8" style="text-align:start;">
                     <a
-                      style="font-size: 20px;font-weight: 500;font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; "
-                      >Nguyên liệu làm &#160;{{ recipe.recipeName }}</a
-                    >
-                    <br /><a class="atitle"
-                      >cho
+                      style="font-size: 20px;font-weight: 500;font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Nguyên
+                      liệu làm &#160;{{ recipe.recipeName }}</a>
+                    <br /><a class="atitle">cho
                       <span style="color: red; margin-left: 5px;">{{
                         multiplyElement
                       }}</span>
@@ -254,134 +161,74 @@
                     </a>
                   </div>
                   <div class="col-6 col-md-4">
-                    <i
-                      class="fa fa-cutlery fa-lg"
-                      style="color: rgb(155, 15, 15);"
-                      aria-hidden="true"
-                    ></i
-                    >&#160; <a>Phần ăn</a>&#160;&#160;&#160;&#160;&#160;<input
-                      type="number"
-                      id="multiplyElement"
-                      [(ngModel)]="multiplyElement"
-                      style="width: 46px;height: 25px;margin-right: 5px;"
-                    /><a
-                      ><i
-                        (click)="countIngredient(multiplyElement)"
-                        class="fa fa-refresh fa-lg"
-                        aria-hidden="true"
-                      ></i
-                    ></a>
+                    <i class="fa fa-cutlery fa-lg" style="color: rgb(155, 15, 15);" aria-hidden="true"></i>&#160;
+                    <a>Phần ăn</a>&#160;&#160;&#160;&#160;&#160;<input type="number" id="multiplyElement"
+                      [(ngModel)]="multiplyElement" style="width: 46px;height: 25px;margin-right: 5px;" /><a><i
+                        (click)="countIngredient(multiplyElement)" class="fa fa-refresh fa-lg"
+                        aria-hidden="true"></i></a>
                   </div>
                 </div>
-                <div
-                  *ngFor="let ingredient of recipe.ingredients; let i = index"
-                >
-                  <div
-                    style="width: 50%; float: left;text-align: left;padding-top:20px ;"
-                  >
+                <div *ngFor="let ingredient of recipe.ingredients; let i = index">
+                  <div style="width: 50%; float: left;text-align: left;padding-top:20px ;">
                     <a>
-                      <i
-                        class="fa fa-check fa-lg"
-                        style="color: rgb(95, 228, 6);"
-                        aria-hidden="true"
-                      ></i>
+                      <i class="fa fa-check fa-lg" style="color: rgb(95, 228, 6);" aria-hidden="true"></i>
                       {{ ingredient.ingredientName }}&#160;&#160;&#160;<a>{{
                         ingredient.quantitative
-                      }}</a
-                      >&#160;&#160; {{ ingredient.typeOfquantitative }}</a
-                    >
+                      }}</a>&#160;&#160; {{ ingredient.typeOfquantitative }}</a>
                   </div>
                 </div>
               </div>
               <div class="clearfix"></div>
               <div
-                style="background: white; border-radius: 10px; padding-top: 30px; min-height:800px;padding-left: 15px; text-align: left;"
-              >
+                style="background: white; border-radius: 10px; padding-top: 30px; min-height:800px;padding-left: 15px; text-align: left;">
                 <div class="row">
                   <div class="col-sm-6 col-md-8" style="text-align:start;">
                     <a
-                      style="font-size: 20px;font-weight: 500; font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; "
-                      >Cách làm &#160;{{ recipe.recipeName }}</a
-                    >
-                    <br /><a class="atitle" (click)="fullImage()"
-                      ><i
-                        style="color: rgb(134, 54, 54); margin-right: 5px;"
-                        class="fa fa-list fa-lg"
-                        aria-hidden="true"
-                      ></i>
-                      Xem đầy đủ </a
-                    ><a class="atitle" (click)="noImage()"
-                      ><i
-                        class="fa fa-file-text-o fa-lg"
-                        aria-hidden="true"
-                      ></i>
+                      style="font-size: 20px;font-weight: 500; font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Cách
+                      làm &#160;{{ recipe.recipeName }}</a>
+                    <br /><a class="atitle" (click)="fullImage()"><i style="color: rgb(134, 54, 54); margin-right: 5px;"
+                        class="fa fa-list fa-lg" aria-hidden="true"></i>
+                      Xem đầy đủ </a><a class="atitle" (click)="noImage()"><i class="fa fa-file-text-o fa-lg"
+                        aria-hidden="true"></i>
                       Không hình
                     </a>
                   </div>
                   <div class="col-6 col-md-4">
-                    <a
-                      >Thực hiện:&#160;&#160;&#160;&#160;&#160;
-                      {{ recipe.doneCount }}</a
-                    >
+                    <a>Thực hiện:&#160;&#160;&#160;&#160;&#160;
+                      {{ recipe.doneCount }}</a>
                   </div>
                 </div>
                 <hr />
-                <a
-                  class="atitle"
-                  style="margin-left:5%; font-size: 25px; color: #c5c5c5;"
-                >
-                  Thực hiện</a
-                >
+                <a class="atitle" style="margin-left:5%; font-size: 25px; color: #c5c5c5;">
+                  Thực hiện</a>
                 <!-- tìm hiểu để hiển thị bình luận -->
-                <div
-                  *ngFor="let cookStep of cookSteps; let i = index"
-                  style="min-height: 400px;"
-                  class="bigContent"
-                >
-                  <div
-                    style="position: relative; height: auto;min-height: 400px;"
-                    class="noImage"
-                  >
+                <div *ngFor="let cookStep of cookSteps; let i = index" style="min-height: 400px;" class="bigContent">
+                  <div style="position: relative; height: auto;min-height: 400px;" class="noImage">
                     <div
                       style="border-radius: 5px;position: absolute;text-align: center; top:60px; left: 50px;
-                      padding-top: 5px; width: 70px;color: rgb(179, 179, 179);; background: #f8f8f8; border: 1px solid #c5c5c5;"
-                    >
+                      padding-top: 5px; width: 70px;color: rgb(179, 179, 179);; background: #f8f8f8; border: 1px solid #c5c5c5;">
                       <a>Bước </a>
                       <br />
                       <a>{{ i + 1 }}</a>
                       <br />
                       <a>___</a><br />
-                      <i
-                        class="fa fa-check-circle fa-lg"
-                        id="icon{{ i }}"
-                        aria-hidden="true"
-                        (click)="changeIcon($event, i)"
-                      ></i>
+                      <i class="fa fa-check-circle fa-lg" id="icon{{ i }}" aria-hidden="true"
+                        (click)="changeIcon($event, i)"></i>
                     </div>
                     <div
-                      style=" position: absolute; top:60px; right: 50px; width: 560px;text-align: left;padding-bottom: 5px;"
-                    >
+                      style=" position: absolute; top:60px; right: 50px; width: 560px;text-align: left;padding-bottom: 5px;">
                       <div class="row">
                         <a> {{ cookStep.psnote }}</a>
                       </div>
-                      <div
-                        class="row"
-                        id="image{{ i }}"
-                        *ngFor="let imageUrl of cookStep.image; let i = index"
-                        style="margin: 10px 0;"
-                      >
+                      <div class="row" id="image{{ i }}" *ngFor="let imageUrl of cookStep.image; let i = index"
+                        style="margin: 10px 0;">
                         <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
                           <cl-transformation height="100" width="100" crop="scale">
                           </cl-transformation>
                         </cl-image> -->
                         <div *ngIf="!showImageStep">
                           <cl-image public-id="{{ imageUrl }}" *ngIf="imageUrl">
-                            <cl-transformation
-                              height="250"
-                              radius="20"
-                              width="250"
-                              crop="scale"
-                            >
+                            <cl-transformation height="250" radius="20" width="250" crop="scale">
                             </cl-transformation>
                             <cl-transformation angle="0"> </cl-transformation>
                           </cl-image>
@@ -393,13 +240,8 @@
               </div>
             </div>
             <div class="clearfix"></div>
-            <div
-              class="tab-pane fade"
-              id="nav-profile"
-              role="tabpanel"
-              aria-labelledby="nav-profile-tab"
-              style="height: 600px; text-align: left; background: white; padding-left: 5px;"
-            >
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
+              style="height: 600px; text-align: left; background: white; padding-left: 5px;">
               <!-- Default switch -->
               <div style="width: 100%;font-size: 16px;">
                 <a>Danh sách bình luận công thức </a>
@@ -409,39 +251,19 @@
                   <a style="font-size: 15px;">Thêm bình luận</a>
                 </div>
                 <div class="col">
-                  <a style="font-size: 15px;">Đã thực hiện</a
-                  ><input
-                    type="checkbox"
-                    [checked]="checkDone"
-                    (change)="checkDone = !checkDone"
-                    style="margin-left: 60px;"
-                  />
+                  <a style="font-size: 15px;">Đã thực hiện</a><input type="checkbox" [checked]="checkDone"
+                    (change)="checkDone = !checkDone" style="margin-left: 60px;" />
                 </div>
               </div>
-              <form
-                class="form-signin"
-                (ngSubmit)="addComment()"
-                #loginForm="ngForm"
-                [formGroup]="registerForm"
-              >
-                <textarea
-                formControlName="content"
-                 [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.content.errors }"
-                  id="content"
-                  class="form-control"
-                  name="content"
-                  autocomplete="off"
-                  formControlName="content"
-                  placeholder="Bình luận công thức "
-                  title="Please enter the content"
-                  required
-                  autofocus
-                  cols="8"
-                  style="width: 80%;margin:10px 30px;"
-                ></textarea>
+              <form class="form-signin" (ngSubmit)="addComment()" #loginForm="ngForm" [formGroup]="registerForm">
+                <textarea formControlName="content"
+                  [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.content.errors }" id="content"
+                  class="form-control" name="content" autocomplete="off" formControlName="content"
+                  placeholder="Bình luận công thức " title="Please enter the content" required autofocus cols="8"
+                  style="width: 80%;margin:10px 30px;"></textarea>
                 <div *ngIf="submitted &amp;&amp; registerForm.controls.content.errors" class="text-danger">
                   <div *ngIf="registerForm.controls.content.errors.required">Không để trống nội dung bình luận</div>
-              </div>
+                </div>
                 <!-- <input
                   type="file"
                   id="image"
@@ -456,81 +278,37 @@
                 /> -->
                 <a>Thêm ảnh bình luận:</a>
                 <br />
-                <div
-                  class=".col-6 .col-md-4 hover"
-                  (fileOver)="fileOverBase1($event)"
+                <div class=".col-6 .col-md-4 hover" (fileOver)="fileOverBase1($event)"
                   style="width: 90px;height: 90px; border: 1px solid gray; float: left;"
-                  [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver1 }"
-                >
-                  <input
-                    type="file"
-                    multiple
-                    formControlName="image"
-                    (change)="handleFiles($event)"
-                    style="width: 90px;height: 90px;opacity: 0;"
-                  /><a style="position: absolute; left: 55px; top: 263px;"
-                    ><i class="fa fa-picture-o" aria-hidden="true"></i
-                  ></a>
+                  [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver1 }">
+                  <input type="file" multiple formControlName="image" (change)="handleFiles($event)"
+                    style="width: 90px;height: 90px;opacity: 0;" /><a
+                    style="position: absolute; left: 55px; top: 263px;"><i class="fa fa-picture-o"
+                      aria-hidden="true"></i></a>
                 </div>
-                <div
-                  class=".col-md-8"
-                  id="gallery"
-                  style="position: relative; float: left; padding-left: 5px;"
-                ></div>
+                <div class=".col-md-8" id="gallery" style="position: relative; float: left; padding-left: 5px;"></div>
 
-                <input
-                  type="text"
-                  id="imageArray"
-                  class="form-control"
-                  name="imageUrl"
-                  autocomplete="off"
-                  hidden
-                  formControlName="imageUrl"
-                />
-                <button
-                  class="btn btn-lg btn-primary btn-block btn-signin"
-                  type="submit"
-                >
+                <input type="text" id="imageArray" class="form-control" name="imageUrl" autocomplete="off" hidden
+                  formControlName="imageUrl" />
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
                   Đăng bình luận
                 </button>
-                <p
-                  class="text-danger"
-                  style="text-align:center;"
-                  *ngIf="errorMessage"
-                >
+                <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
                   {{ errorMessage }}
                 </p>
               </form>
             </div>
 
             <!-- <p>{{profileForm.status}}</p> -->
-            <nav
-              style="width: 100%; background: white; border-radius:0 0 10px 10px; height: 60px; padding: 5px 0;"
-            >
+            <nav style="width: 100%; background: white; border-radius:0 0 10px 10px; height: 60px; padding: 5px 0;">
               <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                <a
-                  class="button_change"
-                  id="nav-home-tab"
-                  data-toggle="tab"
-                  href="#nav-home"
-                  role="tab"
-                  style="font-size: 14px;margin-left: 35px;"
-                  aria-controls="nav-home"
-                  aria-selected="true"
-                >
+                <a class="button_change" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                  style="font-size: 14px;margin-left: 35px;" aria-controls="nav-home" aria-selected="true">
                   <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                  {{ "cong.thuc" | translate }}</a
-                >
-                <a
-                  class="button_change"
-                  id="nav-profile-tab"
-                  data-toggle="tab"
-                  href="#nav-profile"
-                  role="tab"
-                  style=" font-size: 14px; margin-left: 550px;"
-                  aria-controls="nav-profile"
-                  aria-selected="false"
-                  >Bình luận
+                  Công thức</a>
+                <a class="button_change" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                  style=" font-size: 14px; margin-left: 550px;" aria-controls="nav-profile" aria-selected="false">Bình
+                  luận
                   <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                 </a>
               </div>
@@ -541,134 +319,55 @@
       <div class="col-4" style="min-height: 500px;  border-radius: 5px; "></div>
     </div>
   </div>
-  <div
-    class="col"
-    style="background: white; height: 800px; margin-top: 40px; border-radius: 20px;"
-  >
+  <div class="col" style="background: white; height: 800px; margin-top: 40px; border-radius: 20px;">
     <a style="margin-top: 50px;">CÔNG THỨC LIÊN QUAN</a>
     <hr />
     <div class="row">
-      <div
-        class="col"
-        *ngFor="let recipe of recipes; let i = index"
-        (click)="showRecipe(recipe)"
-      >
+      <div class="col" *ngFor="let recipe of recipes; let i = index" (click)="showRecipe(recipe)">
         <cl-image public-id="{{ recipe.imageUrl }}">
-          <cl-transformation
-            width="150"
-            height="150"
-            crop="scale"
-            quality="auto"
-            radius="20"
-          >
+          <cl-transformation width="150" height="150" crop="scale" quality="auto" radius="20">
           </cl-transformation>
         </cl-image>
         <br />
         <a>{{ recipe.recipeName }}</a>
-        <br /><a
-          >{{ recipe.viewCount }} <a style="color: #c5c5c5;">lượt xem</a>
-          {{ recipe.time }} phút</a
-        >
+        <br /><a>{{ recipe.viewCount }} <a style="color: #c5c5c5;">lượt xem</a>
+          {{ recipe.time }} phút</a>
       </div>
     </div>
   </div>
-  <a
-    type="button"
-    class="py-2 d-none d-md-inline-block register-button"
-    hidden="true"
-    data-toggle="modal"
-    data-target="#exampleModalCenter1"
-    id="modal-button1"
-  >
+  <a type="button" class="py-2 d-none d-md-inline-block register-button" hidden="true" data-toggle="modal"
+    data-target="#exampleModalCenter1" id="modal-button1">
   </a>
 
-  <div
-    class="modal fade"
-    id="exampleModalCenter1"
-    tabindex="-1"
-    role="dialog"
-    *ngIf="!isAuthenicate"
-    aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" *ngIf="!isAuthenicate"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLongTitle1">Đăng nhập</h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-            id="close-modal"
-          >
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="card card-container" style="max-width: 500px;">
-            <img
-              id="profile-img"
-              class="profile-img-card"
-              src="../../../assets/images/avatar_2x.png"
-            />
-            <form
-              class="form-signin"
-              (ngSubmit)="loginUser()"
-              #loginForm="ngForm"
-            >
-              <input
-                type="text"
-                id="email"
-                class="form-control"
-                name="email"
-                autocomplete="off"
-                #uname="ngModel"
-                [(ngModel)]="userLogin.email"
-                placeholder="email"
-                title="Please enter the email"
-                required
-                autofocus
-              />
-              <input
-                type="password"
-                id="password"
-                class="form-control"
-                name="password"
-                autocomplete="off"
-                #upass="ngModel"
-                [(ngModel)]="userLogin.password"
-                placeholder="Password"
-                title="Please enter the password"
-                required
-              />
-              <input
-                type="text"
-                id="authcode"
-                class="form-control"
-                *ngIf="this.tfaFlag"
-                name="authcode"
-                autocomplete="off"
-                #authcode="ngModel"
-                [(ngModel)]="userLogin.authcode"
-                placeholder="Two-Factor Auth code"
-                title="Please enter the code"
-                required
-              />
-              <button
-                class="btn btn-lg btn-primary btn-block btn-signin"
-                type="submit"
-              >
+            <img id="profile-img" class="profile-img-card" src="../../../assets/images/avatar_2x.png" />
+            <form class="form-signin" (ngSubmit)="loginUser()" #loginForm="ngForm">
+              <input type="text" id="email" class="form-control" name="email" autocomplete="off" #uname="ngModel"
+                [(ngModel)]="userLogin.email" placeholder="email" title="Please enter the email" required autofocus />
+              <input type="password" id="password" class="form-control" name="password" autocomplete="off"
+                #upass="ngModel" [(ngModel)]="userLogin.password" placeholder="Password"
+                title="Please enter the password" required />
+              <input type="text" id="authcode" class="form-control" *ngIf="this.tfaFlag" name="authcode"
+                autocomplete="off" #authcode="ngModel" [(ngModel)]="userLogin.authcode"
+                placeholder="Two-Factor Auth code" title="Please enter the code" required />
+              <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
                 Đăng nhập
               </button>
               <p style="text-align:center;">
                 Tài khoản mới ? <a [routerLink]="['/register']">Đăng ký</a>
               </p>
-              <p
-                class="text-danger"
-                style="text-align:center;"
-                *ngIf="errorMessage"
-              >
+              <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
                 {{ errorMessage }}
               </p>
             </form>

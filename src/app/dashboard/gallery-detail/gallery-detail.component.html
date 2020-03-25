@@ -7,7 +7,7 @@
       <cl-transformation width="75" crop="scale"> </cl-transformation>
     </cl-image>
     <br>
-    <a style="font-weight: lighter;">{{gallery.user.name}}</a><br>
+    <a style="font-weight: lighter;" [routerLink]="['/member/info/', gallery.user._id]">{{gallery.user.name}}</a><br>
     <a style="font-size: 10px; font-weight: 100;">{{personalGallery.length}} Bộ sưu tập</a>
     <hr>
     <a style="font-weight: bold; font-size: 16px;">{{gallery.name}}</a>
@@ -62,7 +62,7 @@
               class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
         </ng-template>
         <div style="top:375px;left: 40px; position: absolute; font-size: 12px;margin-left: 10px; ">
-          <a title="{{recipe.user.name}}">
+          <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]">
             <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
               <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill" background="#e9ebee">
               </cl-transformation>
@@ -82,7 +82,7 @@
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 <br>
-<div class="container" style="min-height: 460px;" *ngIf="isAuthenicate">
+<div class="container" style="min-height: 460px;" *ngIf="personalCheck">
   <h4 class="text-left">Bộ sưu tập của&#160;{{gallery.user.name}}</h4>
   <hr>
   <div class="row mt-30">
@@ -97,7 +97,7 @@
           </cl-transformation>
         </cl-image>
         <div class="box-content">
-          <h4 class="title">{{gallery.name}}</h4>
+          <h4 class="title" [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}</h4>
           <p class="description">{{gallery.content}}</p>
           <a class="read-more" [routerLink]="['/galleryDetail/', gallery._id]">xem chi tiết</a>
         </div>

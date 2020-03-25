@@ -76,31 +76,32 @@
       <div>
         <h6>CÔNG THỨC CÁ NHÂN</h6>
       </div>
-      <div class="recipe-list-wrapper">
+      <div class="recipe-list-wrapper" style="min-height: 200px;">
         <!-- 1 anh -->
-        <div class="ng-scope member-recipe-item">
+        <div class="ng-scope member-recipe-item"
+          *ngFor="let recipe of memberRecipes |paginate:{itemsPerPage: 4, currentPage:p}; "
+          [routerLink]="['/detail/', recipe._id]">
           <div class="item-inner ng-scope">
             <div class="item-photo">
-              <a href="" class="photo">
-                <img
-                  src="https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"
-                  alt="" class="img-responsive" style="    height: 246px;" />
+              <a class="photo">
+                <cl-image public-id="{{recipe.imageUrl}}">
+                  <cl-transformation width="240" height="260" radius="30" crop="scale" quality="auto" radius="2">
+                  </cl-transformation>
+                </cl-image>
               </a>
-              <a href="" class="btn-act btn-add-favourite ng-isolate-scope">
+              <a class="btn-act btn-add-favourite ng-isolate-scope">
                 <i class="fa fa-heart"></i>
               </a>
             </div>
             <div class="item-info">
               <div class="item-title">
                 <h3>
-                  <a href="" class="namenamename">Gáy Heo Nướng Kiểu Thái Ko Mu Yang</a>
+                  <a class="namenamename">{{recipe.recipeName}}</a>
                 </h3>
               </div>
               <div class="desc ng-binding">
                 <p>
-                  Món này mình ăn ở nhà hàng Anh Tukk, họ dùng gáy heo nên ăn
-                  vừa mềm, vừa giòn rất ngon. Món này phù hợp để ăn với cơm hoặc
-                  uống bia nhâm nhi cũng được
+                  {{recipe.content}}
                 </p>
               </div>
             </div>
@@ -115,7 +116,7 @@
                ">
                   &#160;
                   <i class="fa fa-clock-o stats-ico" aria-hidden="true">
-                    1323</i>
+                    {{recipe.time}}</i>
                 </div>
                 <div style="    top: 340px;
                   left: 43px;
@@ -126,7 +127,7 @@
                 ">
                   &#160;
                   <i class="fa fa-bar-chart stats-ico" aria-hidden="true">
-                    234</i>
+                    {{recipe.viewCount}}</i>
                 </div>
                 <div style="    top: 340px;
                   left: 43px;
@@ -135,7 +136,7 @@
                   float: left;
 margin-right: 35px;
               ">
-                  <i class="fa fa-bolt stats-ico" aria-hidden="true">&#160;Minh_minh</i>
+                  <i class="fa fa-bolt stats-ico" aria-hidden="true">{{recipe.hardLevel}}&#160;Minh_minh</i>
                 </div>
                 <div style="    top: 340px;
                 left: 43px;
@@ -151,238 +152,27 @@ margin-right: 35px;
           </div>
         </div>
       </div>
+      <div class="clearfix"></div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
-    <div id="menu1" class="container tab-pane fade">
+    <div id="menu1" class="container tab-pane fade" style="min-height: 200px;">
 
       <br>
       <h6>BỘ SƯU TẬP CÁ NHÂN</h6>
-
-    </div>
-  </div>
-  <div class="tab-content">
-    <div id="created" class="container tab-pane active">
-      <div class="recipe-list-wrapper">
-        <!-- 1 anh -->
-        <div class="ng-scope member-recipe-item">
-          <div class="item-inner ng-scope">
-            <div class="item-photo">
-              <a href="" class="photo">
-                <img
-                  src="https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"
-                  alt="" class="img-responsive" style="    height: 246px;" />
-              </a>
-              <a href="" class="btn-act btn-add-favourite ng-isolate-scope">
-                <i class="fa fa-heart"></i>
-              </a>
-            </div>
-            <div class="item-info">
-              <div class="item-title">
-                <h3>
-                  <a href="" class="namenamename">Gáy Heo Nướng Kiểu Thái Ko Mu Yang</a>
-                </h3>
-              </div>
-              <div class="desc ng-binding">
-                <p>
-                  Món này mình ăn ở nhà hàng Anh Tukk, họ dùng gáy heo nên ăn
-                  vừa mềm, vừa giòn rất ngon. Món này phù hợp để ăn với cơm hoặc
-                  uống bia nhâm nhi cũng được
-                </p>
-              </div>
-            </div>
-            <div class="item-footer">
-              <div class="recipe-acts">
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px;
-                  opacity: 0.8;
-                  float: left;
-                  margin-right: 6px;
-               ">
-                  &#160;
-                  <i class="fa fa-clock-o stats-ico" aria-hidden="true">
-                    1323</i>
-                </div>
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px;
-                  opacity: 0.8;
-                  float: left;
-                  margin-right: 9px;
-                ">
-                  &#160;
-                  <i class="fa fa-bar-chart stats-ico" aria-hidden="true">
-                    234</i>
-                </div>
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px;
-                  opacity: 0.8;
-                  float: left;
-margin-right: 35px;
-              ">
-                  <i class="fa fa-bolt stats-ico" aria-hidden="true">&#160;Minh_minh</i>
-                </div>
-                <div style="    top: 340px;
-                left: 43px;
-                font-size: 12px;
-                opacity: 0.8;
-                float: left;
-
-            ">
-                  <i class="fa fa-bookmark"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="save" class="container tab-pane">
-      <div class="recipe-list-wrapper">
-        <!-- 1 anh -->
-        <div class="ng-scope member-recipe-item">
-          <div class="item-inner ng-scope">
-            <div class="item-photo">
-              <a href="" class="photo">
-                <img src="https://photo-1-baomoi.zadn.vn/w1000_r1/2019_01_21_65_29430027/efcd1a5dc91d2043790c.jpg"
-                  alt="" class="img-responsive" style="    height: 246px;" />
-              </a>
-              <a href="" class="btn-act btn-add-favourite ng-isolate-scope">
-                <i class="fa fa-heart"></i>
-              </a>
-            </div>
-            <div class="item-info">
-              <div class="item-title">
-                <h3>
-                  <a href="" class="namenamename">Gáy Heo Nướng Kiểu Thái Ko Mu Yang</a>
-                </h3>
-              </div>
-              <div class="desc ng-binding">
-                <p>
-                  Món này mình ăn ở nhà hàng Anh Tukk, họ dùng gáy heo nên ăn
-                  vừa mềm, vừa giòn rất ngon. Món này phù hợp để ăn với cơm hoặc
-                  uống bia nhâm nhi cũng được
-                </p>
-              </div>
-            </div>
-            <div class="item-footer">
-              <div class="recipe-acts">
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px;
-                  opacity: 0.8;
-                  float: left;
-                  margin-right: 6px;
-               ">
-                  &#160;
-                  <i class="fa fa-clock-o stats-ico" aria-hidden="true">
-                    1323</i>
-                </div>
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px;
-                  opacity: 0.8;
-                  float: left;
-                  margin-right: 9px;
-                ">
-                  &#160;
-                  <i class="fa fa-bar-chart stats-ico" aria-hidden="true">
-                    234</i>
-                </div>
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px;
-                  opacity: 0.8;
-                  float: left;
-margin-right: 35px;
-              ">
-                  <i class="fa fa-bolt stats-ico" aria-hidden="true">&#160;Minh_minh</i>
-                </div>
-                <div style="    top: 340px;
-                left: 43px;
-                font-size: 12px;
-                opacity: 0.8;
-                float: left;
-
-            ">
-                  <i class="fa fa-bookmark"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="popular" class="container tab-pane">
-      <div class="recipe-list-wrapper">
-        <!-- 1 anh -->
-        <div class="ng-scope member-recipe-item">
-          <div class="item-inner ng-scope">
-            <div class="item-photo">
-              <a href="" class="photo">
-                <img src="https://genk.mediacdn.vn/2017/15-ruff-etienne-1513221642291.jpg" alt="" class="img-responsive"
-                  style="    height: 246px;" />
-              </a>
-              <a href="" class="btn-act btn-add-favourite ng-isolate-scope">
-                <i class="fa fa-heart"></i>
-              </a>
-            </div>
-            <div class="item-info">
-              <div class="item-title">
-                <h3>
-                  <a href="" class="namenamename">Gáy Heo Nướng Kiểu Thái Ko Mu Yang</a>
-                </h3>
-              </div>
-              <div class="desc ng-binding">
-                <p>
-                  Món này mình ăn ở nhà hàng Anh Tukk, họ dùng gáy heo nên ăn
-                  vừa mềm, vừa giòn rất ngon. Món này phù hợp để ăn với cơm hoặc
-                  uống bia nhâm nhi cũng được
-                </p>
-              </div>
-            </div>
-            <div class="item-footer">
-              <div class="recipe-acts">
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px; 
-                  opacity: 0.8;
-                  float: left;
-                  margin-right: 6px;
-               ">
-                  &#160;
-                  <i class="fa fa-clock-o stats-ico" aria-hidden="true">
-                    1323</i>
-                </div>
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px;
-                  opacity: 0.8;
-                  float: left;
-                  margin-right: 9px;
-                ">
-                  &#160;
-                  <i class="fa fa-bar-chart stats-ico" aria-hidden="true">
-                    234</i>
-                </div>
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px;
-                  opacity: 0.8;
-                  float: left;
-margin-right: 35px;
-              ">
-                  <i class="fa fa-bolt stats-ico" aria-hidden="true">&#160;Minh_minh</i>
-                </div>
-                <div style="    top: 340px;
-                left: 43px;
-                font-size: 12px;
-                opacity: 0.8;
-                float: left;
-
-            ">
-                  <i class="fa fa-bookmark"></i>
-                </div>
+      <div id="created" class="container tab-pane active">
+        <div class="row mt-30">
+          <div class="col-md-4 col-sm-6" *ngFor="let gallery of memberGallery">
+            <div class="box19">
+              <cl-image public-id="{{gallery.image}}">
+                <cl-transformation width="332" height="220" crop="scale" quality="auto" radius="2">
+                </cl-transformation>
+              </cl-image>
+              <div class="box-content">
+                <ul class="icon">
+                  <li><a href="#"><i class="fa fa-search"></i></a></li>
+                  <li><a href="#"><i class="fa fa-link"></i></a></li>
+                </ul>
+                <h6 class="title" [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}</h6>
               </div>
             </div>
           </div>
@@ -390,5 +180,4 @@ margin-right: 35px;
       </div>
     </div>
   </div>
-</div>
-<div class="clearfix"></div>
+  <div class="clearfix"></div>
