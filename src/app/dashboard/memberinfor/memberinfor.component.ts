@@ -51,6 +51,19 @@ export class MemberinforComponent implements OnInit {
           if (recipes !== undefined) {
             for (let recipe of recipes) {
               if (recipe.user._id === user._id) {
+                if (recipe.hardLevel !== undefined) {
+                  if (recipe.hardLevel === "") {
+                    recipe.hardLevel = "Không xác định";
+                  } else if (recipe.hardLevel === "1") {
+                    recipe.hardLevel = "Dễ";
+                  } else if (recipe.hardLevel === "2") {
+                    recipe.hardLevel = "Trung bình";
+                  } else if (recipe.hardLevel === "3") {
+                    recipe.hardLevel = "Khó";
+                  } else if (recipe.hardLevel === "4") {
+                    recipe.hardLevel = "Rất khó";
+                  }
+                }
                 console.log(recipe.user.name)
                 this.recipeCount++
                 this.doneCount = this.doneCount + recipe.doneCount

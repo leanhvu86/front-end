@@ -18,6 +18,7 @@ export class IndexComponent implements OnInit {
     email: "",
     password: ""
   }
+  id: string = '1'
   imageUrl: string = 'jbiajl3qqdzshdw0z749'
   message = '';
   isModeration: boolean = false;
@@ -52,13 +53,20 @@ export class IndexComponent implements OnInit {
   }
   getImage() {
     let email = this.cookie.get('email');
-    this._loginService.testEmail(email).subscribe(data => {
-      let user = data.body['user'];
-      if (user !== undefined && user.imageUrl !== '') {
-        this.imageUrl = user.imageUrl
-        console.log(user)
-      }
-    })
+    if (email !== '') {
+      this._loginService.testEmail(email).subscribe(data => {
+        let user = data.body['user'];
+        if (user !== undefined && user.imageUrl !== '') {
+          this.imageUrl = user.imageUrl
+
+        }
+        if (user !== undefined) {
+
+          this.id = user._id
+          console.log(this.id)
+        }
+      })
+    }
   }
   changeStatus(event: any) {
     this.newMessage = false
@@ -105,7 +113,8 @@ export class IndexComponent implements OnInit {
           }
           if (key === 'user') {
             let users = user[key];
-            console.log(users.token);
+            this.id = users._id
+            console.log(this.id);
             this.cookie.set('token', '');
             this.cookie.set('token', users.token);
             this.cookie.set('isAuthenicate', '');

@@ -109,6 +109,8 @@ export class GalleryDetailComponent implements OnInit {
 
   }
   addBookmark(recipe: any) {
+
+    this.message = ''
     if (this.isAuthenicate !== true) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
@@ -132,7 +134,7 @@ export class GalleryDetailComponent implements OnInit {
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
-        }, 5000);
+        }, 4000);
       }
     })
   }

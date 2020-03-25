@@ -1,12 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Options } from "ng5-slider";
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/shared/service/user.service.';
+import { CookieService } from 'ngx-cookie-service';
+
 @Component({
   selector: 'app-userinfor',
   templateUrl: './userinfor.component.html',
   styleUrls: ['./userinfor.component.css']
 })
 export class UserinforComponent implements OnInit {
-  constructor() { }
+  id: String = '1'
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private cookie: CookieService,
+  ) { }
 
   ngOnInit() {
   }
@@ -18,5 +27,7 @@ export class UserinforComponent implements OnInit {
     showTicksValues: false
   };
 
-
+  getUser() {
+    this.id = this.route.snapshot.params.id;
+  }
 }

@@ -6,6 +6,7 @@ import { Options } from "ng5-slider";
   styleUrls: ["./myrecipe.component.css"]
 })
 export class MyrecipeComponent implements OnInit {
+  id: String = '1'
   value: number = 2;
   options: Options = {
     floor: 0,
@@ -13,7 +14,7 @@ export class MyrecipeComponent implements OnInit {
     showOuterSelectionBars: true,
     showTicksValues: false
   };
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

@@ -10,6 +10,8 @@ import { UserService } from "src/app/shared/service/user.service.";
 import { Cloudinary } from "@cloudinary/angular-5.x";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { LoginServiceService } from "src/app/shared/service/login-service.service";
+import { Gallery } from 'src/app/shared/model/gallery';
+import { GalleryService } from 'src/app/shared/service/gallery.service';
 @Component({
   selector: "app-recipe-detail",
   templateUrl: "./recipe-detail.component.html",
@@ -27,6 +29,14 @@ export class RecipeDetailComponent implements OnInit {
     email: "",
     password: ""
   };
+  personalGallery: Gallery[] = []
+  galleryObject = {
+    _id: "",
+    recipe: Recipe
+  };
+  totalPoint: number = 0
+  doneCount: number = 0
+  addRecipe = Recipe
   submitted = false;
   isAuthenicate: boolean = false;
   showModal: boolean = false;
@@ -53,11 +63,13 @@ export class RecipeDetailComponent implements OnInit {
     private userService: UserService,
     private _loginService: LoginServiceService,
     private formBuilder: FormBuilder,
-    private _router: Router
+    private _router: Router,
+    private galleryService: GalleryService
   ) { }
   id: string;
   ngOnInit() {
     this.getRecipeDetail();
+    this.getPersonalGallery()
     this.registerForm = this.formBuilder.group({
 
       content: ["", Validators.required],
@@ -70,7 +82,27 @@ export class RecipeDetailComponent implements OnInit {
   get f() {
     return this.registerForm.controls;
   }
+  getPersonalGallery() {
+    let email = this.cookie.get('email')
 
+    if (email !== '') {
+      this.galleryService.getGalleryies().subscribe(data => {
+        console.log(data)
+        if (data != null) {
+          for (let gallery of data) {
+            if (gallery.user.email === email) {
+              if (gallery.recipe.length > 0) {
+                gallery.image = gallery.recipe[0].imageUrl
+              } else {
+                gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+              }
+              this.personalGallery.push(gallery)
+            }
+          }
+        }
+      })
+    }
+  }
   getRecipeDetail() {
     this.id = this.route.snapshot.params.id;
     this.recipeService.getRecipeDetail(this.id).subscribe(data => {
@@ -116,62 +148,7 @@ export class RecipeDetailComponent implements OnInit {
       }
     });
   }
-  loginUser() {
-    console.log(this.userLogin.email + " user đăng nhập");
-    this._loginService.loginAuth(this.userLogin).subscribe(data => {
-      this.errorMessage = null;
-      if (data.body["status"] === 200) {
-        this._loginService.updateAuthStatus(true);
 
-        let user = data.body;
-        let role;
-        for (let key in user) {
-          if (key === "role") {
-            role = user[key];
-            console.log(role);
-          }
-          if (key === "image") {
-            this.imageUrl = user[key];
-            console.log(this.imageUrl);
-          }
-          if (parseInt(role) === -1) {
-            this.errorMessage = "Bạn chưa xác thực email đã đăng ký";
-            return;
-          }
-          if (key === "user") {
-            let users = user[key];
-            console.log(users.token);
-            this.cookie.set("token", users.token);
-            this.cookie.set("isAuthenicate", "1");
-          }
-          if (key === "role") {
-            role = user[key];
-            this.cookie.set("role", role);
-            console.log(role);
-            if (role !== undefined && role !== "") {
-              this.isModeration = true;
-              console.log(role);
-            }
-          }
-        }
-        this.showModal = false;
-        const radio: HTMLElement = document.getElementById("close-modal");
-        radio.click();
-        sessionStorage.setItem("user", this.userLogin.email);
-        this.cookie.set("email", this.userLogin.email);
-        this.isAuthenicate = true;
-        console.log("true");
-        console.log(this.recipe._id);
-        window.location.reload();
-      }
-      if (data.body["status"] !== 200) {
-        this.errorMessage = data.body["message"];
-      }
-      if (data.body["status"] === 404) {
-        this.errorMessage = data.body["message"];
-      }
-    });
-  }
   getRecipes() {
     console.log(this.recipe);
     this.recipeService.getRecipes().subscribe(recipeArray => {
@@ -192,7 +169,8 @@ export class RecipeDetailComponent implements OnInit {
       this.recipes = arr.filter(function (item, pos) {
         return arr.indexOf(item) == pos;
       });
-
+      this.doneCount = this.recipe.doneCount
+      this.totalPoint = this.recipe.totalPoint
       console.log(this.recipes);
     });
   }
@@ -227,7 +205,7 @@ export class RecipeDetailComponent implements OnInit {
   }
   uploadFile(file: any) {
     if (this.isAuthenicate == false) {
-      const radio: HTMLElement = document.getElementById("modal-button1");
+      const radio: HTMLElement = document.getElementById("modal-button");
       radio.click();
       return;
     }
@@ -387,7 +365,7 @@ export class RecipeDetailComponent implements OnInit {
   }
   likeRecipe(recipe: any) {
     if (this.isAuthenicate == false) {
-      const radio: HTMLElement = document.getElementById("modal-button1");
+      const radio: HTMLElement = document.getElementById("modal-button");
       radio.click();
       return;
     }
@@ -407,6 +385,7 @@ export class RecipeDetailComponent implements OnInit {
         console.log(data);
         this.recipe = data.body["recipe"];
         console.log("success");
+        this.totalPoint++
         let userObject = new Object({
           email: user.email
         });
@@ -421,7 +400,7 @@ export class RecipeDetailComponent implements OnInit {
 
   addDoneRecipe(recipe: any) {
     if (this.isAuthenicate == false) {
-      const radio: HTMLElement = document.getElementById("modal-button1");
+      const radio: HTMLElement = document.getElementById("modal-button");
       radio.click();
       return;
     }
@@ -438,6 +417,7 @@ export class RecipeDetailComponent implements OnInit {
     console.log(doneObject);
     this.recipeService.addComment(doneObject).subscribe(data => {
       if (data !== undefined) {
+        this.doneCount++
         console.log(data);
         this.recipe = data.body["recipe"];
         console.log("success");
@@ -450,7 +430,7 @@ export class RecipeDetailComponent implements OnInit {
       return;
     }
     if (this.isAuthenicate == false) {
-      const radio: HTMLElement = document.getElementById("modal-button1");
+      const radio: HTMLElement = document.getElementById("modal-button");
       radio.click();
       return;
     }
@@ -488,30 +468,71 @@ export class RecipeDetailComponent implements OnInit {
     });
   }
   dislikeRecipe(recipe: any) {
-    console.log(recipe);
+    if (this.isAuthenicate == false) {
+      const radio: HTMLElement = document.getElementById("modal-button");
+      radio.click();
+      return;
+    }
     this.like = false;
-    console.log(recipe.user.email);
     let user = recipe.user;
     let interestObject = new Object({
       user: user,
       objectId: recipe,
       objectType: "2"
     });
-    console.log(recipe.user.email);
-    console.log(interestObject);
     this.recipeService.dislikeRecipe(interestObject).subscribe(data => {
       if (data !== undefined) {
-        console.log(data);
-        this.recipe.totalPoint--;
+        this.recipe.totalPoint--
         let userObject = new Object({
           email: user.email
         });
         this.userService.dislikeremovePoint(userObject).subscribe(data => {
           if (data.body["status"] === 200) {
             console.log("success");
+            this.totalPoint--
           }
         });
       }
     });
+  }
+  addBookmark(recipe: any) {
+
+    this.message = ''
+    if (this.isAuthenicate !== true) {
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    console.log(recipe)
+    this.addRecipe = recipe
+    const radio: HTMLElement = document.getElementById('modal-button1');
+    radio.click();
+  }
+  addRecipeBookMark(gallery: any) {
+    console.log(gallery)
+    if (gallery.recipe !== undefined) {
+      for (let recipe of gallery.recipe) {
+        if (recipe.name === this.addRecipe.name) {
+          this.message = 'Công thức đã có trong bộ sưu tập'
+          return
+        }
+      }
+    }
+    this.galleryObject._id = gallery
+    this.galleryObject.recipe = this.addRecipe
+    console.log(this.galleryObject)
+    this.galleryService.addGallery(this.galleryObject).subscribe(data => {
+      if (data.body['status'] === 200) {
+        let gallery = data.body['gallery']
+
+        this.message = data.body['message']
+        console.log(this.message)
+        setTimeout(() => {
+          const radio: HTMLElement = document.getElementById('close-modal');
+          radio.click();
+        }, 4000);
+
+      }
+    })
   }
 }

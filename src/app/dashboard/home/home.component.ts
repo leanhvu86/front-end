@@ -111,6 +111,8 @@ export class Home2Component implements OnInit {
     }
   }
   addBookmark(recipe: any) {
+
+    this.message = ''
     if (this.isAuthenicate !== true) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
@@ -137,13 +139,14 @@ export class Home2Component implements OnInit {
     this.galleryService.addGallery(this.galleryObject).subscribe(data => {
       if (data.body['status'] === 200) {
         let gallery = data.body['gallery']
-        console.log(gallery)
+
         this.message = data.body['message']
+        console.log(this.message)
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
         }, 4000);
-        this.message = ''
+
       }
     })
   }
