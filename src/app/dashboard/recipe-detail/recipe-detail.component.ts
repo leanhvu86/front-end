@@ -34,6 +34,11 @@ export class RecipeDetailComponent implements OnInit {
     _id: "",
     recipe: Recipe
   };
+  interestObject = {
+    user: '',
+    objectId: Recipe,
+    objectType: ''
+  };
   totalPoint: number = 0
   doneCount: number = 0
   addRecipe = Recipe
@@ -54,7 +59,7 @@ export class RecipeDetailComponent implements OnInit {
   showImageStep: boolean = false;
   prepared: number;
   totalCookingTime: number;
-
+  totalRecipe: number = 0
   constructor(
     private cloudinary: Cloudinary,
     private route: ActivatedRoute,
@@ -164,6 +169,9 @@ export class RecipeDetailComponent implements OnInit {
               arr.push(recip);
             }
           }
+        }
+        if (this.recipe.user._id === recip.user._id) {
+          this.totalRecipe++
         }
       }
       this.recipes = arr.filter(function (item, pos) {
@@ -374,13 +382,11 @@ export class RecipeDetailComponent implements OnInit {
 
     console.log(recipe.user.email);
     let user = recipe.user;
-    let interestObject = new Object({
-      user: user,
-      objectId: recipe,
-      objectType: "2"
-    });
-    console.log(interestObject);
-    this.recipeService.likeRecipe(interestObject).subscribe(data => {
+    this.interestObject.user = recipe.user.email
+    this.interestObject.objectId = recipe
+    this.interestObject.objectType = '2'
+    console.log(this.interestObject);
+    this.recipeService.likeRecipe(this.interestObject).subscribe(data => {
       if (data !== undefined) {
         console.log(data);
         this.recipe = data.body["recipe"];
@@ -475,12 +481,10 @@ export class RecipeDetailComponent implements OnInit {
     }
     this.like = false;
     let user = recipe.user;
-    let interestObject = new Object({
-      user: user,
-      objectId: recipe,
-      objectType: "2"
-    });
-    this.recipeService.dislikeRecipe(interestObject).subscribe(data => {
+    this.interestObject.user = recipe.user.email
+    this.interestObject.objectId = recipe
+    this.interestObject.objectType = '2'
+    this.recipeService.dislikeRecipe(this.interestObject).subscribe(data => {
       if (data !== undefined) {
         this.recipe.totalPoint--
         let userObject = new Object({

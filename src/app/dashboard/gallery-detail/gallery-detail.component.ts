@@ -48,11 +48,12 @@ export class GalleryDetailComponent implements OnInit {
   ngOnInit() {
 
     this.personalCheck = false;
-    this.getGalleryDetail()
+
     this.getPersonalGallery()
+    this.getGalleryDetail()
   }
   getGalleryDetail() {
-
+    this.userObject.email = this.cookie.get('email')
     this.id = this.route.snapshot.params.id;
     this.galleryService.galleryDetail(this.id).subscribe(data => {
       this.gallery = data['gallery']
@@ -60,6 +61,26 @@ export class GalleryDetailComponent implements OnInit {
         if (this.gallery.recipe.length > 0) {
           this.checkRecipe = true
           this.recipes = this.gallery.recipe
+          if (this.userObject.email !== undefined) {
+            this.recipeService.findInterest(this.userObject).subscribe(data => {
+              let interests = data.body['interests']
+              console.log(data)
+              this.recipes.forEach(function (recipe) {
+                recipe.like = false
+                if (interests !== undefined) {
+                  for (let interest of interests) {
+                    if (interest.objectId._id === recipe._id) {
+                      recipe.like = true
+                    }
+                  }
+                }
+
+                if (recipe.user.imageUrl === undefined) {
+                  recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+                }
+              });
+            })
+          }
         }
         if (this.gallery.user.imageUrl !== '') {
           this.imageUrl = this.gallery.user.imageUrl
@@ -150,7 +171,7 @@ export class GalleryDetailComponent implements OnInit {
     }
     recipe.like = true;
     console.log(recipe.user.email)
-    let user = recipe.user;
+    let user = this.cookie.get('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,
@@ -165,7 +186,7 @@ export class GalleryDetailComponent implements OnInit {
       if (data !== undefined) {
         console.log('success')
         let userObject = new Object({
-          email: user.email
+          email: recipe.user.email
         })
         this.userService.likeAddPoint(userObject).subscribe((data) => {
           if (data.body['status'] === 200) {
@@ -187,7 +208,7 @@ export class GalleryDetailComponent implements OnInit {
     }
     recipe.like = false;
     console.log(recipe.user.email)
-    let user = recipe.user;
+    let user = this.cookie.get('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,
@@ -202,7 +223,7 @@ export class GalleryDetailComponent implements OnInit {
     this.recipeService.dislikeRecipe(interestObject).subscribe((data) => {
       if (data !== undefined) {
         let userObject = new Object({
-          email: user.email
+          email: recipe.user.email
         })
         this.userService.dislikeremovePoint(userObject).subscribe((data) => {
           if (data.body['status'] === 200) {

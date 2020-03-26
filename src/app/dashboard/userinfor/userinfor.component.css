@@ -5,6 +5,22 @@
   overflow: hidden;
   text-align: center;
 }
+  .ng5-slider-bar {
+    height: 2px;
+  }
+
+  .ng5-slider-left-out-selection .ng5-slider-bar {
+    background: #2ecb6f !important;
+  }
+
+  .ng5-slider-right-out-selection .ng5-slider-bar {
+    background: #e74c3c !important;
+  }
+
+  .ng5-slider-selection {
+      background: rgb(255, 230, 0);
+  }
+
 .account-sidebar {
   color: #333;
   min-height: 600px;

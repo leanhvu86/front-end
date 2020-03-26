@@ -23,7 +23,7 @@ export class UserinforComponent implements OnInit {
   options: Options = {
     floor: 0,
     ceil: 4,
-    showOuterSelectionBars: true,
+    showOuterSelectionBars: false,
     showTicksValues: false
   };
 

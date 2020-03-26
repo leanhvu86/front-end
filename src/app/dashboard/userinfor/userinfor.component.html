@@ -11,7 +11,7 @@
           </a>
         </div>
         <h3 class="title" style="text-align: center;">
-          <a href="" title="Trang cá nhân">
+          <a [routerLink]="['/member/info/', id]" title="Trang cá nhân">
             <span style="color: black;">Nguyễn Xuân Minh</span>
           </a>
         </h3>
@@ -20,7 +20,7 @@
           <span class="headline">
             NewBee
           </span>
-          <ng5-slider [(value)]="value" [options]="options"></ng5-slider>
+          <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ng5-slider>
 
           <div class="text">
             <span class="user-lv1 "

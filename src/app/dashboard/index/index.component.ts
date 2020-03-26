@@ -200,13 +200,13 @@ export class IndexComponent implements OnInit {
   logout() {
     console.log('logout');
     this._loginService.logoutUser();
-    this._router.navigate(['/index']);
     this.isAuthenicate = false;
     this.showModal = false;
     let token = this.cookie.get('token');
     if (token !== '') {
       this.cookie.set('token', '');
     }
+    window.location.reload()
   }
 
 }

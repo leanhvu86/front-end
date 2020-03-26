@@ -199,29 +199,58 @@ export class Home2Component implements OnInit {
   // }
   getRecipes() {
     this.recipeService.getRecipes().subscribe(recipes => {
-      recipes.forEach(function (recipe) {
-        recipe.like = false
-        if (recipe.user.imageUrl === undefined) {
-          recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
-        }
-      });
+      if (recipes !== undefined) {
+        if (this.isAuthenicate == true) {
+          this.userObject.email = this.cookie.get('email')
+          if (this.userObject.email !== undefined || this.userObject.email !== '') {
+            this.recipeService.findInterest(this.userObject).subscribe(data => {
+              let interests = data.body['interests']
+              console.log(data)
+              recipes.forEach(function (recipe) {
+                recipe.like = false
+                if (interests !== undefined) {
+                  for (let interest of interests) {
+                    if (interest.objectId._id === recipe._id) {
+                      recipe.like = true
+                    }
+                  }
+                }
 
-      this.recipes = recipes;
-      for (let recipe of this.recipes) {
-        if (recipe.hardLevel !== undefined) {
-          if (recipe.hardLevel === '') {
-            recipe.hardLevel = 'Ko XĐ';
-          } else if (recipe.hardLevel === '1') {
-            recipe.hardLevel = 'Dễ';
-          } else if (recipe.hardLevel === '2') {
-            recipe.hardLevel = 'TB';
-          } else if (recipe.hardLevel === '3') {
-            recipe.hardLevel = 'Khó';
-          } else if (recipe.hardLevel === '4') {
-            recipe.hardLevel = 'R khó';
+                if (recipe.user.imageUrl === undefined) {
+                  recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+                }
+              });
+            })
+          } else {
+            recipes.forEach(function (recipe) {
+              recipe.like = false
+              if (recipe.user.imageUrl === undefined) {
+                recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+              }
+            });
+          }
+
+        }
+
+
+        this.recipes = recipes;
+        for (let recipe of this.recipes) {
+          if (recipe.hardLevel !== undefined) {
+            if (recipe.hardLevel === '') {
+              recipe.hardLevel = 'Ko XĐ';
+            } else if (recipe.hardLevel === '1') {
+              recipe.hardLevel = 'Dễ';
+            } else if (recipe.hardLevel === '2') {
+              recipe.hardLevel = 'TB';
+            } else if (recipe.hardLevel === '3') {
+              recipe.hardLevel = 'Khó';
+            } else if (recipe.hardLevel === '4') {
+              recipe.hardLevel = 'R khó';
+            }
           }
         }
       }
+
       console.log(this.recipes);
     });
   }
@@ -242,7 +271,7 @@ export class Home2Component implements OnInit {
     }
     recipe.like = true;
     console.log(recipe.user.email)
-    let user = recipe.user;
+    let user = this.cookie.get('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,
@@ -257,7 +286,7 @@ export class Home2Component implements OnInit {
       if (data !== undefined) {
         console.log('success')
         let userObject = new Object({
-          email: user.email
+          email: recipe.user.email
         })
         this.userService.likeAddPoint(userObject).subscribe((data) => {
           if (data.body['status'] === 200) {
@@ -279,7 +308,7 @@ export class Home2Component implements OnInit {
     }
     recipe.like = false;
     console.log(recipe.user.email)
-    let user = recipe.user;
+    let user = this.cookie.get('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,
@@ -294,7 +323,7 @@ export class Home2Component implements OnInit {
     this.recipeService.dislikeRecipe(interestObject).subscribe((data) => {
       if (data !== undefined) {
         let userObject = new Object({
-          email: user.email
+          email: recipe.user.email
         })
         this.userService.dislikeremovePoint(userObject).subscribe((data) => {
           if (data.body['status'] === 200) {

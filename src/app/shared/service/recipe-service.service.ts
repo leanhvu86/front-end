@@ -62,13 +62,13 @@ export class RecipeService {
       );
   }
   likeRecipe(interest: any) {
-    return this._http.post(`${this.baseUrl}/likeRecipe`, { interest: interest }, { observe: "response" });
+    return this._http.post(`${this.baseUrl}/likeRecipe`, { object: interest }, { observe: "response" });
   }
   addComment(comment: any) {
     return this._http.post(`${this.baseUrl}/addComment`, { comment: comment }, { observe: "response" });
   }
   dislikeRecipe(interest: any) {
-    return this._http.post(`${this.baseUrl}/dislikeRecipe`, { interest: interest }, { observe: "response" });
+    return this._http.post(`${this.baseUrl}/dislikeRecipe`, { object: interest }, { observe: "response" });
   }
   findInterest(user: any) {
     return this._http.post(`${this.baseUrl}/findInterest`, { user: user }, { observe: "response" });
