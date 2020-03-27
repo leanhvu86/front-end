@@ -48,8 +48,7 @@ export class GalleryDetailComponent implements OnInit {
   ngOnInit() {
 
     this.personalCheck = false;
-
-    this.getPersonalGallery()
+    this.galleryCheck = false;
     this.getGalleryDetail()
   }
   getGalleryDetail() {
@@ -85,7 +84,7 @@ export class GalleryDetailComponent implements OnInit {
         if (this.gallery.user.imageUrl !== '') {
           this.imageUrl = this.gallery.user.imageUrl
         }
-        this.galleryCheck = true
+        this.getPersonalGallery()
       }
     })
   }
@@ -98,6 +97,7 @@ export class GalleryDetailComponent implements OnInit {
 
         if (data != null) {
           let emailUser = this.gallery.user.email
+          console.log(emailUser)
           if (emailUser !== '') {
             for (let gallery of data) {
               if (gallery.user.email === emailUser) {
@@ -108,6 +108,10 @@ export class GalleryDetailComponent implements OnInit {
                 }
                 this.gallerys.push(gallery)
               }
+            }
+            if (this.gallerys.length > 0) {
+              this.personalCheck = true
+
             }
           }
           for (let gallery of data) {
@@ -121,7 +125,7 @@ export class GalleryDetailComponent implements OnInit {
             }
           }
           if (this.personalGallery.length > 0) {
-            this.personalCheck = true;
+
             console.log(this.personalGallery.length)
           }
         }

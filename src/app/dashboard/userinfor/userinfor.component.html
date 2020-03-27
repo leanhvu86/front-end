@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="loadPage">
   <div class="row" style="background: rgb(233, 235, 238); padding: 20px 0 20px 0;">
     <!--  -->
     <div class="col-3 account-sidebar">
@@ -12,13 +12,13 @@
         </div>
         <h3 class="title" style="text-align: center;">
           <a [routerLink]="['/member/info/', id]" title="Trang cá nhân">
-            <span style="color: black;">Nguyễn Xuân Minh</span>
+            <span style="color: rgb(255, 124, 36);">{{user.name}}</span>
           </a>
         </h3>
 
         <div class="mem-statis-box">
           <span class="headline">
-            NewBee
+            {{user.level}}
           </span>
           <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ng5-slider>
 

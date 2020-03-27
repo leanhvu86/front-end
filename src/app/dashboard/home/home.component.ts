@@ -41,6 +41,7 @@ export class Home2Component implements OnInit {
     _id: "",
     recipe: Recipe
   };
+
   constructor(
     private translate: TranslateService,
     private cookie: CookieService,
@@ -70,7 +71,7 @@ export class Home2Component implements OnInit {
   ngOnInit() {
     this.getRecipes();
     this.getTopUser()
-    this.getTopGalleries()
+    //this.getTopGalleries()
     this.getPersonalGallery()
   }
   pageChanged(event) {
@@ -78,15 +79,26 @@ export class Home2Component implements OnInit {
   }
   getTopGalleries() {
     this.galleryService.getTopGalleryies().subscribe(galleries => {
-      this.galleryTop = galleries
+
       for (let gallery of galleries) {
+        gallery.like = false
+        if (this.interests.length > 0) {
+          for (let inter of this.interests) {
+
+            if (gallery._id === inter.objectId._id) {
+              gallery.like = true
+              console.log(gallery)
+            }
+          }
+        }
         if (gallery.recipe.length > 0) {
           gallery.image = gallery.recipe[0].imageUrl
         } else {
           gallery.image = 'fvt7rkr59r9d7wk8ndbd'
         }
-        gallery.like = false
       }
+      this.galleryTop = galleries
+      console.log(this.galleryTop)
     })
   }
   getPersonalGallery() {
@@ -150,67 +162,24 @@ export class Home2Component implements OnInit {
       }
     })
   }
-  // loginUser() {
-  //   console.log(this.userObject.email + " user đăng nhập");
-  //   this._loginService.loginAuth(this.userObject).subscribe((data) => {
-  //     this.errorMessage = null;
-  //     if (data.body['status'] === 200) {
-  //       this._loginService.updateAuthStatus(true);
 
-
-  //       let user = data.body;
-  //       let role;
-  //       for (let key in user) {
-  //         if (key === 'role') {
-  //           role = user[key];
-  //           console.log(role);
-  //         }
-  //         if (parseInt(role) === -1) {
-  //           this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
-  //           return;
-  //         }
-  //         if (key === 'user') {
-  //           let users = user[key];
-  //           console.log(users.token);
-  //           this.cookie.set('token', users.token);
-  //         }
-
-  //       }
-  //       this.showModal = false;
-  //       const radio: HTMLElement = document.getElementById('close-modal');
-  //       radio.click();
-  //       sessionStorage.setItem('user', this.userObject.email);
-  //       this.cookie.set('email', this.userObject.email);
-  //       this.isAuthenicate = true;
-  //       this._router.navigateByUrl('/index');
-  //       // this._router.navigate(['/home']);
-
-  //     }
-  //     if (data.body['status'] === 206) {
-  //       this.tfaFlag = true;
-  //     }
-  //     if (data.body['status'] === 403) {
-  //       this.errorMessage = data.body['message'];
-  //     }
-  //     if (data.body['status'] === 404) {
-  //       this.errorMessage = data.body['message'];
-  //     }
-  //   })
-  // }
   getRecipes() {
     this.recipeService.getRecipes().subscribe(recipes => {
       if (recipes !== undefined) {
+
+
         if (this.isAuthenicate == true) {
           this.userObject.email = this.cookie.get('email')
           if (this.userObject.email !== undefined || this.userObject.email !== '') {
             this.recipeService.findInterest(this.userObject).subscribe(data => {
               let interests = data.body['interests']
-              console.log(data)
+              this.interests = interests
+              this.getTopGalleries()
               recipes.forEach(function (recipe) {
                 recipe.like = false
                 if (interests !== undefined) {
                   for (let interest of interests) {
-                    if (interest.objectId._id === recipe._id) {
+                    if (interest.objectId._id === recipe._id && interest.objectType === '2') {
                       recipe.like = true
                     }
                   }
@@ -258,6 +227,86 @@ export class Home2Component implements OnInit {
     console.log(link)
     var url = 'https://www.youtube.com/watch?v=' + link;
     window.open(url, "MsgWindow", "width=600,height=400");
+  }
+  likeGallerry(gallery: any, index: any) {
+
+    console.log(gallery);
+    console.log(index);
+    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    if (this.isAuthenicate === false) {
+      console.log('false');
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    gallery.like = true;
+    console.log(gallery.user.email)
+    let user = this.cookie.get('email');
+    let interestObject = new Object({
+      user: user,
+      objectId: gallery,
+      objectType: '1'
+    })
+    let id = 'heartGallery' + index;
+    const radio: HTMLElement = document.getElementById(id);
+    radio.style.color = 'red';
+    radio.style.opacity = '0.8';
+    console.log(interestObject)
+    this.recipeService.likeRecipe(interestObject).subscribe((data) => {
+      if (data !== undefined) {
+        console.log('success')
+        let userObject = new Object({
+          email: gallery.user.email
+        })
+        this.userService.likeAddPoint(userObject).subscribe((data) => {
+          if (data.body['status'] === 200) {
+            console.log('success')
+
+          }
+        });
+      }
+    });
+    console.log(gallery.like);
+  }
+  nolikeGallery(gallery: any, index: any) {
+    gallery.like = false;
+    console.log(gallery);
+    console.log(index);
+    if (this.isAuthenicate !== true) {
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    gallery.like = false;
+    console.log(gallery.user.email)
+    let user = this.cookie.get('email');
+    let interestObject = new Object({
+      user: user,
+      objectId: gallery,
+      objectType: '1'
+    })
+    let id = 'heartGallery' + index;
+    const radio: HTMLElement = document.getElementById(id);
+    radio.style.color = 'grey';
+    radio.style.opacity = '0.5';
+    console.log(gallery.user.email)
+    console.log(interestObject)
+    this.recipeService.dislikeRecipe(interestObject).subscribe((data) => {
+      if (data !== undefined) {
+        let userObject = new Object({
+          email: gallery.user.email
+        })
+        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+          if (data.body['status'] === 200) {
+            console.log('success')
+
+          }
+        });
+      }
+
+
+    })
+    console.log(gallery.like);
   }
   likeRecipe(recipe: any, index: any) {
     console.log(recipe);

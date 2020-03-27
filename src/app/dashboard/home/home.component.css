@@ -2060,6 +2060,7 @@ body {
 .box15 .icon {
   padding: 0;
   list-style: none;
+  color: red;
 }
 .box14:hover .post {
   opacity: 1;
@@ -2184,6 +2185,7 @@ body {
   margin: 0 auto;
   position: absolute;
   bottom: 0;
+  color: red;
   opacity: 0;
   transition-duration: 0.6s;
   transition-timing-function: cubic-bezier(1, -0.53, 0.405, 1.425);
@@ -2198,19 +2200,28 @@ body {
 }
 .box15 .icon li a {
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   line-height: 40px;
   border-radius: 50%;
   font-size: 18px;
-  color: #000;
-  border: 1px solid #000;
+  color: rgb(122, 121, 121);
+  
+  /* border: 0.5px solid rgb(150, 150, 150); */
   margin-right: 5px;
   transition: all 0.3s ease-in-out 0s;
 }
 .box15 .icon li a:hover {
-  background: #000;
-  color: #fff;
+  /* background: rgb(255, 182, 182); */
+  color: rgb(255, 0, 0);
+}
+.check{
+  /* background: rgb(255, 182, 182); */
+  color: rgb(255, 0, 0);
+}
+.check :hover{
+  /* background: rgb(0, 0, 0); */
+  color: rgb(255, 254, 254);
 }
 @media only screen and (max-width: 990px) {
   .box15 {

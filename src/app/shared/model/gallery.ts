@@ -1,5 +1,5 @@
 export class Gallery {
-  id: Object;
+  _id: Object;
   user: any;
   name: String;
   content: String;

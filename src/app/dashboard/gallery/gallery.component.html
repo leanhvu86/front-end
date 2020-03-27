@@ -4,10 +4,10 @@
   <h4 class="text-left">BỘ SƯU TẬP NỔI BẬT</h4>
   <hr>
   <div class="row">
-    <div class="col" style="padding-right: 0px;" *ngFor="let gallery of galleryTop">
+    <div class="col" style="padding-right: 0px;" *ngFor="let gallery of galleryTop;let i= index">
       <div class="box21" style="height: 360px; width: 250px; margin: 5px 5px; padding-right: 0px; border-radius: 10px;">
         <cl-image public-id="{{gallery.image}}">
-          <cl-transformation height="360" radius="0" width="250" crop="lfill">
+          <cl-transformation height="360" radius="0" width="250" crop="scale">
           </cl-transformation>
           <cl-transformation angle="0">
           </cl-transformation>
@@ -16,6 +16,12 @@
           <h4 class="title">{{gallery.name}}</h4>
           <p class="description">{{gallery.content}}</p>
           <a class="read-more" [routerLink]="['/galleryDetail/', gallery._id]">xem chi tiết</a>
+          <a class="iconhover"><i class="fa fa-heart fa-2x " id="heartGallery{{i}}" style="margin-top: 15px;"
+              (click)="likeGallerry(gallery,i)" *ngIf="!gallery.like;else other_content"></i>
+            <ng-template #other_content><i style="margin-top: 15px;" id="heartGallery{{i}}"
+                (click)="nolikeGallery(gallery,i)" class="fa fa-heart fa-2x check" aria-hidden="true"></i>
+            </ng-template>
+          </a>
         </div>
       </div>
     </div>
