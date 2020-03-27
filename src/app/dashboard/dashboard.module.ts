@@ -1,5 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { IndexComponent } from './index/index.component';
 import { RouterModule } from '@angular/router';
 import { DashBoardRoutes } from './dashboard.routing';
@@ -91,7 +91,8 @@ import { MyrecipeComponent } from './myrecipe/myrecipe.component';
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA
   ],
-  providers: [CookieService],
+  providers: [CookieService, DatePipe],
+
   exports: [IndexComponent, CoutryComponent],
 })
 export class DashboardModule { }

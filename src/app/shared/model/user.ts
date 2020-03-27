@@ -2,12 +2,15 @@ export class User {
     _id: Object;
     token: string;
     email: string;
-    name: String;
-    imageUrl: String;
+    name: string;
+    lastName: string;
+    imageUrl: string;
     totalPoint: any;
     role: any;
     birthday: string;
-    gender: Number;
+    gender: string;
+    materialStatus: string;
+    signature: string;
     address: string;
     province: string;
     createAt: string;
@@ -16,6 +19,7 @@ export class User {
     warningReport: any;
     block: any;
     isAdmin: boolean;
-    dercoratingImage: String;
+    dercoratingImage: string;
+    introduction: string;
     level: any;
 }

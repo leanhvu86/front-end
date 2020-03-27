@@ -156,4 +156,7 @@ export class UserService {
     );
     //return this._http.post("http://localhost:8000/findRecipe", { id: id }, { observe: "response" });
   }
+  updateUser(user: any) {
+    return this._http.post(`${this.baseUrl}/updateUser`, { user: user }, { observe: "response" });
+  }
 }

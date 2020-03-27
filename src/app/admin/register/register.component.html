@@ -1,69 +1,29 @@
 <div class="container">
   <div class="card card-container">
     <h3 style="color: darkblue;">ĐĂNG KÍ TÀI KHOẢN</h3>
-    <img
-      id="profile-img"
-      class="profile-img-card"
-      src="assets/images/avatar_2x.png"
-    />
+    <img id="profile-img" class="profile-img-card" src="assets/images/avatar_2x.png" />
 
-    <form
-      class="form-signin"
-      (ngSubmit)="registerUser()"
-      [formGroup]="registerForm"
-    >
-      <input
-        type="text"
-        id="user"
-        class="form-control"
-        name="user"
-        formControlName="user"
-        [ngClass]="{ 'is-invalid': submitted && f.user.errors }"
-        [(ngModel)]="userObject.user"
-        placeholder="Username"
-        title="Please enter the username"
-        autocomplete="off"
-        required
-        autofocus
-      />
+    <form class="form-signin" (ngSubmit)="registerUser()" [formGroup]="registerForm">
+      <input type="text" id="user" class="form-control" name="user" formControlName="user"
+        [ngClass]="{ 'is-invalid': submitted && f.user.errors }" [(ngModel)]="userObject.user" placeholder="Username"
+        title="Please enter the username" autocomplete="off" required autofocus />
       <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
         <div *ngIf="f.user.errors.required">
           Vui lòng nhập không để trống username.
         </div>
       </div>
 
-      <input
-        type="text"
-        id="email"
-        class="form-control"
-        name="email"
-        formControlName="email"
-        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-        [(ngModel)]="userObject.email"
-        placeholder="Email"
-        title="Please enter the email"
-        autocomplete="off"
-        required
-        autofocus
-      />
+      <input type="text" id="email" class="form-control" name="email" formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [(ngModel)]="userObject.email" placeholder="Email"
+        title="Please enter the email" autocomplete="off" required autofocus />
       <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
         <div *ngIf="f.email.errors.required">Vui lòng không để trống Email</div>
         <div *ngIf="f.email.errors.email">Mail chưa hợp lệ!</div>
       </div>
 
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        name="password"
-        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-        formControlName="password"
-        placeholder="Password"
-        title="Please enter the password"
-        autocomplete="off"
-        [(ngModel)]="userObject.password"
-        required
-      />
+      <input type="password" id="password" class="form-control" name="password"
+        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" formControlName="password" placeholder="Password"
+        title="Please enter the password" autocomplete="off" [(ngModel)]="userObject.password" required />
       <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
         <div *ngIf="f.password.errors.required">
           Vui lòng không để trống kí tự
@@ -73,23 +33,11 @@
         </div>
       </div>
 
-      <input
-        type="password"
-        id="confirmpass"
-        class="form-control"
-        name="confirmPassword"
-        [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
-        formControlName="confirmPassword"
-        placeholder="Confirm password"
-        title="Please re-enter the password"
-        autocomplete="off"
-        [(ngModel)]="confirmPass"
-        required
-      />
-      <div
-        *ngIf="submitted && f.confirmPassword.errors"
-        class="invalid-feedback"
-      >
+      <input type="password" id="confirmpass" class="form-control" name="confirmPassword"
+        [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" formControlName="confirmPassword"
+        placeholder="Confirm password" title="Please re-enter the password" autocomplete="off" [(ngModel)]="confirmPass"
+        required />
+      <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
         <div *ngIf="f.confirmPassword.errors.required">
           Vui lòng xác nhận mật khẩu
         </div>
@@ -111,38 +59,19 @@
     </form>
   </div>
 </div>
-<a
-  type="button"
-  class="py-2 d-none d-md-inline-block register-button"
-  hidden="true"
-  data-toggle="modal"
-  data-target="#exampleModalCenter"
-  id="modal-button"
->
+<a type="button" class="py-2 d-none d-md-inline-block register-button" hidden="true" data-toggle="modal"
+  data-target="#exampleModalCenter" id="modal-button">
 </a>
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="exampleModalCenter"
-  tabindex="-1"
-  role="dialog"
-  *ngIf="!isAuthenicate"
-  aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true"
->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" *ngIf="!isAuthenicate"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">
           Đăng ký thành công
         </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          id="close-modal"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
