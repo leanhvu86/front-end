@@ -1,20 +1,67 @@
 <div class="card card-container" style="max-width: 500px;">
-  <img id="profile-img" class="profile-img-card" src="../../../assets/images/avatar_2x.png" />
+  <img
+    id="profile-img"
+    class="profile-img-card"
+    src="../../../assets/images/avatar_2x.png"
+  />
   <form class="form-signin" (ngSubmit)="loginUser()" #loginForm="ngForm">
-    <input type="text" id="email" class="form-control" name="email" autocomplete="off" #uname="ngModel"
-      [(ngModel)]="userObject.email" placeholder="email" title="Please enter the email" required autofocus>
-    <input type="password" id="password" class="form-control" name="password" autocomplete="off" #upass="ngModel"
-      [(ngModel)]="userObject.password" placeholder="Password" title="Please enter the password" required>
-    <input type="text" id="authcode" class="form-control" *ngIf="this.tfaFlag" name="authcode" autocomplete="off"
-      #authcode="ngModel" [(ngModel)]="userObject.authcode" placeholder="Two-Factor Auth code"
-      title="Please enter the code" required>
-    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
-      [disabled]="email?.errors?.required || upass?.errors?.required || (this.tfaFlag && authcode?.errors?.required)">Đăng
-      nhập</button>
-    <p style="text-align:center;">Tài khoản mới ? <a [routerLink]="['/register']">Đăng ký</a></p>
-    <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">{{errorMessage}}</p>
+    <input
+      type="text"
+      id="email"
+      class="form-control"
+      name="email"
+      autocomplete="off"
+      #uname="ngModel"
+      [(ngModel)]="userObject.email"
+      placeholder="email"
+      title="Please enter the email"
+      required
+      autofocus
+    />
+    <input
+      type="password"
+      id="password"
+      class="form-control"
+      name="password"
+      autocomplete="off"
+      #upass="ngModel"
+      [(ngModel)]="userObject.password"
+      placeholder="Password"
+      title="Please enter the password"
+      required
+    />
+    <input
+      type="text"
+      id="authcode"
+      class="form-control"
+      *ngIf="this.tfaFlag"
+      name="authcode"
+      autocomplete="off"
+      #authcode="ngModel"
+      [(ngModel)]="userObject.authcode"
+      placeholder="Two-Factor Auth code"
+      title="Please enter the code"
+      required
+    />
+    <button
+      class="btn btn-lg btn-primary btn-block btn-signin"
+      type="submit"
+      [disabled]="
+        email?.errors?.required ||
+        upass?.errors?.required ||
+        (this.tfaFlag && authcode?.errors?.required)
+      "
+    >
+      Đăng nhập
+    </button>
+    <p style="text-align:center;">
+      Tài khoản mới ? <a [routerLink]="['/register']">Đăng ký</a>
+    </p>
+    <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </p>
   </form>
-  <hr style="border-top: 1px solid #eee;">
+  <hr style="border-top: 1px solid #eee;" />
   <div class="row">
     <div class="col-6">
       <button class="loginBtn loginBtn--facebook">

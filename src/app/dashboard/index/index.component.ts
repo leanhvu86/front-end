@@ -7,12 +7,16 @@ import { LoginServiceService } from '../../shared/service/login-service.service'
 import { UserService } from 'src/app/shared/service/user.service.';
 import { User } from 'src/app/shared/model/user';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
+  registerForm: FormGroup;
+  submitted = false;
+
   tfaFlag: boolean = false
   userObject = {
     email: "",
@@ -35,7 +39,8 @@ export class IndexComponent implements OnInit {
     private cookie: CookieService,
     private _loginService: LoginServiceService,
     private _router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private formBuilder: FormBuilder
   ) {
 
     translate.setDefaultLang('vi');
@@ -49,7 +54,12 @@ export class IndexComponent implements OnInit {
     this.isModeration = this.cookie.get('role') !== '' ? true : false;
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     this.getImage();
-    this.getMessage()
+    this.getMessage();
+    this.registerForm = this.formBuilder.group({
+
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+  });
   }
   getImage() {
     let email = this.cookie.get('email');
@@ -91,6 +101,13 @@ export class IndexComponent implements OnInit {
     }
   }
   loginUser() {
+    this.submitted = true;
+
+
+    if (this.registerForm.invalid) {
+        return;
+    }
+
     console.log(this.userObject.email + " user đăng nhập");
     this._loginService.loginAuth(this.userObject).subscribe((data) => {
       this.errorMessage = null;
