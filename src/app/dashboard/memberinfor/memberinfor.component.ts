@@ -68,6 +68,7 @@ export class MemberinforComponent implements OnInit {
                 this.recipeCount++
                 this.doneCount = this.doneCount + recipe.doneCount
                 this.viewCount = this.viewCount + recipe.viewCount
+                recipe.like = false
                 this.memberRecipes.push(recipe)
               }
             }
@@ -92,5 +93,164 @@ export class MemberinforComponent implements OnInit {
         this.infoCheck = true;
       }
     })
+  }
+  likeGallerry(gallery: any, index: any) {
+
+    console.log(gallery);
+    console.log(index);
+    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    if (this.isAuthenicate === false) {
+      console.log('false');
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    gallery.like = true;
+    console.log(gallery.user.email)
+    let user = this.cookie.get('email');
+    let interestObject = new Object({
+      user: user,
+      objectId: gallery,
+      objectType: '1'
+    })
+    let id = 'heartGallery' + index;
+    const radio: HTMLElement = document.getElementById(id);
+    radio.style.color = 'red';
+    radio.style.opacity = '0.8';
+    console.log(interestObject)
+    this.recipeService.likeRecipe(interestObject).subscribe((data) => {
+      if (data !== undefined) {
+        console.log('success')
+        let userObject = new Object({
+          email: gallery.user.email
+        })
+        this.userService.likeAddPoint(userObject).subscribe((data) => {
+          if (data.body['status'] === 200) {
+            console.log('success')
+
+          }
+        });
+      }
+    });
+    console.log(gallery.like);
+  }
+
+  nolikeGallery(gallery: any, index: any) {
+    gallery.like = false;
+    console.log(gallery);
+    console.log(index);
+    if (this.isAuthenicate !== true) {
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    gallery.like = false;
+    console.log(gallery.user.email)
+    let user = this.cookie.get('email');
+    let interestObject = new Object({
+      user: user,
+      objectId: gallery,
+      objectType: '1'
+    })
+    let id = 'heartGallery' + index;
+    const radio: HTMLElement = document.getElementById(id);
+    radio.style.color = 'grey';
+    radio.style.opacity = '0.5';
+    console.log(gallery.user.email)
+    console.log(interestObject)
+    this.recipeService.dislikeRecipe(interestObject).subscribe((data) => {
+      if (data !== undefined) {
+        let userObject = new Object({
+          email: gallery.user.email
+        })
+        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+          if (data.body['status'] === 200) {
+            console.log('success')
+
+          }
+        });
+      }
+
+
+    })
+    console.log(gallery.like);
+  }
+  likeRecipe(recipe: any, index: any) {
+    console.log(recipe);
+    console.log(index);
+    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    if (this.isAuthenicate === false) {
+      console.log('false');
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    recipe.like = true;
+    console.log(recipe.user.email)
+    let user = this.cookie.get('email');
+    let interestObject = new Object({
+      user: user,
+      objectId: recipe,
+      objectType: '2'
+    })
+    let id = 'heart' + index;
+    const radio: HTMLElement = document.getElementById(id);
+    radio.style.color = 'red';
+    radio.style.opacity = '0.8';
+    console.log(interestObject)
+    this.recipeService.likeRecipe(interestObject).subscribe((data) => {
+      if (data !== undefined) {
+        console.log('success')
+        let userObject = new Object({
+          email: recipe.user.email
+        })
+        this.userService.likeAddPoint(userObject).subscribe((data) => {
+          if (data.body['status'] === 200) {
+            console.log('success')
+
+          }
+        });
+      }
+    });
+    console.log(recipe.like);
+  }
+  dislikeRecipe(recipe: any, index: any) {
+    console.log(recipe);
+    console.log(index);
+    if (this.isAuthenicate !== true) {
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    recipe.like = false;
+    console.log(recipe.user.email)
+    let user = this.cookie.get('email');
+    let interestObject = new Object({
+      user: user,
+      objectId: recipe,
+      objectType: '2'
+    })
+    let id = 'heart' + index;
+    const radio: HTMLElement = document.getElementById(id);
+    radio.style.color = 'white';
+    radio.style.opacity = '0.4';
+    console.log(recipe.user.email)
+    console.log(interestObject)
+    this.recipeService.dislikeRecipe(interestObject).subscribe((data) => {
+      if (data !== undefined) {
+        let userObject = new Object({
+          email: recipe.user.email
+        })
+        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+          if (data.body['status'] === 200) {
+            console.log('success')
+
+          }
+        });
+      }
+
+
+    })
+    console.log(recipe.like);
   }
 }

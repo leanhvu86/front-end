@@ -41,6 +41,7 @@ import { UserinforComponent } from './userinfor/userinfor.component';
 import { Ng5SliderModule } from "ng5-slider";
 import { MemberinforComponent } from './memberinfor/memberinfor.component';
 import { MyrecipeComponent } from './myrecipe/myrecipe.component';
+import { AddBookmarkComponent } from './child/add-bookmark/add-bookmark.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -65,7 +66,8 @@ import { MyrecipeComponent } from './myrecipe/myrecipe.component';
 
     UserinforComponent,
     MemberinforComponent,
-    MyrecipeComponent],
+    MyrecipeComponent,
+    AddBookmarkComponent],
   imports: [
     BrowserModule,
     CommonModule,

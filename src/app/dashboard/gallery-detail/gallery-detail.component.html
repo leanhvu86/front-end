@@ -9,7 +9,7 @@
     <br>
     <a style="font-weight: lighter;color: black;"
       [routerLink]="['/member/info/', gallery.user._id]">{{gallery.user.name}}</a><br>
-    <a style="font-size: 10px; font-weight: 100;">{{personalGallery.length}} Bộ sưu tập</a>
+    <a style="font-size: 10px; font-weight: 100;">{{gallerys.length}} Bộ sưu tập</a>
     <hr>
     <a style="font-weight: bold; font-size: 16px;">{{gallery.name}}</a>
     <br>
@@ -71,8 +71,7 @@
               </cl-transformation>
             </cl-image>&#160;{{recipe.user.name}}
           </a>
-          <a class="button_slidehr slide_downhr" style="margin-left: 50px;" id="bookmark{{i}}"
-            (click)="addBookmark(recipe)"></a>
+          <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
         </div>
         <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
             aria-hidden="true" style="top:40%;left:155px;width: 30%;"></i></span>

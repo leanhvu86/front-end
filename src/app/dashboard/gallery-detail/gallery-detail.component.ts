@@ -91,29 +91,30 @@ export class GalleryDetailComponent implements OnInit {
   getPersonalGallery() {
     let email = this.cookie.get('email')
 
-    if (email !== '') {
-      this.galleryService.getGalleryies().subscribe(data => {
-        console.log(data)
 
-        if (data != null) {
-          let emailUser = this.gallery.user.email
-          console.log(emailUser)
-          if (emailUser !== '') {
-            for (let gallery of data) {
-              if (gallery.user.email === emailUser) {
-                if (gallery.recipe.length > 0) {
-                  gallery.image = gallery.recipe[0].imageUrl
-                } else {
-                  gallery.image = 'fvt7rkr59r9d7wk8ndbd'
-                }
-                this.gallerys.push(gallery)
+    this.galleryService.getGalleryies().subscribe(data => {
+      console.log(data)
+
+      if (data != null) {
+        let emailUser = this.gallery.user.email
+        console.log(emailUser)
+        if (emailUser !== '') {
+          for (let gallery of data) {
+            if (gallery.user.email === emailUser) {
+              if (gallery.recipe.length > 0) {
+                gallery.image = gallery.recipe[0].imageUrl
+              } else {
+                gallery.image = 'fvt7rkr59r9d7wk8ndbd'
               }
-            }
-            if (this.gallerys.length > 0) {
-              this.personalCheck = true
-
+              this.gallerys.push(gallery)
             }
           }
+          if (this.gallerys.length > 0) {
+            this.personalCheck = true
+
+          }
+        }
+        if (email !== '') {
           for (let gallery of data) {
             if (gallery.user.email === email) {
               if (gallery.recipe.length > 0) {
@@ -129,9 +130,13 @@ export class GalleryDetailComponent implements OnInit {
             console.log(this.personalGallery.length)
           }
         }
-      })
-    }
-
+      }
+    })
+  }
+  video(link: any) {
+    console.log(link)
+    var url = 'https://www.youtube.com/watch?v=' + link;
+    window.open(url, "MsgWindow", "width=600,height=400");
   }
   addBookmark(recipe: any) {
 
