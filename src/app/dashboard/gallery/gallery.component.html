@@ -56,8 +56,9 @@
       </div>
     </div>
   </div>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
 <a type="button" class="py-2 d-none d-md-inline-block register-button" hidden="true" data-toggle="modal"
   data-target="#exampleModalCenter" id="modal-button" style="opacity:0;">
 </a>

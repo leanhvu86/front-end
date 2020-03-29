@@ -125,7 +125,12 @@ export class StationComponent implements OnInit {
               user.imageUrl = 'jbiajl3qqdzshdw0z749'
             }
             this.users.push(user)
-            this.message = 'Thêm quản trị viên thành công'
+            if (this.userObject.role === 0) {
+              this.message = 'Hạ quyền quản trị viên thành công'
+            } else {
+              this.message = 'Thêm quản trị viên thành công'
+            }
+
             setTimeout(() => {
               this.message = ''
             }, 5000);

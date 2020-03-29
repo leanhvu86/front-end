@@ -79,7 +79,7 @@ export class Home2Component implements OnInit {
   }
   getTopGalleries() {
     this.galleryService.getTopGalleryies().subscribe(galleries => {
-
+      console.log(galleries)
       for (let gallery of galleries) {
         gallery.like = false
         if (this.interests.length > 0) {
@@ -199,6 +199,8 @@ export class Home2Component implements OnInit {
             });
           }
 
+        } else {
+          this.getTopGalleries()
         }
 
 
