@@ -61,10 +61,13 @@ export class RecipeAccessComponent implements AfterViewInit {
             recipe.hardLevel = 'Rất khó';
           }
         }
+        console.log(recipe.status)
         if (recipe.status === 1) {
           recipe.status = 'Đã duyệt'
-        } else {
+        } else if (recipe.status === 0) {
           recipe.status = 'Chưa duyệt'
+        } else {
+          recipe.status = 'Từ chối'
         }
       }
       console.log(this.recipes);

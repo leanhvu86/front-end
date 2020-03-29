@@ -26,7 +26,9 @@
         <th [class.active]="order === 'info.viewCount'" (click)="setOrder('info.viewCount')"
           class="mdl-data-table__cell--non-numeric">
           Lượt xem <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
-        <th>Trạng thái</th>
+        <th [class.active]="order === 'info.status'" (click)="setOrder('info.status')"
+          class="mdl-data-table__cell--non-numeric">Trạng thái <span [hidden]="reverse">▼</span><span
+            [hidden]="!reverse">▲</span></th>
       </tr>
     </thead>
     <tbody
