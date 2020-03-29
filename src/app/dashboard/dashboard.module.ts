@@ -67,7 +67,9 @@ import { AddBookmarkComponent } from './child/add-bookmark/add-bookmark.componen
     UserinforComponent,
     MemberinforComponent,
     MyrecipeComponent,
-    AddBookmarkComponent],
+    AddBookmarkComponent,
+
+  ],
   imports: [
     BrowserModule,
     CommonModule,

@@ -25,6 +25,10 @@ export class MemberinforComponent implements OnInit {
   memberInfo: User
   imageUrl: String = 'jbiajl3qqdzshdw0z749'
   infoCheck: boolean = false;
+  userObject = {
+    email: "",
+    password: ""
+  }
   constructor(
     private route: ActivatedRoute,
     private cookie: CookieService,
@@ -49,28 +53,46 @@ export class MemberinforComponent implements OnInit {
         }
         this.recipeService.getRecipes().subscribe(recipes => {
           if (recipes !== undefined) {
-            for (let recipe of recipes) {
-              if (recipe.user._id === user._id) {
-                if (recipe.hardLevel !== undefined) {
-                  if (recipe.hardLevel === "") {
-                    recipe.hardLevel = "Không xác định";
-                  } else if (recipe.hardLevel === "1") {
-                    recipe.hardLevel = "Dễ";
-                  } else if (recipe.hardLevel === "2") {
-                    recipe.hardLevel = "Trung bình";
-                  } else if (recipe.hardLevel === "3") {
-                    recipe.hardLevel = "Khó";
-                  } else if (recipe.hardLevel === "4") {
-                    recipe.hardLevel = "Rất khó";
+            this.userObject.email = this.cookie.get('email')
+            if (this.userObject.email !== undefined || this.userObject.email !== '') {
+              this.recipeService.findInterest(this.userObject).subscribe(data => {
+                let interests = data.body['interests']
+
+
+
+                for (let recipe of recipes) {
+                  if (recipe.user._id === user._id) {
+                    recipe.like = false
+                    if (recipe.hardLevel !== undefined) {
+                      if (recipe.hardLevel === "") {
+                        recipe.hardLevel = "Không xác định";
+                      } else if (recipe.hardLevel === "1") {
+                        recipe.hardLevel = "Dễ";
+                      } else if (recipe.hardLevel === "2") {
+                        recipe.hardLevel = "Trung bình";
+                      } else if (recipe.hardLevel === "3") {
+                        recipe.hardLevel = "Khó";
+                      } else if (recipe.hardLevel === "4") {
+                        recipe.hardLevel = "Rất khó";
+                      }
+                    }
+                    console.log(recipe.user.name)
+                    this.recipeCount++
+                    this.doneCount = this.doneCount + recipe.doneCount
+                    this.viewCount = this.viewCount + recipe.viewCount
+                    recipe.like = false
+                    this.memberRecipes.push(recipe)
+
+                    if (interests !== undefined) {
+                      for (let interest of interests) {
+                        if (interest.objectId._id === recipe._id && interest.objectType === '2') {
+                          recipe.like = true
+                        }
+                      }
+                    }
                   }
                 }
-                console.log(recipe.user.name)
-                this.recipeCount++
-                this.doneCount = this.doneCount + recipe.doneCount
-                this.viewCount = this.viewCount + recipe.viewCount
-                recipe.like = false
-                this.memberRecipes.push(recipe)
-              }
+              })
             }
           }
         })

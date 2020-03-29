@@ -49,14 +49,7 @@ export class AddBookmarkComponent implements OnInit {
   }
   addRecipeBookMark(gallery: any) {
     console.log(gallery)
-    if (gallery.recipe !== undefined) {
-      for (let recipe of gallery.recipe) {
-        if (recipe.name === this.addRecipe.name) {
-          this.message = 'Công thức đã có trong bộ sưu tập'
-          return
-        }
-      }
-    }
+    //check công thức đã tồn tại trong bộ sưu tập chưa
     this.galleryObject._id = gallery
     this.galleryObject.recipe = this.childMessage
     console.log(this.galleryObject)
@@ -67,8 +60,9 @@ export class AddBookmarkComponent implements OnInit {
         this.message = data.body['message']
         console.log(this.message)
         setTimeout(() => {
-          const radio: HTMLElement = document.getElementById('close-modal');
+          const radio: HTMLElement = document.getElementById('close-modal5');
           radio.click();
+          this.message = ''
         }, 4000);
 
       }
@@ -79,7 +73,6 @@ export class AddBookmarkComponent implements OnInit {
 
     if (email !== '') {
       this.galleryService.getGalleryies().subscribe(data => {
-        console.log(data)
         if (data != null) {
           for (let gallery of data) {
             if (gallery.user.email === email) {

@@ -97,9 +97,9 @@
           </cl-transformation>
         </cl-image>
         <div class="box-content">
-          <h4 class="title" [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}</h4>
+          <h4 class="title" (click)="loadGallery(gallery)">{{gallery.name}}</h4>
           <p class="description">{{gallery.content}}</p>
-          <a class="read-more" [routerLink]="['/galleryDetail/', gallery._id]">xem chi tiết</a>
+          <a class="read-more" (click)="loadGallery(gallery)">xem chi tiết</a>
         </div>
       </div>
     </div>

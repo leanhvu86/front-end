@@ -73,6 +73,9 @@ export class RecipeService {
   findInterest(user: any) {
     return this._http.post(`${this.baseUrl}/findInterest`, { user: user }, { observe: "response" });
   }
+  findInterestGallery(user: any) {
+    return this._http.post(`${this.baseUrl}/findInterestGallery`, { user: user }, { observe: "response" });
+  }
   getRecipeDetail = (id: string): Observable<Recipe> => {
     const url = `${this.baseUrl}/findRecipe/${id}`;
     return this._http.get<Recipe>(url).pipe(

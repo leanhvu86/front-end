@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Gallery } from 'src/app/shared/model/gallery';
 import { Recipe } from 'src/app/shared/model/recipe';
@@ -40,21 +40,23 @@ export class GalleryDetailComponent implements OnInit {
     private cookie: CookieService,
     private recipeService: RecipeService,
     private _loginService: LoginServiceService,
-    private userService: UserService
+    private userService: UserService,
+    private _router: Router,
   ) {
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    this.id = this.route.snapshot.params.id;
   }
 
   ngOnInit() {
 
     this.personalCheck = false;
     this.galleryCheck = false;
-    this.getGalleryDetail()
+    this.getGalleryDetail(this.id, true)
   }
-  getGalleryDetail() {
+  getGalleryDetail(id: any, first: boolean) {
     this.userObject.email = this.cookie.get('email')
-    this.id = this.route.snapshot.params.id;
-    this.galleryService.galleryDetail(this.id).subscribe(data => {
+
+    this.galleryService.galleryDetail(id).subscribe(data => {
       this.gallery = data['gallery']
       if (this.gallery !== undefined) {
         if (this.gallery.recipe.length > 0) {
@@ -84,7 +86,10 @@ export class GalleryDetailComponent implements OnInit {
         if (this.gallery.user.imageUrl !== '') {
           this.imageUrl = this.gallery.user.imageUrl
         }
-        this.getPersonalGallery()
+        if (first === true) {
+          this.getPersonalGallery()
+        }
+
       }
     })
   }
@@ -138,36 +143,7 @@ export class GalleryDetailComponent implements OnInit {
     var url = 'https://www.youtube.com/watch?v=' + link;
     window.open(url, "MsgWindow", "width=600,height=400");
   }
-  addBookmark(recipe: any) {
 
-    this.message = ''
-    if (this.isAuthenicate !== true) {
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
-      return;
-    }
-    console.log(recipe)
-    this.addRecipe = recipe
-    const radio: HTMLElement = document.getElementById('modal-button1');
-    radio.click();
-  }
-  addRecipeBookMark(gallery: any) {
-    console.log(gallery)
-    this.galleryObject._id = gallery
-    this.galleryObject.recipe = this.addRecipe
-    console.log(this.galleryObject)
-    this.galleryService.addGallery(this.galleryObject).subscribe(data => {
-      if (data.body['status'] === 200) {
-        let gallery = data.body['gallery']
-        console.log(gallery)
-        this.message = data.body['message']
-        setTimeout(() => {
-          const radio: HTMLElement = document.getElementById('close-modal');
-          radio.click();
-        }, 4000);
-      }
-    })
-  }
   likeRecipe(recipe: any, index: any) {
     console.log(recipe);
     console.log(index);
@@ -206,6 +182,10 @@ export class GalleryDetailComponent implements OnInit {
       }
     });
     console.log(recipe.like);
+  }
+  loadGallery(gallery) {
+    this.getGalleryDetail(gallery._id, false)
+
   }
   dislikeRecipe(recipe: any, index: any) {
     console.log(recipe);
