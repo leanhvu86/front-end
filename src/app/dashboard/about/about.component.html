@@ -1,64 +1,92 @@
-<section class="call-to-action">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 wow zoomIn" data-wow-duration="2s" data-wow-delay="300ms">
-        <p><br><br>{{ 'connect.the.city' | translate }}
-          <br>{{ 'develop.for.the.furture' | translate }}
-          <br>{{ 'no.polution.furture' | translate }}
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="row">
-  <div class="col-xs-12 col-sm-3 col-md-3 wow fadeInLeft" data-wow-duration="2s" data-wow-delay="300ms">
-    <div class="counter-item">
-      <div class="timer" id="item3" data-to="18745" data-speed="5000">
-        <ngx-counter countValue=0 limit=1500 size="small" speed="10" color="white" bgcolor="none" theme="white">
-        </ngx-counter>
-      </div>
-      <i class="fa fa-bar-chart"></i>
+<!------------------ Hover Effect Style : Demo - 21 --------------->
+<br>
+<div class="container" style="min-height: 300px;">
+  <h4 class="text-left">TOP THÀNH VIÊN NỖI BẬT</h4>
+  <hr>
+  <div class="member-list top-followers row10">
+    <div class="member-item-wrapper">
+      <div class="member-item">
+        <div class="member-profile nopadding">
+          <div class="avatar z-effect">
+            <img class="img-responsive img-circle"
+              src="https://media.cooky.vn/usr/g30/299014/avt/c200x200/cooky-avatar-637145370045441698.jpg">
+          </div>
+          <div class="profile">
+            <a class="cooky-user-link name" data-userid="299014" href="/thanh-vien/hmkdesign3005" target="_self"
+              data-hasqtip="47">Bếp Bờ Ka</a>
+            <span class="stats-text user-lvl cookee">cookee</span>
+            <div class="stats">
+              <span class="stats-item">
+                <span class="stats-count" style="margin: 2px;">2690</span>
+                <span class="stats-text" style="margin: 2px;">Quan tâm</span>
+              </span>
+            </div>
 
-      <p>{{ 'grow.up.registration' | translate }}</p>
-      <h3>{{ 'registration' | translate }}</h3>
-    </div>
-  </div>
-  <div class="col-xs-12 col-sm-3 col-md-3 wow fadeInUp" data-wow-duration="2s" data-wow-delay="300ms">
-    <div class="counter-item">
-      <div class="timer" id="item3" data-to="18745" data-speed="5000">
-        <ngx-counter countValue=0 limit=100 size="small" color="white" speed="10" bgcolor="none" theme="white">
-        </ngx-counter>
+
+            <div class="member-acts" style="padding:5px;">
+              <button ng-show="visible()" title="Quan tâm" ng-click="follow()" class="btn-follow ng-isolate-scope"
+                ng-class="itemClass()" userid="299014" status="0" type="1">
+                <span ng-show="isPosting" class="ng-hide"></span>
+                <!-- ngIf: status == 1 -->
+                <!-- ngIf: status != 1 --><span ng-if="status != 1" class="ng-scope">Quan tâm</span>
+                <!-- end ngIf: status != 1 -->
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <i class="fa fa-calendar-check-o"></i>
-
-      <p>{{ 'ontime' | translate }}</p>
-      <h3>{{ 'start.ontime' | translate }}</h3>
-    </div>
-  </div>
-  <div class="col-xs-12 col-sm-3 col-md-3 wow fadeInDown" data-wow-duration="2s" data-wow-delay="300ms">
-    <div class="counter-item">
-      <div class="timer" id="item3" data-to="18745" data-speed="5000">
-        <ngx-counter countValue=0 limit=600 size="small" speed="10" color="white" bgcolor="none" theme="white">
-        </ngx-counter>
-      </div>
-      <i class="fa fa-cogs"></i>
-
-      <p>{{ 'train.driver.service' | translate }}</p>
-      <h3>{{ 'good.operation' | translate }}</h3>
-    </div>
-  </div>
-  <div class="col-xs-12 col-sm-3 col-md-3 wow fadeInRight" data-wow-duration="2s" data-wow-delay="300ms">
-
-    <div class="counter-item">
-      <div class="timer" id="item3" data-to="18745" data-speed="5000">
-        <ngx-counter countValue=0 limit=1200 size="small" speed="1" color="white" bgcolor="none" theme="white">
-        </ngx-counter>
-      </div>
-      <i class="fa fa-male">
-      </i>
-
-      <p>{{ 'train.service' | translate }}</p>
-      <h3>{{ 'passenger.flows' | translate }}</h3>
     </div>
   </div>
 </div>
+
+
+<br>
+
+
+<div class="container">
+  <h4 class="text-left">TOP THÀNH VIÊN MỚI</h4>
+  <hr>
+  <div class="member-list-left">
+    <div class="member-list-container tab-content">
+      <div role="tabpanel" id="latestlist" class="tab-pane active">
+        <div class="member-list row10">
+          <div class="member-item-wrapper">
+            <div class="member-item">
+              <div class="member-profile nopadding">
+                <div class="avatar z-effect">
+                  <img src="https://media.cooky.vn/usr/g52/515973/avt/s60/user-default.png"
+                    class="img-responsive img-circle">
+                </div>
+                <div class="profile">
+                  <a href="/thanh-vien/thanh_loan1132" class="cooky-user-link name" data-userid="515973" target="_self"
+                    data-hasqtip="60" aria-describedby="qtip-60">Thanh Loan</a>
+                  <div class="stats">
+                    <span>
+                      <span class="stats-count" style="margin: 2px;">0</span>
+                      <span class="stats-text" style="margin: 2px;">Công thức</span>
+                    </span>
+                    <span>
+                      <span class="stats-count" style="margin: 2px;">0</span>
+                      <span class="stats-text" style="margin: 2px;">Quan tâm</span>
+                    </span>
+                  </div>
+                  <div class="member-acts">
+                    <button ng-show="visible()" title="Quan tâm" ng-click="follow()" class="btn-follow ng-isolate-scope"
+                      ng-class="itemClass()" userid="515973" status="0" type="1">
+
+                      <!-- ngIf: status == 1 -->
+                      <!-- ngIf: status != 1 --><span ng-if="status != 1" class="ng-scope">Quan tâm</span>
+                      <!-- end ngIf: status != 1 -->
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
