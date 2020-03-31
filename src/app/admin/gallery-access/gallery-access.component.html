@@ -29,8 +29,8 @@
         <td style="max-width: 60px;">{{gallery.content}}</td>
         <td style="max-width: 60px;">{{gallery.totalPoint}}</td>
         <td [routerLink]="['/detailgallery/', gallery._id]" class="ahover">
-          <a title="{{gallery.recipe[0].imageUrl}}">
-            <cl-image public-id="{{gallery.recipe[0].imageUrl}}">
+          <a title="{{gallery.image}}">
+            <cl-image public-id="{{gallery.image}}">
               <cl-transformation aspect-ratio="1:1" gravity="auto" width="100" height="100" crop="fill">
               </cl-transformation>
             </cl-image>

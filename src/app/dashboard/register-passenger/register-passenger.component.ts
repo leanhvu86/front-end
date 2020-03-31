@@ -631,17 +631,26 @@ export class RegisterPassengerComponent implements OnInit {
           let ingredientNam;
           if (arrTest.length > 2) {
             ingredientNam = arrTest[2];
-            if (arrTest.length > 3) {
-              var format = /[()]/;
-              if (format.test(arrTest[3]) !== true) {
-                ingredientNam += ' ' + arrTest[3];
-              }
-            } else if (arrTest.length > 4) {
-              var format = /[()]/;
-              if (format.test(arrTest[4]) !== true) {
-                ingredientNam += ' ' + arrTest[4];
+            for (let i = 3; i < arrTest.length; i++) {
+              if (arrTest.length > i) {
+                var format = /[()]/;
+                if (format.test(arrTest[i]) !== true) {
+                  ingredientNam += ' ' + arrTest[i];
+                }
               }
             }
+            // if (arrTest.length > 3) {
+            //   var format = /[()]/;
+            //   if (format.test(arrTest[3]) !== true) {
+            //     ingredientNam += ' ' + arrTest[3];
+            //   }
+            // } else 
+            // if (arrTest.length > 4) {
+            //   var format = /[()]/;
+            //   if (format.test(arrTest[4]) !== true) {
+            //     ingredientNam += ' ' + arrTest[4];
+            //   }
+            // }
           }
           if (arrTest.length > 3) {
             const notePoisition = arrtemp.indexOf('(');

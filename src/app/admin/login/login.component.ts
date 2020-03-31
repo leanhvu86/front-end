@@ -9,17 +9,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  registerForm: FormGroup
   tfaFlag: boolean = false
   userObject = {
     email: "",
     password: ""
   }
+  submitted: boolean = false
   errorMessage: string = null
   constructor(private cookie: CookieService,
-     private _loginService: LoginServiceService,
-      private _router: Router,
-      private formBuilder: FormBuilder) {
+    private _loginService: LoginServiceService,
+    private _router: Router,
+    private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
@@ -27,14 +28,14 @@ export class LoginComponent implements OnInit {
 
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
-  });
+    });
   }
 
   loginUser() {
     this.submitted = true;
 
     if (this.registerForm.invalid) {
-        return;
+      return;
     }
     console.log(this.userObject.email + " user đăng nhập");
     this._loginService.loginAuth(this.userObject).subscribe((data) => {

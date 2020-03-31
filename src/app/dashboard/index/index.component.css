@@ -144,16 +144,17 @@ input::-webkit-input-placeholder {
 
 /* Demo 2 */
 #demo-2 input[type=search] {
-	width: 15px;
+	width: 23px;
 	padding-left: 10px;
 	color: transparent;
-	cursor: pointer;
+  cursor: pointer;
+  border: 0.5px solid orangered;
 }
 #demo-2 input[type=search]:hover {
 	background-color: #fff;
 }
 #demo-2 input[type=search]:focus {
-	width: 130px;
+	width: 150px;
 	padding-left: 32px;
 	color: #000;
 	background-color: #fff;
