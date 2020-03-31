@@ -190,6 +190,10 @@ export class GalleryComponent implements OnInit {
   }
   addGallery() {
     this.submitted = true;
+    if (this.registerForm.invalid) {
+      return;
+    }
+
     this.galleryObject = this.registerForm.value
     let email = this.cookie.get('email')
     this.galleryObject.user = email
@@ -197,16 +201,22 @@ export class GalleryComponent implements OnInit {
     this.galleryService.createGallery(this.galleryObject).subscribe(gallery => {
       console.log(gallery)
       if (gallery !== undefined) {
-        const radio: HTMLElement = document.getElementById('close-modal');
-        radio.click();
+
         this.message = 'Chúc mừng bạn thêm bộ sưu tập thành công'
         let tem = new Gallery
         tem = gallery.body['gallery']
         if (tem.image == '') {
           tem.image = 'fvt7rkr59r9d7wk8ndbd'
         }
-        this.registerForm.reset()
+
         this.gallerys.push(tem)
+        setTimeout(() => {
+          const radio: HTMLElement = document.getElementById('close-modal');
+          radio.click();
+          this.message = ''
+          this.registerForm.reset()
+        }, 5000);
+
       }
     })
   }

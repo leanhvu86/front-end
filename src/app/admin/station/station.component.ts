@@ -197,10 +197,10 @@ export class StationComponent implements OnInit {
               user.role = 'Khóa'
             }
             this.users.push(user)
-            this.message = 'Thêm quản trị viên thành công'
+            this.message = 'Khóa thành viên thành công'
             setTimeout(() => {
               this.message = ''
-            }, 5000);
+            }, 3000);
           }
         }
       }
@@ -232,7 +232,10 @@ export class StationComponent implements OnInit {
         user.role = 'Khóa'
       }
       this.users.push(user)
-
+      this.message = 'Mở khóa thành viên thành công'
+      setTimeout(() => {
+        this.message = ''
+      }, 3000);
 
     })
   }

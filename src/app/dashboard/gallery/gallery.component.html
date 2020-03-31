@@ -36,7 +36,7 @@
         aria-hidden="true"></i>Thêm bộ sưu tập</button>
   </div>
   <hr>
-  {{message}}
+
   <div class="row mt-30">
     <div class="col-md-4 col-sm-6"
       *ngFor="let gallery of gallerys |paginate:{itemsPerPage: 12, currentPage:p}; let i = index"
@@ -74,6 +74,7 @@
         </button>
       </div>
       <div class="modal-body">
+        {{message}}
         <div class="card card-container" style="max-width: 500px;">
           <img id="profile-img" class="profile-img-card" src="../../../assets/images/snap-upload.png" />
           <form class="form-signin" (ngSubmit)="addGallery()" #loginForm="ngForm" [formGroup]="registerForm">

@@ -497,7 +497,7 @@ export class RegisterPassengerComponent implements OnInit {
             const radio: HTMLElement = document.getElementById('modal-button');
             radio.click();
             setTimeout(() => {
-              this._router.navigate(['/recipe']);
+              this._router.navigateByUrl('/recipe');
             }, 5000);
           } else {
             this.message = result['message'];
