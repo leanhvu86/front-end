@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { LoginServiceService } from 'src/app/shared/service/login-service.service';
 import { CookieService } from 'ngx-cookie-service';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,13 +16,26 @@ export class LoginComponent implements OnInit {
     password: ""
   }
   errorMessage: string = null
-  constructor(private cookie: CookieService, private _loginService: LoginServiceService, private _router: Router) {
+  constructor(private cookie: CookieService,
+     private _loginService: LoginServiceService,
+      private _router: Router,
+      private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+  });
   }
 
   loginUser() {
+    this.submitted = true;
+
+    if (this.registerForm.invalid) {
+        return;
+    }
     console.log(this.userObject.email + " user đăng nhập");
     this._loginService.loginAuth(this.userObject).subscribe((data) => {
       this.errorMessage = null;

@@ -1,11 +1,13 @@
 <div class="container">
   <div class="card card-container" style="max-width: 500px;">
+   <div style="text-align: center;margin: 2%;"><h3>ĐĂNG NHẬP</h3></div>
     <img
       id="profile-img"
       class="profile-img-card"
       src="../../../assets/images/avatar_2x.png"
     />
     <form class="form-signin" (ngSubmit)="loginUser()" #loginForm="ngForm">
+
       <input
         type="text"
         id="email"
@@ -14,11 +16,15 @@
         autocomplete="off"
         #uname="ngModel"
         [(ngModel)]="userObject.email"
-        placeholder="email"
+        placeholder="Email"
         title="Please enter the email"
         required
         autofocus
+        [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.email.errors }"
       />
+      <div *ngIf="submitted &amp;&amp; registerForm.controls.email.errors" class="text-danger">
+          <div *ngIf="registerForm.controls.email.errors.required">Không để trông Email</div>
+      </div>
       <input
         type="password"
         id="password"
@@ -27,10 +33,16 @@
         autocomplete="off"
         #upass="ngModel"
         [(ngModel)]="userObject.password"
-        placeholder="Password"
+        placeholder="Mật khẩu"
         title="Please enter the password"
         required
+        [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.password.errors }"
       />
+
+      <div *ngIf="submitted &amp;&amp; registerForm.controls.password.errors" class="text-danger">
+          <div *ngIf="registerForm.controls.password.errors.required">Không để trống mật khẩu</div>
+          <div *ngIf="registerForm.controls.password.errors.minlength">Mật khẩu phải trên 6 kí tự</div>
+      </div>
       <input
         type="text"
         id="authcode"
@@ -47,11 +59,7 @@
       <button
         class="btn btn-lg btn-primary btn-block btn-signin"
         type="submit"
-        [disabled]="
-          email?.errors?.required ||
-          upass?.errors?.required ||
-          (this.tfaFlag && authcode?.errors?.required)
-        "
+
       >
         Đăng nhập
       </button>
@@ -62,7 +70,12 @@
         {{ errorMessage }}
       </p>
     </form>
-    <hr style="border-top: 1px solid #eee;" />
+       <!-- [disabled]="
+          email?.errors?.required ||
+          upass?.errors?.required ||
+          (this.tfaFlag && authcode?.errors?.required)
+        " -->
+    <!-- <hr style="border-top: 1px solid #eee;" />
     <div class="row">
       <div class="col-6">
         <button class="loginBtn loginBtn--facebook">
@@ -74,6 +87,6 @@
           Login with Google
         </button>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
