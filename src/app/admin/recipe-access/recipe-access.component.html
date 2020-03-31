@@ -29,6 +29,7 @@
         <th [class.active]="order === 'info.status'" (click)="setOrder('info.status')"
           class="mdl-data-table__cell--non-numeric">Trạng thái <span [hidden]="reverse">▼</span><span
             [hidden]="!reverse">▲</span></th>
+        <th>Duyệt bởi</th>
       </tr>
     </thead>
     <tbody
@@ -52,6 +53,7 @@
         <td style="max-width: 60px;">{{recipe.totalPoint}}&#160;&#160;lượt</td>
         <td style="max-width: 60px;">{{recipe.viewCount}}&#160;&#160;lượt</td>
         <td style="max-width: 60px;">{{recipe.status}}</td>
+        <td style="max-width: 60px;">{{recipe.updateUser.name}}</td>
       </tr>
     </tbody>
   </table>

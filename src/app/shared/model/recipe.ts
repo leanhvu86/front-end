@@ -23,6 +23,7 @@ export class Recipe {
     doneCount: any;
     viewCount: any;
     user: any;
+    updateUser: any;
     description: string;
     createAt: any;
     updateAt: any;

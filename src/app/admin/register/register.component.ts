@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm, ReactiveFormsModule } from '@angular/forms';
-import { MustMatch } from '../../_helpers/must-match.validator';
+
 import { LoginServiceService } from 'src/app/shared/service/login-service.service';
 import { Router } from '@angular/router';
+import { MustMatch } from 'src/app/shared/helper/must-match-validator';
 
 
 @Component({

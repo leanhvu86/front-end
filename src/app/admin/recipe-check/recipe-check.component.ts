@@ -155,9 +155,14 @@ export class RecipeCheckComponent implements OnInit {
       radio.click();
       return;
     }
-    this.recipeService.acceptRecipe(this.recipe).subscribe(data => {
+    let token = this.cookie.get('email')
+    let recipeObject = {
+      recipe: this.recipe,
+      email: token
+    }
+    this.recipeService.acceptRecipe(recipeObject).subscribe(data => {
       const result = data.body
-      console.log(result['status'] + "fdsfsfd")
+      console.log(result)
       if (result['status'] === 200) {
         this.message = result['message'];
         const radio: HTMLElement = document.getElementById('modal-button');
@@ -177,9 +182,14 @@ export class RecipeCheckComponent implements OnInit {
       radio.click();
       return;
     }
-    this.recipeService.declineRecipe(this.recipe).subscribe(data => {
+    let token = this.cookie.get('email')
+    let recipeObject = {
+      recipe: this.recipe,
+      email: token
+    }
+    this.recipeService.declineRecipe(recipeObject).subscribe(data => {
       const result = data.body
-      console.log(result['status'] + "fdsfsfd")
+      console.log(result)
       if (result['status'] === 200) {
         this.errorMessage = result['message'];
         const radio: HTMLElement = document.getElementById('modal-button');

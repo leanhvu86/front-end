@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { StationComponent } from './station/station.component';
 import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
 import { RecipeCheckComponent } from './recipe-check/recipe-check.component';
+import { GalleryAccessComponent } from './gallery-access/gallery-access.component';
 
 export const AdminRoutes: Routes = [
     { path: 'admin', redirectTo: '/login', pathMatch: 'full' },
@@ -40,10 +41,10 @@ export const AdminRoutes: Routes = [
                 path: 'detailRecipe/:id',
                 component: RecipeCheckComponent
             },
-            // {
-            //     path: 'product-info-detail/:id',
-            //     component: ProductInfoDetailComponent
-            // },
+            {
+                path: 'gallery/access',
+                component: GalleryAccessComponent
+            },
             // {
             //     path: 'add-product',
             //     component: AddProductComponent

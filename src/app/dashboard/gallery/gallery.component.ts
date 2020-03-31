@@ -72,7 +72,7 @@ export class GalleryComponent implements OnInit {
       this.galleryTop = galleries
       if (this.isAuthenicate == true) {
         this.userObject.email = this.cookie.get('email')
-        this.recipeService.findInterest(this.userObject).subscribe(data => {
+        this.recipeService.findInterestGallery(this.userObject).subscribe(data => {
           let interests = data.body['interests']
           if (interests !== undefined) {
             for (let galler of this.galleryTop) {

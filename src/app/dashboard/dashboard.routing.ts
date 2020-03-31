@@ -55,7 +55,7 @@ export const DashBoardRoutes: Routes = [
         component: RecipeDetailComponent
       },
       {
-        path: "recipe",
+        path: "recipe/:id",
         component: RecipeComponent
       },
       {

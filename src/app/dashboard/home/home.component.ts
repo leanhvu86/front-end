@@ -10,6 +10,7 @@ import { Interest } from 'src/app/shared/model/interest';
 import { User } from 'src/app/shared/model/user';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Gallery } from 'src/app/shared/model/gallery';
+import { OrderPipe } from 'ngx-order-pipe';
 
 declare var $: any;
 @Component({
@@ -49,7 +50,9 @@ export class Home2Component implements OnInit {
     private _loginService: LoginServiceService,
     private userService: UserService,
     private _router: Router,
-    private galleryService: GalleryService) {
+    private galleryService: GalleryService,
+    private orderPipe: OrderPipe) {
+    this.collection = orderPipe.transform(this.collection, 'info.name');
     translate.setDefaultLang('vi');
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(

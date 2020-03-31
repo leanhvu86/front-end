@@ -34,8 +34,9 @@ export class JwtInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
+        console.log(event)
         if (event instanceof HttpResponse) {
-
+          console.log(token + ' ' + tokens)
         }
         return event;
       }));

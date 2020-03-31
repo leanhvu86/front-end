@@ -19,6 +19,9 @@ import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
 import { RecipeCheckComponent } from './recipe-check/recipe-check.component';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { ScrollTopComponent } from './scroll-top/scroll-top.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '../shared/helper';
+import { GalleryAccessComponent } from './gallery-access/gallery-access.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -28,7 +31,8 @@ import { ScrollTopComponent } from './scroll-top/scroll-top.component';
     StationComponent,
     RecipeAccessComponent,
     RecipeCheckComponent,
-    ScrollTopComponent
+    ScrollTopComponent,
+    GalleryAccessComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +45,7 @@ import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 
     CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
