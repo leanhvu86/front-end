@@ -53,7 +53,10 @@
         <td style="max-width: 60px;">{{recipe.totalPoint}}&#160;&#160;lượt</td>
         <td style="max-width: 60px;">{{recipe.viewCount}}&#160;&#160;lượt</td>
         <td style="max-width: 60px;">{{recipe.status}}</td>
-        <td style="max-width: 60px;">{{recipe.updateUser.name}}</td>
+        <td style="max-width: 60px;" *ngIf="recipe.updateUser; else othercontent">{{recipe.updateUser.name}}</td>
+        <ng-template #othercontent>
+          <td style="max-width: 60px;"></td>
+        </ng-template>
       </tr>
     </tbody>
   </table>

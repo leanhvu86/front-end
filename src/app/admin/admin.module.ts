@@ -45,7 +45,7 @@ import { GalleryAccessComponent } from './gallery-access/gallery-access.componen
 
     CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+  providers: [],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],

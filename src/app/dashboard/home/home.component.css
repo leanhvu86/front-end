@@ -426,7 +426,6 @@ figure:hover + span {
 }
 .hover15 figure::before {
   position: absolute;
-  top: 50%;
   left: 50%;
   z-index: 2;
   display: block;

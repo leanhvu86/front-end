@@ -69,6 +69,9 @@ export class RecipeAccessComponent implements AfterViewInit {
         } else {
           recipe.status = 'Từ chối'
         }
+        if (recipe.user == null) {
+          recipe.user.name = 'Đợi duyệt'
+        }
       }
       console.log(this.recipes);
     });

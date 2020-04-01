@@ -14,17 +14,18 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private cookie: CookieService) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = this.cookie.get('token');
-
-    const tokens = sessionStorage.getItem('token')
     if (token) {
       request = request.clone({ headers: request.headers.set('x-access-token', token) });
-    } else if (tokens) {
-      request = request.clone({ headers: request.headers.set('x-access-token', tokens) });
     } else {
 
       request = request.clone({ headers: request.headers.set('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzBlZDQ3NDUwNjEyMTViODhjNjFhNCIsImlhdCI6MTU4NDQ1OTA3OSwiZXhwIjoxNTg0NTQ1NDc5fQ.gE-4nDkfQCUXiq1_Vuppe523MY8L6oey4jcnNawm1vk') });
 
     }
+    request = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
 
     if (!request.headers.has('Content-Type')) {
       request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
@@ -32,14 +33,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
     request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 
-    return next.handle(request).pipe(
-      map((event: HttpEvent<any>) => {
-        console.log(event)
-        if (event instanceof HttpResponse) {
-          console.log(token + ' ' + tokens)
-        }
-        return event;
-      }));
+    return next.handle(request);
   }
 
   // intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

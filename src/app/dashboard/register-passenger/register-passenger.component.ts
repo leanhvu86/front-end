@@ -48,13 +48,13 @@ export class RegisterPassengerComponent implements OnInit {
   oldUrl: string = null;
   nowUrl: string = null;
   imageArrays: {};
-  public ingredientArrays: Object[] = [];
-  private hasBaseDropZoneOver = false;
-  private hasBaseDropZoneOver1 = false;
-  private uploader: FileUploader;
-  private title: string;
-  private hardLevelCheck: false;
-  private timeCheck: false;
+  ingredientArrays: Object[] = [];
+  hasBaseDropZoneOver = false;
+  hasBaseDropZoneOver1 = false;
+  uploader: FileUploader;
+  title: string;
+  hardLevelCheck: false;
+  timeCheck: false;
   constructor(private cloudinary: Cloudinary,
     private zone: NgZone, private http: HttpClient,
     private formbuilder: FormBuilder, private countryService: CountryService, private cookStepService: CookStepService,

@@ -44,16 +44,11 @@ export class Home2Component implements OnInit {
   };
 
   constructor(
-    private translate: TranslateService,
     private cookie: CookieService,
     private recipeService: RecipeService,
-    private _loginService: LoginServiceService,
     private userService: UserService,
-    private _router: Router,
-    private galleryService: GalleryService,
-    private orderPipe: OrderPipe) {
-    this.collection = orderPipe.transform(this.collection, 'info.name');
-    translate.setDefaultLang('vi');
+    private galleryService: GalleryService) {
+
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
         {

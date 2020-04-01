@@ -21,6 +21,7 @@ import { CookieService } from 'ngx-cookie-service';
     AppComponent
   ],
   imports: [
+    HttpClientModule,
     DashboardModule,
     AdminModule,
     ErrorModule,
@@ -28,7 +29,7 @@ import { CookieService } from 'ngx-cookie-service';
     BrowserModule,
     RouterModule.forRoot(AppRoutes),
     FormsModule,
-    HttpClientModule, Ng2SearchPipeModule,
+    Ng2SearchPipeModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     BrowserAnimationsModule,
     // ɵangular_packages_forms_forms_bb
