@@ -3,15 +3,23 @@
     <!--  -->
     <div class="col-3 account-sidebar">
       <div class="sidebar-head">
-        <div class="profile-avatar">
-          <a alt="chọn ảnh mới" class="a-image">
+        <div class="profile-avatar" (fileOver)="fileOverBase1($event)"
+          [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver1 }">
+
+          <a alt="chọn ảnh mới" class="a-image" (click)="choosefile()">
+
+
             <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">
               <cl-transformation width="360" height="360" gravity="face" radius="max" crop="fill" background="#e9ebee">
               </cl-transformation>
               <cl-transformation width="180" crop="scale">
               </cl-transformation>
             </cl-image>
+
           </a>
+          <input type="file" (change)="handleFiles($event)" id="fileChoose"
+            style="width: 120px;height: 5px; z-index: 10000; opacity: 0;" />
+          <input type="text" id="imageArray" style="width: 10px;height: 5px; opacity: 0;" />
         </div>
         <h3 class="title" style="text-align: center;">
           <a [routerLink]="['/member/info/', id]" title="Trang cá nhân">
@@ -76,38 +84,45 @@
       <form [formGroup]="registerForm">
         <table class="table table-borderless table-condensed ">
           <tr>
-            <td></td>
+            <td style="width: 200px;">
+
+            </td>
             <td>
-              <h2>Thông tin giới thiệu</h2>
+              <h4>Thông tin giới thiệu</h4>
             </td>
           </tr>
           <tbody>
             <tr>
-              <th scope="col" style="text-align: right;">Giới thiệu</th>
+              <th scope="col" style="text-align: right;width: 200px;">
+
+
+                Giới thiệu
+              </th>
               <td>
                 <textarea class="form-control" formControlName="introduction" rows="3"></textarea>
               </td>
             </tr>
             <tr>
-              <td></td>
+              <td style="width: 200px;">
+
+              </td>
               <td>
                 <button class="btn btn-success" (click)="onSubmit()">
                   Lưu thay đổi
                 </button>
               </td>
             </tr>
-            <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
             <!--  -->
             <tr>
-              <td>
-                <h3>Thông tin tài khoản</h3>
+              <td style="width: 200px;">
+
               </td>
               <td>
-
+                <h4>Thông tin tài khoản</h4>
               </td>
             </tr>
             <tr>
-              <th scope="col" style="text-align: right;">Email</th>
+              <th scope="col" style="text-align: right;width: 200px;">Email</th>
               <td>
                 <input type="text" class="form-control" formControlName="email" name="email"
                   [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
@@ -118,21 +133,21 @@
             </tr>
             <!--  -->
             <tr>
-              <th scope="col" style="text-align: right;">Tên</th>
+              <th scope="col" style="text-align: right;width: 200px;">Tên</th>
               <td>
                 <input type="text" class="form-control" formControlName="name" />
               </td>
             </tr>
             <!--  -->
             <tr>
-              <th scope="col" style="text-align: right;">Họ</th>
+              <th scope="col" style="text-align: right;width: 200px;">Họ</th>
               <td>
                 <input type="text" class="form-control" formControlName="lastName" />
               </td>
             </tr>
             <!--  -->
             <tr>
-              <th scope="col" style="text-align: right;">Ngày sinh</th>
+              <th scope="col" style="text-align: right;width: 200px;">Ngày sinh</th>
               <td>
 
                 <select type="text" formControlName="birthday" style="width:25%; border-radius:10px; margin:0 5% ; "
@@ -143,7 +158,7 @@
             </tr>
             <!--  -->
             <tr>
-              <th scope="col" style="text-align: right;">Giới tính</th>
+              <th scope="col" style="text-align: right;width: 200px;">Giới tính</th>
               <td>
                 <div class="dropdown">
                   <select type="text" formControlName="gender"
@@ -158,7 +173,7 @@
             </tr>
             <!--  -->
             <tr>
-              <th scope="col" style="text-align: right;">
+              <th scope="col" style="text-align: right;width: 200px;">
                 Tình trạng hôn nhân
               </th>
               <td>
@@ -178,14 +193,14 @@
             </tr>
             <!--  -->
             <tr>
-              <th scope="col" style="text-align: right;">Chữ kí</th>
+              <th scope="col" style="text-align: right;width: 200px;">Chữ kí</th>
               <td>
                 <textarea class="form-control" formControlName="signature" rows="3"></textarea>
               </td>
             </tr>
 
             <tr>
-              <td></td>
+              <td style="width: 200px;"></td>
               <td>
                 <button type="button" class="btn btn-primary" style="margin-right: 3%;" (click)="onSubmit()">
                   Lưu thay đổi
