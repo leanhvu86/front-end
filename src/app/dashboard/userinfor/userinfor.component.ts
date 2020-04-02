@@ -251,7 +251,7 @@ export class UserinforComponent implements OnInit {
       if (value !== undefined && value !== '') {
         this.imageUrl = value
         console.log(this.imageUrl)
-        //this.onSubmit();
+        this.onSubmit();
       }
     }, 8000);
 
