@@ -7,6 +7,7 @@ import { LoginServiceService } from 'src/app/shared/service/login-service.servic
 import { User } from 'src/app/shared/model/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { Cloudinary } from '@cloudinary/angular-5.x';
 
 @Component({
   selector: 'app-userinfor',
@@ -31,17 +32,33 @@ export class UserinforComponent implements OnInit {
     materialStatus: '',
     signature: '',
     introduction: '',
+    imageUrl: '',
   }
+  isAuthenicate: boolean = false
+  years: number[] = []
+  imageUrl: string = 'jbiajl3qqdzshdw0z749'
+  private hasBaseDropZoneOver1 = false;
   constructor(
+    private cloudinary: Cloudinary,
     private route: ActivatedRoute,
     private userService: UserService,
     private cookie: CookieService,
     private _loginService: LoginServiceService,
     private formBuilder: FormBuilder,
     private datePipe: DatePipe
-  ) { }
+  ) { this.isAuthenicate = this.cookie.get("email") !== "" ? true : false; }
+  fileOverBase1(e: any): void {
+    console.log(e);
+    this.hasBaseDropZoneOver1 = e;
+  }
+  choosefile() {
+
+    const radio: HTMLElement = document.getElementById("fileChoose");
+    radio.click();
+  }
 
   ngOnInit() {
+    this.getAllYear();
     let email = this.cookie.get('email');
     if (email !== '') {
       this._loginService.testEmail(email).subscribe(data => {
@@ -76,13 +93,9 @@ export class UserinforComponent implements OnInit {
           if (lastName === undefined) {
             lastName = ''
           }
-          let birthday: Date
-          console.log(this.user.birthday)
+          let birthday = this.user.birthday
           if (this.user.birthday === undefined) {
-            birthday = null
-          } else {
-            birthday = new Date(this.user.birthday.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"))
-            console.log(birthday)
+            birthday = 1900
           }
           let gender = this.user.gender
           if (gender === undefined) {
@@ -101,6 +114,9 @@ export class UserinforComponent implements OnInit {
           let introduction = this.user.introduction
           if (introduction === undefined) {
             introduction = ''
+          }
+          if (this.user.imageUrl !== undefined) {
+            this.imageUrl = this.user.imageUrl
           }
           this.registerForm = this.formBuilder.group({
             id: [this.user._id],
@@ -130,11 +146,120 @@ export class UserinforComponent implements OnInit {
     showOuterSelectionBars: true,
     showTicksValues: false
   };
+  handleFiles(event: any, index: any) {
+    const files = event.target.files;
+    console.log(files);
+    if (files.length > 0) {
+      let file: File
+      file = files[0];
+      if (file.size > 600000) {
+        alert('Kích thước file ảnh phải bé hơn 600 kB')
+        return
+      } else {
+        this.uploadFile(files[0]); // call the function to upload the file
 
+      }
+    }
+  }
+  uploadFile(file: any) {
+    if (this.isAuthenicate == false) {
+      const radio: HTMLElement = document.getElementById("modal-button");
+      radio.click();
+      return;
+    }
+    let inputValue;
+    console.log(file);
+    const url = `https://api.cloudinary.com/v1_1/${
+      this.cloudinary.config().cloud_name
+      }/image/upload`;
+    const xhr = new XMLHttpRequest();
+    const fd = new FormData();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+    // Update progress (can be used to show progress indicator)
+    xhr.upload.addEventListener("progress", function (e) {
+      const progress = Math.round((e.loaded * 100.0) / e.total);
+      // document.getElementById('progress').style.width = progress + "%";
+
+      console.log(`fileuploadprogress data.loaded: ${e.loaded},
+    data.total: ${e.total}`);
+    });
+    xhr.onreadystatechange = function (e) {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        // File uploaded successfully
+        const response = JSON.parse(xhr.responseText);
+        const url = response.secure_url;
+        // Create a thumbnail of the uploaded image, with 150px width
+        const tokens = url.split("/");
+        tokens.splice(-2, 0, "w_90,h_90,c_scale");
+        inputValue = response.public_id;
+
+        // const img = new Image(); // HTML5 Constructor
+        // img.src = tokens.join("/");
+        // img.alt = response.public_id;
+
+        // const id = "imageArray";
+        // inputValue = (document.getElementById(id) as HTMLInputElement).value;
+        // img.id = id + "_";
+        // img.onclick = function () {
+        //   // xử lí xóa ảnh khi click thì  phải xóa ở trong imageArray( xóa public_id của ảnh trên cloud)
+        //   document.getElementById(galleryID).removeChild(img);
+
+        const id = "imageArray";
+
+        const radio = document.getElementById(id) as HTMLInputElement;
+        radio.value = inputValue;
+
+        console.log(inputValue)
+        //   console.log(inputValue);
+        //   const arr = inputValue.split(",");
+        //   console.log(arr);
+        //   const id_tag = img.alt;
+        //   const position = arr.indexOf(id_tag);
+
+        //   if (~position) {
+        //     arr.splice(position, 1);
+        //   }
+
+        //   // array = [2, 9]
+        //   console.log(arr.toString());
+
+        // };
+        // inputValue = inputValue + response.public_id + ",";
+        // inputValue = inputValue.trim();
+        // console.log(inputValue);
+        // const radio = document.getElementById(id) as HTMLInputElement;
+        // radio.value = inputValue;
+
+        // console.log(radio.value);
+        // const galleryID = "gallery";
+        // document.getElementById(galleryID).appendChild(img);
+      }
+    };
+    const tags = "myphotoalbum";
+    fd.append("upload_preset", this.cloudinary.config().upload_preset);
+    fd.append("tags", tags); // Optional - add tag for image admin in Cloudinary
+    fd.append("file", file);
+    file.withCredentials = false;
+    xhr.send(fd);
+
+    setTimeout(() => {
+      const id = "imageArray";
+      const value = (document.getElementById(id) as HTMLInputElement)
+        .value;
+      if (value !== undefined && value !== '') {
+        this.imageUrl = value
+        console.log(this.imageUrl)
+        this.onSubmit();
+      }
+    }, 8000);
+
+  }
   onSubmit() {
     this.submitted = true;
     this.userObject = this.registerForm.value
-    this.userObject.birthday = this.datePipe.transform(this.userObject.birthday, 'dd/MM/yyyy');
+    this.userObject.imageUrl = this.imageUrl
     this.userObject.signature = btoa(this.userObject.signature);
     this.userService.updateUser(this.userObject).subscribe(user => {
       if (user != undefined) {
@@ -149,9 +274,19 @@ export class UserinforComponent implements OnInit {
         }, 4000);
       }
     })
+    window.location.reload()
   }
   onClear() {
     this.submitted = false;
     this.registerForm.reset()
+  }
+  getAllYear() {
+    let temp = parseInt(new Date().getFullYear().toString()) - 4;
+
+    for (let i = 0; i < 100; i++) {
+      let year = (temp - i);
+      this.years.push(year)
+    }
+
   }
 }

@@ -523,7 +523,7 @@ figure:hover + span {
   background-color: rgba(252, 103, 5, 0.986);
 }
 .glow {
-  font-size: 30px;
+  font-size: 32px;
   color: #fff;
   text-align: center;
   -webkit-animation: glow 1s ease-in-out infinite alternate;
