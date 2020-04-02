@@ -1,7 +1,7 @@
 <div class="container">
   <div class="recipe-list-wrapper">
     <!-- 1 anh -->
-    <div class="ng-scope member-recipe-item">
+    <div class="ng-scope member-recipe-item" *ngFor="let recipie of recipies">
       <div class="item-inner ng-scope">
         <div class="item-photo">
           <a href="" class="photo">
@@ -16,14 +16,12 @@
         <div class="item-info">
           <div class="item-title">
             <h3>
-              <a href="" class="namenamename">Gáy Heo Nướng Kiểu Thái Ko Mu Yang</a>
+              <a href="" class="namenamename">{{recipie.recipeName}}</a>
             </h3>
           </div>
           <div class="desc ng-binding">
             <p>
-              Món này mình ăn ở nhà hàng Anh Tukk, họ dùng gáy heo nên ăn vừa
-              mềm, vừa giòn rất ngon. Món này phù hợp để ăn với cơm hoặc uống
-              bia nhâm nhi cũng được
+             {{recipie.content}}
             </p>
           </div>
         </div>
@@ -37,7 +35,7 @@
               margin-right: 6px;
            ">
               &#160;
-              <i class="fa fa-clock-o stats-ico" aria-hidden="true"> 1323</i>
+              <i class="fa fa-clock-o stats-ico" aria-hidden="true"> {{recipie.time}}</i>
             </div>
             <div style="    top: 340px;
               left: 43px;
@@ -47,7 +45,7 @@
               margin-right: 9px;
             ">
               &#160;
-              <i class="fa fa-bar-chart stats-ico" aria-hidden="true"> 234</i>
+              <i class="fa fa-bar-chart stats-ico" aria-hidden="true"> {{recipie.hardLevel}}</i>
             </div>
             <div style="    top: 340px;
               left: 43px;
@@ -56,21 +54,21 @@
               float: left;
   margin-right: 35px;
           ">
-              <i class="fa fa-bolt stats-ico" aria-hidden="true">&#160;Minh_minh</i>
+              <i class="fa fa-bolt stats-ico" aria-hidden="true">&#160;{{recipie.user[0].name}}</i>
             </div>
-            <div style="    top: 340px;
-            left: 43px;
-            font-size: 12px;
-            opacity: 0.8;
-            float: left;
-        ">
-              <i class="fa fa-bookmark"></i>
-              <!-- <app-add-bookmark [childMessage]="recipe"></app-add-bookmark> -->
+            <div style="float: left;
+            margin-top: -23px; margin-left: 123px;">
+              <!-- <i class="fa fa-bookmark"></i> -->
+              <app-add-bookmark [childMessage]="recipie"></app-add-bookmark>
             </div>
+            <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
+              aria-hidden="true" style="top:40%;left:155px;width: 30%;"></i></span>
+
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<!-- vứt nó ra ngoài đường sẽ bị lỗi vì nó k nhận đc cái công thức của e ở đâu cả -->
+<!-- <app-add-bookmark [childMessage]="recipe"></app-add-bookmark> -->
