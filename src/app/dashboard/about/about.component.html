@@ -16,8 +16,8 @@
             </cl-image>
           </div>
           <div class="profile">
-            <a class="cooky-user-link name" data-userid="299014" href="/thanh-vien/hmkdesign3005" target="_self"
-              data-hasqtip="47">{{user.name}}</a>
+            <a class="cooky-user-link name" data-userid="299014" [routerLink]="['/member/info/', user._id]"
+              target="_self" data-hasqtip="47">{{user.name}}</a>
             <span class="stats-text user-lvl cookee">cookee</span>
             <div class="stats">
               <span class="stats-item">
@@ -62,8 +62,8 @@
                     class="img-responsive img-circle">
                 </div>
                 <div class="profile">
-                  <a href="/thanh-vien/thanh_loan1132" class="cooky-user-link name" data-userid="515973" target="_self"
-                    data-hasqtip="60" aria-describedby="qtip-60">{{user.name}}</a>
+                  <a [routerLink]="['/member/info/', user._id]" class="cooky-user-link name" data-userid="515973"
+                    target="_self" data-hasqtip="60" aria-describedby="qtip-60">{{user.name}}</a>
                   <div class="stats">
                     <span>
                       <span class="stats-count" style="margin: 2px;">{{user.role}}</span>
