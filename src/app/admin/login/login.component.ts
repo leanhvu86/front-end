@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
@@ -34,9 +33,9 @@ export class LoginComponent implements OnInit {
   loginUser() {
     this.submitted = true;
 
-    if (this.registerForm.invalid) {
-      return;
-    }
+    // if (this.registerForm.invalid) {
+    //   return;
+    // }
     console.log(this.userObject.email + " user đăng nhập");
     this._loginService.loginAuth(this.userObject).subscribe((data) => {
       this.errorMessage = null;
