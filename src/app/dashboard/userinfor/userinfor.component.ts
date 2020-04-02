@@ -32,6 +32,8 @@ export class UserinforComponent implements OnInit {
     signature: '',
     introduction: '',
   }
+  years: number[] = []
+  imageUrl: string = 'jbiajl3qqdzshdw0z749'
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
@@ -42,6 +44,7 @@ export class UserinforComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getAllYear();
     let email = this.cookie.get('email');
     if (email !== '') {
       this._loginService.testEmail(email).subscribe(data => {
@@ -76,13 +79,9 @@ export class UserinforComponent implements OnInit {
           if (lastName === undefined) {
             lastName = ''
           }
-          let birthday: Date
-          console.log(this.user.birthday)
+          let birthday = this.user.birthday
           if (this.user.birthday === undefined) {
-            birthday = null
-          } else {
-            birthday = new Date(this.user.birthday.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"))
-            console.log(birthday)
+            birthday = 1900
           }
           let gender = this.user.gender
           if (gender === undefined) {
@@ -101,6 +100,9 @@ export class UserinforComponent implements OnInit {
           let introduction = this.user.introduction
           if (introduction === undefined) {
             introduction = ''
+          }
+          if (this.user.imageUrl !== undefined) {
+            this.imageUrl = this.user.imageUrl
           }
           this.registerForm = this.formBuilder.group({
             id: [this.user._id],
@@ -134,7 +136,6 @@ export class UserinforComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.userObject = this.registerForm.value
-    this.userObject.birthday = this.datePipe.transform(this.userObject.birthday, 'dd/MM/yyyy');
     this.userObject.signature = btoa(this.userObject.signature);
     this.userService.updateUser(this.userObject).subscribe(user => {
       if (user != undefined) {
@@ -153,5 +154,14 @@ export class UserinforComponent implements OnInit {
   onClear() {
     this.submitted = false;
     this.registerForm.reset()
+  }
+  getAllYear() {
+    let temp = parseInt(new Date().getFullYear().toString()) - 4;
+
+    for (let i = 0; i < 100; i++) {
+      let year = (temp - i);
+      this.years.push(year)
+    }
+
   }
 }

@@ -42,6 +42,10 @@ export class AddBookmarkComponent implements OnInit {
       radio.click();
       return;
     }
+    if (this.childMessage === undefined) {
+      console.log('Công thức của bạn không hợp lệ');
+      return
+    }
     console.log(this.childMessage)
     this.addRecipe = recipe
     const radio: HTMLElement = document.getElementById('modal-button-addbookmark');
@@ -50,6 +54,7 @@ export class AddBookmarkComponent implements OnInit {
   addRecipeBookMark(gallery: any) {
     console.log(gallery)
     //check công thức đã tồn tại trong bộ sưu tập chưa
+
     this.galleryObject._id = gallery
     this.galleryObject.recipe = this.childMessage
     console.log(this.galleryObject)

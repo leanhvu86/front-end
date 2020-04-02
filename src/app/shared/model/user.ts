@@ -8,7 +8,7 @@ export class User {
     imageUrl: string;
     totalPoint: any;
     role: any;
-    birthday: string;
+    birthday: number;
     gender: string;
     materialStatus: string;
     signature: string;
