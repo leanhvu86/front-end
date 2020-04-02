@@ -37,6 +37,7 @@ export class MemberinforComponent implements OnInit {
     private recipeService: RecipeService,
   ) {
     this.isAuthenicate = this.cookie.get("email") !== "" ? true : false;
+    console.log(this.isAuthenicate)
   }
   id: string;
   ngOnInit() {
@@ -92,27 +93,36 @@ export class MemberinforComponent implements OnInit {
                     }
                   }
                 }
+
+                this.galleryService.getGalleryies().subscribe(gallerys => {
+                  if (gallerys !== undefined) {
+                    for (let gallery of gallerys) {
+                      if (gallery.user._id === user._id) {
+                        if (gallery.recipe.length > 0) {
+                          gallery.image = gallery.recipe[0].imageUrl
+                        } else {
+                          gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+                        }
+                        this.memberGallery.push(gallery)
+                      }
+                      if (interests !== undefined) {
+                        for (let interest of interests) {
+                          if (interest.objectId._id === gallery._id && interest.objectType === '1') {
+                            gallery.like = true
+                          }
+                        }
+                      }
+                    }
+                    this.galleryCount = this.memberGallery.length
+                  }
+                })
+                this.memberInfo = user
+                this.infoCheck = true;
               })
             }
           }
         })
-        this.galleryService.getGalleryies().subscribe(gallerys => {
-          if (gallerys !== undefined) {
-            for (let gallery of gallerys) {
-              if (gallery.user._id === user._id) {
-                if (gallery.recipe.length > 0) {
-                  gallery.image = gallery.recipe[0].imageUrl
-                } else {
-                  gallery.image = 'fvt7rkr59r9d7wk8ndbd'
-                }
-                this.memberGallery.push(gallery)
-              }
-            }
-            this.galleryCount = this.memberGallery.length
-          }
-        })
-        this.memberInfo = user
-        this.infoCheck = true;
+
       }
     })
   }
@@ -120,7 +130,6 @@ export class MemberinforComponent implements OnInit {
 
     console.log(gallery);
     console.log(index);
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     if (this.isAuthenicate === false) {
       console.log('false');
       const radio: HTMLElement = document.getElementById('modal-button');

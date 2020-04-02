@@ -166,7 +166,8 @@ margin-right: 35px;
       <h6>BỘ SƯU TẬP CÁ NHÂN</h6>
       <div id="created" class="container tab-pane active">
         <div class="row mt-30">
-          <div class="col-md-4 col-sm-6" *ngFor="let gallery of memberGallery">
+          <div class="col-md-4 col-sm-6" *ngFor="let gallery of memberGallery; let i=index;"
+            style="margin-bottom: 20px;">
             <div class="box19">
               <cl-image public-id="{{gallery.image}}">
                 <cl-transformation width="332" height="220" crop="scale" quality="auto" radius="2">
@@ -174,8 +175,13 @@ margin-right: 35px;
               </cl-image>
               <div class="box-content">
                 <ul class="icon">
-                  <li><a href="#"><i class="fa fa-search"></i></a></li>
-                  <li><a href="#"><i class="fa fa-link"></i></a></li>
+                  <li><a><i class="fa fa-search"></i></a></li>
+                  <li><a><i class="fa fa-heart  " id="heartGallery{{i}}" (click)="likeGallerry(gallery,i)"
+                        *ngIf="!gallery.like;else other_content"></i>
+                      <ng-template #other_content><i id="heartGallery{{i}}" (click)="nolikeGallery(gallery,i)"
+                          class="fa fa-heart  check" aria-hidden="true"></i>
+                      </ng-template>
+                    </a></li>
                 </ul>
                 <h6 class="title" [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}</h6>
               </div>

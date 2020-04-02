@@ -1,54 +1,58 @@
 <!------------------ Hover Effect Style : Demo - 21 --------------->
 <br>
 <div class="container" style="min-height: 300px;">
-  <h4 class="text-left">TOP THÀNH VIÊN NỖI BẬT</h4>
+  <h4 class="text-left">TOP THÀNH VIÊN NỔI BẬT</h4>
   <hr>
   <div class="member-list top-followers row10">
-    <div class="member-item-wrapper">
+    <div class="member-item-wrapper" *ngFor="let user of topUsers; let i = index">
       <div class="member-item">
         <div class="member-profile nopadding">
           <div class="avatar z-effect">
-            <img class="img-responsive img-circle"
-              src="https://media.cooky.vn/usr/g30/299014/avt/c200x200/cooky-avatar-637145370045441698.jpg">
+            <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">
+              <cl-transformation width="120" height="120" gravity="face" radius="max" crop="fill" background="#e9ebee">
+              </cl-transformation>
+              <cl-transformation width="85" crop="scale">
+              </cl-transformation>
+            </cl-image>
           </div>
           <div class="profile">
             <a class="cooky-user-link name" data-userid="299014" href="/thanh-vien/hmkdesign3005" target="_self"
-              data-hasqtip="47">Bếp Bờ Ka</a>
+              data-hasqtip="47">{{user.name}}</a>
             <span class="stats-text user-lvl cookee">cookee</span>
             <div class="stats">
               <span class="stats-item">
-                <span class="stats-count" style="margin: 2px;">2690</span>
-                <span class="stats-text" style="margin: 2px;">Quan tâm</span>
+                <span class="stats-text" style="margin: 2px;">Tổng điểm</span>
+                <span class="stats-count" style="margin: 2px;">{{user.totalPoint}}</span>
+              </span>
+            </div>
+            <div class="stats">
+              <span class="stats-item">
+                <span class="stats-text" style="margin: 2px;">Công thức</span>
+                <span class="stats-count" style="margin: 2px;">{{user.role}}</span>
+              </span>
+            </div>
+            <div class="stats">
+              <span class="stats-item">
+                <span class="stats-text" style="margin: 2px;">Bộ sưu tập</span>
+                <span class="stats-count" style="margin: 2px;">{{user.warningReport}}</span>
               </span>
             </div>
 
 
-            <div class="member-acts" style="padding:5px;">
-              <button ng-show="visible()" title="Quan tâm" ng-click="follow()" class="btn-follow ng-isolate-scope"
-                ng-class="itemClass()" userid="299014" status="0" type="1">
-                <span ng-show="isPosting" class="ng-hide"></span>
-                <!-- ngIf: status == 1 -->
-                <!-- ngIf: status != 1 --><span ng-if="status != 1" class="ng-scope">Quan tâm</span>
-                <!-- end ngIf: status != 1 -->
-              </button>
-            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
 <br>
-
-
-<div class="container">
-  <h4 class="text-left">TOP THÀNH VIÊN MỚI</h4>
+<div class="container" style="min-height: 300px; width: 100%;">
+  <h4 class="text-left">DANH SÁCH THÀNH VIÊN</h4>
   <hr>
   <div class="member-list-left">
     <div class="member-list-container tab-content">
-      <div role="tabpanel" id="latestlist" class="tab-pane active">
+      <div role="tabpanel" id="latestlist" class="tab-pane active"
+        *ngFor="let user of allUser|paginate:{itemsPerPage: 8, currentPage:p}; let i = index">
         <div class="member-list row10">
           <div class="member-item-wrapper">
             <div class="member-item">
@@ -59,26 +63,23 @@
                 </div>
                 <div class="profile">
                   <a href="/thanh-vien/thanh_loan1132" class="cooky-user-link name" data-userid="515973" target="_self"
-                    data-hasqtip="60" aria-describedby="qtip-60">Thanh Loan</a>
+                    data-hasqtip="60" aria-describedby="qtip-60">{{user.name}}</a>
                   <div class="stats">
                     <span>
-                      <span class="stats-count" style="margin: 2px;">0</span>
+                      <span class="stats-count" style="margin: 2px;">{{user.role}}</span>
                       <span class="stats-text" style="margin: 2px;">Công thức</span>
                     </span>
                     <span>
-                      <span class="stats-count" style="margin: 2px;">0</span>
-                      <span class="stats-text" style="margin: 2px;">Quan tâm</span>
+                      <span class="stats-count" style="margin: 2px;">{{user.warningReport}}</span>
+                      <span class="stats-text" style="margin: 2px;">Bộ sưu tập</span>
                     </span>
                   </div>
-                  <div class="member-acts">
+                  <!-- <div class="member-acts">
                     <button ng-show="visible()" title="Quan tâm" ng-click="follow()" class="btn-follow ng-isolate-scope"
                       ng-class="itemClass()" userid="515973" status="0" type="1">
 
-                      <!-- ngIf: status == 1 -->
-                      <!-- ngIf: status != 1 --><span ng-if="status != 1" class="ng-scope">Quan tâm</span>
-                      <!-- end ngIf: status != 1 -->
                     </button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -88,5 +89,8 @@
     </div>
   </div>
 </div>
-
+<br>
+<br>
+<div class="clearfix"></div>
+<pagination-controls (pageChange)="p = $event" style="width: 1300px;float: left;"></pagination-controls>
 <div class="clearfix"></div>

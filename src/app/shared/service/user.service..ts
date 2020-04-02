@@ -122,7 +122,7 @@ export class UserService {
       { observe: "response" }
     );
   }
-  getRecipes = (): Observable<User[]> => {
+  getUsers = (): Observable<User[]> => {
     return this._http
       .get<User[]>(`${this.baseUrl}/getUsers`)
       .pipe(tap(_ => console.log("load users")));

@@ -56,7 +56,7 @@ export class StationComponent implements OnInit {
     this.config.currentPage = event;
   }
   getStaff() {
-    this.userService.getRecipes().subscribe(users => {
+    this.userService.getUsers().subscribe(users => {
       if (users === undefined) {
         return
       }
