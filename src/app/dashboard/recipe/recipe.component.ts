@@ -8,7 +8,7 @@ import { Recipe } from '../../shared/model/recipe';
   styleUrls: ['./recipe.component.css']
 })
 export class RecipeComponent implements OnInit {
-  recipies: Recipe[];
+  recipes: Recipe[];
 
   constructor(
     private service: RecipeService
@@ -17,9 +17,9 @@ export class RecipeComponent implements OnInit {
   ngOnInit() {
     this.getRecipe();
   }
-getRecipe=()=>{
-  this.service.getRecipes().subscribe(data=>{
-    return(this.recipies = data)
-  })
-}
+  getRecipe = () => {
+    this.service.getRecipes().subscribe(data => {
+      return (this.recipes = data)
+    })
+  }
 }

@@ -44,6 +44,14 @@
   position: relative;
   text-align: center;
 }
+.check{
+  /* background: rgb(255, 182, 182); */
+  color: rgb(255, 0, 0);
+}
+.check :hover{
+  /* background: rgb(0, 0, 0); */
+  color: rgb(255, 254, 254);
+}
 .clearfix {
   clear: both;
 }
