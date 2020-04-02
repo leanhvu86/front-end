@@ -2166,7 +2166,7 @@ body {
 .box13:after {
   content: "";
   display: block;
-  background: #463f9f;
+  background: orangered;
   top: 20px;
   bottom: 20px;
   opacity: 0;
@@ -2222,7 +2222,7 @@ body {
   background: #f7f7b9;
   border-radius: 50%;
   font-size: 17px;
-  color: #1b1462;
+  color: orangered;
   line-height: 35px;
   margin-right: 5px;
   transition: all 0.4s ease-in-out 0s;

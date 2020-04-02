@@ -39,7 +39,7 @@ export class MyrecipeComponent implements OnInit {
       this._loginService.testEmail(email).subscribe(data => {
         let user = data.body['user'];
         if (user !== undefined) {
-          this.recipeService.getRecipes().subscribe(recipes => {
+          this.recipeService.getAllRecipes().subscribe(recipes => {
             recipes.forEach(recipe => {
               if (recipe.user._id === user._id) {
                 if (recipe.hardLevel !== undefined) {
