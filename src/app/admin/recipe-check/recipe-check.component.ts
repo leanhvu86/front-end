@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { UserService } from 'src/app/shared/service/user.service.';
-
+import { Comment } from 'src/app/shared/model/comment';
 @Component({
   selector: 'app-recipe-check',
   templateUrl: './recipe-check.component.html',
@@ -25,6 +25,7 @@ export class RecipeCheckComponent implements OnInit {
   recipes: Recipe[] = [];
   errorMessage: string = '';
   message: string = '';
+  recipeComment: Comment[]
   constructor(
     private route: ActivatedRoute,
     private _router: Router,
@@ -95,7 +96,7 @@ export class RecipeCheckComponent implements OnInit {
       this.recipes = arr.filter(function (item, pos) {
         return arr.indexOf(item) == pos;
       });
-
+      this.getComent()
       console.log(this.recipes);
     });
   }
@@ -138,6 +139,26 @@ export class RecipeCheckComponent implements OnInit {
       this.cookStepsView = recipe.cockStep;
     }
     this.recipeView = recipe
+  }
+  getComent() {
+    this.recipeService.getComments().subscribe(comments => {
+      if (comments !== undefined) {
+        this.recipeComment = comments as unknown as Comment[]
+        this.recipeComment.filter(comment => comment.recipe._id === this.recipe._id)
+        this.recipeComment.forEach(comment => {
+          if (comment.type === 1) {
+            comment.type = 'Đã thực hiện'
+          } else {
+            comment.type = ''
+          }
+          let imageArr = comment.imageUrl.split(',');
+          comment.imageUrl = imageArr
+          console.log(imageArr)
+        });
+        console.log(this.recipeComment)
+        console.log(this.recipe)
+      }
+    })
   }
   countIngredient(multiplyElement: any) {
     if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {

@@ -12,6 +12,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { LoginServiceService } from "src/app/shared/service/login-service.service";
 import { Gallery } from 'src/app/shared/model/gallery';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
+import { Comment } from 'src/app/shared/model/comment';
 @Component({
   selector: "app-recipe-detail",
   templateUrl: "./recipe-detail.component.html",
@@ -60,6 +61,7 @@ export class RecipeDetailComponent implements OnInit {
   prepared: number;
   totalCookingTime: number;
   totalRecipe: number = 0
+  recipeComment: Comment[]
   constructor(
     private cloudinary: Cloudinary,
     private route: ActivatedRoute,
@@ -83,6 +85,7 @@ export class RecipeDetailComponent implements OnInit {
     });
     this.isModeration = this.cookie.get("role") !== "" ? true : false;
     this.isAuthenicate = this.cookie.get("email") !== "" ? true : false;
+
   }
   get f() {
     return this.registerForm.controls;
@@ -155,7 +158,6 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   getRecipes() {
-    console.log(this.recipe);
     this.recipeService.getRecipes().subscribe(recipeArray => {
       let arr: Recipe[] = [];
       for (let recip of recipeArray) {
@@ -179,7 +181,7 @@ export class RecipeDetailComponent implements OnInit {
       });
       this.doneCount = this.recipe.doneCount
       this.totalPoint = this.recipe.totalPoint
-      console.log(this.recipes);
+      this.getComent();
     });
   }
   fileOverBase1(e: any): void {
@@ -187,6 +189,29 @@ export class RecipeDetailComponent implements OnInit {
     this.hasBaseDropZoneOver1 = e;
   }
   message = null;
+  getComent() {
+    this.doneCount = 0
+    this.recipeService.getComments().subscribe(comments => {
+      if (comments !== undefined) {
+        this.recipeComment = comments as unknown as Comment[]
+        this.recipeComment.filter(comment => comment.recipe._id === this.recipe._id)
+        this.recipeComment.forEach(comment => {
+          if (comment.type === 1) {
+            this.doneCount++
+            comment.type = 'Đã thực hiện'
+          } else {
+            comment.type = ''
+          }
+          let imageArr = comment.imageUrl.split(',');
+          comment.imageUrl = imageArr
+          console.log(imageArr)
+        });
+        console.log(this.recipeComment)
+        console.log(this.recipe)
+        console.log(this.doneCount)
+      }
+    })
+  }
   handleFiles(event: any, index: any) {
     const files = event.target.files;
     console.log(files);
@@ -308,6 +333,10 @@ export class RecipeDetailComponent implements OnInit {
     console.log(link);
     var url = "https://www.youtube.com/watch?v=" + link;
     window.open(url, "MsgWindow", "width=600,height=400");
+  }
+  loadPage() {
+    console.log('load')
+    window.location.reload()
   }
   fullImage() {
     var arrayNoimag = Array.from(
@@ -435,7 +464,9 @@ export class RecipeDetailComponent implements OnInit {
     });
     console.log(doneObject);
     this.recipeService.addComment(doneObject).subscribe(data => {
-      if (data !== undefined) {
+      const status = data.body['status']
+      console.log(status)
+      if (status === '200') {
         this.doneCount++
         console.log(data);
         this.recipe = data.body["recipe"];
@@ -452,7 +483,14 @@ export class RecipeDetailComponent implements OnInit {
             this.recipe.hardLevel = "Rất khó";
           }
         }
+        this.message = data.body['message']
+        const radio: HTMLElement = document.getElementById("modal-button10");
+        radio.click();
         console.log("success");
+      } else {
+        this.message = data.body['message']
+        const radio: HTMLElement = document.getElementById("modal-button10");
+        radio.click();
       }
     });
   }
@@ -491,12 +529,39 @@ export class RecipeDetailComponent implements OnInit {
     console.log(doneObject);
 
     this.recipeService.addComment(doneObject).subscribe(data => {
-      if (data !== undefined) {
+      const status = data.body['status']
+      console.log(status)
+      if (status === 200) {
         console.log(data);
 
         this.recipe = data.body["recipe"];
         console.log("success");
+        let comment: Comment
+        comment = data.body['comment']
+        console.log(comment)
+        if (comment.type === 1) {
+          comment.type = 'Đã thực hiện'
+          this.doneCount++
+        } else {
+          comment.type = ''
+        };
+        let imageArr = comment.imageUrl.split(',');
+        console.log(imageArr)
+        comment.imageUrl = imageArr
+        this.recipeComment.push(comment)
+        console.log(this.recipeComment)
+        this.message = data.body['message']
+        const radio: HTMLElement = document.getElementById("modal-button10");
+        radio.click();
+        this.registerForm.reset()
+
+      } else {
+        this.message = data.body['message']
+        const radio: HTMLElement = document.getElementById("modal-button10");
+        radio.click();
+
       }
+
     });
   }
   dislikeRecipe(recipe: any) {

@@ -159,4 +159,7 @@ export class UserService {
   updateUser(user: any) {
     return this._http.post(`${this.baseUrl}/updateUser`, { user: user }, { observe: "response" });
   }
+  changePassword(user: any) {
+    return this._http.post(`${this.baseUrl}/changePassword`, { user: user }, { observe: "response" });
+  }
 }
