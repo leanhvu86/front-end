@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" style="font-family: Arial, Helvetica, sans-serif">
   <div class="row" style="background: rgb(233, 235, 238); padding: 20px 0 20px 0;">
     <!--  -->
-    <div class="col-3 account-sidebar" *ngIf="loadPage">
+    <div class="col-3 account-sidebar" *ngIf="loadPage" style="font-family: Arial, Helvetica, sans-serif">
       <div class="sidebar-head">
         <div class="profile-avatar">
           <a class="a-image" [routerLink]="['/user/info/', id]">
@@ -20,7 +20,7 @@
           </a>
         </h3>
 
-        <div class="mem-statis-box">
+        <div class="mem-statis-box" style="font-family: Arial, Helvetica, sans-serif">
           <span class="headline">
             {{user.level}}
           </span>
@@ -46,25 +46,25 @@
         </div>
       </div>
 
-      <div class="sidebar-content">
+      <div class="sidebar-content" style="font-family: Arial, Helvetica, sans-serif">
         <ul class="list-unstyled">
           <li class="menu-list-a">
             <a class="hover-a" [routerLink]="['/personal/recipe/', id]"
-              style="color: gray;font-family: 'Noto Serif', serif; text-decoration: none;">
+              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
               <span class="fa fa-align-center" style="margin-right: 5px;"></span>CÔNG THỨC CỦA TÔI
             </a>
           </li>
 
           <li class="menu-list-a">
             <a class="hover-a" routerLink="/gallery"
-              style="color: gray;font-family: 'Noto Serif', serif; text-decoration: none;">
+              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
               <span class="fa fa-bookmark" style="margin-right: 5px;"></span>BỘ
               SƯU TẬP CỦA TÔI
             </a>
           </li>
           <li class="menu-list-a">
             <a class="hover-a" [routerLink]="['/user/info/', id]"
-              style="color: gray;font-family: 'Noto Serif', serif; text-decoration: none;">
+              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
               <span class="fa fa-user" style="margin-right: 5px;"></span>THÔNG
               TIN TÀI KHOẢN
             </a>
@@ -73,7 +73,7 @@
       </div>
     </div>
     <!--  -->
-    <div class="col-8 page-account-info">
+    <div class="col-8 page-account-info" style="font-family: Arial, Helvetica, sans-serif">
       <h3>Công thức của tôi</h3>
       <ul class="nav nav-tabs" style="text-align: center;">
         <li class="nav-item">

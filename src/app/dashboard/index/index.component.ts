@@ -61,11 +61,6 @@ export class IndexComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
-  changePass() {
-
-    const radio: HTMLElement = document.getElementById('modal-button11');
-    radio.click();
-  }
   getImage() {
     let email = this.cookie.get('email');
     if (email !== '') {
