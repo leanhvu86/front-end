@@ -6,7 +6,7 @@
       class="profile-img-card"
       src="../../../assets/images/avatar_2x.png"
     />
-    <form class="form-signin" (ngSubmit)="loginUser()" #loginForm="ngForm">
+    <form class="form-signin" (ngSubmit)="loginUser()" [formGroup]="registerForm">
 
       <input
         type="text"
@@ -14,7 +14,7 @@
         class="form-control"
         name="email"
         autocomplete="off"
-        #uname="ngModel"
+        formControlName="email"
         [(ngModel)]="userObject.email"
         placeholder="Email"
         title="Please enter the email"
@@ -31,7 +31,7 @@
         class="form-control"
         name="password"
         autocomplete="off"
-        #upass="ngModel"
+        formControlName="password"
         [(ngModel)]="userObject.password"
         placeholder="Mật khẩu"
         title="Please enter the password"

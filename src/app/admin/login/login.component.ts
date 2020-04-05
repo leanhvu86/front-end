@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
   loginUser() {
     this.submitted = true;
 
-    // if (this.registerForm.invalid) {
-    //   return;
-    // }
+    if (this.registerForm.invalid) {
+      return;
+    }
     console.log(this.userObject.email + " user đăng nhập");
     this._loginService.loginAuth(this.userObject).subscribe((data) => {
       this.errorMessage = null;
