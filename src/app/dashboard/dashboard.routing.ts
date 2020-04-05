@@ -15,6 +15,11 @@ import { RecipeComponent } from "./recipe/recipe.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
 import { GalleryComponent } from './gallery/gallery.component';
 import { GalleryDetailComponent } from './gallery-detail/gallery-detail.component';
+import { QuyDinhComponent } from './quy-dinh/quy-dinh.component';
+import { ChinhSachBaoMatComponent } from './chinh-sach-bao-mat/chinh-sach-bao-mat.component';
+import { ChinhsachdiemComponent } from './chinhsachdiem/chinhsachdiem.component';
+import { ServiceComponent } from './service/service.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 export const DashBoardRoutes: Routes = [
   {
@@ -82,6 +87,28 @@ export const DashBoardRoutes: Routes = [
       {
         path: "galleryDetail/:id",
         component: GalleryDetailComponent
+      },
+      {
+        path: "quydinh",
+        component: QuyDinhComponent
+      }
+      ,
+      {
+        path: "chinhsachbaomat",
+        component: ChinhSachBaoMatComponent
+      },
+      {
+        path: "chinhsachdiem",
+        component: ChinhsachdiemComponent
+      },
+      {
+        path: "gioithieu",
+        component: ServiceComponent
+      }
+      ,
+      {
+        path: "resetPassword",
+        component: ForgetPasswordComponent
       }
     ]
   }

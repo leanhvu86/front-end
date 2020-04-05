@@ -42,6 +42,11 @@ import { Ng5SliderModule } from "ng5-slider";
 import { MemberinforComponent } from './memberinfor/memberinfor.component';
 import { MyrecipeComponent } from './myrecipe/myrecipe.component';
 import { AddBookmarkComponent } from './child/add-bookmark/add-bookmark.component';
+import { ServiceComponent } from './service/service.component';
+import { QuyDinhComponent } from './quy-dinh/quy-dinh.component';
+import { ChinhSachBaoMatComponent } from './chinh-sach-bao-mat/chinh-sach-bao-mat.component';
+import { ChinhsachdiemComponent } from './chinhsachdiem/chinhsachdiem.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -68,6 +73,11 @@ import { AddBookmarkComponent } from './child/add-bookmark/add-bookmark.componen
     MemberinforComponent,
     MyrecipeComponent,
     AddBookmarkComponent,
+    ServiceComponent,
+    QuyDinhComponent,
+    ChinhSachBaoMatComponent,
+    ChinhsachdiemComponent,
+    ForgetPasswordComponent,
 
   ],
   imports: [

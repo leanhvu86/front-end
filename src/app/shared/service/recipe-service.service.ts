@@ -81,7 +81,6 @@ export class RecipeService {
     return this._http.get<Recipe>(url).pipe(
       tap(_ => console.log('helo'))
     );
-    //return this._http.post("http://localhost:8000/findRecipe", { id: id }, { observe: "response" });
   }
   createIngredient(ingredient: any) {
     return this._http.post(`${this.baseUrl}/createIngredient`, { ingredient }, { observe: 'response' });
@@ -89,5 +88,10 @@ export class RecipeService {
   deleteIngredient(ingredient: any) {
     return this._http.post(`${this.baseUrl}/deleteIngredient`, { ingredient }, { observe: 'response' });
   }
-
+  getComments = (): Observable<Comment[]> => {
+    return this._http.get<Comment[]>(`${this.baseUrl}/getComments`)
+      .pipe(
+        tap(_ => console.log('load getAllComment'))
+      );
+  }
 }

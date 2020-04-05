@@ -76,7 +76,7 @@
               </div>
               <div class="col">
                 <a (click)="addDoneRecipe(recipe)"><img src="../../../assets/images/check-o.gray.png"
-                    style="width: 30px;height: 30px; margin-left: 2px;" />&#160;&#160;&#160;&#160;{{recipe.doneCount}}</a>
+                    style="width: 30px;height: 30px; margin-left: 2px;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
               </div>
               <div class="col">
                 <a class="button_slidehr slide_downhr" id="bookmark{{i}}" (click)="addBookmark(recipe)"></a>
@@ -93,7 +93,8 @@
         </div>
       </div>
     </div>
-    <span *ngIf="recipe.videoLink"><img src="../../../assets/images/cooky-video-play-fill-2.png"
+    <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><img
+        src="../../../assets/images/cooky-video-play-fill-2.png"
         style="top:250px;left:360px;width: 50px;height: 50px; position: absolute;" /></span>
     <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
       <div class="row">
@@ -240,30 +241,67 @@
             </div>
             <div class="clearfix"></div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
-              style="height: 600px; text-align: left; background: white; padding-left: 5px;">
+              style="min-height: 600px; text-align: left; background: white; padding-left: 5px;">
               <!-- Default switch -->
               <div style="width: 100%;font-size: 16px;">
-                <a>Danh sách bình luận công thức </a>
+                <br>
+                <a style="margin-left: 10%;">Danh sách bình luận công thức </a>
+                <div class="container" style="margin-top: 10px;" *ngFor="let comment of recipeComment">
+                  <div class="row">
+                    <div class="col-4">
+                      <cl-image public-id="{{ comment.user.imageUrl }}" style="border-radius: 50px;">
+                        <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
+                          background="#e9ebee">
+                        </cl-transformation>
+                        <cl-transformation width="50" crop="scale"> </cl-transformation>
+                      </cl-image>
+                      <br>
+                      <a style="font-size: 12px;">Đăng bởi: {{comment.user.name}}</a>
+                    </div>
+                    <div class="col-8">
+                      <a style="font-size: 12px;color: green;">{{comment.type}}</a>
+                      <br>
+                      <a>{{comment.content}}</a>
+                      <br>
+                      <div class="row" id="image{{ i }}" *ngFor="let imageUrl of comment.imageUrl; let i = index"
+                        style="margin: 10px 0; float: left;">
+                        <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
+                        <cl-transformation height="100" width="100" crop="scale">
+                        </cl-transformation>
+                      </cl-image> -->
+                        <div *ngIf="!showImageStep">
+                          <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
+                            <cl-transformation height="100" radius="20" width="100" crop="scale">
+                            </cl-transformation>
+                            <cl-transformation angle="0"> </cl-transformation>
+                          </cl-image>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="row">
-                <div class="col-8">
-                  <a style="font-size: 15px;">Thêm bình luận</a>
+              <hr>
+              <div class="container">
+                <div class="row">
+                  <div class="col-8">
+                    <a style="font-size: 15px;">Thêm bình luận</a>
+                  </div>
+                  <div class="col">
+                    <a style="font-size: 15px;">Đã thực hiện</a><input type="checkbox" [checked]="checkDone"
+                      (change)="checkDone = !checkDone" style="margin-left: 60px;" />
+                  </div>
                 </div>
-                <div class="col">
-                  <a style="font-size: 15px;">Đã thực hiện</a><input type="checkbox" [checked]="checkDone"
-                    (change)="checkDone = !checkDone" style="margin-left: 60px;" />
-                </div>
-              </div>
-              <form class="form-signin" (ngSubmit)="addComment()" #loginForm="ngForm" [formGroup]="registerForm">
-                <textarea formControlName="content"
-                  [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.content.errors }" id="content"
-                  class="form-control" name="content" autocomplete="off" formControlName="content"
-                  placeholder="Bình luận công thức " title="Please enter the content" required autofocus cols="8"
-                  style="width: 80%;margin:10px 30px;"></textarea>
-                <div *ngIf="submitted &amp;&amp; registerForm.controls.content.errors" class="text-danger">
-                  <div *ngIf="registerForm.controls.content.errors.required">Không để trống nội dung bình luận</div>
-                </div>
-                <!-- <input
+                <form class="form-signin" (ngSubmit)="addComment()" #loginForm="ngForm" [formGroup]="registerForm">
+                  <textarea formControlName="content"
+                    [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.content.errors }" id="content"
+                    class="form-control" name="content" autocomplete="off" formControlName="content"
+                    placeholder="Bình luận công thức " title="Please enter the content" required autofocus cols="8"
+                    style="width: 80%;margin:10px 30px;"></textarea>
+                  <div *ngIf="submitted &amp;&amp; registerForm.controls.content.errors" class="text-danger">
+                    <div *ngIf="registerForm.controls.content.errors.required">Không để trống nội dung bình luận</div>
+                  </div>
+                  <!-- <input
                   type="file"
                   id="image"
                   class="form-control"
@@ -275,27 +313,37 @@
                   title="Please enter the image"
                   required
                 /> -->
-                <a>Thêm ảnh bình luận:</a>
-                <br />
-                <div class=".col-6 .col-md-4 hover" (fileOver)="fileOverBase1($event)"
-                  style="width: 90px;height: 90px; border: 1px solid gray; float: left;"
-                  [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver1 }">
-                  <input type="file" multiple formControlName="image" (change)="handleFiles($event)"
-                    style="width: 90px;height: 90px;opacity: 0;" /><a
-                    style="position: absolute; left: 55px; top: 263px;"><i class="fa fa-picture-o"
-                      aria-hidden="true"></i></a>
-                </div>
-                <div class=".col-md-8" id="gallery" style="position: relative; float: left; padding-left: 5px;"></div>
-
-                <input type="text" id="imageArray" class="form-control" name="imageUrl" autocomplete="off" hidden
-                  formControlName="imageUrl" />
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
-                  Đăng bình luận
-                </button>
-                <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
-                  {{ errorMessage }}
-                </p>
-              </form>
+                  <a>Thêm ảnh bình luận:</a>
+                  <br />
+                  <div class="container" style="width: 80%; margin-left: 5px;">
+                    <div class="row">
+                      <div class=".col-6 .col-md-4 hover" (fileOver)="fileOverBase1($event)"
+                        style="width: 90px;height: 90px; border: 1px solid gray; float: left;position: relative;"
+                        [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver1 }">
+                        <input type="file" multiple formControlName="image" (change)="handleFiles($event)"
+                          style="width: 90px;height: 90px;opacity: 0;" /><a
+                          style="position: absolute; left: 35px; top: 27px;"><i class="fa fa-picture-o"
+                            aria-hidden="true"></i></a>
+                      </div>
+                      <div class=".col-md-8" id="gallery" style="position: relative; float: left; padding-left: 5px;">
+                      </div>
+                    </div>
+                  </div>
+                  <input type="text" id="imageArray" class="form-control" name="imageUrl" autocomplete="off" hidden
+                    formControlName="imageUrl" />
+                  <div class="clearfix"></div>
+                  <div class="clearfix"></div>
+                  <br>
+                  <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
+                    style="width: 300px; margin-left: 30%;">
+                    Đăng bình luận
+                  </button>
+                  <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
+                    {{ errorMessage }}
+                  </p>
+                </form>
+              </div>
+              <br>
             </div>
 
             <!-- <p>{{profileForm.status}}</p> -->
@@ -322,60 +370,19 @@
     <a style="margin-top: 50px;">CÔNG THỨC LIÊN QUAN</a>
     <hr />
     <div class="row">
-      <div class="col" *ngFor="let recipe of recipes; let i = index" (click)="showRecipe(recipe)">
-        <cl-image public-id="{{ recipe.imageUrl }}" [routerLink]="['/detail/', recipe._id]">
+      <div class="col" *ngFor="let recipe of recipes; let i = index">
+        <cl-image public-id="{{ recipe.imageUrl }}" [routerLink]="['/detail/', recipe._id]" (click)="loadPage()">
           <cl-transformation width="150" height="150" crop="scale" quality="auto" radius="20">
           </cl-transformation>
         </cl-image>
         <br />
-        <a [routerLink]="['/detail/', recipe._id]" style="color: black;">{{ recipe.recipeName }}</a>
+        <a [routerLink]="['/detail/', recipe._id]" (click)="loadPage()"
+          style="color: black;">{{ recipe.recipeName }}</a>
         <br /><a>{{ recipe.viewCount }} <a style="color: #c5c5c5;">lượt xem</a>
           {{ recipe.time }} phút</a>
       </div>
     </div>
   </div>
-  <!-- <a type="button" class="py-2 d-none d-md-inline-block register-button" hidden="true" data-toggle="modal"
-    data-target="#exampleModalCenter1" id="modal-button1">
-  </a>
-
-  <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" *ngIf="!isAuthenicate"
-    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle1">Đăng nhập</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="card card-container" style="max-width: 500px;">
-            <img id="profile-img" class="profile-img-card" src="../../../assets/images/avatar_2x.png" />
-            <form class="form-signin" (ngSubmit)="loginUser()" #loginForm="ngForm">
-              <input type="text" id="email" class="form-control" name="email" autocomplete="off" #uname="ngModel"
-                [(ngModel)]="userLogin.email" placeholder="email" title="Please enter the email" required autofocus />
-              <input type="password" id="password" class="form-control" name="password" autocomplete="off"
-                #upass="ngModel" [(ngModel)]="userLogin.password" placeholder="Password"
-                title="Please enter the password" required />
-              <input type="text" id="authcode" class="form-control" *ngIf="this.tfaFlag" name="authcode"
-                autocomplete="off" #authcode="ngModel" [(ngModel)]="userLogin.authcode"
-                placeholder="Two-Factor Auth code" title="Please enter the code" required />
-              <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
-                Đăng nhập
-              </button>
-              <p style="text-align:center;">
-                Tài khoản mới ? <a [routerLink]="['/register']">Đăng ký</a>
-              </p>
-              <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
-                {{ errorMessage }}
-              </p>
-            </form>
-            <hr style="border-top: 1px solid #eee;" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
     id="modal-button1" hidden>Large modal</button>
 
@@ -414,6 +421,27 @@
       </div>
     </div>
   </div>
+  <button type="button" class="btn btn-primary" hidden="true" data-toggle="modal" data-target="#exampleModalCenter10"
+    id="modal-button10">
+    Launch demo modal
+  </button>
 
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter10" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Thông báo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="color: red;">
+          {{message}}
+        </div>
+      </div>
+    </div>
+  </div>
   <app-scroll-top></app-scroll-top>
 </div>

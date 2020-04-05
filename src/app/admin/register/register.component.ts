@@ -59,7 +59,6 @@ export class RegisterComponent implements OnInit {
       console.log(this.userObject);
     this._loginService.registerUser(this.userObject).subscribe((data) => {
       const result = data.body
-      console.log(result['status'] + "fdsfsfd")
       if (result['status'] === 200) {
         this.message = result['message'];
         const radio: HTMLElement = document.getElementById('modal-button');

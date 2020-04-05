@@ -1,10 +1,11 @@
 export class Comment {
-  id: Object;
-  user: String;
-  recipe: Object;
+  _id: Object;
+  user: any;
+  recipe: any;
   content: String;
-  imageUrl: String;
+  imageUrl: any;
   videoUrl: String;
-  type: Number;
-  description: String = "Tính lượt thực hiện công thức";
+  type: any;
+  description: String;
+  order: number;
 }
