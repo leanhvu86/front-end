@@ -13,12 +13,17 @@
 
           </a>
           <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
-            aria-hidden="true" style="    position: absolute;
-            left: 88px;
-            top: 100px;"></i></span>
+              aria-hidden="true" style="top:40%;left:50px;"></i></span>
 
-          <a href="" class="btn-act btn-add-favourite ng-isolate-scope">
-            <i class="fa fa-heart"></i>
+          <a class=" btn-act btn-add-favourite ng-isolate-scope">
+            <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"
+              style="position: absolute; left:270px; bottom: 20%;"><i id="heart{{i}}" class="fa fa-heart fa-4x heart"
+                style="width: 30px;height: 30px;" aria-hidden="true"></i></span>
+            <ng-template #other_content>
+              <span (click)="dislikeRecipe(recipe,i)" style="position: absolute; left:270px; bottom: 20%;"><i
+                  class="fa fa-heart fa-4x dislikeheart " id="heart{{i}}" aria-hidden="true"
+                  style="width: 30px;height: 30px;"></i></span>
+            </ng-template>
           </a>
 
         </div>
@@ -54,7 +59,7 @@
               margin-right: 9px;
             ">
               &#160;
-              <i class="fa fa-bar-chart stats-ico" aria-hidden="true"> {{recipe.hardLevel}}</i>
+              <i class="fa fa-bar-chart stats-ico" aria-hidden="true"> {{recipe.viewCount}}</i>
             </div>
             <div style="    top: 340px;
               left: 43px;
@@ -63,7 +68,7 @@
               float: left;
   margin-right: 35px;
           ">
-              <i class="fa fa-bolt stats-ico" aria-hidden="true">&#160;{{recipe.user.name}}</i>
+              <i class="fa fa-bolt stats-ico" aria-hidden="true">{{recipe.hardLevel}}&#160; {{recipe.user.name}}</i>
             </div>
             <div style="float: left;
             margin-top: -23px; margin-left: 123px;">

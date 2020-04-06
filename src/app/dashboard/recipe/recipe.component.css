@@ -33,6 +33,42 @@
   position: relative;
   margin: 0 auto;
 }
+.heart {
+  display: block;
+  color: white;
+  position: absolute;
+  bottom: 20%;
+  right: 5%;
+  opacity: 0.4;
+  background: none;
+}
+.heart:hover {
+  color: red;
+}
+.play {
+  display: block;
+  color: white;
+  position: absolute;
+  bottom: 20%;
+  right: 5%;
+  opacity: 0.8;
+  background: none;
+}
+.play:hover {
+  opacity: 1;
+}
+.dislikeheart {
+  display: block;
+  color: red;
+  position: absolute;
+  bottom: 20%;
+  right: 5%;
+  opacity: 0.6;
+  background: none;
+}
+.dislikeheart:hover {
+  color: white;
+}
 .avt {
   height: 120px;
   width: 120px;

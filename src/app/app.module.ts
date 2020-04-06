@@ -16,6 +16,9 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './shared/helper';
 import { CookieService } from 'ngx-cookie-service';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent
@@ -27,6 +30,12 @@ import { CookieService } from 'ngx-cookie-service';
     ErrorModule,
     SharedModule,
     BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
     RouterModule.forRoot(AppRoutes),
     FormsModule,
     Ng2SearchPipeModule,
