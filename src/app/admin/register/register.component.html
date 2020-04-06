@@ -5,8 +5,8 @@
 
     <form class="form-signin" (ngSubmit)="registerUser()" [formGroup]="registerForm">
       <input type="text" id="user" class="form-control" name="user" formControlName="user"
-        [ngClass]="{ 'is-invalid': submitted && f.user.errors }" [(ngModel)]="userObject.user" placeholder="Tên đăng nhập"
-        title="Please enter the username" autocomplete="off" required autofocus />
+        [ngClass]="{ 'is-invalid': submitted && f.user.errors }" [(ngModel)]="userObject.user"
+        placeholder="Tên đăng nhập" title="Please enter the username" autocomplete="off" required autofocus />
       <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
         <div *ngIf="f.user.errors.required">
           Vui lòng nhập không để trống tên đăng nhập.
@@ -35,8 +35,8 @@
 
       <input type="password" id="confirmpass" class="form-control" name="confirmPassword"
         [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" formControlName="confirmPassword"
-        placeholder="Xác nhận mật khẩu" title="Please re-enter the password" autocomplete="off" [(ngModel)]="confirmPass"
-        required />
+        placeholder="Xác nhận mật khẩu" title="Please re-enter the password" autocomplete="off"
+        [(ngModel)]="confirmPass" required />
       <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
         <div *ngIf="f.confirmPassword.errors.required">
           Vui lòng xác nhận mật khẩu
@@ -47,11 +47,11 @@
       </div>
 
       <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
-       Đăng kí
+        Đăng kí
       </button>
 
       <p style="text-align:center;">
-      <a [routerLink]="['/login']">Đăng nhập tại đây</a>
+        <a [routerLink]="['/login']">Đăng nhập tại đây</a>
       </p>
       <p style="text-align:center;color: red;" *ngIf="errorMessage">
         {{ errorMessage }}

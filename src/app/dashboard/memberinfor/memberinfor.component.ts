@@ -44,6 +44,9 @@ export class MemberinforComponent implements OnInit {
 
     this.getMemerInfo()
   }
+  openModal(recipe: any) {
+    console.log(recipe)
+  }
   getMemerInfo() {
     this.id = this.route.snapshot.params.id;
     console.log(this.id)

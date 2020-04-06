@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/shared/service/user.service.';
+import { Summary } from 'src/app/shared/model/summary';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  summary: Summary
+  loadInfo: boolean = false
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.getSummary()
   }
-
+  getSummary() {
+    this.userService.getSummary(1).subscribe(data => {
+      this.summary = data.body['summary']
+      console.log(this.summary)
+      this.loadInfo == true
+    })
+  }
 }

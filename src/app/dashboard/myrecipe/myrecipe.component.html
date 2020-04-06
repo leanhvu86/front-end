@@ -131,8 +131,7 @@
           <br />
           <div class="container mt-40">
             <div class="row mt-30">
-              <div class="col-md-4 col-sm-6"
-                *ngFor="let recipe of waitingRecipe|paginate:{itemsPerPage: 6, currentPage:p};let i = index">
+              <div class="col-md-4 col-sm-6" *ngFor="let recipe of waitingRecipe;let i = index">
                 <div class="box13">
                   <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
                     <cl-transformation width="203" height="203" crop="crop" quality="auto">
@@ -162,15 +161,14 @@
 
           </div>
           <br>
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
         </div>
         <!--  -->
         <div id="refuse" class="container tab-pane fade">
           <br />
           <div class="container mt-40">
             <div class="row mt-30">
-              <div class="col-md-4 col-sm-6"
-                *ngFor="let recipe of decilineRecipe|paginate:{itemsPerPage: 6, currentPage:p};let i = index">
+              <div class="col-md-4 col-sm-6" *ngFor="let recipe of decilineRecipe;let i = index">
                 <div class="box13">
                   <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
                     <cl-transformation width="203" height="203" crop="crop" quality="auto">
@@ -200,7 +198,7 @@
 
           </div>
           <br>
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
         </div>
       </div>
     </div>

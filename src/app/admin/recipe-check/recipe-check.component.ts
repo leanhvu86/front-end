@@ -188,9 +188,9 @@ export class RecipeCheckComponent implements OnInit {
         this.message = result['message'];
         const radio: HTMLElement = document.getElementById('modal-button');
         radio.click();
-        setTimeout(() => {
-          this._router.navigate(['/recipeAccess']);
-        }, 5000);
+        // setTimeout(() => {
+        //   this._router.navigateByUrl('/recipeAccess');
+        // }, 2000);
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
       }
@@ -215,9 +215,9 @@ export class RecipeCheckComponent implements OnInit {
         this.errorMessage = result['message'];
         const radio: HTMLElement = document.getElementById('modal-button');
         radio.click();
-        setTimeout(() => {
-          this._router.navigate(['/recipeAccess']);
-        }, 5000);
+        // setTimeout(() => {
+        //   this._router.navigateByUrl('/recipeAccess');
+        // }, 2000);
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
       }
