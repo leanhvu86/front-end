@@ -8,6 +8,7 @@ import { User } from 'src/app/shared/model/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Cloudinary } from '@cloudinary/angular-5.x';
+import { MustMatch } from 'src/app/shared/helper/must-match-validator';
 
 @Component({
   selector: 'app-userinfor',
@@ -20,8 +21,16 @@ export class UserinforComponent implements OnInit {
   loadPage: boolean = false
   errorMessage: string = null;
   registerForm: FormGroup
+  changePassForm: FormGroup
   submitted = false;
+  passSubmitted = false;
+  errorPassMessage: string = ''
   message: string = '';
+  userPassObject = {
+    user: "",
+    password: "",
+    newPassword: ""
+  }
   userObject = {
     id: '',
     email: '',
@@ -58,6 +67,14 @@ export class UserinforComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.changePassForm = this.formBuilder.group({
+      oldPassword: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
+    });
+
     this.getAllYear();
     let email = this.cookie.get('email');
     if (email !== '') {
@@ -138,6 +155,7 @@ export class UserinforComponent implements OnInit {
   }
 
   get f() { return this.registerForm.controls; }
+  get f1() { return this.changePassForm.controls; }
 
   value: number = 0;
   options: Options = {
@@ -146,6 +164,26 @@ export class UserinforComponent implements OnInit {
     showOuterSelectionBars: true,
     showTicksValues: false
   };
+  changePass() {
+    this.passSubmitted = true;
+    if (this.changePassForm.invalid) {
+      console.log(this.changePassForm.value)
+      return
+    }
+    let email = this.cookie.get('email')
+    this.userPassObject = this.changePassForm.value
+    this.userPassObject.user = email
+    this.userService.changePassword(this.userPassObject)
+      .subscribe(data => {
+        console.log(data)
+        const status = data.body['status']
+        if (status === 200) {
+          this.errorPassMessage = data.body['message']
+        } else {
+          this.errorPassMessage = data.body['message']
+        }
+      })
+  }
   handleFiles(event: any, index: any) {
     const files = event.target.files;
     console.log(files);

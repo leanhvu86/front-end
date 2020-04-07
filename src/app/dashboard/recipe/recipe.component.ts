@@ -17,9 +17,33 @@ export class RecipeComponent implements OnInit {
   ngOnInit() {
     this.getRecipe();
   }
+  video(link: any) {
+    console.log(link)
+    var url = 'https://www.youtube.com/watch?v=' + link;
+    window.open(url, "MsgWindow", "width=600,height=400");
+  }
   getRecipe = () => {
     this.service.getRecipes().subscribe(data => {
-      return (this.recipes = data)
+      this.recipes = data
+      this.recipes.forEach(recipe => {
+        recipe.like = false
+        if (recipe.hardLevel !== undefined) {
+          if (recipe.hardLevel === '') {
+            recipe.hardLevel = 'Ko XĐ';
+          } else if (recipe.hardLevel === '1') {
+            recipe.hardLevel = 'Dễ';
+          } else if (recipe.hardLevel === '2') {
+            recipe.hardLevel = 'TB';
+          } else if (recipe.hardLevel === '3') {
+            recipe.hardLevel = 'Khó';
+          } else if (recipe.hardLevel === '4') {
+            recipe.hardLevel = 'R khó';
+          }
+        }
+        if (recipe.user.imageUrl === undefined) {
+          recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+        }
+      })
     })
   }
 }

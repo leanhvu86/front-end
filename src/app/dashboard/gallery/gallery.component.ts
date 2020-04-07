@@ -29,6 +29,7 @@ export class GalleryComponent implements OnInit {
   message: String = ''
   gallerys: Gallery[] = [];
   galleryTop: Gallery[] = [];
+
   constructor(
     private cookie: CookieService,
     private formBuilder: FormBuilder,

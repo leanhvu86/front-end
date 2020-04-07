@@ -8,6 +8,7 @@ import { AppSetting } from "../../appsetting";
 import { retry, catchError, tap } from "rxjs/operators";
 import { User } from "../model/user";
 import { Message } from '../model/message';
+import { Summary } from '../model/summary';
 @Injectable({
   providedIn: "root"
 })
@@ -161,5 +162,11 @@ export class UserService {
   }
   changePassword(user: any) {
     return this._http.post(`${this.baseUrl}/changePassword`, { user: user }, { observe: "response" });
+  }
+  resetPassword(user: any) {
+    return this._http.post(`${this.baseUrl}/resetPassword`, { user: user }, { observe: "response" });
+  }
+  getSummary(user: any) {
+    return this._http.post(`${this.baseUrl}/getSummary`, { user: user }, { observe: "response" });
   }
 }

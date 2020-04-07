@@ -57,21 +57,21 @@
         <ul class="list-unstyled">
           <li class="menu-list-a">
             <a class="hover-a" [routerLink]="['/personal/recipe/', id]"
-              style="color: gray;font-family: 'Noto Serif', serif; text-decoration: none;">
+              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
               <span class="fa fa-align-center" style="margin-right: 5px;"></span>CÔNG THỨC CỦA TÔI
             </a>
           </li>
 
           <li class="menu-list-a">
             <a class="hover-a" routerLink="/gallery"
-              style="color: gray;font-family: 'Noto Serif', serif; text-decoration: none;">
+              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
               <span class="fa fa-bookmark" style="margin-right: 5px;"></span>BỘ
               SƯU TẬP CỦA TÔI
             </a>
           </li>
           <li class="menu-list-a">
             <a class="hover-a" [routerLink]="['/user/info/', id]"
-              style="color: gray;font-family: 'Noto Serif', serif; text-decoration: none;">
+              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
               <span class="fa fa-user" style="margin-right: 5px;"></span>THÔNG
               TIN TÀI KHOẢN
             </a>
@@ -80,137 +80,221 @@
       </div>
     </div>
     <!--  -->
-    <div class="col-8 page-account-info">
-      <form [formGroup]="registerForm">
-        <table class="table table-borderless table-condensed ">
-          <tr>
-            <td style="width: 200px;">
+    <div class="col-8 page-account-info" style="font-family: Arial, Helvetica, sans-serif">
 
-            </td>
-            <td>
-              <h4>Thông tin giới thiệu</h4>
-            </td>
-          </tr>
-          <tbody>
-            <tr>
-              <th scope="col" style="text-align: right;width: 200px;">
+      <h3>Thông tin cá nhân</h3>
+      <ul class="nav nav-tabs" style="text-align: center;">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#home">
+            Thông tin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pending"> Đổi mật khẩu</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div id="home" class="container tab-pane active" style="width: 760px;">
+          <br />
+          <form [formGroup]="registerForm">
+            <table class="table table-borderless table-condensed ">
+              <tr>
+                <td style="width: 200px;">
+
+                </td>
+                <td>
+                  <h4>Thông tin giới thiệu</h4>
+                </td>
+              </tr>
+              <tbody>
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">
 
 
-                Giới thiệu
-              </th>
-              <td>
-                <textarea class="form-control" formControlName="introduction" rows="3"></textarea>
-              </td>
-            </tr>
-            <tr>
-              <td style="width: 200px;">
+                    Giới thiệu
+                  </th>
+                  <td>
+                    <textarea class="form-control" formControlName="introduction" rows="3"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 200px;">
 
-              </td>
-              <td>
-                <button class="btn btn-success" (click)="onSubmit()">
-                  Lưu thay đổi
-                </button>
-              </td>
-            </tr>
-            <!--  -->
-            <tr>
-              <td style="width: 200px;">
+                  </td>
+                  <td>
+                    <button class="btn btn-success" (click)="onSubmit()">
+                      Lưu thay đổi
+                    </button>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <td style="width: 200px;">
 
-              </td>
-              <td>
-                <h4>Thông tin tài khoản</h4>
-              </td>
-            </tr>
-            <tr>
-              <th scope="col" style="text-align: right;width: 200px;">Email</th>
-              <td>
-                <input type="text" class="form-control" formControlName="email" name="email"
-                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                  <div *ngIf="f.email.errors.email">Mail chưa hợp lệ!</div>
-                </div>
-              </td>
-            </tr>
-            <!--  -->
-            <tr>
-              <th scope="col" style="text-align: right;width: 200px;">Tên</th>
-              <td>
-                <input type="text" class="form-control" formControlName="name" />
-              </td>
-            </tr>
-            <!--  -->
-            <tr>
-              <th scope="col" style="text-align: right;width: 200px;">Họ</th>
-              <td>
-                <input type="text" class="form-control" formControlName="lastName" />
-              </td>
-            </tr>
-            <!--  -->
-            <tr>
-              <th scope="col" style="text-align: right;width: 200px;">Ngày sinh</th>
-              <td>
+                  </td>
+                  <td>
+                    <h4>Thông tin tài khoản</h4>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Email</th>
+                  <td>
+                    <input type="text" class="form-control" formControlName="email" name="email"
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.email">Mail chưa hợp lệ!</div>
+                    </div>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Tên</th>
+                  <td>
+                    <input type="text" class="form-control" formControlName="name" />
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Họ</th>
+                  <td>
+                    <input type="text" class="form-control" formControlName="lastName" />
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Ngày sinh</th>
+                  <td>
 
-                <select type="text" formControlName="birthday" style="width:25%; border-radius:10px; margin:0 5% ; "
-                  id="birthday">
-                  <option [value]="year" *ngFor="let year of years">{{year}}</option>
-                </select>
-              </td>
-            </tr>
-            <!--  -->
-            <tr>
-              <th scope="col" style="text-align: right;width: 200px;">Giới tính</th>
-              <td>
-                <div class="dropdown">
-                  <select type="text" formControlName="gender"
-                    [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
-                    style="width:25%; border-radius:10px; margin:0 5% ; " id="gender">
-                    <option [value]="1">Nam</option>
-                    <option [value]="2">Nữ</option>
-                    <option [value]="3">Không xác định</option>
-                  </select>
-                </div>
-              </td>
-            </tr>
-            <!--  -->
-            <tr>
-              <th scope="col" style="text-align: right;width: 200px;">
-                Tình trạng hôn nhân
-              </th>
-              <td>
-                <div class="dropdown">
-                  <select type="text" formControlName="materialStatus"
-                    [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
-                    style="width:50%; border-radius:10px; margin:0 5% ;">
-                    <option [value]="1">Độc thân</option>
-                    <option [value]="2">Mối quan hệ phức tạp</option>
-                    <option [value]="3">Đang hẹn hò</option>
-                    <option [value]="4">Đã đính hôn</option>
-                    <option [value]="5">Quan hệ mở</option>
-                  </select>
+                    <select type="text" formControlName="birthday" style="width:25%; border-radius:10px; margin:0 5% ; "
+                      id="birthday">
+                      <option [value]="year" *ngFor="let year of years">{{year}}</option>
+                    </select>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Giới tính</th>
+                  <td>
+                    <div class="dropdown">
+                      <select type="text" formControlName="gender"
+                        [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+                        style="width:25%; border-radius:10px; margin:0 5% ; " id="gender">
+                        <option [value]="1">Nam</option>
+                        <option [value]="2">Nữ</option>
+                        <option [value]="3">Không xác định</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">
+                    Tình trạng hôn nhân
+                  </th>
+                  <td>
+                    <div class="dropdown">
+                      <select type="text" formControlName="materialStatus"
+                        [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+                        style="width:50%; border-radius:10px; margin:0 5% ;">
+                        <option [value]="1">Độc thân</option>
+                        <option [value]="2">Mối quan hệ phức tạp</option>
+                        <option [value]="3">Đang hẹn hò</option>
+                        <option [value]="4">Đã đính hôn</option>
+                        <option [value]="5">Quan hệ mở</option>
+                      </select>
 
-                </div>
-              </td>
-            </tr>
-            <!--  -->
-            <tr>
-              <th scope="col" style="text-align: right;width: 200px;">Chữ kí</th>
-              <td>
-                <textarea class="form-control" formControlName="signature" rows="3"></textarea>
-              </td>
-            </tr>
+                    </div>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Chữ kí</th>
+                  <td>
+                    <textarea class="form-control" formControlName="signature" rows="3"></textarea>
+                  </td>
+                </tr>
 
-            <tr>
-              <td style="width: 200px;"></td>
-              <td>
-                <button type="button" class="btn btn-primary" style="margin-right: 3%;" (click)="onSubmit()">
-                  Lưu thay đổi
-                </button>
-                <button type="button" class="btn btn-light" (click)="onClear()">Hủy</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+                <tr>
+                  <td style="width: 200px;"></td>
+                  <td>
+                    <button type="button" class="btn btn-primary" style="margin-right: 3%;" (click)="onSubmit()">
+                      Lưu thay đổi
+                    </button>
+                    <button type="button" class="btn btn-light" (click)="onClear()">Hủy</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+        <!--  -->
+        <div id="pending" class="container tab-pane fade" style="width: 760px;">
+          <br />
+          <div class="container">
+            <div class="row">
+              <div class="col" style="width: 300px; padding: 50px;text-align: center;">
+                <h6>BẠN MUỐN THAY ĐỔI MẬT KHẨU?</h6>
+                <br><br>
+                <form class="form-signin" (ngSubmit)="changePass()" [formGroup]="changePassForm"
+                  style="width: 300px; margin-left: 150px;">
+
+                  <input type="password" id="oldPassword" class="form-control" name="oldPassword"
+                    formControlName="oldPassword" [ngClass]="{ 'is-invalid': passSubmitted && f1.oldPassword.errors }"
+                    [(ngModel)]="userObject.oldPassword" placeholder="Mật khẩu cũ" title="Vui lòng điền mật khẩu cũ"
+                    autocomplete="off" required autofocus />
+                  <div *ngIf="passSubmitted && f1.oldPassword.errors" class="invalid-feedback">
+                    <div *ngIf="f1.oldPassword.errors.required">
+                      Vui lòng không để trống kí tự
+                    </div>
+                    <div *ngIf="f1.oldPassword.errors.minlength">
+                      Mật khẩu phải ít nhất 6 kí tự
+                    </div>
+                  </div>
+
+                  <input type="password" id="password" class="form-control" name="password"
+                    [ngClass]="{ 'is-invalid': passSubmitted && f1.password.errors }" formControlName="password"
+                    placeholder="Mật khẩu mới" title="Please enter the password" autocomplete="off"
+                    [(ngModel)]="userObject.password" required />
+                  <div *ngIf="passSubmitted && f1.password.errors" class="invalid-feedback">
+                    <div *ngIf="f1.password.errors.required">
+                      Vui lòng không để trống kí tự
+                    </div>
+                    <div *ngIf="f1.password.errors.minlength">
+                      Mật khẩu phải ít nhất 6 kí tự
+                    </div>
+                  </div>
+
+                  <input type="password" id="confirmpass" class="form-control" name="confirmPassword"
+                    [ngClass]="{ 'is-invalid': passSubmitted && f1.confirmPassword.errors }"
+                    formControlName="confirmPassword" placeholder="Xác nhận mật khẩu"
+                    title="Please re-enter the password" autocomplete="off" [(ngModel)]="confirmPass" required />
+                  <div *ngIf="passSubmitted && f1.confirmPassword.errors" class="invalid-feedback">
+                    <div *ngIf="f1.confirmPassword.errors.required">
+                      Vui lòng xác nhận mật khẩu
+                    </div>
+                    <div *ngIf="f1.confirmPassword.errors.mustMatch">
+                      Phải trùng khớp mật khẩu!
+                    </div>
+                  </div>
+
+                  <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
+                    Thay đổi mật khẩu
+                  </button>
+
+                  <p style="text-align:center;">
+                    {{ errorPassMessage }}
+                  </p>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          {{message}}
+        </div>
+        <!--  -->
+
+      </div>
+
+
     </div>
   </div>
 </div>

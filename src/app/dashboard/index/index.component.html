@@ -233,7 +233,7 @@
                 </li>
                 <li>
                   <a href="#"><i class="fa fa-envelope-o"></i>
-                    amthuc_monchay@gmail.com</a>
+                    amthuc.monchay.2020@gmail.com</a>
                 </li>
               </ul>
               <!-- End Contact Info -->
@@ -243,14 +243,14 @@
             <div class="col-md-6">
               <!-- Start Social Links -->
               <ul class="social-list" style="padding-top: 1%;">
-                <li>
+                <!-- <li>
                   <a><i (click)="useLanguage('vi')"><img style="height: auto;width:50%; margin-top: -15%;"
                         src="../../../assets/images/vi.png" /></i></a>
                 </li>
                 <li>
                   <a><i (click)="useLanguage('en')"><img style="height: auto;width:50%;margin-top: -15%;"
                         src="../../../assets/images/en.png" /></i></a>
-                </li>
+                </li> -->
                 <!-- <li>
                                     <a href="#">
                                         <fb-like url={{url}}></fb-like>
@@ -309,7 +309,8 @@
     </div>
     <div class=" div-shadow" style="position: relative; background: whitesmoke;width: 100%; height: 50px; ">
       <form id="demo-2">
-        <input type="search" placeholder="Tìm kiếm công thức">
+        <input type="search" name="search" placeholder="Tìm kiếm công thức">
+        <!-- <span (click)="submitRecipe()"><i class="fa fa-search" aria-hidden="true"></i></span> -->
       </form>
       <a class="py-2 d-none d-md-inline-block register-button" style="right: 18%;padding: 2px 8px; "
         (click)="onChange($event)"><i class="fa fa-pencil-square-o" style="padding: 2px 8px;"
@@ -348,7 +349,6 @@
           <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
             style=" min-height: 200px; margin-right: 80px;" aria-labelledby="navbarDropdownMenuLink-44">
             <a class="dropdown-item" [routerLink]="['/user/info/', id]">Quản lý tài khoản</a>
-            <a class="dropdown-item " (click)="changePass()">Đổi mật khẩu</a>
             <a class="dropdown-item " (click)="redirect()">Trang quản trị</a>
             <a class="dropdown-item" [routerLink]="['/personal/recipe/',id]">Công thức của tôi</a>
             <a class="dropdown-item" routerLink="/gallery">Bộ sưu tập của tôi</a>
@@ -435,47 +435,7 @@
   </div>
 
   <router-outlet></router-outlet>
-  <button type="button" class="btn btn-primary" hidden="true" data-toggle="modal" data-target="#exampleModalCenter11"
-    id="modal-button11">
-  </button>
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModalCenter11" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Đổi mật khẩu</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="container">
-            <div class="row">
-              <div class="col" style="width: 300px;">
-
-                <label>Mật khẩu hiện tại</label>
-                <div class="form-group pass_show">
-                  <input type="password" value="faisalkhan@123" class="form-control" placeholder="Current Password">
-                </div>
-                <label>Mật khẩu mới</label>
-                <div class="form-group pass_show">
-                  <input type="password" value="faisal.khan@123" class="form-control" placeholder="New Password">
-                </div>
-                <label>Nhập lại mật khẩu</label>
-                <div class="form-group pass_show">
-                  <input type="password" value="faisal.khan@123" class="form-control" placeholder="Confirm Password">
-                </div>
-
-              </div>
-            </div>
-          </div>
-          {{message}}
-        </div>
-      </div>
-    </div>
-  </div>
   <app-footer></app-footer>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
