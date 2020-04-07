@@ -6,7 +6,7 @@
       <div class="item-inner ng-scope">
         <div class="item-photo" style="    position: relative;">
           <a href="" class="photo">
-            <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
+            <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: -4px;">
               <cl-transformation width="216" height="226" radius="20" crop="scale" quality="auto">
               </cl-transformation>
             </cl-image>
@@ -15,7 +15,7 @@
           <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
             aria-hidden="true" style="    position: absolute;
             left: 88px;
-            top: 100px;"></i></span>
+            top: 100px; color: gray; opacity: 0.8;"></i></span>
 
           <a href="" class="btn-act btn-add-favourite ng-isolate-scope">
             <i class="fa fa-heart"></i>
@@ -79,5 +79,9 @@
       </div>
     </div>
   </div>
+  <div class="paging">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+  </div>
 </div>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
