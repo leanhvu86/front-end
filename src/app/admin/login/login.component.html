@@ -1,76 +1,40 @@
 <div class="container">
   <div class="card card-container" style="max-width: 500px;">
-   <div style="text-align: center;margin: 2%;"><h3>ĐĂNG NHẬP</h3></div>
-    <img
-      id="profile-img"
-      class="profile-img-card"
-      src="../../../assets/images/avatar_2x.png"
-    />
+    <div style="text-align: center;margin: 2%;">
+      <h3>ĐĂNG NHẬP</h3>
+    </div>
+    <img id="profile-img" class="profile-img-card" src="../../../assets/images/avatar_2x.png" />
     <form class="form-signin" (ngSubmit)="loginUser()" [formGroup]="registerForm">
 
-      <input
-        type="text"
-        id="email"
-        class="form-control"
-        name="email"
-        autocomplete="off"
-        formControlName="email"
-        [(ngModel)]="userObject.email"
-        placeholder="Email"
-        title="Please enter the email"
-        required
-        autofocus
-        [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.email.errors }"
-      />
+      <input type="text" id="email" class="form-control" name="email" autocomplete="off" formControlName="email"
+        [(ngModel)]="userObject.email" placeholder="Email" title="Please enter the email" required autofocus
+        [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.email.errors }" />
       <div *ngIf="submitted &amp;&amp; registerForm.controls.email.errors" class="text-danger">
-          <div *ngIf="registerForm.controls.email.errors.required">Không để trông Email</div>
+        <div *ngIf="registerForm.controls.email.errors.required">Không để trông Email</div>
       </div>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        name="password"
-        autocomplete="off"
-        formControlName="password"
-        [(ngModel)]="userObject.password"
-        placeholder="Mật khẩu"
-        title="Please enter the password"
-        required
-        [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.password.errors }"
-      />
+      <input type="password" id="password" class="form-control" name="password" autocomplete="off"
+        formControlName="password" [(ngModel)]="userObject.password" placeholder="Mật khẩu"
+        title="Please enter the password" required
+        [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.password.errors }" />
 
       <div *ngIf="submitted &amp;&amp; registerForm.controls.password.errors" class="text-danger">
-          <div *ngIf="registerForm.controls.password.errors.required">Không để trống mật khẩu</div>
-          <div *ngIf="registerForm.controls.password.errors.minlength">Mật khẩu phải trên 6 kí tự</div>
+        <div *ngIf="registerForm.controls.password.errors.required">Không để trống mật khẩu</div>
+        <div *ngIf="registerForm.controls.password.errors.minlength">Mật khẩu phải trên 6 kí tự</div>
       </div>
-      <input
-        type="text"
-        id="authcode"
-        class="form-control"
-        *ngIf="this.tfaFlag"
-        name="authcode"
-        autocomplete="off"
-        #authcode="ngModel"
-        [(ngModel)]="userObject.authcode"
-        placeholder="Two-Factor Auth code"
-        title="Please enter the code"
-        required
-      />
-      <button
-        class="btn btn-lg btn-primary btn-block btn-signin"
-        type="submit"
-
-      >
+      <input type="text" id="authcode" class="form-control" *ngIf="this.tfaFlag" name="authcode" autocomplete="off"
+        #authcode="ngModel" [(ngModel)]="userObject.authcode" placeholder="Two-Factor Auth code"
+        title="Please enter the code" required />
+      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
         Đăng nhập
       </button>
-      <p style="text-align:center;">
+      <!-- <p style="text-align:center;">
         Tài khoản mới ? <a [routerLink]="['/register']">Đăng ký</a>
-      </p>
+      </p> -->
       <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
         {{ errorMessage }}
       </p>
     </form>
-       <!-- [disabled]="
+    <!-- [disabled]="
           email?.errors?.required ||
           upass?.errors?.required ||
           (this.tfaFlag && authcode?.errors?.required)

@@ -30,15 +30,15 @@ export class AboutComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getTopUsers().subscribe(users => {
+    this.userService.getNewUsers().subscribe(users => {
       users.forEach(user => {
         if (user.status >= 0) {
           user.role = 0;
           user.warningReport = 0
-          this.allUser.push(user)
+
         }
       });
-
+      this.allUser = users;
       this.recipeService.getRecipes().subscribe(recipes => {
 
         if (recipes !== undefined) {

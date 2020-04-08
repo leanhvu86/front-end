@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginServiceService } from 'src/app/shared/service/login-service.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MustMatch } from 'src/app/shared/helper/must-match-validator';
 
 
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
     private _loginService: LoginServiceService,
     private _router: Router,
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: ActivatedRoute) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -46,6 +46,9 @@ export class RegisterComponent implements OnInit {
   onReset() {
     this.submitted = false;
     this.registerForm.reset();
+  }
+  changeIndexPage() {
+    this._router.navigate(['/']);
   }
   registerUser() {
     this.submitted = true;

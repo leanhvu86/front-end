@@ -58,23 +58,25 @@ export class LoginComponent implements OnInit {
           }
 
         }
-        if (parseInt(role) === -1) {
+        if (role === -1) {
           this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
           return;
         }
-        if (parseInt(role) < 1) {
+        if (role < 1) {
           console.log('member')
           this.errorMessage = 'Bạn không có thẩm quyền truy cập';
           return;
+        } else {
+          this.cookie.set('token', token);
+          this.cookie.set('role', role);
+          sessionStorage.setItem('token', token);
+          this.cookie.set('isAuthenicate', 'true');
+          this.cookie.set('email', this.userObject.email);
+          sessionStorage.setItem('user', this.userObject.email);
+          this._loginService.updateAuthStatus(true);
+          this._router.navigateByUrl('/adminHome');
         }
-        this.cookie.set('token', token);
-        this.cookie.set('role', role);
-        sessionStorage.setItem('token', token);
-        this.cookie.set('isAuthenicate', 'true');
-        this.cookie.set('email', this.userObject.email);
-        sessionStorage.setItem('user', this.userObject.email);
-        this._loginService.updateAuthStatus(true);
-        this._router.navigateByUrl('/adminHome');
+
 
       }
       if (data.body['status'] === 206) {

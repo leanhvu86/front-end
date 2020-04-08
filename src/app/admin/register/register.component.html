@@ -51,7 +51,7 @@
       </button>
 
       <p style="text-align:center;">
-        <a [routerLink]="['/login']">Đăng nhập tại đây</a>
+        <a (click)="changeIndexPage()">Đăng nhập tại đây</a>
       </p>
       <p style="text-align:center;color: red;" *ngIf="errorMessage">
         {{ errorMessage }}

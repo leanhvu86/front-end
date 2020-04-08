@@ -325,7 +325,7 @@
                         style="width: 90px;height: 90px; border: 1px solid gray; float: left;position: relative;"
                         [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver1 }">
                         <input type="file" multiple formControlName="image" (change)="handleFiles($event)"
-                          style="width: 90px;height: 90px;opacity: 0;" /><a
+                          accept="image/x-png,image/jpeg,image/jpg" style="width: 90px;height: 90px;opacity: 0;" /><a
                           style="position: absolute; left: 35px; top: 27px;"><i class="fa fa-picture-o"
                             aria-hidden="true"></i></a>
                       </div>

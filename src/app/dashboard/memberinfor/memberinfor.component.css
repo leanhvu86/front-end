@@ -6,23 +6,16 @@
   background-color: #fff;
 }
 .profile-cover-photo {
-  position: absolute;
   bottom: 0;
   background: url(/imgs/member-kitchen.jpg) no-repeat left center;
   background-size: cover;
   margin-left: 320px;
-  top: 179px;
-  right: 0;
-  left: 70px;
 }
 .profile-info-container {
-  position: absolute;
   background: #fff;
   width: 320px;
   height: 100%;
-  top: 178px;
-  left: 103px;
-  padding: 30px;
+  margin-top: -300px;
 }
 .profile-photo {
   position: relative;

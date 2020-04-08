@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoginServiceService } from '../../shared/service/login-service.service'
 import { UserService } from 'src/app/shared/service/user.service.';
 import { User } from 'src/app/shared/model/user';
@@ -22,6 +22,7 @@ export class IndexComponent implements OnInit {
     email: "",
     password: ""
   }
+  public href: string = "";
   id: string = '1'
   imageUrl: string = 'jbiajl3qqdzshdw0z749'
   message = '';
@@ -40,7 +41,8 @@ export class IndexComponent implements OnInit {
     private _loginService: LoginServiceService,
     private _router: Router,
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: ActivatedRoute
   ) {
 
     translate.setDefaultLang('vi');
@@ -223,7 +225,15 @@ export class IndexComponent implements OnInit {
     if (token !== '') {
       this.cookie.set('token', '');
     }
-    window.location.reload()
+    this.href = this._router.url;
+    console.log(this.href)
+    if (this.href === 'index') {
+      window.location.reload()
+    } else {
+      this._router.navigate(['/'])
+    }
+
+
   }
 
 }

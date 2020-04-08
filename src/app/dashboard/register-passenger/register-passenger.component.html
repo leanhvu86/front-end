@@ -41,8 +41,8 @@
                     [ngClass]="{'nv-file-over': hasBaseDropZoneOver}">
                     <form>
                       <!-- onChange hanlder resets the input value to get the change event when uploading the same file consecutively -->
-                      <input type="file" id="example" #fileInput ng2FileSelect [uploader]="uploader" multiple
-                        (change)="fileInput.value=''"
+                      <input type="file" accept="image/x-png,image/jpeg,image/jpg" id="example" #fileInput ng2FileSelect
+                        [uploader]="uploader" multiple (change)="fileInput.value=''"
                         style="border-radius: 10px; top: 7%; border: 1px solid gray;display: block; bottom: 0px; left: 5%; right: 0px; opacity: 0;  position: absolute;"
                         class="upload-button" />
                     </form>
@@ -317,8 +317,8 @@
                       <div class=".col-6 .col-md-4 hover" (fileOver)="fileOverBase1($event)"
                         style="width: 90px;height: 90px; border: 1px solid gray;"
                         [ngClass]="{'nv-file-over': hasBaseDropZoneOver1}"><input type="file" multiple
-                          formControlName="image" (change)="handleFiles($event,i)"
-                          style="width: 90px;height: 90px;opacity: 0;" /><a
+                          accept="image/x-png,image/jpeg,image/jpg" formControlName="image"
+                          (change)="handleFiles($event,i)" style="width: 90px;height: 90px;opacity: 0;" /><a
                           style="position: absolute; left: 37px; top: 33px;"><i class="fa fa-picture-o"
                             aria-hidden="true"></i></a>
                       </div>
@@ -436,6 +436,7 @@
         </div>
         <div class="modal-body" style="color: red;">
           {{message}}
+          <button (click)="finish()">Bạn muốn thêm công thức mới?</button>
         </div>
       </div>
     </div>
