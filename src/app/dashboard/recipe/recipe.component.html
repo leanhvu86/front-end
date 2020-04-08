@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="recipe-list-wrapper">
+  <div class="recipe-list-wrapper" style="float: left;     width: 100%;">
     <!-- 1 anh -->
     <div class="ng-scope member-recipe-item"
       *ngFor="let recipe of recipes|paginate:{itemsPerPage: 20, currentPage:p};let i = index">
@@ -13,22 +13,26 @@
 
           </a>
           <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
-<<<<<<< HEAD
             aria-hidden="true" style="    position: absolute;
             left: 88px;
             top: 100px; color: gray; opacity: 0.8;"></i></span>
-=======
-              aria-hidden="true" style="top:40%;left:50px;"></i></span>
->>>>>>> 892c2046ee68d9d2e6a53d5df74053b1c17986e1
 
           <a class=" btn-act btn-add-favourite ng-isolate-scope">
             <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"
-              style="position: absolute; left:270px; bottom: 20%;"><i id="heart{{i}}" class="fa fa-heart fa-4x heart"
-                style="width: 30px;height: 30px;" aria-hidden="true"></i></span>
+              style="position: absolute;
+                left: -42px;
+                bottom: 3px;
+                width: 30px;
+                height: 30px;"><i id="heart{{i}}" class="fa fa-heart fa-3x heart"
+               aria-hidden="true"></i></span>
             <ng-template #other_content>
-              <span (click)="dislikeRecipe(recipe,i)" style="position: absolute; left:270px; bottom: 20%;"><i
-                  class="fa fa-heart fa-4x dislikeheart " id="heart{{i}}" aria-hidden="true"
-                  style="width: 30px;height: 30px;"></i></span>
+              <span (click)="dislikeRecipe(recipe,i)" style="    position: absolute;
+                left: -42px;
+                bottom: 3px;
+                width: 30px;
+                height: 30px;"><i
+                  class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"
+                ></i></span>
             </ng-template>
           </a>
 
@@ -39,9 +43,11 @@
               <a href="" class="namenamename">{{recipe.recipeName}}</a>
             </h3>
           </div>
-          <div class="desc ng-binding">
-            <p>
-              {{recipe.content}}
+          <div class="desc ng-binding" >
+            <p style="text-overflow: ellipsis;
+            overflow: hidden;
+            white-space:nowrap;">
+              {{recipe.content }}
             </p>
           </div>
         </div>
@@ -52,10 +58,13 @@
               font-size: 12px;
               opacity: 0.8;
               float: left;
-              margin-right: 6px;
+              margin-right: 10px;
+              padding-top: 10px;
            ">
               &#160;
-              <i class="fa fa-clock-o stats-ico" aria-hidden="true"> {{recipe.time}}</i>
+              <i class="fa fa-clock-o stats-ico" aria-hidden="true" style="text-overflow: ellipsis;
+              overflow: hidden;
+              white-space:nowrap; width: 60px;"> {{recipe.time}}</i>
             </div>
             <div style="    top: 340px;
               left: 43px;
@@ -63,21 +72,24 @@
               opacity: 0.8;
               float: left;
               margin-right: 9px;
+              padding-top: 10px;
+
+
             ">
               &#160;
               <i class="fa fa-bar-chart stats-ico" aria-hidden="true"> {{recipe.viewCount}}</i>
             </div>
-            <div style="    top: 340px;
-              left: 43px;
-              font-size: 12px;
-              opacity: 0.8;
-              float: left;
-  margin-right: 35px;
+            <div style="       font-size: 12px;
+            opacity: 0.8;
+            float: left;
+            padding-top: 10px;
           ">
-              <i class="fa fa-bolt stats-ico" aria-hidden="true">{{recipe.hardLevel}}&#160; {{recipe.user.name}}</i>
+              <i class="fa fa-bolt stats-ico" aria-hidden="true"  style="text-overflow: ellipsis;
+              overflow: hidden;
+              white-space:nowrap;width: 60px;">{{recipe.hardLevel}}&#160; {{recipe.user.name}}</i>
             </div>
             <div style="float: left;
-            margin-top: -23px; margin-left: 123px;">
+            margin-top: -23px; margin-left: 132px;">
               <!-- <i class="fa fa-bookmark"></i> -->
               <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
             </div>
@@ -89,14 +101,11 @@
         </div>
       </div>
     </div>
+
   </div>
   <div class="paging">
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
   </div>
 </div>
-<<<<<<< HEAD
 
-=======
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
->>>>>>> 892c2046ee68d9d2e6a53d5df74053b1c17986e1
