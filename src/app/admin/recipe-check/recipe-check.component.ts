@@ -101,6 +101,9 @@ export class RecipeCheckComponent implements OnInit {
     });
   }
   showRecipe(recipe: Recipe) {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+    document.getElementById("menu-open").style.opacity = "1";
     console.log(recipe);
     if (recipe !== undefined && recipe.ingredients.length > 0) {
       for (let ingredient of recipe.ingredients) {
