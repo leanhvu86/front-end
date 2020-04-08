@@ -5,7 +5,6 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { AdminRoutes } from './admin.routing';
-import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StationComponent } from './station/station.component';
 
@@ -27,7 +26,6 @@ import { GalleryAccessComponent } from './gallery-access/gallery-access.componen
     HeaderComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent,
     StationComponent,
     RecipeAccessComponent,
     RecipeCheckComponent,

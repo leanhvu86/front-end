@@ -20,8 +20,10 @@ import { ChinhSachBaoMatComponent } from './chinh-sach-bao-mat/chinh-sach-bao-ma
 import { ChinhsachdiemComponent } from './chinhsachdiem/chinhsachdiem.component';
 import { ServiceComponent } from './service/service.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { RegisterComponent } from './register/register.component';
 
 export const DashBoardRoutes: Routes = [
+
   {
     path: "",
     component: IndexComponent,
@@ -109,6 +111,10 @@ export const DashBoardRoutes: Routes = [
       {
         path: "resetPassword",
         component: ForgetPasswordComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
       }
     ]
   }

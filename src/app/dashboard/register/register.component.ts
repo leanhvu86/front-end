@@ -40,6 +40,8 @@ export class RegisterComponent implements OnInit {
     }, {
       validator: MustMatch('password', 'confirmPassword')
     });
+    const radio: HTMLElement = document.getElementById('close-modal');
+    radio.click();
   }
   get f() { return this.registerForm.controls; }
 
@@ -64,7 +66,7 @@ export class RegisterComponent implements OnInit {
       const result = data.body
       if (result['status'] === 200) {
         this.message = result['message'];
-        const radio: HTMLElement = document.getElementById('modal-button');
+        const radio: HTMLElement = document.getElementById('modal-button20');
         radio.click();
         setTimeout(() => {
           this._router.navigate(['/']);

@@ -1,7 +1,6 @@
 import { AuthGuardGuard } from '../shared/guards/AuthGuard/auth-guard.guard';
 import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
-import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { StationComponent } from './station/station.component';
 import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
@@ -10,10 +9,7 @@ import { GalleryAccessComponent } from './gallery-access/gallery-access.componen
 
 export const AdminRoutes: Routes = [
     { path: 'admin', redirectTo: '/login', pathMatch: 'full' },
-    {
-        path: 'register',
-        component: RegisterComponent
-    },
+
     // {
     //     path: 'station',
     //     component: StationComponent
