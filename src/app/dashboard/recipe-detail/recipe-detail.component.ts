@@ -222,6 +222,7 @@ export class RecipeDetailComponent implements OnInit {
         radio.click();
         return;
       }
+
       const id = "imageArray";
       const inputValue = (document.getElementById(id) as HTMLInputElement)
         .value;
@@ -233,7 +234,12 @@ export class RecipeDetailComponent implements OnInit {
         radio.click();
         return;
       }
-      this.uploadFile(files[i]); // call the function to upload the file
+      if (files[i].size > 600000) {
+        alert('Kích thước file ảnh phải bé hơn 600 kB')
+        return
+      } else {
+        this.uploadFile(files[i]); // call the function to upload the file
+      }
     }
   }
   uploadFile(file: any) {

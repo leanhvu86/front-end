@@ -57,5 +57,17 @@ export class HomeComponent implements OnInit {
     this._loginService.logoutUser()
     this._router.navigate(['/login'])
   }
+  openNav() {
+    const radio: HTMLElement = document.getElementById("mySidebar");
+    radio.style.width = "250px";
+    const radio2: HTMLElement = document.getElementById("main");
+    radio2.style.marginLeft = "250px";
+    document.getElementById("menu-open").style.opacity = "0";
+  }
 
+  closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+    document.getElementById("menu-open").style.opacity = "1";
+  }
 }

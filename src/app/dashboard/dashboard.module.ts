@@ -47,6 +47,7 @@ import { QuyDinhComponent } from './quy-dinh/quy-dinh.component';
 import { ChinhSachBaoMatComponent } from './chinh-sach-bao-mat/chinh-sach-bao-mat.component';
 import { ChinhsachdiemComponent } from './chinhsachdiem/chinhsachdiem.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { RegisterComponent } from './register/register.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -78,7 +79,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     ChinhSachBaoMatComponent,
     ChinhsachdiemComponent,
     ForgetPasswordComponent,
-
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

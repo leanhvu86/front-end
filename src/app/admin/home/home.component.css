@@ -427,7 +427,7 @@ body {
  }
  
  /* Tablets */
- @media (max-width: 767px){
+ @media (max-width: 1000px){
     .container{
        width:100%;
     }
@@ -488,4 +488,8 @@ body {
        box-shadow:0px 0px 1px #0fa6bc;
        border-radius:10px;
     }  
+ }
+ /* Only for snippet */
+.double-nav .breadcrumb-dn {
+   color: #fff;
  }

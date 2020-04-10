@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginServiceService } from 'src/app/shared/service/login-service.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MustMatch } from 'src/app/shared/helper/must-match-validator';
 
 
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
     private _loginService: LoginServiceService,
     private _router: Router,
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: ActivatedRoute) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -40,12 +40,17 @@ export class RegisterComponent implements OnInit {
     }, {
       validator: MustMatch('password', 'confirmPassword')
     });
+    const radio: HTMLElement = document.getElementById('close-modal');
+    radio.click();
   }
   get f() { return this.registerForm.controls; }
 
   onReset() {
     this.submitted = false;
     this.registerForm.reset();
+  }
+  changeIndexPage() {
+    this._router.navigate(['/']);
   }
   registerUser() {
     this.submitted = true;
@@ -61,7 +66,7 @@ export class RegisterComponent implements OnInit {
       const result = data.body
       if (result['status'] === 200) {
         this.message = result['message'];
-        const radio: HTMLElement = document.getElementById('modal-button');
+        const radio: HTMLElement = document.getElementById('modal-button20');
         radio.click();
         setTimeout(() => {
           this._router.navigate(['/']);
