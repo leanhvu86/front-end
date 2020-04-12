@@ -1,0 +1,115 @@
+<div class="container" style="font-family: Arial, Helvetica, sans-serif">
+  <div class="row" style="background: rgb(233, 235, 238); padding: 20px 0 20px 0;">
+    <!--  -->
+    <div class="col-3 account-sidebar" *ngIf="loadPage" style="font-family: Arial, Helvetica, sans-serif">
+      <div class="sidebar-head">
+        <div class="profile-avatar">
+          <a class="a-image" [routerLink]="['/user/info/', id]">
+            <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">
+              <cl-transformation width="360" height="360" gravity="face" radius="max" crop="fill" background="#e9ebee">
+              </cl-transformation>
+              <cl-transformation width="180" crop="scale">
+              </cl-transformation>
+            </cl-image>
+
+          </a>
+        </div>
+        <h3 class="title" style="text-align: center;">
+          <a title="Trang cá nhân">
+            <span style="color: black;">{{user.name}}</span>
+          </a>
+        </h3>
+
+        <div class="mem-statis-box" style="font-family: Arial, Helvetica, sans-serif">
+          <span class="headline">
+            {{user.level}}
+          </span>
+          <ng5-slider [(value)]="value" [options]="options"></ng5-slider>
+
+          <div class="text">
+            <span class="user-lv1 "
+              style="float: left; width: 20%; color: #00bcd4; font-size: 12px; font-weight: bold;">
+              Newbee</span>
+            <span class="user-lv1 "
+              style="float: left; width: 20%; color: #ffc107;  font-size: 12px; font-weight: bold;">Tastee
+            </span>
+            <span class="user-lv1 "
+              style="float: left;  width: 20%; color: #ff4f4f;  font-size: 12px; font-weight: bold;">Cookee
+            </span>
+            <span class="user-lv1 "
+              style="float: left; width: 20%; color: #a930ca;  font-size: 12px; font-weight: bold;">Chefee
+            </span>
+            <span class="user-lv1 "
+              style="float: left; width: 20%; color: #ff0834;  font-size: 12px; font-weight: bold;">
+              Mastee</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-content" style="font-family: Arial, Helvetica, sans-serif">
+        <ul class="list-unstyled">
+          <li class="menu-list-a">
+            <a class="hover-a" [routerLink]="['/personal/recipe/', id]"
+              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
+              <span class="fa fa-align-center" style="margin-right: 5px;"></span>CÔNG THỨC CỦA TÔI
+            </a>
+          </li>
+
+          <li class="menu-list-a">
+            <a class="hover-a" routerLink="/gallery"
+              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
+              <span class="fa fa-bookmark" style="margin-right: 5px;"></span>BỘ
+              SƯU TẬP CỦA TÔI
+            </a>
+          </li>
+          <li class="menu-list-a">
+            <a class="hover-a" [routerLink]="['/user/info/', id]"
+              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
+              <span class="fa fa-user" style="margin-right: 5px;"></span>THÔNG
+              TIN TÀI KHOẢN
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--  -->
+    <div class="col-8 page-account-info" style="font-family: Arial, Helvetica, sans-serif">
+
+      <div class="row">
+        <div class="col-8">
+          <h6>Bộ sưu tập của tôi</h6>
+        </div>
+        <div class="col-4">
+          <app-add-gallery></app-add-gallery>
+        </div>
+      </div>
+      <div class="container mt-40">
+        <div class="row mt-30">
+          <div class="col-md-4 col-sm-6"
+            *ngFor="let gallery of myGallery|paginate:{itemsPerPage: 6, currentPage:p};let i = index">
+            <div class="box13">
+              <cl-image public-id="{{gallery.image}}" style="margin-top: 10px;">
+                <cl-transformation width="203" height="203" crop="crop" quality="auto">
+                </cl-transformation>
+              </cl-image>
+              <div class="box-content">
+                <a class="title" [routerLink]="['/galleryDetail/', gallery._id]" style="color: white; font-size: 15px;">
+                  {{gallery.name}}</a>
+
+                <a style="color: white;font-size:8px;">
+
+                  {{gallery.content}}
+                  <br>
+                  <span><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<app-scroll-top></app-scroll-top>

@@ -21,6 +21,7 @@ import { ChinhsachdiemComponent } from './chinhsachdiem/chinhsachdiem.component'
 import { ServiceComponent } from './service/service.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { RegisterComponent } from './register/register.component';
+import { MygalleryComponent } from './mygallery/mygallery.component';
 
 export const DashBoardRoutes: Routes = [
 
@@ -115,6 +116,10 @@ export const DashBoardRoutes: Routes = [
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'myGallery',
+        component: MygalleryComponent
       }
     ]
   }

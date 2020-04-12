@@ -48,6 +48,8 @@ import { ChinhSachBaoMatComponent } from './chinh-sach-bao-mat/chinh-sach-bao-ma
 import { ChinhsachdiemComponent } from './chinhsachdiem/chinhsachdiem.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { RegisterComponent } from './register/register.component';
+import { MygalleryComponent } from './mygallery/mygallery.component';
+import { AddGalleryComponent } from './child/add-gallery/add-gallery.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -80,6 +82,8 @@ import { RegisterComponent } from './register/register.component';
     ChinhsachdiemComponent,
     ForgetPasswordComponent,
     RegisterComponent,
+    MygalleryComponent,
+    AddGalleryComponent,
   ],
   imports: [
     BrowserModule,

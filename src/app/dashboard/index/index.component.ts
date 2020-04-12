@@ -198,7 +198,7 @@ export class IndexComponent implements OnInit {
 
     } else {
 
-      this._router.navigate(['/adminHome']);
+      this._router.navigate(['/loadPage']);
     }
   }
   useLanguage(language: string) {

@@ -44,7 +44,7 @@ export class ForgetPasswordComponent implements OnInit {
     this.userObject = this.registerForm.value
     this.userObject.password = this.userObject.email
     console.log(this.userObject)
-    this.userService.changePassword(this.userObject).subscribe(data => {
+    this.userService.resetPassword(this.userObject).subscribe(data => {
       const result = data.body
       if (result['status'] === 200) {
         this.message = result['message'];

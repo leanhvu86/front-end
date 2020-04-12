@@ -6,6 +6,7 @@ import { StationComponent } from './station/station.component';
 import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
 import { RecipeCheckComponent } from './recipe-check/recipe-check.component';
 import { GalleryAccessComponent } from './gallery-access/gallery-access.component';
+import { LoadPageComponent } from './load-page/load-page.component';
 
 export const AdminRoutes: Routes = [
     { path: 'admin', redirectTo: '/login', pathMatch: 'full' },
@@ -20,12 +21,12 @@ export const AdminRoutes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'adminHome',
+                redirectTo: 'loadPage',
                 pathMatch: 'full'
             },
 
             {
-                path: 'adminHome',
+                path: 'memberAccess',
                 component: StationComponent
             },
             {
@@ -41,10 +42,10 @@ export const AdminRoutes: Routes = [
                 path: 'gallery/access',
                 component: GalleryAccessComponent
             },
-            // {
-            //     path: 'add-product',
-            //     component: AddProductComponent
-            // },
+            {
+                path: 'loadPage',
+                component: LoadPageComponent
+            },
             // {
             //     path: 'customer',
             //     component: CustomerComponent

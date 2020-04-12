@@ -79,8 +79,8 @@
 
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">☰ </a>
-    <a routerLink="/adminHome" style="font-size: 16px;">Trang quản trị</a>
-    <a routerLink="/adminHome" style="font-size: 16px;">Quản lý thành viên</a>
+    <a routerLink="/loadPage" style="font-size: 16px;">Trang quản trị</a>
+    <a routerLink="/memberAccess" style="font-size: 16px;">Quản lý thành viên</a>
     <a routerLink="/recipeAccess" style="font-size: 16px;">Quản lý công thức</a>
     <a routerLink="/gallery/access" style="font-size: 16px;">Quản lý bộ sưu tập</a>
   </div>
@@ -93,8 +93,8 @@
 
             <div class="logo" id="menu-open">
               <!-- <h1><a style="font-size: 20px;">ẨM THỰC ĂN CHAY</a></h1> -->
-              <button class="openbtn" (click)="openNav()">☰</button> <a routerLink="/adminHome"
-                style="margin-left: 30px;font-size: 16px;color: black;"><i class=" glyphicon glyphicon-home"></i> ẨM
+              <button class="openbtn" (click)="openNav()">☰</button> <a routerLink="/loadPage"
+                style="margin-left: 30px;font-size: 16px;color: black;">ẨM
                 THỰC ĂN CHAY</a>
             </div>
           </div>
@@ -134,7 +134,7 @@
     </div>
     <br>
     <router-outlet></router-outlet>
-    <footer class="page-footer font-small green pt-4" style="background-color: #a19f9f91;">
+    <footer style="background: #32f71891;">
 
       <!-- Footer Links -->
       <!-- <div class="container-fluid text-center text-md-left">

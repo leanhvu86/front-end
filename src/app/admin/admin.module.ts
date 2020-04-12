@@ -21,6 +21,7 @@ import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../shared/helper';
 import { GalleryAccessComponent } from './gallery-access/gallery-access.component';
+import { LoadPageComponent } from './load-page/load-page.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -30,7 +31,8 @@ import { GalleryAccessComponent } from './gallery-access/gallery-access.componen
     RecipeAccessComponent,
     RecipeCheckComponent,
     ScrollTopComponent,
-    GalleryAccessComponent
+    GalleryAccessComponent,
+    LoadPageComponent
   ],
   imports: [
     CommonModule,
