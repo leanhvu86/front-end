@@ -94,7 +94,10 @@ export class RecipeService {
   deleteIngredient(ingredient: any) {
     return this._http.post(`${this.baseUrl}/deleteIngredient`, { ingredient }, { observe: 'response' });
   }
-  getComments(ingredient: any) {
-    return this._http.post(`${this.baseUrl}/getComments`, { ingredient }, { observe: 'response' });
+  getComments = (): Observable<Comment[]> => {
+    return this._http.get<Comment[]>(`${this.baseUrl}/getComments`)
+      .pipe(
+        tap(_ => console.log('load getAllComment'))
+      );
   }
 }

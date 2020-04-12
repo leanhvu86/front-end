@@ -62,7 +62,8 @@ export class RecipeDetailComponent implements OnInit {
   prepared: number;
   totalCookingTime: number;
   totalRecipe: number = 0;
-  recipeComment: Comment[];
+  recipeComment: Comment[] = [];
+  lstComment: Comment[];
 
   constructor(
     private cloudinary: Cloudinary,
@@ -202,20 +203,25 @@ export class RecipeDetailComponent implements OnInit {
 
   getComent() {
     this.doneCount = 0;
-    this.recipeService.getComments(0).subscribe(data => {
+    this.recipeService.getComments().subscribe(data => {
       if (data !== undefined) {
-        const comments = data.body['comment'];
-        for (const comment of comments) {
-          if (comment.recipe.recipeName !== this.recipe.recipeName) {
+        this.lstComment = data['comments'];
+        console.log(this.lstComment);
+        for (const comment of this.lstComment) {
+          console.log(comment.recipe.recipeName);
+          if (comment.recipe.recipeName === this.recipe.recipeName) {
             if (comment.type === 1) {
               this.doneCount++;
               comment.type = 'Đã thực hiện';
             } else {
               comment.type = '';
             }
-            const imageArr = comment.imageUrl.split(',');
-            comment.imageUrl = imageArr;
-            console.log(imageArr);
+            console.log(comment);
+            if (comment.imageUrl !== undefined && comment.imageUrl.length > 0) {
+              const imageArr = comment.imageUrl.split(',');
+              comment.imageUrl = imageArr;
+              console.log(imageArr);
+            }
             this.recipeComment.push(comment);
           }
         }
