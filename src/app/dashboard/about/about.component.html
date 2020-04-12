@@ -1,6 +1,6 @@
 <!------------------ Hover Effect Style : Demo - 21 --------------->
 <br>
-<div class="container" style="min-height: 300px;">
+<div class="container" style="min-height: 500px;">
   <h4 class="text-left">TOP THÀNH VIÊN NỔI BẬT</h4>
   <hr>
   <div class="member-list top-followers row10">
@@ -46,13 +46,25 @@
   </div>
 </div>
 <br>
+<section class="call-to-action" style="margin-top: 50px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 wow zoomIn" data-wow-duration="2s" data-wow-delay="300ms">
+        <p><br><br>'connect.the.city'
+          <br>'develop.for.the.furture'
+          <br>'no.polution.furture'
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 <div class="container" style="min-height: 300px; width: 100%;">
   <h4 class="text-left">DANH SÁCH THÀNH VIÊN</h4>
   <hr>
   <div class="member-list-left">
     <div class="member-list-container tab-content">
       <div role="tabpanel" id="latestlist" class="tab-pane active"
-        *ngFor="let user of allUser|paginate:{itemsPerPage: 8, currentPage:p}; let i = index">
+        *ngFor="let user of allUser|paginate:{itemsPerPage: 4, currentPage:p}; let i = index">
         <div class="member-list row10">
           <div class="member-item-wrapper">
             <div class="member-item">
@@ -89,8 +101,6 @@
     </div>
   </div>
 </div>
-<br>
-<br>
-<div class="clearfix"></div>
 <pagination-controls (pageChange)="p = $event" style="width: 1300px;float: left;"></pagination-controls>
 <div class="clearfix"></div>
+<app-scroll-top></app-scroll-top>

@@ -26,7 +26,7 @@ export class StationComponent implements OnInit {
     private orderPipe: OrderPipe,
     private cookies: CookieService
   ) {
-    this.collection = orderPipe.transform(this.collection, 'info.name');
+    this.collection = orderPipe.transform(this.collection, 'info.totalPoint');
 
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
@@ -43,7 +43,7 @@ export class StationComponent implements OnInit {
       totalItems: this.users.length
     };
   }
-  order: string = 'info.name';
+  order: string = 'info.totalPoint';
   reverse: boolean = false;
   ngOnInit() {
     this.getStaff()
@@ -84,6 +84,15 @@ export class StationComponent implements OnInit {
 
         this.users.push(user)
       }
+      this.users.sort((a, b) => {
+        if (a.totalPoint > b.totalPoint) {
+          return -1;
+        } else if (a.totalPoint < b.totalPoint) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
     });
   }
 

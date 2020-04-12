@@ -144,25 +144,28 @@ export class RecipeCheckComponent implements OnInit {
     this.recipeView = recipe
   }
   getComent() {
-    this.recipeService.getComments().subscribe(comments => {
-      if (comments !== undefined) {
-        this.recipeComment = comments as unknown as Comment[]
-        this.recipeComment.filter(comment => comment.recipe._id === this.recipe._id)
-        this.recipeComment.forEach(comment => {
-          if (comment.type === 1) {
-            comment.type = 'Đã thực hiện'
-          } else {
-            comment.type = ''
+    this.recipeService.getComments(0).subscribe(data => {
+      if (data.body['status'] === 200) {
+        const comments = data.body['comment'];
+        for (const comment of comments) {
+          if (comment.recipe.recipeName !== this.recipe.recipeName) {
+            if (comment.type === 1) {
+              comment.type = 'Đã thực hiện';
+            } else {
+              comment.type = '';
+            }
+            const imageArr = comment.imageUrl.split(',');
+            comment.imageUrl = imageArr;
+            console.log(imageArr);
+            this.recipeComment.push(comment);
           }
-          let imageArr = comment.imageUrl.split(',');
-          comment.imageUrl = imageArr
-          console.log(imageArr)
-        });
-        console.log(this.recipeComment)
-        console.log(this.recipe)
+        }
+      }else{
+
       }
-    })
+    });
   }
+
   countIngredient(multiplyElement: any) {
     if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
       for (let ingredient of this.recipe.ingredients) {

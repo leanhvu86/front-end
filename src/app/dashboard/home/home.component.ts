@@ -1,16 +1,12 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Recipe } from 'src/app/shared/model/recipe';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { CookieService } from 'ngx-cookie-service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { LoginServiceService } from 'src/app/shared/service/login-service.service';
-import { Router } from '@angular/router';
-import { Interest } from 'src/app/shared/model/interest';
-import { User } from 'src/app/shared/model/user';
-import { GalleryService } from 'src/app/shared/service/gallery.service';
-import { Gallery } from 'src/app/shared/model/gallery';
-import { OrderPipe } from 'ngx-order-pipe';
+import {Component, OnInit} from '@angular/core';
+import {Recipe} from 'src/app/shared/model/recipe';
+import {RecipeService} from 'src/app/shared/service/recipe-service.service';
+import {CookieService} from 'ngx-cookie-service';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {Interest} from 'src/app/shared/model/interest';
+import {User} from 'src/app/shared/model/user';
+import {GalleryService} from 'src/app/shared/service/gallery.service';
+import {Gallery} from 'src/app/shared/model/gallery';
 
 declare var $: any;
 @Component({

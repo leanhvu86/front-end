@@ -54,8 +54,16 @@ export class GalleryAccessComponent implements OnInit {
         } else {
           gallery.image = 'fvt7rkr59r9d7wk8ndbd'
         }
-
       }
-    })
+      this.gallerys.sort((a, b) => {
+        if (a.totalPoint > b.totalPoint) {
+          return -1;
+        } else if (a.totalPoint < b.totalPoint) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    });
   }
 }

@@ -55,6 +55,12 @@ export class RecipeService {
         tap(_ => console.log('load recipes'))
       );
   }
+  getNewRecipes = (): Observable<Recipe[]> => {
+    return this._http.get<Recipe[]>(`${this.baseUrl}/getNewRecipes`)
+      .pipe(
+        tap(_ => console.log('load getNewRecipes'))
+      );
+  }
   getAllRecipes = (): Observable<Recipe[]> => {
     return this._http.get<Recipe[]>(`${this.baseUrl}/getAllRecipes`)
       .pipe(
@@ -88,10 +94,7 @@ export class RecipeService {
   deleteIngredient(ingredient: any) {
     return this._http.post(`${this.baseUrl}/deleteIngredient`, { ingredient }, { observe: 'response' });
   }
-  getComments = (): Observable<Comment[]> => {
-    return this._http.get<Comment[]>(`${this.baseUrl}/getComments`)
-      .pipe(
-        tap(_ => console.log('load getAllComment'))
-      );
+  getComments(ingredient: any) {
+    return this._http.post(`${this.baseUrl}/getComments`, { ingredient }, { observe: 'response' });
   }
 }

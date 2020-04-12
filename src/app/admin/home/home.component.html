@@ -3,7 +3,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ẩm thực ăn chay</title>
+  <title>ẨM THỰC MÓN CHAY</title>
   <style>
     body {
       font-family: "Lato", sans-serif;
@@ -77,99 +77,76 @@
 
 <body>
 
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">☰ </a>
+  <a routerLink="/loadPage" style="font-size: 16px;">Trang quản trị</a>
+  <a routerLink="/memberAccess" style="font-size: 16px;">Quản lý thành viên</a>
+  <a routerLink="/recipeAccess" style="font-size: 16px;">Quản lý công thức</a>
+  <a routerLink="/gallery/access" style="font-size: 16px;">Quản lý bộ sưu tập</a>
+</div>
+<div id="main">
+  <div class="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
 
-  <div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">☰ </a>
-    <a routerLink="/loadPage" style="font-size: 16px;">Trang quản trị</a>
-    <a routerLink="/memberAccess" style="font-size: 16px;">Quản lý thành viên</a>
-    <a routerLink="/recipeAccess" style="font-size: 16px;">Quản lý công thức</a>
-    <a routerLink="/gallery/access" style="font-size: 16px;">Quản lý bộ sưu tập</a>
-  </div>
+          <div class="logo" id="menu-open">
+            <!-- <h1><a style="font-size: 20px;">ẨM THỰC ĂN CHAY</a></h1> -->
+            <button class="openbtn" (click)="openNav()">☰</button>
+            <a routerLink="/loadPage"
+               style="margin-left: 30px;font-size: 16px;color: black;">ẨM
+              THỰC ĂN CHAY</a>
+          </div>
+        </div>
+        <div class="col-md-5">
 
-  <div class="logo">
-    <h1><a style="font-size: 20px;">ẨM THỰC ĂN CHAY</a></h1>
-  </div>
+        </div>
+        <div class="col" style="margin-right: -200px;">
+          <div class="nav-item avatar dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false" style="margin-right: -5%; padding-left: 100px;">
+              <img
+                style="height: 40px;width:40px;border-radius: 20px;display:block; box-shadow: 0 8px 6px -6px black;"
+                src="../../../assets/images/men.jpg" *ngIf="!image;else other_content"/>
+              <ng-template #other_content>
+                <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">
+                  <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill"
+                                     background="#e9ebee">
+                  </cl-transformation>
+                  <cl-transformation width="55" crop="scale">
+                  </cl-transformation>
+                </cl-image>
+              </ng-template>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" style="margin-top: -2%;"
+                 aria-labelledby="navbarDropdownMenuLink-44">
+              <a class="dropdown-item" routerLink="/">Trang người dùng</a>
+              <!-- <a class="dropdown-item" href="#">Công thức của tôi</a>
+        <a class="dropdown-item" href="#">Bộ sưu tập của tôi</a> -->
+              <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
 
-  <div class="col-md-5">
-
-  </div>
-  <div class="col-md-2">
-    <div class="nav-item avatar dropdown">
-      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false" style=" position: absolute; right: 5%;">
-        <img style="height: 40px;width:40px;border-radius: 20px;display:block; box-shadow: 0 8px 6px -6px black;"
-          src="../../../assets/images/men.jpg" *ngIf="!image;else other_content" />
-        <ng-template #other_content>
-          <cl-image public-id="{{imageUrl}}" style="border-radius: 50px; max-width: 70%;">
-            <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill" background="#e9ebee">
-            </cl-transformation>
-            <cl-transformation width="55" crop="scale">
-            </cl-transformation>
-          </cl-image>
-        </ng-template>
-      </a>
-      <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" style="margin-top: -2%;"
-        aria-labelledby="navbarDropdownMenuLink-44">
-        <a class="dropdown-item" routerLink="/">Trang người dùng</a>
-        <!-- <a class="dropdown-item" href="#">Công thức của tôi</a>
-              <a class="dropdown-item" href="#">Bộ sưu tập của tôi</a> -->
-        <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
-
-
-        <div id="main">
-          <div class="header">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-5">
-
-                  <div class="logo" id="menu-open">
-                    <!-- <h1><a style="font-size: 20px;">ẨM THỰC ĂN CHAY</a></h1> -->
-                    <button class="openbtn" (click)="openNav()">☰</button> <a routerLink="/loadPage"
-                      style="margin-left: 30px;font-size: 16px;color: black;">ẨM
-                      THỰC ĂN CHAY</a>
-                  </div>
-                </div>
-                <div class="col-md-5">
-
-                </div>
-                <div class="col" style="margin-right: -200px;">
-                  <div class="nav-item avatar dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false" style="margin-right: -5%; padding-left: 100px;">
-                      <img
-                        style="height: 40px;width:40px;border-radius: 20px;display:block; box-shadow: 0 8px 6px -6px black;"
-                        src="../../../assets/images/men.jpg" *ngIf="!image;else other_content" />
-                      <ng-template #other_content>
-                        <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">
-                          <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill"
-                            background="#e9ebee">
-                          </cl-transformation>
-                          <cl-transformation width="55" crop="scale">
-                          </cl-transformation>
-                        </cl-image>
-                      </ng-template>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" style="margin-top: -2%;"
-                      aria-labelledby="navbarDropdownMenuLink-44">
-                      <a class="dropdown-item" routerLink="/">Trang người dùng</a>
-                      <!-- <a class="dropdown-item" href="#">Công thức của tôi</a>
-                <a class="dropdown-item" href="#">Bộ sưu tập của tôi</a> -->
-                      <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
-
-                    </div>
-                  </div>
-
-                </div>
-              </div>
             </div>
           </div>
 
-          <br>
-          <router-outlet></router-outlet>
-          <footer style="background: #32f71891;">
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <!-- Footer Links -->
-            <!-- 
+  <br>
+  <router-outlet></router-outlet>
+  <footer style="background-color: #2cc83b;">
+
+    <!-- Footer Links -->
+    <!-- <div class="container-fluid text-center text-md-left">
+
+      <div class="row">
+
+        <div class="col-md-6 mt-md-0 mt-3">
+
+          <h5 class="text-uppercase">Footer Content</h5>
+          <p>Here you can use rows and columns to organize your footer content.</p>
+
         </div>
 
 
@@ -215,15 +192,36 @@
           </ul>
 
         </div>
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <h5 class="text-uppercase">Links</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!">Link 1</a>
+          </li>
+          <li>
+            <a href="#!">Link 2</a>
+          </li>
+          <li>
+            <a href="#!">Link 3</a>
+          </li>
+          <li>
+            <a href="#!">Link 4</a>
+          </li>
+        </ul>
 
       </div>
 
-    </div> -->
+    </div>
 
-            <div class="footer-copyright text-center py-3">© 2020 Copyright:
-              <a> ẨM THỰC ĂN CHAY</a>
-            </div>
-            <!-- Copyright -->
+  </div> -->
 
-          </footer>
-        </div>
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a> ẨM THỰC ĂN CHAY</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+</div>
+</body>

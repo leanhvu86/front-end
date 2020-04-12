@@ -81,7 +81,7 @@
                     style="width: 30px;height: 30px; margin-left: 2px;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
               </div>
               <div class="col">
-                <a class="button_slidehr slide_downhr" id="bookmark{{i}}" (click)="addBookmark(recipe)"></a>
+                <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
               </div>
             </div>
             <div class="row row-cols-2" style="margin-top: 5px; font-weight: 500;font-size: 14px;">

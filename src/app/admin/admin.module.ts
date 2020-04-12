@@ -7,7 +7,8 @@ import { RouterModule } from '@angular/router';
 import { AdminRoutes } from './admin.routing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StationComponent } from './station/station.component';
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CounterModule } from 'ngx-counter';
 import { OrderModule } from 'ngx-order-pipe'; // <- import OrderModule
 
 import * as  cloudinary from 'cloudinary-core';
@@ -41,6 +42,8 @@ import { LoadPageComponent } from './load-page/load-page.component';
     NgxPaginationModule,
     Ng2SearchPipeModule,
     OrderModule,
+    ScrollingModule,
+    CounterModule.forRoot(),
     RouterModule.forChild(AdminRoutes),
 
     CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),

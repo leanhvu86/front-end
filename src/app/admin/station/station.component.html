@@ -1,4 +1,4 @@
-<h5 style="margin-left: 3%;">Danh sách thành viên</h5>
+<h5 style="margin-left: 3%;">DANH SÁCH THÀNH VIÊN</h5>
 <div class="search-hero">
   <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
     placeholder="&#61442;  Tìm kiếm thành viên">
@@ -12,12 +12,12 @@
     <thead>
       <tr>
         <th>STT</th>
-        <th [class.active]="order === 'info.name'" (click)="setOrder('info.name')" style="max-width: 100px;"
+        <th style="max-width: 100px;"
           class="mdl-data-table__cell--non-numeric">
-          Tên thành viên <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
-        <th [class.active]="order === 'info.name'" (click)="setOrder('info.email')" style="min-width: 150px;"
+          Tên thành viên</th>
+        <th  style="min-width: 150px;"
           class="mdl-data-table__cell--non-numeric">
-          Email <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
+          Email</th>
         <!-- <th>Token</th> -->
         <th>Ảnh</th>
         <th [class.active]="order === 'info.totalPoint'" (click)="setOrder('info.totalPoint')"

@@ -1,9 +1,155 @@
-<div class="container">
+<div class="container" style="min-height: 960px;" *ngIf="summary">
   <div class="row">
+    <div class="col" style="text-align: center;">
+      <h6>DANH SÁCH CÔNG THỨC MỚI</h6>
+      <ul class="list">
+        <cdk-virtual-scroll-viewport style="height: 600px" itemSize="50">
+          <ng-container *cdkVirtualFor="let recipe of recipes; let i = index;">
+            <li>
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <a style="font-size: 16px;">{{i+1}}</a>
+                  </div>
+                  <div class="col-6">
+                    <a style="font-size: 16px;">{{recipe.recipeName}}</a>
+                    <br>
+                    <a style="font-size: 10px;">{{recipe.content}}</a>
+                  </div>
+                  <div class="col">
+                    <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
+                      <cl-transformation width="100" height="100" crop="scale" quality="auto">
+                      </cl-transformation>
+                    </cl-image>
+                  </div>
+                </div>
+              </div>
+
+            </li>
+          </ng-container>
+        </cdk-virtual-scroll-viewport>
+      </ul>
+    </div>
     <div class="col">
+      <br><br>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <div class="counter-item" data-wow-duration="2s" data-wow-delay="300ms">
+              <div class="timer" id="item3" data-to="18745" data-speed="5000">
+                <ngx-counter countValue=0 limit={{summary.connectCount}} size="small" speed="10" color="white" bgcolor="none"
+                             theme="white">
+                </ngx-counter>
+              </div>
+              <i class="fa fa-bar-chart fa-lg" style="margin-top: 15px"></i>
+
+              <!--              <p>Số thành viên </p>-->
+
+              <h6 style="margin-top: 20px">Lượt truy cập</h6>
+            </div>
+          </div>
+          <div class="col-sm" data-wow-duration="2s" data-wow-delay="300ms">
+            <div class="counter-item">
+              <div class="timer" id="item4" data-to="18745" data-speed="5000">
+                <ngx-counter countValue=0 limit={{summary.recipeCount}} size="small" color="white" speed="10" bgcolor="none"
+                             theme="white">
+                </ngx-counter>
+              </div>
+              <i class="fa fa-calendar-check-o fa-lg" style="margin-top: 15px"></i>
+
+              <!--              <p>'ontime'</p>-->
+              <h6 style="margin-top: 20px">Công thức</h6>
+            </div>
+          </div>
+          <div class="col-sm" data-wow-duration="2s" data-wow-delay="300ms">
+            <div class="counter-item">
+              <div class="timer" id="item5" data-to="18745" data-speed="5000">
+                <ngx-counter countValue=0 limit={{summary.galleryCount}} size="small" speed="10" color="white" bgcolor="none"
+                             theme="white">
+                </ngx-counter>
+              </div>
+              <i class="fa fa-address-book-o fa-lg" style="margin-top: 15px"></i>
+
+              <!--              <p>Bộ sưu tập</p>-->
+              <h6 style="margin-top: 20px">Bộ sưu tập</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row" style="text-align: center;">
+        <h6>DANH SÁCH QUẢN TRỊ VIÊN</h6>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tên</th>
+            <th scope="col">email</th>
+            <th scope="col">Chức vụ</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of modlst">
+            <th scope="row">1</th>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div style="width: 100%;min-height: auto;" data-aos="fade-in" data-aos-duration="4000">
+    <h6>DANH SÁCH TOP THÀNH VIÊN</h6>
+    <div *ngFor="let user of topUsers"
+         style=" float: left;border-radius: 50%; background: none; width: 110px; position: relative;">
+      <div class="memberfunny" [routerLink]="['/memberAccess']">
+        <!-- <div>
+            <figure style="padding: 15% 10%;"> -->
+        <!-- <cl-image public-id="{{recipe.imageUrl}}">
+                    <cl-transformation width="200" height="280" crop="crop" quality="auto">
+                    </cl-transformation>
+                </cl-image> -->
+        <!-- </figure> -->
+        <a title="{{user.name}}">
+          <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">
+            <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
+                               background="#e9ebee">
+            </cl-transformation>
+            <cl-transformation width="75" crop="scale">
+            </cl-transformation>
+          </cl-image>
+        </a>
+
+        <!-- </div> -->
+
+      </div>
+      <!-- <a class="link-name" routerLink="/detail/{{recipe._id}}">{{user.userName}}</a> -->
+      <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"
+      ng-reflect-public-id="mypic">
+      <img
+          src="https://res.cloudinary.com/am-thuc-an-chay/image/upload/v1582782664/angular_sample/{{recipe.imageUrl}}">
+  </cl-image> -->
+      <!-- <cl-image public-id="{{recipe.imageUrl}}">
+              <cl-transformation width="300" height="150" radius="20" crop="pad" border="2px_solid_black" quality="auto" fetch-format="auto">
+              </cl-transformation>
+          </cl-image> -->
+      <!-- <cl-image public-id="{{recipe.imageUrl}}">
+              <cl-transformation width="200" height="300" crop="crop" radius="20" quality="auto">
+              </cl-transformation>
+          </cl-image> -->
+      <!-- <cl-image public-id="{{recipe.imageUrl}}">
+              <cl-transformation width="200" height="300" gravity="auto" background="white" crop="fill_pad"
+                  radius="20" border="1px_solid_grey">>
+              </cl-transformation>
+          </cl-image> -->
+      <!-- <a routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a> -->
 
     </div>
-    <div class="col">col</div>
-    <div class="w-100"></div>
   </div>
 </div>
+
+

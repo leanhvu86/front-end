@@ -22,7 +22,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/app/shared/service" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="F:/nodeJs/angular7-google-authenication/angular-node-mfauth/front-end/node_modules/tslint" />
@@ -89,6 +89,7 @@
       <workItem from="1583577796481" duration="1372000" />
       <workItem from="1583631836566" duration="3012000" />
       <workItem from="1584583842602" duration="28000" />
+      <workItem from="1586664993142" duration="15271000" />
     </task>
     <servers />
   </component>
@@ -104,10 +105,14 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="186" y="15" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1583578258011" />
-    <state x="390" y="125" width="586" height="488" key="find.popup" timestamp="1583576393637">
+    <state x="92" y="92" width="1182" height="554" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1586665150265">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="390" y="125" width="586" height="488" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1583576393637" />
+    <state x="92" y="92" width="1182" height="554" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.738@0.0.1366.738" timestamp="1586665150265" />
+    <state x="390" y="125" width="586" height="488" key="find.popup" timestamp="1586683296374">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="390" y="125" width="586" height="488" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1586683296374" />
   </component>
   <component name="masterDetails">
     <states>

@@ -107,8 +107,7 @@
                         </cl-transformation>
                     </cl-image>&#160;{{recipe.user.name}}
                 </a>
-                <a class="button_slidehr slide_downhr" style="margin-left: 50px;" id="bookmark{{i}}"
-                    (click)="addBookmark(recipe)"></a>
+              <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
 
             </div>
             <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
@@ -242,7 +241,7 @@
                         <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">{{errorMessage}}</p>
                     </form>
                     <hr style="border-top: 1px solid #eee;">
-                 
+
                 </div>
             </div>
         </div>

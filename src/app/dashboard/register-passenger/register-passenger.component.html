@@ -312,7 +312,8 @@
                         height: 30px !important;"></i></span>
 
                     </label>
-                    <a style="position: absolute; bottom: 105px;left: 15px;"> Ảnh của bước:</a>
+                    <a style="position: absolute; bottom: 105px;left: 15px; font-size: 12px;"> Ảnh của bước:
+                      <a style="color: gray; font-size: 8px;"> (Bạn có thể xóa ảnh của bước khi nhấn vào nó)</a></a>
                     <div style="position: absolute; bottom: 5px; left: 5%;width: 700px;" class="row ">
                       <div class=".col-6 .col-md-4 hover" (fileOver)="fileOverBase1($event)"
                         style="width: 90px;height: 90px; border: 1px solid gray;"
@@ -331,6 +332,7 @@
                     <input type="text" formControlName="imageArray" class="form-control" id="imageArray{{i}}"
                       style="left: 12%; bottom: 7%;width: 2px; position: absolute;opacity: 0;" disabled
                       placeholder="tên bước thực hiện nếu có">
+
                   </div>
                   <div
                     style="width: 20%;height: auto; background: rgb(215, 222, 240); border-radius: 5px; padding: 3px; color: gray; margin: 2% 5%;">
