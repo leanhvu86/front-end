@@ -87,7 +87,9 @@
         <div class="row mt-30">
           <div class="col-md-4 col-sm-6"
             *ngFor="let gallery of myGallery|paginate:{itemsPerPage: 6, currentPage:p};let i = index">
+            <app-app-recipe-gallery [childMessage]="gallery"></app-app-recipe-gallery>
             <div class="box13">
+
               <cl-image public-id="{{gallery.image}}" style="margin-top: 10px;">
                 <cl-transformation width="203" height="203" crop="crop" quality="auto">
                 </cl-transformation>
@@ -96,14 +98,15 @@
                 <a class="title" [routerLink]="['/galleryDetail/', gallery._id]" style="color: white; font-size: 15px;">
                   {{gallery.name}}</a>
 
-                <a style="color: white;font-size:8px;">
+                <a style="color: white;font-size:10px;">
 
                   {{gallery.content}}
                   <br>
-                  <span><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+
                 </a>
               </div>
             </div>
+
           </div>
         </div>
         <br>

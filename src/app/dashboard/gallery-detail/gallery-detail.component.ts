@@ -34,6 +34,7 @@ export class GalleryDetailComponent implements OnInit {
   personalGallery: Gallery[] = []
   gallerys: Gallery[] = []
   addRecipe = Recipe
+  mine: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private galleryService: GalleryService,
@@ -45,6 +46,7 @@ export class GalleryDetailComponent implements OnInit {
   ) {
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     this.id = this.route.snapshot.params.id;
+
   }
 
   ngOnInit() {
@@ -81,6 +83,9 @@ export class GalleryDetailComponent implements OnInit {
                 }
               });
             })
+            if (this.userObject.email === this.gallery.user.email) {
+              this.mine = true;
+            }
           }
         }
         if (this.gallery.user.imageUrl !== '') {
