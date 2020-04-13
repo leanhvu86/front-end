@@ -2,11 +2,13 @@
 <div style="height: 350px; position: relative; margin-top: -470px;">
     <div style="margin-top: 2%;height: 2px;width: 90%;margin-left: 5%;"></div>
     <a class="glow" style="color: white; top: 15%;left: 33%; position: absolute;">Ẩm thực món chay truyền thống</a>
-    <div class="form" style="width: 50%; margin-top: 10%; margin-left: 25%;">
-        <input title="Search" value="" type="submit" class="button">
-        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-            placeholder="Tìm kiêm công thức" style="width: 90%;">
-
+    <div style="width: 100%; margin-top: 10%; margin-left: 25%;">
+        <form (submit)="findRecipe()" class="form" style="width: 750px;">
+            <input title="Search" value="" type="submit" class="button">
+            <input class="form-control" type="text" name="search" [(ngModel)]="search" autocomplete="off"
+                placeholder="Tìm kiêm công thức" style="width: 90%;
+                cursor: pointer;">
+        </form>
     </div>
 
 </div>
@@ -107,7 +109,7 @@
                         </cl-transformation>
                     </cl-image>&#160;{{recipe.user.name}}
                 </a>
-              <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
+                <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
 
             </div>
             <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"

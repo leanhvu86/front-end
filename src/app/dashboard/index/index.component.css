@@ -144,7 +144,7 @@ input::-webkit-input-placeholder {
 
 /* Demo 2 */
 #demo-2 input[type=search] {
-	width: 100px;
+	width: 3px;
 	margin-left: 60px;
 	color: transparent;
   cursor: pointer;

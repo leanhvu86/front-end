@@ -50,5 +50,8 @@ export class GalleryService {
       tap(_ => console.log('Gallery'))
     );
   }
+  updateGallery(gallery: any) {
+    return this.http.post(`${this.baseUrl}/updateGallery`, { gallery }, { observe: 'response' });
+  }
 }
 

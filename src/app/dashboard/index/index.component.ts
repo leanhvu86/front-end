@@ -34,6 +34,7 @@ export class IndexComponent implements OnInit {
   isAuthenicate: boolean = false;
   userMessage: Message[] = [];
   newMessage: boolean = false
+  search: string = '';
   constructor(
     private title: Title,
     private translate: TranslateService,
@@ -200,6 +201,18 @@ export class IndexComponent implements OnInit {
 
       this._router.navigate(['/loadPage']);
     }
+  }
+  findRecipe() {
+    console.log(this.search)
+    if (this.search === undefined) {
+      this.search = ''
+    }
+    this.cookie.set('searchText', this.search);
+    this._router.navigateByUrl('/recipe', { skipLocationChange: true }).then(() => {
+      this._router.navigate(['/recipe']);
+    });
+
+    this.search = '';
   }
   useLanguage(language: string) {
     this.translate.use(language);

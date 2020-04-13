@@ -1,4 +1,4 @@
-<div style="min-height: 400px; ">
+<div style="min-height: 480px; ">
   <br>
   <div style="text-align: center; " *ngIf="gallery">
     <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">
@@ -14,15 +14,42 @@
     <a style="font-weight: bold; font-size: 16px;">{{gallery.name}}</a>
     <br>
     <a>{{gallery.content}}</a>
-    <br><br><br>
+    <br><br>
+    <div class="container" style="background: white;border-radius: 10px; width: 120%;height: 60px; padding: 10px 0;">
+      <div class="row" style="height: 40px;">
+        <div class="col-8">
+          <div class="row" style="height: 40px;">
+            <div class="col-8" style="margin-left: -70px;">
+              <a><i class="fa fa-clone" aria-hidden="true"><span
+                    style="color: red; padding: 0 5px;">{{gallery.recipe.length}}</span></i>Công thức </a>
+              <a><i class="fa fa-heartbeat" aria-hidden="true"><span style="color: red; padding: 0 5px;">
+                    {{gallery.totalPoint}}</span></i>Lượt ưu thích</a>
+            </div>
+            <div class="col-4">
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-4" style="color: #585858;">
+
+          <div>
+            Thêm công thức <app-app-recipe-gallery [childMessage]="gallery" *ngIf="mine"></app-app-recipe-gallery>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <br>
   </div>
 
-  <div *ngIf="checkRecipe" class="row" style="background: white;">
+  <div *ngIf="checkRecipe" class="row" style="background: white; margin-left: 20px;">
     <div class=".col-md-8"
       *ngFor="let recipe of recipes| filter:searchText | paginate: { itemsPerPage: 20, currentPage: p }; let i=index"
       style="position: relative;margin-bottom: 100px;">
       <div class="hover15 column"
-        style="float: left; margin-left: 3%; width: 30%; position: relative; text-align: center;">
+        style="float: left; margin-left: 3.5%; width: 30%; position: relative; text-align: center;">
         <div [routerLink]="['/detail/', recipe._id]">
           <figure>
             <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
