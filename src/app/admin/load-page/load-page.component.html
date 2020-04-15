@@ -90,8 +90,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of modlst">
-              <th scope="row">1</th>
+            <tr *ngFor="let user of modlst; let i=index">
+              <th scope="row">{{i+1}}</th>
               <td>{{user.name}}</td>
               <td>{{user.email}}</td>
               <td>{{user.role}}</td>

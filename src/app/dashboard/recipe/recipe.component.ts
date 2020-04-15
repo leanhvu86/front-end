@@ -32,6 +32,7 @@ export class RecipeComponent implements OnInit {
   recipesFilter: Recipe[] = [];
   empty: Recipe[] = [];
   checkRecipe: Recipe
+  countRecipe: number = 0;
   constructor(
     private service: RecipeService,
     private cookie: CookieService,
@@ -57,56 +58,61 @@ export class RecipeComponent implements OnInit {
   }
 
   loadFilter() {
-    // this.recipes = this.empty
-    // let tempArr = this.recipesFilter
+    this.empty.length = 0
+    this.recipes = this.empty
+    let tempArr = this.empty
     console.log(this.recipesFilter)
-    // for (let recipe of this.recipesFilter) {
-    //   let checkFoodType = false;
-    //   let checkCountry = false;
-    //   let checkCookWay = false;
-    //   if (this.foodTypesFilter !== undefined && this.foodTypesFilter.length > 0) {
-    //     this.foodTypesFilter.forEach(foodType => {
-    //       for (let ftype of recipe.foodType) {
-    //         if (ftype.foodTypeCode === foodType.foodTypeCode) {
-    //           checkFoodType = true;
-    //         }
-    //       }
-    //     })
-    //   } else {
-    //     checkFoodType = true;
-    //   }
-    //   if (this.countrysFilter !== undefined && this.countrysFilter.length > 0) {
-    //     this.countrysFilter.forEach(country => {
-    //       for (let ftype of recipe.country) {
-    //         if (ftype.countryCode === country.countryCode) {
-    //           checkCountry = true;
-    //         }
-    //       }
-    //     })
-    //   } else {
-    //     checkCountry = true;
-    //   }
-    //   if (this.cookWaysFilter !== undefined && this.cookWaysFilter.length > 0) {
-    //     this.cookWaysFilter.forEach(cookWay => {
-    //       for (let ftype of recipe.cookWay) {
-    //         if (ftype.cookWayCode === cookWay.cookWayCode) {
-    //           checkCookWay = true;
-    //         }
-    //       }
-    //     })
-    //   } else {
-    //     checkCookWay = true
-    //   }
-    //   if (checkCookWay === true && checkCountry === true && checkFoodType === true) {
-    //     tempArr.push(recipe)
-    //   }
-    // }
-    // if (this.foodTypesFilter.length === 0 && this.cookWaysFilter.length === 0 && this.countrysFilter.length === 0) {
-    //   this.recipes = this.recipesFilter
-    // } else {
-    //   this.recipes = tempArr
-    // }
-
+    for (let recipe of this.recipesFilter) {
+      let checkFoodType = false;
+      let checkCountry = false;
+      let checkCookWay = false;
+      if (this.foodTypesFilter !== undefined && this.foodTypesFilter.length > 0) {
+        this.foodTypesFilter.forEach(foodType => {
+          for (let ftype of recipe.foodType) {
+            if (ftype.foodTypeCode === foodType.foodTypeCode) {
+              checkFoodType = true;
+            }
+          }
+        })
+      } else {
+        checkFoodType = true;
+      }
+      if (this.countrysFilter !== undefined && this.countrysFilter.length > 0) {
+        this.countrysFilter.forEach(country => {
+          for (let ftype of recipe.country) {
+            if (ftype.countryCode === country.countryCode) {
+              checkCountry = true;
+            }
+          }
+        })
+      } else {
+        checkCountry = true;
+      }
+      if (this.cookWaysFilter !== undefined && this.cookWaysFilter.length > 0) {
+        this.cookWaysFilter.forEach(cookWay => {
+          for (let ftype of recipe.cookWay) {
+            if (ftype.cookWayCode === cookWay.cookWayCode) {
+              checkCookWay = true;
+            }
+          }
+        })
+      } else {
+        checkCookWay = true
+      }
+      if (checkCookWay === true && checkCountry === true && checkFoodType === true) {
+        tempArr.push(recipe)
+      }
+    }
+    if (this.foodTypesFilter.length === 0 && this.cookWaysFilter.length === 0 && this.countrysFilter.length === 0) {
+      this.recipes = this.recipesFilter
+    } else {
+      this.recipes = tempArr
+    }
+    if (this.recipes.length > 0) {
+      this.countRecipe = this.recipes.length + 1
+    } else {
+      this.countRecipe = 0
+    }
     console.log(this.recipes)
   }
 
@@ -150,22 +156,23 @@ export class RecipeComponent implements OnInit {
 
   }
   getRecipe = () => {
-    this.service.getAllRecipes().subscribe(data => {
+    this.service.getRecipes().subscribe(data => {
       this.recipes = data
       this.recipesFilter = this.recipes
+      this.countRecipe = this.recipes.length + 1
       this.recipes.forEach(recipe => {
         recipe.like = false
         if (recipe.hardLevel !== undefined) {
           if (recipe.hardLevel === '') {
-            recipe.hardLevel = 'Ko XĐ';
+            recipe.hardLevel = 'không xác định';
           } else if (recipe.hardLevel === '1') {
             recipe.hardLevel = 'Dễ';
           } else if (recipe.hardLevel === '2') {
-            recipe.hardLevel = 'TB';
+            recipe.hardLevel = 'Trung bình';
           } else if (recipe.hardLevel === '3') {
             recipe.hardLevel = 'Khó';
           } else if (recipe.hardLevel === '4') {
-            recipe.hardLevel = 'R khó';
+            recipe.hardLevel = 'Rất khó';
           }
         }
         if (recipe.user.imageUrl === undefined) {
