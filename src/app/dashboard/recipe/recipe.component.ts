@@ -32,6 +32,7 @@ export class RecipeComponent implements OnInit {
   recipesFilter: Recipe[] = [];
   empty: Recipe[] = [];
   checkRecipe: Recipe
+  countRecipe: number = 0;
   constructor(
     private service: RecipeService,
     private cookie: CookieService,
@@ -57,6 +58,7 @@ export class RecipeComponent implements OnInit {
   }
 
   loadFilter() {
+    this.empty.length = 0
     this.recipes = this.empty
     let tempArr = this.empty
     console.log(this.recipesFilter)
@@ -106,7 +108,11 @@ export class RecipeComponent implements OnInit {
     } else {
       this.recipes = tempArr
     }
-
+    if (this.recipes.length > 0) {
+      this.countRecipe = this.recipes.length + 1
+    } else {
+      this.countRecipe = 0
+    }
     console.log(this.recipes)
   }
 
@@ -150,22 +156,23 @@ export class RecipeComponent implements OnInit {
 
   }
   getRecipe = () => {
-    this.service.getAllRecipes().subscribe(data => {
+    this.service.getRecipes().subscribe(data => {
       this.recipes = data
       this.recipesFilter = this.recipes
+      this.countRecipe = this.recipes.length + 1
       this.recipes.forEach(recipe => {
         recipe.like = false
         if (recipe.hardLevel !== undefined) {
           if (recipe.hardLevel === '') {
-            recipe.hardLevel = 'Ko XĐ';
+            recipe.hardLevel = 'không xác định';
           } else if (recipe.hardLevel === '1') {
             recipe.hardLevel = 'Dễ';
           } else if (recipe.hardLevel === '2') {
-            recipe.hardLevel = 'TB';
+            recipe.hardLevel = 'Trung bình';
           } else if (recipe.hardLevel === '3') {
             recipe.hardLevel = 'Khó';
           } else if (recipe.hardLevel === '4') {
-            recipe.hardLevel = 'R khó';
+            recipe.hardLevel = 'Rất khó';
           }
         }
         if (recipe.user.imageUrl === undefined) {
@@ -264,7 +271,6 @@ export class RecipeComponent implements OnInit {
       this.foodTypes.push(foodType);
       this.foodTypesFilter.push(foodType);
       console.log(this.foodTypesFilter)
-      this.loadFilter()
     } else {
       const removeIndex = this.foodTypes.findIndex(itm => itm.foodTypeCode === data.foodTypeCode);
       if (removeIndex !== -1) {
@@ -278,9 +284,10 @@ export class RecipeComponent implements OnInit {
         this.foodTypesFilter.splice(removeIndex1, 1);
       }
       console.log(this.foodTypesFilter)
-      this.loadFilter()
+
     }
     this.foodTypes = this.foodTypes.sort((a, b) => a.foodTypeCode > b.foodTypeCode ? 1 : -1);
+    this.loadFilter()
   }
 
   getCountryValues(ev, data) {
@@ -297,7 +304,6 @@ export class RecipeComponent implements OnInit {
       this.countrys.push(country);
       this.countrysFilter.push(country);
       console.log(this.countrysFilter)
-      this.loadFilter()
     } else {
       const removeIndex = this.countrys.findIndex(itm => itm.countryCode === data.countryCode);
       if (removeIndex !== -1) {
@@ -311,9 +317,9 @@ export class RecipeComponent implements OnInit {
       country.status = false
       console.log(this.countrysFilter)
       this.countrys.push(country);
-      this.loadFilter()
     }
     this.countrys = this.countrys.sort((a, b) => a.countryCode > b.countryCode ? 1 : -1);
+    this.loadFilter()
   }
   getCookWayValues(ev, data) {
     const cookWay = new CookWay();
@@ -329,7 +335,6 @@ export class RecipeComponent implements OnInit {
       this.cookWays.push(cookWay);
       this.cookWaysFilter.push(cookWay)
       console.log(this.cookWaysFilter)
-      this.loadFilter()
     } else {
       const removeIndex = this.cookWays.findIndex(itm => itm.cookWayCode === data.cookWayCode);
       if (removeIndex !== -1) {
@@ -342,10 +347,10 @@ export class RecipeComponent implements OnInit {
       // Pushing the object into array
       cookWay.status = false
       this.cookWays.push(cookWay);
-      console.log(this.cookWaysFilter)
-      this.loadFilter()
+      console.log(this.cookWaysFilter);
     }
     this.cookWays = this.cookWays.sort((a, b) => a.cookWayCode > b.cookWayCode ? 1 : -1);
+    this.loadFilter()
   }
 
   getIngredientValues(ev, data) {
@@ -362,7 +367,6 @@ export class RecipeComponent implements OnInit {
       this.ingredients.push(cookWay);
       this.cookWaysFilter.push(cookWay)
       console.log(this.cookWaysFilter)
-      this.loadFilter()
     } else {
       const removeIndex = this.ingredients.findIndex(itm => itm.cookWayCode === data.cookWayCode);
       if (removeIndex !== -1) {
@@ -375,10 +379,10 @@ export class RecipeComponent implements OnInit {
       // Pushing the object into array
       cookWay.status = false
       this.ingredients.push(cookWay);
-      console.log(this.cookWaysFilter)
-      this.loadFilter()
+      console.log(this.cookWaysFilter);
     }
     this.ingredients = this.ingredients.sort((a, b) => a.cookWayCode > b.cookWayCode ? 1 : -1);
+    this.loadFilter()
   }
   dislikeRecipe(recipe: any, index: any) {
     console.log(recipe);

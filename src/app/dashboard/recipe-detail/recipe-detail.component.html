@@ -78,7 +78,12 @@
               </div>
               <div class="col">
                 <a (click)="addDoneRecipe(recipe)"><img src="../../../assets/images/check-o.gray.png"
+                    *ngIf="!recipe.like; else other_content1"
                     style="width: 30px;height: 30px; margin-left: 2px;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
+                <ng-template #other_content1>
+                  <img src="../../../assets/images/check-o.red.png"
+                    style="width: 30px;height: 30px; margin-left: 2px;opacity: 1;" />
+                </ng-template>
               </div>
               <div class="col">
                 <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
@@ -113,15 +118,19 @@
             <a>{{recipe.user.name}}</a>
           </div>
           <div class="row">
-            <a>{{totalRecipe}}&#160;&#160;&#160;&#160;công
-              thức</a><a>&#160;&#160;&#160;&#160;{{recipe.user.totalPoint}}&#160;&#160;&#160;&#160;điểm</a>
+
           </div>
         </div>
-        <div class="col col-lg-2">
-          <button title="Quan tâm" ng-click="follow()" class="button1">
-            <!-- ngIf: status != 1 --><span ng-if="status != 1" class="ng-scope">Quan tâm</span>
-            <!-- end ngIf: status != 1 -->
-          </button>
+        <div class="col" style="text-align: right; padding-right: 50px;">
+          <a><span style="color: red;">{{recipe.user.totalPoint}}</span>&#160;điểm</a>
+          <br>
+          <a><span style="color: red;">{{totalRecipe}}</span>&#160;công
+            thức</a>
+
+          <!-- <button title="Quan tâm" ng-click="follow()" class="button1">
+            ngIf: status != 1<span ng-if="status != 1" class="ng-scope">Quan tâm</span>
+            end ngIf: status != 1
+          </button> -->
         </div>
       </div>
       <div class="row" style="padding: 20px;">
@@ -371,6 +380,7 @@
     </div>
   </div>
   <div class="col" style="background: white; height: 800px; margin-top: 40px; border-radius: 20px;">
+    <br>
     <a style="margin-top: 50px;">CÔNG THỨC LIÊN QUAN</a>
     <hr />
     <div class="row">
@@ -380,8 +390,7 @@
           </cl-transformation>
         </cl-image>
         <br />
-        <a [routerLink]="['/detail/', recipe._id]" (click)="loadPage()"
-          style="color: black;">{{ recipe.recipeName }}</a>
+        <a (click)="getRecipeDetail(recipe._id)" style="color: black;">{{ recipe.recipeName }}</a>
         <br /><a>{{ recipe.viewCount }} <a style="color: #c5c5c5;">lượt xem</a>
           {{ recipe.time }} phút</a>
       </div>

@@ -10,14 +10,14 @@
 <div class="container" style="background: white; border-radius: 5px; padding: 15px 30px;">
   <div class="row" style="width: 100%;">
     <a style="color: red; margin:10px 10px;"><i class="fa fa-sliders" aria-hidden="true"></i></a>
-    <button (click)="onChangeofFoodType($event)" class="button-filter" style=" margin: 10px  30px;">Món ăn<i
+    <button (click)="onChangeofFoodType($event)" class="button-filter" style=" margin: 10px  30px;">Món ăn&#160;<i
         class="fa fa-caret-down" aria-hidden="true"></i></button>
-    <button (click)="onChangeofCountry($event)" class="button-filter" style=" margin: 10px  30px;">Ẩm thực<i
+    <button (click)="onChangeofCountry($event)" class="button-filter" style=" margin: 10px  30px;">Ẩm thực&#160;<i
         class="fa fa-caret-down" aria-hidden="true"></i></button>
-    <button (click)="onChangeofCookWay($event)" class="button-filter" style=" margin: 10px  30px;">Chế biến<i
+    <button (click)="onChangeofCookWay($event)" class="button-filter" style=" margin: 10px  30px;">Chế biến&#160;<i
         class="fa fa-caret-down" aria-hidden="true"></i></button>
-    <button (click)="onChangeofingredient($event)" class="button-filter" style=" margin: 10px  30px;">Nguyên liệu<i
-        class="fa fa-caret-down" aria-hidden="true"></i></button>
+    <button (click)="onChangeofingredient($event)" class="button-filter" style=" margin: 10px  30px;">Nguyên
+      liệu&#160;<i class="fa fa-caret-down" aria-hidden="true"></i></button>
   </div>
 
   <div *ngIf="showFoodtype" style="font-size: 12px; margin-left: 50px;" class="row">
@@ -66,11 +66,13 @@
   </div>
 </div>
 <div class="container">
+  <br><br>
+  <h6>Tổng số <a style="color: red;">{{countRecipe}}</a> công thức</h6>
   <div class="recipe-list-wrapper" style="float: left;     width: 100%;">
     <!-- 1 anh -->
     <div class="ng-scope member-recipe-item"
       *ngFor="let recipe of recipes|filter:searchText|paginate:{itemsPerPage: 20, currentPage:p};let i = index">
-      <div class="item-inner ng-scope">
+      <div class="item-inner ng-scope" style="background: white;">
         <div class="item-photo" style="    position: relative;">
           <a [routerLink]="['/detail/', recipe._id]" class="photo">
             <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: -4px;">

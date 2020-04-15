@@ -33,8 +33,8 @@
         </div>
         <div class="col-4" style="color: #585858;">
 
-          <div>
-            Thêm công thức <app-app-recipe-gallery [childMessage]="gallery" *ngIf="mine"></app-app-recipe-gallery>
+          <div *ngIf="mine">
+            Thêm công thức <app-app-recipe-gallery [childMessage]="gallery"></app-app-recipe-gallery>
           </div>
 
 
@@ -89,8 +89,8 @@
           <span (click)="dislikeRecipe(recipe,i)" style="position: absolute; left:270px; bottom: 20%;"><i
               class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
         </ng-template>
-        <div style="top:375px;left: 40px; position: absolute; font-size: 12px;margin-left: 10px; ">
-          <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]">
+        <div style="top:375px;left: 50px; position: absolute; font-size: 12px;margin-left: 10px;margin-right: 5px; ">
+          <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]" style="color: black;">
             <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
               <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill" background="#e9ebee">
               </cl-transformation>

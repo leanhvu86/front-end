@@ -1,32 +1,31 @@
 <div class="clearfix"></div>
-<hr>
-<footer class="footer" *ngIf="summary">
-  <div class="row">
+<footer class="footer" *ngIf="summary" style="background: white; padding-top: 10px;">
+  <div class="row" style="background: white;">
     <div class="col-12 col-md" style="margin-left:5%;">
-      <i><img style="height: auto;width:40%;margin-left: -10%;" src="../../../assets/images/dish.png" /></i>
+      <i><img style="height: 80px;width:auto;margin-left: -10%;" src="../../../assets/images/logo.png" /></i>
       <small class="d-block mb-3 text-muted">© 2020-2030</small>
     </div>
     <div class="col-4 col-md">
-      <h5 style="color:black">Thống kê</h5>
+      <h5 style="color:rgb(48, 194, 11)">Thống kê</h5>
       <div class="row">
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">
-            <li>{{summary.recipeCount}}<a class="text-muted" href="#"> Công thức món chay</a></li>
-            <li>{{summary.galleryCount}}<a class="text-muted" href="#"> Bộ sưu tập</a></li>
-            <li>{{summary.userCount}}<a class="text-muted" href="#"> Thành viên</a></li>
+            <li>{{summary.recipeCount}}<a class="text-muted" routerLink="/recipe"> Công thức món chay</a></li>
+            <li>{{summary.galleryCount}}<a class="text-muted" routerLink="/gallery"> Bộ sưu tập</a></li>
+            <li>{{summary.userCount}}<a class="text-muted" routerLink="/about"> Thành viên</a></li>
           </ul>
         </div>
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">
-            <li>{{summary.loginCount}}<a class="text-muted" href="#"> Lượt đăng nhập</a></li>
-            <li>{{summary.connectCount}}<a class="text-muted" href="#"> Lượt truy cập</a></li>
+            <li>{{summary.loginCount}}<a class="text-muted"> Lượt đăng nhập</a></li>
+            <li>{{summary.connectCount}}<a class="text-muted"> Lượt truy cập</a></li>
             <!-- <li><a class="text-muted" href="#"> Team feature</a></li> -->
           </ul>
         </div>
       </div>
     </div>
     <div class="col-4 col-md">
-      <h5 style="color:black">Về chúng tôi</h5>
+      <h5 style="color:rgb(48, 194, 11)">Về chúng tôi</h5>
       <div class="row">
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">

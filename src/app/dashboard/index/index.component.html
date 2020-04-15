@@ -251,11 +251,11 @@
                   <a><i (click)="useLanguage('en')"><img style="height: auto;width:50%;margin-top: -15%;"
                         src="../../../assets/images/en.png" /></i></a>
                 </li> -->
-                <!-- <li>
-                                    <a href="#">
-                                        <fb-like url={{url}}></fb-like>
-                                    </a>
-                                </li> -->
+                <li>
+                  <a href="#">
+                    <fb-like url={{url}}></fb-like>
+                  </a>
+                </li>
                 <li>
                   <a style="padding-top: 5px;">
                     <tweet url="{{url}}" text="{{text}}"></tweet>
@@ -288,7 +288,8 @@
   <nav class="site-header sticky-top py-1" style="background: white; ">
     <div class="container d-flex flex-column flex-md-row justify-content-between">
       <a class="py-2" href="#" aria-label="Product" style="width: 20%;">
-        <i><img style="height: 35px;width:35px;margin-left: -10%;" src="../../../assets/images/logo.png" /></i>
+        <i><img style="height: 45px;width:60px;margin-left: -20px;margin-top: -5px;"
+            src="../../../assets/images/logo.png" /></i>
       </a>
       <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;" id="index-home-link"
         routerLink="/index">{{ "index.home" | translate }}</a>
@@ -307,11 +308,9 @@
       <a class="py-2 d-none d-md-inline-block" href="#"></a>
       <a class="py-2 d-none d-md-inline-block" href="#"></a>
     </div>
-    <div class=" div-shadow"
-      style="position: relative; background: whitesmoke;width: 100%; height: 50px; margin-top: 40px; ">
+    <div class=" div-shadow" style="position: relative; background: whitesmoke;width: 100%; height: 50px; ">
       <form id="demo-2">
-        <input type="search" name="search" [(ngModel)]="search" placeholder="Tìm kiếm công thức" style="display: none;">
-
+        <img style="height: 40px;width:185px;margin-left: 0px;" src="../../../assets/images/logo1.png" />
       </form>
       <a class="py-2 d-none d-md-inline-block register-button" style="right: 18%;padding: 2px 8px; "
         (click)="onChange($event)"><i class="fa fa-pencil-square-o" style="padding: 2px 8px;"
