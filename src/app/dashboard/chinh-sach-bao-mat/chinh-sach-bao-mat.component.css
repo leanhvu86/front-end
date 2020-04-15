@@ -68,7 +68,11 @@ padding-inline-start: 40px;
   white-space: nowrap;
 }
 
-
+body {
+  font-family: Arial,"Open Sans",Helvetica,Arial,sans-serif;
+  color: #1d2129;
+  font-size: 14px;
+}
 
 .l-page-right {
 float: left;
