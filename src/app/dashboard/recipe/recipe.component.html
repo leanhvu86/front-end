@@ -70,7 +70,7 @@
     <!-- 1 anh -->
     <div class="ng-scope member-recipe-item"
       *ngFor="let recipe of recipes|filter:searchText|paginate:{itemsPerPage: 20, currentPage:p};let i = index">
-      <div class="item-inner ng-scope">
+      <div class="item-inner ng-scope" style="background: white;">
         <div class="item-photo" style="    position: relative;">
           <a [routerLink]="['/detail/', recipe._id]" class="photo">
             <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: -4px;">
