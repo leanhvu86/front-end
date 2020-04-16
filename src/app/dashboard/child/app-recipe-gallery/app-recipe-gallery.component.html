@@ -1,0 +1,139 @@
+<button class="register-button" (click)="registerGallery()"><i class="fa fa-hand-pointer-o" style="padding: 2px 8px;"
+    aria-hidden="true"></i></button>
+<!-- Extra large modal -->
+<button type="button" id="add-recipe-gallery" class="btn btn-primary" style="display: none;" data-toggle="modal"
+  data-target=".bd-example-modal-xl">Extra large modal</button>
+
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content" style="height: 1000px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="form-signin" (ngSubmit)="updateGallery()" #loginForm="ngForm" [formGroup]="registerForm"
+        style="margin-top: 10px;">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <input type="text" id="name" class="form-control" placeholder="Tên bộ sưu tập" name="name" minlength="5"
+                maxlength="200" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" autocomplete="off"
+                style="height:62px;" formControlName="name" />
+              <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Bạn phải điền tên bộ sưu tập</div>
+                <div *ngIf="f.name.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                  Tên bộ sưu tập chứa ít nhất 5 kí tự.
+                </div>
+                <div *ngIf="f.name.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                  Tên bộ sưu tập chứa nhiều nhất 500 kí tự.
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <textarea id="content" class="form-control" name="content" autocomplete="off" formControlName="content"
+                [ngClass]="{ 'is-invalid': submitted && f.content.errors }" placeholder="Nội dung bộ sưu tập "
+                minlength="20" maxlength="500" title="Please enter the content" required autofocus cols="12"
+                style="width: 100%;"></textarea>
+              <div *ngIf="submitted && f.content.errors" class="invalid-feedback">
+                <div *ngIf="f.content.errors.required">Bạn phải mô tả nội dung bộ sưu tập</div>
+                <div *ngIf="f.content.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                  Nội dung bộ sưu tập chứa ít nhất 20 kí tự.
+                </div>
+                <div *ngIf="f.content.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                  Nội dung bộ sưu tập chứa nhiều nhất 500 kí tự.
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
+                style="width: 50%;margin-left: 30%;">
+                Lưu vào bộ sưu tập
+              </button>
+            </div>
+          </div>
+        </div>
+        <!--        <div class=".col-md-8" id="gallery" style="position: relative; float: left; padding-left: 5px;"></div>-->
+
+        <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </p>
+        {{message}}
+      </form>
+      <h6 style="margin-top: 5px;">Thêm công thức vào bộ sưu tập</h6>
+      <div class="container">
+        <div class="row">
+          <div class="col recipeLst">
+            <ul class="list">
+              <cdk-virtual-scroll-viewport style="height: 600px" itemSize="40">
+                <ng-container *cdkVirtualFor="let recipe of recipes; let j = index;">
+                  <li>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col">
+                          <a style="font-size: 16px;">{{j+1}}</a>
+                        </div>
+                        <div class="col-6">
+                          <a style="font-size: 16px;">{{recipe.recipeName}}</a>
+                          <br>
+                          <a style="font-size: 10px;">{{recipe.content}}</a>
+                        </div>
+                        <div class="col">
+                          <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
+                            <cl-transformation width="80" height="80" crop="scale" quality="auto">
+                            </cl-transformation>
+                          </cl-image>
+
+                          <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"> <i
+                              class="fa fa-check-circle fa-lg" id="icon{{ j }}" aria-hidden="true"
+                              (click)="addRecipe(recipe, j)"></i></span>
+                          <ng-template #other_content>
+                            <span (click)="dislikeRecipe(recipe,i)">
+                              <i class="fa fa-check-circle fa-lg checkIcon" aria-hidden="true"
+                                (click)="removeRecipe(recipe, j)"></i></span>
+                          </ng-template>
+                        </div>
+                      </div>
+                    </div>
+
+                  </li>
+                </ng-container>
+              </cdk-virtual-scroll-viewport>
+            </ul>
+          </div>
+          <div class="col recipeLst">
+            <ul class="list">
+              <cdk-virtual-scroll-viewport style="height: 600px" itemSize="30">
+                <ng-container *cdkVirtualFor="let recipe of oldRecipes; let i = index;">
+                  <li>
+                    <div class="container">
+                      <div class="row" id="old{{i}}">
+                        <div class="col">
+                          <a (click)="removeRecipe(recipe,i)" style="width: 7px; height: auto; margin-top: 20px;"
+                            title="Xóa nhóm"><i class="fa fa-trash-o buttonhover" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-6">
+                          <a style="font-size: 16px;">{{recipe.recipeName}}</a>
+                          <br>
+                          <a style="font-size: 10px;">{{recipe.content}}</a>
+                        </div>
+                        <div class="col">
+                          <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
+                            <cl-transformation width="60" height="60" crop="scale" quality="auto">
+                            </cl-transformation>
+                          </cl-image>
+                        </div>
+                      </div>
+                    </div>
+
+                  </li>
+                </ng-container>
+              </cdk-virtual-scroll-viewport>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

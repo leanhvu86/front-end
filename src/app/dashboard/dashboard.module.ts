@@ -50,6 +50,8 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { RegisterComponent } from './register/register.component';
 import { MygalleryComponent } from './mygallery/mygallery.component';
 import { AddGalleryComponent } from './child/add-gallery/add-gallery.component';
+import { AppRecipeGalleryComponent } from './child/app-recipe-gallery/app-recipe-gallery.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -84,6 +86,7 @@ import { AddGalleryComponent } from './child/add-gallery/add-gallery.component';
     RegisterComponent,
     MygalleryComponent,
     AddGalleryComponent,
+    AppRecipeGalleryComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +95,7 @@ import { AddGalleryComponent } from './child/add-gallery/add-gallery.component';
     Ng5SliderModule,
     JwSocialButtonsModule,
     RouterModule.forChild(DashBoardRoutes),
-    CounterModule.forRoot(),
+    ScrollingModule,
     ReactiveFormsModule,
     Ng2SearchPipeModule,
     FormsModule,

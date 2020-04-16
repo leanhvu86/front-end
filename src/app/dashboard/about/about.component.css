@@ -38,7 +38,7 @@ img {
 }
 .call-to-action {
   margin: 5% 0;
-  background: url(../../../assets/images/bg-01.jpg);
+  background: url(../../../assets/images/background.jpg);
   background-attachment: fixed;
   background-size: cover;
   height: 500px;
@@ -81,7 +81,7 @@ img {
   margin: 5% 0;
   background-size: cover;
   height: 500px;
-  background: url(../../../assets/images/373766.jpg) fixed 50% 90%;
+  background: url(../../../assets/images/background.jpg) fixed 50% 90%;
   color: #fff;
   text-align: center;
   padding: 100px 0;
@@ -89,7 +89,7 @@ img {
 
 .call-to-action p {
   color: #fff;
-  font-weight: 300;
+  font-weight: 500;
   font-size: 30px;
   line-height: 40px;
   letter-spacing: 3px;

@@ -2,18 +2,20 @@
 <div style="height: 350px; position: relative; margin-top: -470px;">
     <div style="margin-top: 2%;height: 2px;width: 90%;margin-left: 5%;"></div>
     <a class="glow" style="color: white; top: 15%;left: 33%; position: absolute;">Ẩm thực món chay truyền thống</a>
-    <div class="form" style="width: 50%; margin-top: 10%; margin-left: 25%;">
-        <input title="Search" value="" type="submit" class="button">
-        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-            placeholder="Tìm kiêm công thức" style="width: 90%;">
-
+    <div style="width: 100%; margin-top: 10%; margin-left: 25%;">
+        <form (submit)="findRecipe()" class="form" style="width: 750px;">
+            <input title="Search" value="" type="submit" class="button">
+            <input class="form-control" type="text" name="search" [(ngModel)]="search" autocomplete="off"
+                placeholder="Tìm kiêm công thức" style="width: 90%;
+                cursor: pointer;">
+        </form>
     </div>
 
 </div>
 <div class="clearfix"></div>
 
 <div style="background: white;height: 2px;width: 90%;margin-left: 5%; "></div>
-<div class="row" style="margin-left: 80px; width: 1300px;">
+<!-- <div class="row" style="margin-left: 80px; width: 1300px;">
     <div style="width: 100%; margin-top: 70px; margin-left: 5px; height:100px;">
         <a style="width: 130px;height: 80px; text-align: center;font-size: 12px;padding: 2px 2px; float: left;margin-right: 20px; position: relative;"
             class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
@@ -39,18 +41,17 @@
                 style="position: absolute; bottom: 2px; left: 45px;">Sallad</span></a>
         <a style="width: 130px;height: 80px;text-align: center;font-size: 12px;padding: 2px 2px; float: left; margin-right: 20px;position: relative;"
             class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
-                src="../../../assets/images/sauce.png" /><span style="position: absolute; bottom: 2px; left: 40px;">Nước
-                chấm</span></a>
+                src="../../../assets/images/sauce.png" /><span style="position: absolute; bottom: 2px; left: 40px;">Nước Sốt</span></a>
         <a style=" width: 130px;height: 80px;text-align: center;font-size: 12px;padding: 2px 2px; float: left; margin-right: 20px; position: relative;"
             class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
-                src="../../../assets/images/noodle.png" /><span style="position: absolute; bottom: 2px; left: 45px;">Món
-                nước</span></a>
+                src="../../../assets/images/noodle.png" /><span style="position: absolute; bottom: 2px; left: 45px;">Món</span></a>
         <a style=" width: 130px;height: 80px;text-align: center;font-size: 12px;padding: 2px 2px; float: left; margin-right: 20px; position: relative;"
             class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
                 src="../../../assets/images/hotspot.png" /><span
                 style="position: absolute; bottom: 2px; left: 45px;">Món Lẩu</span></a>
     </div>
-</div>
+</div> -->
+<br><br><br><br>
 <a class="a-title" style="margin-left: 5%; font-size: 20px;">CÔNG THỨC NỔI BẬT</a>
 <div style="width: 90%; margin-left: 5%; min-height: auto;" class="row" data-aos="fade-in" data-aos-duration="4000">
 
@@ -107,7 +108,7 @@
                         </cl-transformation>
                     </cl-image>&#160;{{recipe.user.name}}
                 </a>
-              <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
+                <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
 
             </div>
             <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"

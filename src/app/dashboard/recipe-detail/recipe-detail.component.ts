@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {RecipeService} from 'src/app/shared/service/recipe-service.service';
-import {Recipe} from 'src/app/shared/model/recipe';
-import {CookieService} from 'ngx-cookie-service';
-import {UserService} from 'src/app/shared/service/user.service.';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import { Recipe } from 'src/app/shared/model/recipe';
+import { CookieService } from 'ngx-cookie-service';
+import { UserService } from 'src/app/shared/service/user.service.';
 
-import {Cloudinary} from '@cloudinary/angular-5.x';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {LoginServiceService} from 'src/app/shared/service/login-service.service';
-import {Gallery} from 'src/app/shared/model/gallery';
-import {GalleryService} from 'src/app/shared/service/gallery.service';
-import {Comment} from 'src/app/shared/model/comment';
+import { Cloudinary } from '@cloudinary/angular-5.x';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { LoginServiceService } from 'src/app/shared/service/login-service.service';
+import { Gallery } from 'src/app/shared/model/gallery';
+import { GalleryService } from 'src/app/shared/service/gallery.service';
+import { Comment } from 'src/app/shared/model/comment';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -81,7 +81,7 @@ export class RecipeDetailComponent implements OnInit {
   id: string;
 
   ngOnInit() {
-    this.getRecipeDetail();
+
     this.getPersonalGallery();
     this.registerForm = this.formBuilder.group({
 
@@ -91,7 +91,8 @@ export class RecipeDetailComponent implements OnInit {
     });
     this.isModeration = this.cookie.get('role') !== '' ? true : false;
     this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
-
+    this.id = this.route.snapshot.params.id;
+    this.getRecipeDetail(this.id);
   }
 
   get f() {
@@ -120,9 +121,9 @@ export class RecipeDetailComponent implements OnInit {
     }
   }
 
-  getRecipeDetail() {
-    this.id = this.route.snapshot.params.id;
-    this.recipeService.getRecipeDetail(this.id).subscribe(data => {
+  getRecipeDetail(id: any) {
+
+    this.recipeService.getRecipeDetail(id).subscribe(data => {
       let recipeTem = data['recipe'];
       this.recipe = recipeTem;
       if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
@@ -185,7 +186,17 @@ export class RecipeDetailComponent implements OnInit {
           this.totalRecipe++;
         }
       }
-      this.recipes = arr.filter(function(item, pos) {
+      this.userLogin.email = this.cookie.get('email');
+      this.recipeService.findInterest(this.userLogin).subscribe(data => {
+        let interests = data.body['interests']
+        for (let interst of interests) {
+          if (interst.objectId._id === this.recipe._id) {
+            this.like = true;
+            console.log(interst)
+          }
+        }
+      })
+      this.recipes = arr.filter(function (item, pos) {
         return arr.indexOf(item) == pos;
       });
       this.doneCount = this.recipe.doneCount;
@@ -221,6 +232,9 @@ export class RecipeDetailComponent implements OnInit {
               const imageArr = comment.imageUrl.split(',');
               comment.imageUrl = imageArr;
               console.log(imageArr);
+            }
+            if (comment.user.email == this.cookie.get('email')) {
+              this.recipe.like = true;
             }
             this.recipeComment.push(comment);
           }
@@ -270,21 +284,21 @@ export class RecipeDetailComponent implements OnInit {
     console.log(file);
     const url = `https://api.cloudinary.com/v1_1/${
       this.cloudinary.config().cloud_name
-    }/image/upload`;
+      }/image/upload`;
     const xhr = new XMLHttpRequest();
     const fd = new FormData();
     xhr.open('POST', url, true);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     // Update progress (can be used to show progress indicator)
-    xhr.upload.addEventListener('progress', function(e) {
+    xhr.upload.addEventListener('progress', function (e) {
       const progress = Math.round((e.loaded * 100.0) / e.total);
       // document.getElementById('progress').style.width = progress + "%";
 
       console.log(`fileuploadprogress data.loaded: ${e.loaded},
     data.total: ${e.total}`);
     });
-    xhr.onreadystatechange = function(e) {
+    xhr.onreadystatechange = function (e) {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // File uploaded successfully
         const response = JSON.parse(xhr.responseText);
@@ -299,7 +313,7 @@ export class RecipeDetailComponent implements OnInit {
         const id = 'imageArray';
         inputValue = (document.getElementById(id) as HTMLInputElement).value;
         img.id = id + '_';
-        img.onclick = function() {
+        img.onclick = function () {
           // xử lí xóa ảnh khi click thì  phải xóa ở trong imageArray( xóa public_id của ảnh trên cloud)
           document.getElementById(galleryID).removeChild(img);
 
@@ -489,8 +503,8 @@ export class RecipeDetailComponent implements OnInit {
       const status = data.body['status'];
       console.log(status);
       if (status === '200') {
-        this.doneCount++;
-        console.log(data);
+        this.doneCount = this.recipe.doneCount;
+        console.log(this.doneCount);
         this.recipe = data.body['recipe'];
         if (this.recipe.hardLevel !== undefined) {
           if (this.recipe.hardLevel === '') {
@@ -505,7 +519,7 @@ export class RecipeDetailComponent implements OnInit {
             this.recipe.hardLevel = 'Rất khó';
           }
         }
-        this.message = data.body['message'];
+        this.message = 'Xác nhận thực hiện';
         const radio: HTMLElement = document.getElementById('modal-button10');
         radio.click();
         console.log('success');

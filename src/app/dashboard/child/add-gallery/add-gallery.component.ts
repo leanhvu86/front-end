@@ -20,10 +20,7 @@ export class AddGalleryComponent implements OnInit {
     name: "",
     user: ""
   };
-  userObject = {
-    email: "",
-    password: ""
-  }
+  errorMessage: String = '';
   message: String = ''
   gallerys: Gallery[] = [];
   constructor(

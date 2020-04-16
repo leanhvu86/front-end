@@ -110,6 +110,10 @@ export class RegisterPassengerComponent implements OnInit {
     this.uploader = new FileUploader(uploaderOptions);
 
     this.uploader.onBuildItemForm = (fileItem: any, form: FormData): any => {
+      if (fileItem.size > 600000) {
+        alert('Kích thước file ảnh phải bé hơn 600 kB')
+        return
+      }
       // Add Cloudinary's unsigned upload preset to the upload form
       form.append('upload_preset', this.cloudinary.config().upload_preset);
       // Add built-in and custom tags for displaying the uploaded photo in the list

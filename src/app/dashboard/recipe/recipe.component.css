@@ -183,3 +183,66 @@
   border-top: 0.5px solid #ddd;
   padding-top: 10px;
 }
+.form {
+  outline: 0;
+  float: left;
+  /* -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); */
+  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); */
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  padding-top: 2px;
+  padding-left: 10px;
+}
+
+.form > .textbox {
+  outline: 0;
+  height: 42px;
+  width: 244px;
+  line-height: 42px;
+  padding: 0 16px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #212121;
+  border: 0;
+  float: left;
+  -webkit-border-radius: 4px 0 0 4px;
+  border-radius: 0 4px 4px 0;
+}
+
+.form > .textbox:focus {
+  outline: 0;
+  background-color: #fff;
+}
+
+.form > .button {
+  outline: 0;
+  background: none;
+  background-color: white;
+  float: left;
+  height: 37px;
+  width: 42px;
+  text-align: center;
+  line-height: 42px;
+  border: 0;
+  color: rgba(252, 103, 5, 0.986);
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 16px;
+  text-rendering: auto;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-transition: background-color 0.4s ease;
+  transition: background-color 0.4s ease;
+  -webkit-border-radius: 0 4px 4px 0;
+  border-radius: 4px 0 0 4px;
+}
+
+.form > .button:hover {
+  background-color: rgba(252, 103, 5, 0.986);
+}
+.button-filter{
+  border-radius: 10px;
+  background: #e7e7e7;
+  font-size: 10px;
+  border: 0.5px solid rgb(94, 250, 33);
+}
+.button-filter:focus{
+  background: #e6fad6;
+}

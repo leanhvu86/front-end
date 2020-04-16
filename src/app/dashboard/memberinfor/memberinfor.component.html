@@ -54,181 +54,143 @@
     </div>
   </div>
   <!--  -->
-  <div class="profile-container">
-    <div class="inner">
-      <ul class="nav nav-tabs" style="text-align: center;">
-        <li class="nav-item" style="    margin-left: 36%;">
-          <a class="nav-link active" data-toggle="tab" href="#home"><span>{{recipeCount}}</span>
-            <div>Công thức</div>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#menu1"><span>{{galleryCount}}</span>
-            <div>Bộ sưu tập</div>
-          </a>
-        </li>
-      </ul>
-    </div>
+</div>
+<div class="clearfix"></div>
+
+<br>
+
+<div class="container">
+  <div>
+    <h6>CÔNG THỨC CÁ NHÂN <span style="color: red; font-size: 12px;">{{recipeCount}}</span> </h6>
   </div>
-  <div class="tab-content">
-    <div id="home" class="container tab-pane active">
-      <br />
-      <div>
-        <h6>CÔNG THỨC CÁ NHÂN</h6>
-      </div>
-      <div class="recipe-list-wrapper" style="min-height: 200px;">
-        <!-- 1 anh -->
-        <div class="ng-scope member-recipe-item"
-          *ngFor="let recipe of memberRecipes |paginate:{itemsPerPage: 4, currentPage:p};let i= index ">
-          <div class="item-inner ng-scope">
-            <div class="item-photo">
-              <a class="photo" [routerLink]="['/detail/', recipe._id]">
-                <cl-image public-id="{{recipe.imageUrl}}">
-                  <cl-transformation width="240" height="260" radius="30" crop="scale" quality="auto" radius="2">
-                  </cl-transformation>
-                </cl-image>
-              </a>
-              <a class="btn-act btn-add-favourite ng-isolate-scope">
-                <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"
-                  style="left:80px; bottom: 30%;"><i id="heart{{i}}" class="fa fa-heart fa-2x heart"
-                    aria-hidden="true"></i></span>
-                <ng-template #other_content>
-                  <span (click)="dislikeRecipe(recipe,i)" style="left:80px; bottom: 30%;"><i
-                      class="fa fa-heart fa-2x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
-                </ng-template>
-              </a>
-            </div>
-            <div class="item-info">
-              <div class="item-title">
-                <h3>
-                  <a class="namenamename">{{recipe.recipeName}}</a>
-                </h3>
-              </div>
-              <div class="desc ng-binding">
-                <p>
-                  {{recipe.content}}
-                </p>
-              </div>
-            </div>
-            <div class="item-footer">
-              <div class="recipe-acts">
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px;
-                  opacity: 0.8;
-                  float: left;
-                  margin-right: 6px;
-               ">
-                  &#160;
-                  <i class="fa fa-clock-o stats-ico" aria-hidden="true">
-                    {{recipe.time}}</i>
-                </div>
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px;
-                  opacity: 0.8;
-                  float: left;
-                  margin-right: 9px;
-                ">
-                  &#160;
-                  <i class="fa fa-bar-chart stats-ico" aria-hidden="true">
-                    {{recipe.viewCount}}</i>
-                </div>
-                <div style="    top: 340px;
-                  left: 43px;
-                  font-size: 12px;
-                  opacity: 0.8;
-                  float: left; 
-margin-right: 35px;
-              ">
-                  <i class="fa fa-bolt stats-ico" aria-hidden="true">{{recipe.hardLevel}}</i>
-                </div>
-                <div style="    top: 340px;
+  <div class="recipe-list-wrapper" style="float: left; width: 100%;">
+    <!-- 1 anh -->
+    <div class="ng-scope member-recipe-item"
+      *ngFor="let recipe of memberRecipes|paginate:{itemsPerPage: 4, currentPage:p};let i = index">
+      <div class="item-inner ng-scope" style="background: white;">
+        <div class="item-photo" style="    position: relative;">
+          <a [routerLink]="['/detail/', recipe._id]" class="photo">
+            <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: -4px;">
+              <cl-transformation width="216" height="226" radius="20" crop="scale" quality="auto">
+              </cl-transformation>
+            </cl-image>
+
+          </a>
+          <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
+              aria-hidden="true" style="    position: absolute;
+              left: 88px;
+              top: 100px; color: gray; opacity: 0.8;"></i></span>
+
+          <a class=" btn-act btn-add-favourite ng-isolate-scope">
+            <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content" style="position: absolute;
+                  left: -42px;
+                  bottom: 3px;
+                  width: 30px;
+                  height: 30px;"><i id="heart{{i}}" class="fa fa-heart fa-3x heart" aria-hidden="true"></i></span>
+            <ng-template #other_content>
+              <span (click)="dislikeRecipe(recipe,i)" style="    position: absolute; left: -42px;
+                  bottom: 3px;
+                  width: 30px;
+                  height: 30px;"><i class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}"
+                  aria-hidden="true"></i></span>
+            </ng-template>
+          </a>
+
+        </div>
+        <div class="item-info">
+          <div class="item-title">
+            <h3>
+              <a [routerLink]="['/detail/', recipe._id]" class="namenamename">{{recipe.recipeName}}</a>
+            </h3>
+          </div>
+          <div class="desc ng-binding">
+            <p style="text-overflow: ellipsis;
+              overflow: hidden;
+              white-space:nowrap;">
+              {{recipe.content }}
+            </p>
+          </div>
+        </div>
+        <div class="item-footer">
+          <div class="recipe-acts">
+            <div style="    top: 340px;
                 left: 43px;
                 font-size: 12px;
                 opacity: 0.8;
                 float: left;
-
+                margin-right: 10px;
+                padding-top: 10px;
+             ">
+              &#160;
+              <i class="fa fa-clock-o stats-ico" aria-hidden="true" style="text-overflow: ellipsis;
+                overflow: hidden;
+                white-space:nowrap; width: 60px;"> {{recipe.time}}</i>
+            </div>
+            <div style="    top: 340px;
+                left: 43px;
+                font-size: 12px;
+                opacity: 0.8;
+                float: left;
+                margin-right: 9px;
+                padding-top: 10px;
+  
+  
+              ">
+              &#160;
+              <i class="fa fa-bar-chart stats-ico" aria-hidden="true"> {{recipe.viewCount}}</i>
+            </div>
+            <div style="       font-size: 12px;
+              opacity: 0.8;
+              float: left;
+              padding-top: 10px;
             ">
-                  <i class="fa fa-bookmark" (click)="openModal(recipe)"></i>
-                </div>
-              </div>
+              <i class="fa fa-bolt stats-ico" aria-hidden="true" style="text-overflow: ellipsis;
+                overflow: hidden;
+                white-space:nowrap;width: 60px;">{{recipe.hardLevel}}&#160; {{recipe.user.name}}</i>
             </div>
+            <div style="float: left;
+              margin-top: -23px; margin-left: 132px;">
+              <!-- <i class="fa fa-bookmark"></i> -->
+              <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
+            </div>
+            <div>
+
+            </div>
+
           </div>
         </div>
       </div>
-      <div class="clearfix"></div>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
-    <div id="menu1" class="container tab-pane fade" style="min-height: 200px;">
 
-      <br>
-      <h6>BỘ SƯU TẬP CÁ NHÂN</h6>
-      <div id="created" class="container tab-pane active">
-        <div class="row mt-30">
-          <div class="col-md-4 col-sm-6" *ngFor="let gallery of memberGallery; let i=index;"
-            style="margin-bottom: 20px;">
-            <div class="box19">
-              <cl-image public-id="{{gallery.image}}">
-                <cl-transformation width="332" height="220" crop="scale" quality="auto" radius="2">
-                </cl-transformation>
-              </cl-image>
-              <div class="box-content">
-                <ul class="icon">
-                  <li><a><i class="fa fa-search"></i></a></li>
-                  <li><a><i class="fa fa-heart  " id="heartGallery{{i}}" (click)="likeGallerry(gallery,i)"
-                        *ngIf="!gallery.like;else other_content"></i>
-                      <ng-template #other_content><i id="heartGallery{{i}}" (click)="nolikeGallery(gallery,i)"
-                          class="fa fa-heart  check" aria-hidden="true"></i>
-                      </ng-template>
-                    </a></li>
-                </ul>
-                <h6 class="title" [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}</h6>
-              </div>
-            </div>
-          </div>
+  </div>
+  <div class="paging">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+  </div>
+</div>
+<div class="container">
+  <h6 class="text-left">Bộ sưu tập cá nhân <span style="color: red; font-size: 12px;">{{galleryCount}}</span></h6>
+  <div class="row mt-30">
+    <div class="col-md-4 col-sm-6" *ngFor="let gallery of memberGallery; let i=index;" style="margin-bottom: 20px;">
+      <div class="box19">
+        <cl-image public-id="{{gallery.image}}">
+          <cl-transformation width="332" height="220" crop="scale" quality="auto" radius="2">
+          </cl-transformation>
+        </cl-image>
+        <div class="box-content">
+          <ul class="icon">
+            <li><a><i class="fa fa-search"></i></a></li>
+            <li><a><i class="fa fa-heart  " id="heartGallery{{i}}" (click)="likeGallerry(gallery,i)"
+                  *ngIf="!gallery.like;else other_content"></i>
+                <ng-template #other_content><i id="heartGallery{{i}}" (click)="nolikeGallery(gallery,i)"
+                    class="fa fa-heart  check" aria-hidden="true"></i>
+                </ng-template>
+              </a></li>
+          </ul>
+          <h6 class="title" [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}</h6>
         </div>
       </div>
     </div>
   </div>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
-    id="modal-button1" hidden>Large modal</button>
-
-  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true" style="height: auto;min-height: 600px;">
-    <div class="modal-dialog modal-lg" role="document" style="height: auto;min-height: 600px;">
-      <div class="modal-content" style="height: auto; margin-bottom: 50px;min-height: 600px;">
-        <div class="modal-header">
-          <ha class="modal-title" id="exampleModalLongTitle">Danh sách bộ sưu tập</ha>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="container mt-40">
-          <h5 class="text-left">Bộ sưu tập cá nhân</h5>
-          {{message}}
-          <div class="row mt-30">
-            <div class="col-md-4 col-sm-6" *ngFor="let gallery of personalGallery" style="margin-bottom: 30px;">
-              <div class="box3" (click)="addRecipeBookMark(gallery._id)">
-                <cl-image public-id="{{gallery.image}}">
-                  <cl-transformation height="171" width="235" crop="scale">
-                  </cl-transformation>
-                </cl-image>
-                <div class="box-content">
-                  <a class="title" style="font-size: 14px;">{{gallery.name}}</a>
-                  <div style="float: left; width: 100%; height:0.5px; background: white;"></div>
-                  <p class="description">
-                    {{gallery.content}}
-                  </p>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="clearfix"></div>
 </div>
 <app-scroll-top></app-scroll-top>

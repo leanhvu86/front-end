@@ -16,7 +16,7 @@
                     <br>
                     <a style="font-size: 10px;">{{recipe.content}}</a>
                   </div>
-                  <div class="col">
+                  <div class="col" [routerLink]="['/detailRecipe/', recipe._id]">
                     <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
                       <cl-transformation width="100" height="100" crop="scale" quality="auto">
                       </cl-transformation>
@@ -38,8 +38,8 @@
           <div class="col-sm">
             <div class="counter-item" data-wow-duration="2s" data-wow-delay="300ms">
               <div class="timer" id="item3" data-to="18745" data-speed="5000">
-                <ngx-counter countValue=0 limit={{summary.connectCount}} size="small" speed="10" color="white" bgcolor="none"
-                             theme="white">
+                <ngx-counter countValue=0 limit={{summary.connectCount}} size="small" speed="10" color="white"
+                  bgcolor="none" theme="white">
                 </ngx-counter>
               </div>
               <i class="fa fa-bar-chart fa-lg" style="margin-top: 15px"></i>
@@ -52,8 +52,8 @@
           <div class="col-sm" data-wow-duration="2s" data-wow-delay="300ms">
             <div class="counter-item">
               <div class="timer" id="item4" data-to="18745" data-speed="5000">
-                <ngx-counter countValue=0 limit={{summary.recipeCount}} size="small" color="white" speed="10" bgcolor="none"
-                             theme="white">
+                <ngx-counter countValue=0 limit={{summary.recipeCount}} size="small" color="white" speed="10"
+                  bgcolor="none" theme="white">
                 </ngx-counter>
               </div>
               <i class="fa fa-calendar-check-o fa-lg" style="margin-top: 15px"></i>
@@ -65,8 +65,8 @@
           <div class="col-sm" data-wow-duration="2s" data-wow-delay="300ms">
             <div class="counter-item">
               <div class="timer" id="item5" data-to="18745" data-speed="5000">
-                <ngx-counter countValue=0 limit={{summary.galleryCount}} size="small" speed="10" color="white" bgcolor="none"
-                             theme="white">
+                <ngx-counter countValue=0 limit={{summary.galleryCount}} size="small" speed="10" color="white"
+                  bgcolor="none" theme="white">
                 </ngx-counter>
               </div>
               <i class="fa fa-address-book-o fa-lg" style="margin-top: 15px"></i>
@@ -82,20 +82,20 @@
         <h6>DANH SÁCH QUẢN TRỊ VIÊN</h6>
         <table class="table table-striped">
           <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Tên</th>
-            <th scope="col">email</th>
-            <th scope="col">Chức vụ</th>
-          </tr>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Tên</th>
+              <th scope="col">email</th>
+              <th scope="col">Chức vụ</th>
+            </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let user of modlst">
-            <th scope="row">1</th>
-            <td>{{user.name}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.role}}</td>
-          </tr>
+            <tr *ngFor="let user of modlst; let i=index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.role}}</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -105,7 +105,7 @@
   <div style="width: 100%;min-height: auto;" data-aos="fade-in" data-aos-duration="4000">
     <h6>DANH SÁCH TOP THÀNH VIÊN</h6>
     <div *ngFor="let user of topUsers"
-         style=" float: left;border-radius: 50%; background: none; width: 110px; position: relative;">
+      style=" float: left;border-radius: 50%; background: none; width: 110px; position: relative;">
       <div class="memberfunny" [routerLink]="['/memberAccess']">
         <!-- <div>
             <figure style="padding: 15% 10%;"> -->
@@ -116,8 +116,7 @@
         <!-- </figure> -->
         <a title="{{user.name}}">
           <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">
-            <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
-                               background="#e9ebee">
+            <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill" background="#e9ebee">
             </cl-transformation>
             <cl-transformation width="75" crop="scale">
             </cl-transformation>
@@ -151,5 +150,3 @@
     </div>
   </div>
 </div>
-
-

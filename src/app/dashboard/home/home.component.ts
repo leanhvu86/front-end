@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {Recipe} from 'src/app/shared/model/recipe';
-import {RecipeService} from 'src/app/shared/service/recipe-service.service';
-import {CookieService} from 'ngx-cookie-service';
-import {UserService} from 'src/app/shared/service/user.service.';
-import {Interest} from 'src/app/shared/model/interest';
-import {User} from 'src/app/shared/model/user';
-import {GalleryService} from 'src/app/shared/service/gallery.service';
-import {Gallery} from 'src/app/shared/model/gallery';
+import { Component, OnInit } from '@angular/core';
+import { Recipe } from 'src/app/shared/model/recipe';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import { CookieService } from 'ngx-cookie-service';
+import { UserService } from 'src/app/shared/service/user.service.';
+import { Interest } from 'src/app/shared/model/interest';
+import { User } from 'src/app/shared/model/user';
+import { GalleryService } from 'src/app/shared/service/gallery.service';
+import { Gallery } from 'src/app/shared/model/gallery';
+import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -29,7 +30,7 @@ export class Home2Component implements OnInit {
   message: string = null
   showModal: boolean = false;
   isAuthenicate: boolean = false;
-  searchText;
+  search;
   collection = { count: 60, data: [] };
   galleryTop: Gallery[] = []
   personalGallery: Gallery[] = []
@@ -43,7 +44,8 @@ export class Home2Component implements OnInit {
     private cookie: CookieService,
     private recipeService: RecipeService,
     private userService: UserService,
-    private galleryService: GalleryService) {
+    private galleryService: GalleryService,
+    private router: Router) {
 
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
@@ -70,6 +72,12 @@ export class Home2Component implements OnInit {
   }
   pageChanged(event) {
     this.config.currentPage = event;
+  }
+  findRecipe() {
+    console.log(this.search)
+    this.cookie.set('searchText', this.search);
+    this.router.navigateByUrl('/recipe')
+    this.search = '';
   }
   getTopGalleries() {
     this.galleryService.getTopGalleryies().subscribe(galleries => {

@@ -33,7 +33,7 @@ import { MatInputModule } from '@angular/material/input';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
-    RouterModule.forRoot(AppRoutes),
+    RouterModule.forRoot(AppRoutes, { onSameUrlNavigation: 'reload' }),
     FormsModule,
     Ng2SearchPipeModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
