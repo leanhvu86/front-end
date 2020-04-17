@@ -8,7 +8,11 @@
     width: 80%;
   }
 
-
+  body {
+    font-family: Arial,"Open Sans",Helvetica,Arial,sans-serif;
+    color: #1d2129;
+    font-size: 14px;
+  }
 .container {
   width: 1170px;
 }
