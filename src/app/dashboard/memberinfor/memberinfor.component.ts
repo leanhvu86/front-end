@@ -48,6 +48,10 @@ export class MemberinforComponent implements OnInit {
   openModal(recipe: any) {
     console.log(recipe)
   }
+  video(link: any) {
+    var url = 'https://www.youtube.com/watch?v=' + link;
+    window.open(url, "MsgWindow", "width=600,height=400");
+  }
   getMemerInfo() {
     this.id = this.route.snapshot.params.id;
     console.log(this.id)

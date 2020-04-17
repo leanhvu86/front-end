@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { User } from 'src/app/shared/model/user';
-import { OrderPipe } from 'ngx-order-pipe';
-import { CookieService } from 'ngx-cookie-service';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {User} from 'src/app/shared/model/user';
+import {OrderPipe} from 'ngx-order-pipe';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-station',
@@ -18,7 +17,8 @@ export class StationComponent implements OnInit {
   userObject = {
     role: 0,
     id: '',
-  }
+  };
+  key:any;
   admin: boolean = false;
   message: string = '';
   constructor(
@@ -46,10 +46,10 @@ export class StationComponent implements OnInit {
   order: string = 'info.totalPoint';
   reverse: boolean = false;
   ngOnInit() {
-    this.getStaff()
-    let role = this.cookies.get('role')
+    this.getStaff();
+    let role = this.cookies.get('role');
     if (parseInt(role) > 1) {
-      this.admin = true
+      this.admin = true;
     }
   }
   pageChanged(event) {
@@ -58,26 +58,26 @@ export class StationComponent implements OnInit {
   getStaff() {
     this.userService.getUsers().subscribe(users => {
       if (users === undefined) {
-        return
+        return;
       }
       this.users = users;
       for (let user of this.users) {
         if (user.imageUrl === undefined) {
-          user.imageUrl = 'jbiajl3qqdzshdw0z749'
+          user.imageUrl = 'jbiajl3qqdzshdw0z749';
         }
-        user.isAdmin === false
+        user.isAdmin === false;
         if (user.role === -1) {
-          user.role = 'Chưa xác thực'
+          user.role = 'Chưa xác thực';
         } else if (user.role === 0) {
-          user.role = 'Thành viên'
+          user.role = 'Thành viên';
         } else if (user.role === 1) {
-          user.role = 'Quản trị'
+          user.role = 'Quản trị';
           user.isAdmin === true
         } else if (user.role > 1) {
-          user.isAdmin === true
-          user.role = 'Admin'
+          user.isAdmin === true;
+          user.role = 'Admin';
         } else {
-          user.role = 'Khóa'
+          user.role = 'Khóa';
         }
         let userAccess = user;
         this.users = this.users.filter(use => use._id !== userAccess._id);
@@ -112,43 +112,43 @@ export class StationComponent implements OnInit {
     this.userObject.id = user._id;
     this.userService.updateRole(this.userObject).subscribe(data => {
       if (data.body['status'] === 200) {
-        user = data.body['user']
+        user = data.body['user'];
         for (let userAccess of this.users) {
           if (userAccess.email === user.email) {
             userAccess = user;
             this.users = this.users.filter(user => user._id !== userAccess._id);
             if (user.role === -1) {
-              user.role = 'Chưa xác thực'
+              user.role = 'Chưa xác thực';
             } else if (user.role === 0) {
-              user.role = 'Thành viên'
+              user.role = 'Thành viên';
             } else if (user.role === 1) {
-              user.role = 'Quản trị'
+              user.role = 'Quản trị';
               user.isAdmin === true
             } else if (user.role > 1) {
-              user.isAdmin === true
-              user.role = 'Admin'
+              user.isAdmin === true;
+              user.role = 'Admin';
             } else {
-              user.role = 'Khóa'
+              user.role = 'Khóa';
             }
             if (user.imageUrl === undefined) {
-              user.imageUrl = 'jbiajl3qqdzshdw0z749'
+              user.imageUrl = 'jbiajl3qqdzshdw0z749';
             }
-            this.users.push(user)
+            this.users.push(user);
             if (this.userObject.role === 0) {
-              this.message = 'Hạ quyền quản trị viên thành công'
+              this.message = 'Hạ quyền quản trị viên thành công';
             } else {
-              this.message = 'Thêm quản trị viên thành công'
+              this.message = 'Thêm quản trị viên thành công';
             }
 
             setTimeout(() => {
-              this.message = ''
+              this.message = '';
             }, 5000);
           }
         }
       }
-    })
+    });
   }
-  updateReport(user: any) {
+  /*updateReport(user: any) {
     this.userObject.id = user._id;
     this.userService.updateReport(this.userObject).subscribe(data => {
       if (data.body['status'] === 200) {
@@ -180,35 +180,34 @@ export class StationComponent implements OnInit {
         }
       }
     })
-  }
+  }*/
   bannedUser(user: any) {
-    console.log('banned user')
     this.userObject.id = user._id;
     this.userService.bannedUser(this.userObject).subscribe(data => {
       if (data.body['status'] === 200) {
-        user = data.body['user']
+        user = data.body['user'];
         for (let userAccess of this.users) {
           if (userAccess.email === user.email) {
             userAccess = user;
             this.users = this.users.filter(user => user._id !== userAccess._id);
             if (user.imageUrl === undefined) {
-              user.imageUrl = 'jbiajl3qqdzshdw0z749'
+              user.imageUrl = 'jbiajl3qqdzshdw0z749';
             }
             if (user.role === -1) {
-              user.role = 'Chưa xác thực'
+              user.role = 'Chưa xác thực';
             } else if (user.role === 0) {
-              user.role = 'Thành viên'
+              user.role = 'Thành viên';
             } else if (user.role === 1) {
-              user.role = 'Quản trị'
+              user.role = 'Quản trị';
             } else if (user.role > 1) {
-              user.role = 'Admin'
+              user.role = 'Admin';
             } else {
-              user.role = 'Khóa'
+              user.role = 'Khóa';
             }
-            this.users.push(user)
-            this.message = 'Khóa thành viên thành công'
+            this.users.push(user);
+            this.message = 'Khóa thành viên thành công';
             setTimeout(() => {
-              this.message = ''
+              this.message = '';
             }, 3000);
           }
         }
@@ -216,32 +215,32 @@ export class StationComponent implements OnInit {
     })
   }
   activeMember(user: any) {
-    console.log('active user')
-    let userTemp = user
+    console.log('active user');
+    let userTemp = user;
     this.userService.activeMember(user._id).subscribe(data => {
       this.users = this.users.filter(user => user._id !== userTemp._id);
 
-      user = data
+      user = data;
       user.block = false;
       if (user.imageUrl === undefined) {
-        user.imageUrl = 'jbiajl3qqdzshdw0z749'
+        user.imageUrl = 'jbiajl3qqdzshdw0z749';
       }
       user.isAdmin = false;
       if (user.role === -1) {
-        user.role = 'Chưa xác thực'
+        user.role = 'Chưa xác thực';
       } else if (user.role === 0) {
-        user.role = 'Thành viên'
+        user.role = 'Thành viên';
       } else if (user.role === 1) {
         user.isAdmin = true;
-        user.role = 'Quản trị'
+        user.role = 'Quản trị';
       } else if (user.role > 1) {
-        user.role = 'Admin'
+        user.role = 'Admin';
         user.isAdmin = true;
       } else {
-        user.role = 'Khóa'
+        user.role = 'Khóa';
       }
-      this.users.push(user)
-      this.message = 'Mở khóa thành viên thành công'
+      this.users.push(user);
+      this.message = 'Mở khóa thành viên thành công';
       setTimeout(() => {
         this.message = ''
       }, 3000);

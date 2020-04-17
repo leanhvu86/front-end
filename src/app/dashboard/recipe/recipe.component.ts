@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { RecipeService } from '../.././shared/service/recipe-service.service'
-import { from } from 'rxjs';
-import { Recipe } from '../../shared/model/recipe';
-import { CookieService } from 'ngx-cookie-service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { ActivatedRoute } from '@angular/router';
-import { FoodType } from 'src/app/shared/model/foodType';
-import { CountryService } from 'src/app/shared/service/country.service';
-import { Country } from 'src/app/shared/model/country';
-import { CookWay } from 'src/app/shared/model/cookWay';
+import {Component, OnInit} from '@angular/core';
+import {RecipeService} from '../.././shared/service/recipe-service.service';
+import {Recipe} from '../../shared/model/recipe';
+import {CookieService} from 'ngx-cookie-service';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {ActivatedRoute} from '@angular/router';
+import {FoodType} from 'src/app/shared/model/foodType';
+import {CountryService} from 'src/app/shared/service/country.service';
+import {Country} from 'src/app/shared/model/country';
+import {CookWay} from 'src/app/shared/model/cookWay';
+
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
@@ -17,22 +17,22 @@ import { CookWay } from 'src/app/shared/model/cookWay';
 export class RecipeComponent implements OnInit {
   recipes: Recipe[];
   isAuthenicate: boolean = false;
-  searchText: string = ''
+  searchText: string = '';
   showFoodtype: boolean = false;
   showCountrys: boolean = false;
   showCookWays: boolean = false;
   showIngredient: boolean = false;
-  foodTypes: FoodType[] = []
-  countrys: Country[] = []
-  cookWays: CookWay[] = []
-  ingredients: CookWay[] = []
-  foodTypesFilter: FoodType[] = []
-  countrysFilter: Country[] = []
-  cookWaysFilter: CookWay[] = []
+  foodTypes: FoodType[] = [];
+  countrys: Country[] = [];
+  cookWays: CookWay[] = [];
+  ingredients: CookWay[] = [];
+  foodTypesFilter: FoodType[] = [];
+  countrysFilter: Country[] = [];
+  cookWaysFilter: CookWay[] = [];
   recipesFilter: Recipe[] = [];
   empty: Recipe[] = [];
-  checkRecipe: Recipe
   countRecipe: number = 0;
+  p:number;
   constructor(
     private service: RecipeService,
     private cookie: CookieService,
@@ -54,16 +54,16 @@ export class RecipeComponent implements OnInit {
     this.getFoodTypes()
   }
   video(link: any) {
-    console.log(link)
+    console.log(link);
     var url = 'https://www.youtube.com/watch?v=' + link;
     window.open(url, "MsgWindow", "width=600,height=400");
   }
 
   loadFilter() {
-    this.empty.length = 0
-    this.recipes = this.empty
-    let tempArr = this.empty
-    console.log(this.recipesFilter)
+    this.empty.length = 0;
+    this.recipes = this.empty;
+    let tempArr = this.empty;
+    console.log(this.recipesFilter);
     for (let recipe of this.recipesFilter) {
       let checkFoodType = false;
       let checkCountry = false;
@@ -99,21 +99,21 @@ export class RecipeComponent implements OnInit {
           }
         })
       } else {
-        checkCookWay = true
+        checkCookWay = true;
       }
       if (checkCookWay === true && checkCountry === true && checkFoodType === true) {
-        tempArr.push(recipe)
+        tempArr.push(recipe);
       }
     }
     if (this.foodTypesFilter.length === 0 && this.cookWaysFilter.length === 0 && this.countrysFilter.length === 0) {
-      this.recipes = this.recipesFilter
+      this.recipes = this.recipesFilter;
     } else {
-      this.recipes = tempArr
+      this.recipes = tempArr;
     }
     if (this.recipes.length > 0) {
-      this.countRecipe = this.recipes.length + 1
+      this.countRecipe = this.recipes.length + 1;
     } else {
-      this.countRecipe = 0
+      this.countRecipe = 0;
     }
     console.log(this.recipes)
   }
@@ -122,8 +122,8 @@ export class RecipeComponent implements OnInit {
     this.countryService.getFoodTypes().subscribe(foodTypes => {
       this.foodTypes = foodTypes;
       this.foodTypes.forEach(foodType => {
-        foodType.status = false
-      })
+        foodType.status = false;
+      });
       this.foodTypes = this.foodTypes.sort((a, b) => a.foodTypeCode > b.foodTypeCode ? 1 : -1);
     });
   }
@@ -131,27 +131,27 @@ export class RecipeComponent implements OnInit {
     this.countryService.getCountrys().subscribe(countrys => {
       this.countrys = countrys;
       this.countrys.forEach(country => {
-        country.status = false
-      })
+        country.status = false;
+      });
       this.countrys = this.countrys.sort((a, b) => a.countryCode > b.countryCode ? 1 : -1);
     });
   }
   getCookWays() {
     this.countryService.getCookWays().subscribe(cookWay => {
       cookWay.forEach(cook => {
-        cook.status = false
+        cook.status = false;
         if (cook.cookWayCode === 'NAM') {
-          this.ingredients.push(cook)
+          this.ingredients.push(cook);
         } else if (cook.cookWayCode === 'DAU') {
-          this.ingredients.push(cook)
+          this.ingredients.push(cook);
         } else if (cook.cookWayCode === 'CUQ') {
-          this.ingredients.push(cook)
+          this.ingredients.push(cook);
         } else if (cook.cookWayCode === 'RAU') {
-          this.ingredients.push(cook)
+          this.ingredients.push(cook);
         } else {
           this.cookWays.push(cook);
         }
-      })
+      });
       this.ingredients = this.ingredients.sort((a, b) => a.cookWayCode > b.cookWayCode ? 1 : -1);
       this.cookWays = this.cookWays.sort((a, b) => a.cookWayCode > b.cookWayCode ? 1 : -1);
     });
@@ -159,11 +159,11 @@ export class RecipeComponent implements OnInit {
   }
   getRecipe = () => {
     this.service.getRecipes().subscribe(data => {
-      this.recipes = data
-      this.recipesFilter = this.recipes
-      this.countRecipe = this.recipes.length + 1
+      this.recipes = data;
+      this.recipesFilter = this.recipes;
+      this.countRecipe = this.recipes.length + 1;
       this.recipes.forEach(recipe => {
-        recipe.like = false
+        recipe.like = false;
         if (recipe.hardLevel !== undefined) {
           if (recipe.hardLevel === '') {
             recipe.hardLevel = 'không xác định';
@@ -178,12 +178,12 @@ export class RecipeComponent implements OnInit {
           }
         }
         if (recipe.user.imageUrl === undefined) {
-          recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+          recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749';
         }
-      })
-    })
-  }
-  onChangeofingredient(ingredient: any) {
+      });
+    });
+  };
+  onChangedIngredient(ingredient: any) {
     if (this.showIngredient === false) {
 
       this.showIngredient = true;
@@ -192,9 +192,9 @@ export class RecipeComponent implements OnInit {
       this.showCookWays = false;
       console.log('add');
     }
-    ingredient.status = true
+    ingredient.status = true;
   }
-  onChangeofCookWay(cookWay: any) {
+  onChangedCookWay(cookWay: any) {
     if (this.showCookWays === false) {
 
       this.showCookWays = true;
@@ -204,23 +204,23 @@ export class RecipeComponent implements OnInit {
     }
     cookWay.status = true;
   }
-  onChangeofCountry(country: any) {
+  onChangedCountry(country: any) {
     if (this.showCountrys === false) {
       this.showCountrys = true;
       this.showIngredient = false;
       this.showFoodtype = false;
       this.showCookWays = false;
     }
-    country.status = true
+    country.status = true;
   }
-  onChangeofFoodType(foodType: any) {
+  onChangedFoodType(foodType: any) {
     if (this.showFoodtype === false) {
       this.showFoodtype = true;
       this.showIngredient = false;
       this.showCountrys = false;
       this.showCookWays = false;
     }
-    foodType.status = true
+    foodType.status = true;
   }
 
 
@@ -238,18 +238,17 @@ export class RecipeComponent implements OnInit {
       user: user,
       objectId: recipe,
       objectType: '2'
-    })
+    });
     let id = 'heart' + index;
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'red';
     radio.style.opacity = '0.8';
-    console.log(interestObject)
     this.recipeService.likeRecipe(interestObject).subscribe((data) => {
       if (data !== undefined) {
-        console.log('success')
+        console.log('success');
         let userObject = new Object({
           email: recipe.user.email
-        })
+        });
         this.userService.likeAddPoint(userObject).subscribe((data) => {
           if (data.body['status'] === 200) {
             console.log('success')
@@ -269,7 +268,7 @@ export class RecipeComponent implements OnInit {
         this.foodTypes.splice(removeIndex, 1);
       }
       // Pushing the object into array
-      foodType.status = true
+      foodType.status = true;
       this.foodTypes.push(foodType);
       this.foodTypesFilter.push(foodType);
       console.log(this.foodTypesFilter)
@@ -279,7 +278,7 @@ export class RecipeComponent implements OnInit {
         this.foodTypes.splice(removeIndex, 1);
       }
       // Pushing the object into array
-      foodType.status = false
+      foodType.status = false;
       this.foodTypes.push(foodType);
       const removeIndex1 = this.foodTypesFilter.findIndex(itm => itm.foodTypeCode === data.foodTypeCode);
       if (removeIndex1 !== -1) {
@@ -302,7 +301,7 @@ export class RecipeComponent implements OnInit {
         this.countrys.splice(removeIndex, 1);
       }
       // Pushing the object into array
-      country.status = true
+      country.status = true;
       this.countrys.push(country);
       this.countrysFilter.push(country);
       console.log(this.countrysFilter)
@@ -317,7 +316,6 @@ export class RecipeComponent implements OnInit {
       }
       // Pushing the object into array
       country.status = false
-      console.log(this.countrysFilter)
       this.countrys.push(country);
     }
     this.countrys = this.countrys.sort((a, b) => a.countryCode > b.countryCode ? 1 : -1);
@@ -333,10 +331,9 @@ export class RecipeComponent implements OnInit {
         this.cookWays.splice(removeIndex, 1);
       }
       // Pushing the object into array
-      cookWay.status = true
+      cookWay.status = true;
       this.cookWays.push(cookWay);
-      this.cookWaysFilter.push(cookWay)
-      console.log(this.cookWaysFilter)
+      this.cookWaysFilter.push(cookWay);
     } else {
       const removeIndex = this.cookWays.findIndex(itm => itm.cookWayCode === data.cookWayCode);
       if (removeIndex !== -1) {
@@ -347,7 +344,7 @@ export class RecipeComponent implements OnInit {
         this.cookWaysFilter.splice(removeIndex1, 1);
       }
       // Pushing the object into array
-      cookWay.status = false
+      cookWay.status = false;
       this.cookWays.push(cookWay);
       console.log(this.cookWaysFilter);
     }
@@ -379,7 +376,7 @@ export class RecipeComponent implements OnInit {
         this.cookWaysFilter.splice(removeIndex1, 1);
       }
       // Pushing the object into array
-      cookWay.status = false
+      cookWay.status = false;
       this.ingredients.push(cookWay);
       console.log(this.cookWaysFilter);
     }
@@ -395,24 +392,21 @@ export class RecipeComponent implements OnInit {
       return;
     }
     recipe.like = false;
-    console.log(recipe.user.email)
     let user = this.cookie.get('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,
       objectType: '2'
-    })
+    });
     let id = 'heart' + index;
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'white';
     radio.style.opacity = '0.4';
-    console.log(recipe.user.email)
-    console.log(interestObject)
     this.recipeService.dislikeRecipe(interestObject).subscribe((data) => {
       if (data !== undefined) {
         let userObject = new Object({
           email: recipe.user.email
-        })
+        });
         this.userService.dislikeremovePoint(userObject).subscribe((data) => {
           if (data.body['status'] === 200) {
             console.log('success')
@@ -422,7 +416,7 @@ export class RecipeComponent implements OnInit {
       }
 
 
-    })
+    });
     console.log(recipe.like);
   }
 }

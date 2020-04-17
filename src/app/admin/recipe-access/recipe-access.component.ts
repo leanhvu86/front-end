@@ -1,7 +1,7 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { OrderPipe } from 'ngx-order-pipe';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { Recipe } from 'src/app/shared/model/recipe';
+import {AfterViewInit, Component} from '@angular/core';
+import {OrderPipe} from 'ngx-order-pipe';
+import {RecipeService} from 'src/app/shared/service/recipe-service.service';
+import {Recipe} from 'src/app/shared/model/recipe';
 
 @Component({
   selector: 'app-recipe-access',
@@ -14,7 +14,7 @@ export class RecipeAccessComponent implements AfterViewInit {
   config: any;
   searchText;
   collection = { count: 60, data: [] };
-
+key:any;
   constructor(private recipeservice: RecipeService, private orderPipe: OrderPipe) {
     this.collection = orderPipe.transform(this.collection, 'info.name');
     console.log(this.collection);
@@ -61,16 +61,15 @@ export class RecipeAccessComponent implements AfterViewInit {
             recipe.hardLevel = 'Rất khó';
           }
         }
-        console.log(recipe.status)
         if (recipe.status === 1) {
-          recipe.status = 'Đã duyệt'
+          recipe.status = 'Đã duyệt';
         } else if (recipe.status === 0) {
-          recipe.status = 'Chưa duyệt'
+          recipe.status = 'Chưa duyệt';
         } else {
-          recipe.status = 'Từ chối'
+          recipe.status = 'Từ chối';
         }
         if (recipe.user == null) {
-          recipe.user.name = 'Đợi duyệt'
+          recipe.user.name = 'Đợi duyệt';
         }
       }
       console.log(this.recipes);

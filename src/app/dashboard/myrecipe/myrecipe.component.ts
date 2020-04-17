@@ -11,7 +11,7 @@ import { Recipe } from 'src/app/shared/model/recipe';
   styleUrls: ["./myrecipe.component.css"]
 })
 export class MyrecipeComponent implements OnInit {
-  id: String = '1'
+  id: String = '1';
   value: number = 2;
   options: Options = {
     floor: 0,
@@ -19,11 +19,12 @@ export class MyrecipeComponent implements OnInit {
     showOuterSelectionBars: true,
     showTicksValues: false
   };
-  acceptRecipe: Recipe[] = []
-  waitingRecipe: Recipe[] = []
-  decilineRecipe: Recipe[] = []
-  user: User
-  loadPage: boolean = false
+  acceptRecipe: Recipe[] = [];
+  waitingRecipe: Recipe[] = [];
+  decilineRecipe: Recipe[] = [];
+  user: User;
+  loadPage: boolean = false;
+  p:number;
   constructor(
     private _loginService: LoginServiceService,
     private cookie: CookieService,
@@ -65,30 +66,27 @@ export class MyrecipeComponent implements OnInit {
               }
             })
           })
-          this.user = user
-          this.id = user._id
-          console.log(this.id)
-          this.loadPage = true
+          this.user = user;
+          this.id = user._id;
+          this.loadPage = true;
           if (user.totalPoint > 600) {
-            this.value = 4
-            user.level = 'Mastee'
+            this.value = 4;
+            user.level = 'Mastee';
           } else if (user.totalPoint > 400) {
-            this.value = 3
-            user.level = 'Cheffe'
+            this.value = 3;
+            user.level = 'Cheffe';
           } else if (user.totalPoint > 250) {
-            this.value = 2
-            user.level = 'Cookee'
+            this.value = 2;
+            user.level = 'Cookee';
           } else if (user.totalPoint > 100) {
-            this.value = 1
-            user.level = 'Tastee'
+            this.value = 1;
+            user.level = 'Tastee';
           } else {
-            this.value = 0
-            user.level = 'Newbee'
+            this.value = 0;
+            user.level = 'Newbee';
           }
         }
-      })
-
+      });
     }
-
   }
 }

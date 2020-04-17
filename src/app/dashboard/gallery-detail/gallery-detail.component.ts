@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GalleryService } from 'src/app/shared/service/gallery.service';
-import { Gallery } from 'src/app/shared/model/gallery';
-import { Recipe } from 'src/app/shared/model/recipe';
-import { CookieService } from 'ngx-cookie-service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { LoginServiceService } from 'src/app/shared/service/login-service.service';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {GalleryService} from 'src/app/shared/service/gallery.service';
+import {Gallery} from 'src/app/shared/model/gallery';
+import {Recipe} from 'src/app/shared/model/recipe';
+import {CookieService} from 'ngx-cookie-service';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {LoginServiceService} from 'src/app/shared/service/login-service.service';
+import {RecipeService} from 'src/app/shared/service/recipe-service.service';
 
 @Component({
   selector: 'app-gallery-detail',
@@ -17,24 +17,22 @@ export class GalleryDetailComponent implements OnInit {
 
   id: string = '';
   galleryCheck: boolean = false;
-  gallery: Gallery
-  checkRecipe: boolean = false
-  public recipes: Recipe[] = []; userObject = {
-    email: "",
-    password: ""
-  }
-  message: String = ''
-  galleryObject = {
-    _id: "",
-    recipe: Recipe
+  gallery: Gallery;
+  checkRecipe: boolean = false;
+  public recipes: Recipe[] = [];
+  userObject = {
+    email: '',
+    password: ''
   };
+  message: String = '';
   personalCheck: boolean = false;
-  imageUrl: String = 'jbiajl3qqdzshdw0z749'
-  isAuthenicate: boolean = false
-  personalGallery: Gallery[] = []
-  gallerys: Gallery[] = []
-  addRecipe = Recipe
+  imageUrl: String = 'jbiajl3qqdzshdw0z749';
+  isAuthenicate: boolean = false;
+  personalGallery: Gallery[] = [];
+  gallerys: Gallery[] = [];
   mine: boolean = false;
+  p: number;
+
   constructor(
     private route: ActivatedRoute,
     private galleryService: GalleryService,
@@ -44,7 +42,7 @@ export class GalleryDetailComponent implements OnInit {
     private userService: UserService,
     private _router: Router,
   ) {
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
     this.id = this.route.snapshot.params.id;
 
   }
@@ -53,22 +51,23 @@ export class GalleryDetailComponent implements OnInit {
 
     this.personalCheck = false;
     this.galleryCheck = false;
-    this.getGalleryDetail(this.id, true)
+    this.getGalleryDetail(this.id, true);
   }
+
   getGalleryDetail(id: any, first: boolean) {
-    this.userObject.email = this.cookie.get('email')
+    this.userObject.email = this.cookie.get('email');
 
     this.galleryService.galleryDetail(id).subscribe(data => {
-      this.gallery = data['gallery']
+      this.gallery = data['gallery'];
       if (this.gallery !== undefined) {
         if (this.gallery.recipe.length > 0) {
-          this.checkRecipe = true
-          this.recipes = this.gallery.recipe
+          this.checkRecipe = true;
+          this.recipes = this.gallery.recipe;
           if (this.userObject.email !== undefined) {
             this.recipeService.findInterest(this.userObject).subscribe(data => {
-              let interests = data.body['interests']
-              console.log(data)
-              this.recipes.forEach(function (recipe) {
+              let interests = data.body['interests'];
+              console.log(data);
+              this.recipes.forEach(function(recipe) {
                 recipe.like = false;
                 if (interests !== undefined) {
                   for (let interest of interests) {
@@ -81,45 +80,46 @@ export class GalleryDetailComponent implements OnInit {
                   recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749';
                 }
               });
-            })
+            });
             if (this.userObject.email === this.gallery.user.email) {
               this.mine = true;
             }
           }
         }
         if (this.gallery.user.imageUrl !== '') {
-          this.imageUrl = this.gallery.user.imageUrl
+          this.imageUrl = this.gallery.user.imageUrl;
         }
         if (first === true) {
-          this.getPersonalGallery()
+          this.getPersonalGallery();
         }
 
       }
-    })
+    });
   }
+
   getPersonalGallery() {
-    let email = this.cookie.get('email')
+    let email = this.cookie.get('email');
 
 
     this.galleryService.getGalleryies().subscribe(data => {
-      console.log(data)
+      console.log(data);
 
       if (data != null) {
-        let emailUser = this.gallery.user.email
-        console.log(emailUser)
+        let emailUser = this.gallery.user.email;
+        console.log(emailUser);
         if (emailUser !== '') {
           for (let gallery of data) {
             if (gallery.user.email === emailUser) {
               if (gallery.recipe.length > 0) {
-                gallery.image = gallery.recipe[0].imageUrl
+                gallery.image = gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+                gallery.image = 'fvt7rkr59r9d7wk8ndbd';
               }
-              this.gallerys.push(gallery)
+              this.gallerys.push(gallery);
             }
           }
           if (this.gallerys.length > 0) {
-            this.personalCheck = true
+            this.personalCheck = true;
 
           }
         }
@@ -127,31 +127,32 @@ export class GalleryDetailComponent implements OnInit {
           for (let gallery of data) {
             if (gallery.user.email === email) {
               if (gallery.recipe.length > 0) {
-                gallery.image = gallery.recipe[0].imageUrl
+                gallery.image = gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+                gallery.image = 'fvt7rkr59r9d7wk8ndbd';
               }
-              this.personalGallery.push(gallery)
+              this.personalGallery.push(gallery);
             }
           }
           if (this.personalGallery.length > 0) {
 
-            console.log(this.personalGallery.length)
+            console.log(this.personalGallery.length);
           }
         }
       }
-    })
+    });
   }
+
   video(link: any) {
-    console.log(link)
+    console.log(link);
     var url = 'https://www.youtube.com/watch?v=' + link;
-    window.open(url, "MsgWindow", "width=600,height=400");
+    window.open(url, 'MsgWindow', 'width=600,height=400');
   }
 
   likeRecipe(recipe: any, index: any) {
     console.log(recipe);
     console.log(index);
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
     if (this.isAuthenicate === false) {
       console.log('false');
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -159,27 +160,27 @@ export class GalleryDetailComponent implements OnInit {
       return;
     }
     recipe.like = true;
-    console.log(recipe.user.email)
+    console.log(recipe.user.email);
     let user = this.cookie.get('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,
       objectType: '2'
-    })
+    });
     let id = 'heart' + index;
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'red';
     radio.style.opacity = '0.8';
-    console.log(interestObject)
+    console.log(interestObject);
     this.recipeService.likeRecipe(interestObject).subscribe((data) => {
       if (data !== undefined) {
-        console.log('success')
+        console.log('success');
         let userObject = new Object({
           email: recipe.user.email
-        })
+        });
         this.userService.likeAddPoint(userObject).subscribe((data) => {
           if (data.body['status'] === 200) {
-            console.log('success')
+            console.log('success');
 
           }
         });
@@ -187,10 +188,12 @@ export class GalleryDetailComponent implements OnInit {
     });
     console.log(recipe.like);
   }
+
   loadGallery(gallery) {
-    this.getGalleryDetail(gallery._id, false)
+    this.getGalleryDetail(gallery._id, false);
 
   }
+
   dislikeRecipe(recipe: any, index: any) {
     console.log(recipe);
     console.log(index);
@@ -200,34 +203,34 @@ export class GalleryDetailComponent implements OnInit {
       return;
     }
     recipe.like = false;
-    console.log(recipe.user.email)
+    console.log(recipe.user.email);
     let user = this.cookie.get('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,
       objectType: '2'
-    })
+    });
     let id = 'heart' + index;
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'white';
     radio.style.opacity = '0.4';
-    console.log(recipe.user.email)
-    console.log(interestObject)
+    console.log(recipe.user.email);
+    console.log(interestObject);
     this.recipeService.dislikeRecipe(interestObject).subscribe((data) => {
       if (data !== undefined) {
         let userObject = new Object({
           email: recipe.user.email
-        })
+        });
         this.userService.dislikeremovePoint(userObject).subscribe((data) => {
           if (data.body['status'] === 200) {
-            console.log('success')
+            console.log('success');
 
           }
         });
       }
 
 
-    })
+    });
     console.log(recipe.like);
   }
 }
