@@ -26,6 +26,8 @@ export class IndexComponent implements OnInit {
   id: string = '1'
   imageUrl: string = 'jbiajl3qqdzshdw0z749'
   message = '';
+  url = 'http://localhost:4200'
+  text = 'Chào mừng bạn đến với website Ẩm thực Ăn chay'
   isModeration: boolean = false;
   showModal: boolean = false;
   addPassenger: boolean = false;

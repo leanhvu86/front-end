@@ -13,19 +13,18 @@ import {GalleryService} from 'src/app/shared/service/gallery.service';
 export class AddBookmarkComponent implements OnInit {
   message: string = null;
   showModal: boolean = false;
-  isAuthenicate: boolean = false;
+  isAuthenicate = false;
   searchText;
   collection = {count: 60, data: []};
   galleryTop: Gallery[] = [];
   personalGallery: Gallery[] = [];
 
   @Input() childMessage: Recipe;
-  addRecipe = Recipe;
   galleryObject = {
     _id: '',
     recipe: this.childMessage
   };
-  errMessage: string = '';
+  errMessage = '';
 
   constructor(
     private cookie: CookieService,
@@ -39,7 +38,7 @@ export class AddBookmarkComponent implements OnInit {
     this.getPersonalGallery();
   }
 
-  addBookmark(recipe: any) {
+  addBookmark() {
 
     this.message = '';
     if (this.isAuthenicate !== true) {
@@ -52,7 +51,6 @@ export class AddBookmarkComponent implements OnInit {
       return;
     }
     console.log(this.childMessage);
-    this.addRecipe = recipe;
     const radio: HTMLElement = document.getElementById('modal-button-addbookmark');
     radio.click();
   }

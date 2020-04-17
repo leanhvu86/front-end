@@ -25,6 +25,7 @@ export class MemberinforComponent implements OnInit {
   memberInfo: User
   imageUrl: String = 'jbiajl3qqdzshdw0z749'
   infoCheck: boolean = false;
+  p = 1;
   userObject = {
     email: "",
     password: ""
