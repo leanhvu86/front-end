@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Gallery} from 'src/app/shared/model/gallery';
 import {Recipe} from 'src/app/shared/model/recipe';
 import {CookieService} from 'ngx-cookie-service';
@@ -12,11 +12,8 @@ import {GalleryService} from 'src/app/shared/service/gallery.service';
 })
 export class AddBookmarkComponent implements OnInit {
   message: string = null;
-  showModal: boolean = false;
   isAuthenicate = false;
   searchText;
-  collection = {count: 60, data: []};
-  galleryTop: Gallery[] = [];
   personalGallery: Gallery[] = [];
 
   @Input() childMessage: Recipe;
@@ -76,8 +73,6 @@ export class AddBookmarkComponent implements OnInit {
     console.log(this.galleryObject);
     this.galleryService.addGallery(this.galleryObject).subscribe(data => {
       if (data.body['status'] === 200) {
-        let gallery = data.body['gallery'];
-
         this.message = data.body['message'];
         console.log(this.message);
         setTimeout(() => {
@@ -97,12 +92,12 @@ export class AddBookmarkComponent implements OnInit {
   }
 
   getPersonalGallery() {
-    let email = this.cookie.get('email');
+    const email = this.cookie.get('email');
 
     if (email !== '') {
       this.galleryService.getGalleryies().subscribe(data => {
         if (data != null) {
-          for (let gallery of data) {
+          for (const gallery of data) {
             if (gallery.user.email === email) {
               if (gallery.recipe.length > 0) {
                 gallery.image = gallery.recipe[0].imageUrl;

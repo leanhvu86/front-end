@@ -55,7 +55,7 @@
 <a class="a-title" style="margin-left: 5%; font-size: 20px;">CÔNG THỨC NỔI BẬT</a>
 <div style="width: 90%; margin-left: 5%; min-height: auto;" class="row" data-aos="fade-in" data-aos-duration="4000">
 
-    <div class=".col-md-8" *ngFor="let recipe of recipes| filter:searchText | paginate: config; let i=index"
+    <div class=".col-md-8" *ngFor="let recipe of recipes| paginate: config; let i=index"
         style="position: relative;margin-bottom: 100px;">
         <div class="hover15 column"
             style="float: left; margin-left: 3%; width: 30%; position: relative; text-align: center;">
@@ -98,7 +98,7 @@
                 <span (click)="dislikeRecipe(recipe,i)" style="position: absolute; left:270px; bottom: 20%;"><i
                         class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
             </ng-template>
-            <div style="top:375px;left: 40px; position: absolute; font-size: 12px;margin-left: 10px; height: 100px; ">
+            <div style="top:375px;left: -35px; position: absolute; font-size: 12px; height: 100px; ">
                 <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]" style="color: black;">
                     <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
                         <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
@@ -108,9 +108,12 @@
                         </cl-transformation>
                     </cl-image>&#160;{{recipe.user.name}}
                 </a>
-                <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
+
 
             </div>
+            <a style="top:385px;left: 205px; position: absolute; ">
+                <app-add-bookmark [childMessage]="recipe" style="width: 50px;"></app-add-bookmark>
+            </a>
             <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
                     aria-hidden="true" style="top:40%;left:155px;width: 30%;"></i></span>
         </div>
