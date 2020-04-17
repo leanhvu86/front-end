@@ -5,6 +5,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {RecipeService} from 'src/app/shared/service/recipe-service.service';
 import {UserService} from 'src/app/shared/service/user.service.';
 import {Comment} from 'src/app/shared/model/comment';
+import {CookStep} from '../../shared/model/cookStep';
 
 @Component({
   selector: 'app-recipe-check',
@@ -14,8 +15,8 @@ import {Comment} from 'src/app/shared/model/comment';
 export class RecipeCheckComponent implements OnInit {
   recipe: Recipe;
   recipeView: Recipe;
-  cookSteps: [] = [];
-  cookStepsView: [] = [];
+  cookSteps: CookStep[] = [];
+  cookStepsView: CookStep [] = [];
   multiplyElement: number = 4;
   oldMultiplyElement: number;
   like: boolean = false;
