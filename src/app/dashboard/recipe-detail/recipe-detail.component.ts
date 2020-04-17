@@ -104,7 +104,6 @@ export class RecipeDetailComponent implements OnInit {
 
     if (email !== '') {
       this.galleryService.getGalleryies().subscribe(data => {
-        console.log(data);
         if (data != null) {
           for (let gallery of data) {
             if (gallery.user.email === email) {
@@ -128,7 +127,6 @@ export class RecipeDetailComponent implements OnInit {
       this.recipe = recipeTem;
       if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
         for (let ingredient of this.recipe.ingredients) {
-          console.log(ingredient);
           let quantity =
             parseInt(ingredient.quantitative) * this.multiplyElement;
           ingredient.quantitative = quantity;
@@ -217,7 +215,6 @@ export class RecipeDetailComponent implements OnInit {
     this.recipeService.getComments().subscribe(data => {
       if (data !== undefined) {
         this.lstComment = data['comments'];
-        console.log(this.lstComment);
         for (const comment of this.lstComment) {
           console.log(comment.recipe.recipeName);
           if (comment.recipe.recipeName === this.recipe.recipeName) {
@@ -227,11 +224,9 @@ export class RecipeDetailComponent implements OnInit {
             } else {
               comment.type = '';
             }
-            console.log(comment);
             if (comment.imageUrl !== undefined && comment.imageUrl.length > 0) {
               const imageArr = comment.imageUrl.split(',');
               comment.imageUrl = imageArr;
-              console.log(imageArr);
             }
             if (comment.user.email == this.cookie.get('email')) {
               this.recipe.like = true;
@@ -245,7 +240,6 @@ export class RecipeDetailComponent implements OnInit {
 
   handleFiles(event: any, index: any) {
     const files = event.target.files;
-    console.log(files);
     for (let i = 0; i < files.length; i++) {
       if (files.length > 5) {
         this.errorMessage = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước!';
@@ -258,7 +252,6 @@ export class RecipeDetailComponent implements OnInit {
       const inputValue = (document.getElementById(id) as HTMLInputElement)
         .value;
       const arr = inputValue.split(',');
-      console.log(' imageArray nè' + inputValue);
       if (arr.length > 5) {
         this.errorMessage = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước !';
         const radio: HTMLElement = document.getElementById('modal-button');
@@ -281,7 +274,6 @@ export class RecipeDetailComponent implements OnInit {
       return;
     }
     let inputValue;
-    console.log(file);
     const url = `https://api.cloudinary.com/v1_1/${
       this.cloudinary.config().cloud_name
       }/image/upload`;
@@ -320,9 +312,7 @@ export class RecipeDetailComponent implements OnInit {
           const id = 'imageArray';
           const inputValue = (document.getElementById(id) as HTMLInputElement)
             .value;
-          console.log(inputValue);
           const arr = inputValue.split(',');
-          console.log(arr);
           const id_tag = img.alt;
           const position = arr.indexOf(id_tag);
 
@@ -337,11 +327,8 @@ export class RecipeDetailComponent implements OnInit {
         };
         inputValue = inputValue + response.public_id + ',';
         inputValue = inputValue.trim();
-        console.log(inputValue);
         const radio = document.getElementById(id) as HTMLInputElement;
         radio.value = inputValue;
-
-        console.log(radio.value);
         const galleryID = 'gallery';
         document.getElementById(galleryID).appendChild(img);
       }
@@ -355,10 +342,8 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   countIngredient(multiplyElement: any) {
-    console.log(this.multiplyElement);
     if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
       for (let ingredient of this.recipe.ingredients) {
-        console.log(ingredient);
         let quantity =
           (parseInt(ingredient.quantitative) / this.oldMultiplyElement) *
           this.multiplyElement;
@@ -369,7 +354,6 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   video(link: any) {
-    console.log(link);
     var url = 'https://www.youtube.com/watch?v=' + link;
     window.open(url, 'MsgWindow', 'width=600,height=400');
   }
@@ -384,7 +368,6 @@ export class RecipeDetailComponent implements OnInit {
       document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>
     );
     arrayNoimag.forEach(element => {
-      console.log(element);
       element.style.height = '300px';
       element.style.minHeight = '400px';
     });
@@ -392,19 +375,15 @@ export class RecipeDetailComponent implements OnInit {
       document.getElementsByClassName('bigContent') as HTMLCollectionOf<HTMLElement>
     );
     arrayNoimag.forEach(element => {
-      console.log(element);
       element.style.height = '300px';
       element.style.minHeight = '400px';
     });
     this.showImageStep = false;
-    console.log(this.showImageStep);
   }
 
   icon = 'highlight_off';
 
   public changeIcon(event: any, index: number) {
-    console.log('click' + event);
-    console.log('click' + index);
     const id = 'icon' + index;
     const radio: HTMLElement = document.getElementById(id);
 
@@ -420,7 +399,6 @@ export class RecipeDetailComponent implements OnInit {
       document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>
     );
     arrayNoimag.forEach(element => {
-      console.log(element);
       element.style.height = '150px';
       element.style.minHeight = '150px';
     });
@@ -428,12 +406,10 @@ export class RecipeDetailComponent implements OnInit {
       document.getElementsByClassName('bigContent') as HTMLCollectionOf<HTMLElement>
     );
     arrayNoimag.forEach(element => {
-      console.log(element);
       element.style.height = '150px';
       element.style.minHeight = '150px';
     });
     this.showImageStep = true;
-    console.log(this.showImageStep);
   }
 
   likeRecipe(recipe: any) {
@@ -442,18 +418,13 @@ export class RecipeDetailComponent implements OnInit {
       radio.click();
       return;
     }
-    console.log(recipe);
     this.like = true;
-
-    console.log(recipe.user.email);
     let user = recipe.user;
     this.interestObject.user = recipe.user.email;
     this.interestObject.objectId = recipe;
     this.interestObject.objectType = '2';
-    console.log(this.interestObject);
     this.recipeService.likeRecipe(this.interestObject).subscribe(data => {
       if (data !== undefined) {
-        console.log(data);
         this.recipe = data.body['recipe'];
         if (this.recipe.hardLevel !== undefined) {
           if (this.recipe.hardLevel === '') {
@@ -488,7 +459,6 @@ export class RecipeDetailComponent implements OnInit {
       radio.click();
       return;
     }
-    console.log(recipe);
     this.done = true;
     let user = this.cookie.get('email');
     let doneObject = new Object({
@@ -498,13 +468,11 @@ export class RecipeDetailComponent implements OnInit {
       content: '',
       imageUrl: ''
     });
-    console.log(doneObject);
     this.recipeService.addComment(doneObject).subscribe(data => {
       const status = data.body['status'];
       console.log(status);
       if (status === '200') {
         this.doneCount = this.recipe.doneCount;
-        console.log(this.doneCount);
         this.recipe = data.body['recipe'];
         if (this.recipe.hardLevel !== undefined) {
           if (this.recipe.hardLevel === '') {
@@ -541,8 +509,6 @@ export class RecipeDetailComponent implements OnInit {
       radio.click();
       return;
     }
-    console.log(this.registerForm.value);
-    console.log(this.recipe);
     this.userObject = this.registerForm.value;
     this.done = true;
     let typeDone;
@@ -552,7 +518,6 @@ export class RecipeDetailComponent implements OnInit {
       typeDone = 0;
     }
     let user = this.cookie.get('email');
-    console.log(this.userObject);
     const inputValue = (document.getElementById(
       'imageArray'
     ) as HTMLInputElement).value;
@@ -563,19 +528,16 @@ export class RecipeDetailComponent implements OnInit {
       content: this.userObject.content,
       imageUrl: inputValue
     });
-    console.log(doneObject);
 
     this.recipeService.addComment(doneObject).subscribe(data => {
       const status = data.body['status'];
       console.log(status);
       if (status === 200) {
-        console.log(data);
 
         this.recipe = data.body['recipe'];
         console.log('success');
         let comment: Comment;
         comment = data.body['comment'];
-        console.log(comment);
         if (comment.type === 1) {
           comment.type = 'Đã thực hiện';
           this.doneCount++;
@@ -584,10 +546,8 @@ export class RecipeDetailComponent implements OnInit {
         }
         ;
         let imageArr = comment.imageUrl.split(',');
-        console.log(imageArr);
         comment.imageUrl = imageArr;
         this.recipeComment.push(comment);
-        console.log(this.recipeComment);
         this.message = data.body['message'];
         const radio: HTMLElement = document.getElementById('modal-button10');
         radio.click();
@@ -638,14 +598,12 @@ export class RecipeDetailComponent implements OnInit {
       radio.click();
       return;
     }
-    console.log(recipe);
     this.addRecipe = recipe;
     const radio: HTMLElement = document.getElementById('modal-button1');
     radio.click();
   }
 
   addRecipeBookMark(gallery: any) {
-    console.log(gallery);
     if (gallery.recipe !== undefined) {
       for (let recipe of gallery.recipe) {
         if (recipe.name === this.addRecipe.name) {
@@ -656,13 +614,11 @@ export class RecipeDetailComponent implements OnInit {
     }
     this.galleryObject._id = gallery;
     this.galleryObject.recipe = this.addRecipe;
-    console.log(this.galleryObject);
     this.galleryService.addGallery(this.galleryObject).subscribe(data => {
       if (data.body['status'] === 200) {
         let gallery = data.body['gallery'];
 
         this.message = data.body['message'];
-        console.log(this.message);
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();

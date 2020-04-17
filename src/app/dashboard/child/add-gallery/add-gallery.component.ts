@@ -81,4 +81,7 @@ export class AddGalleryComponent implements OnInit {
       }
     })
   }
+  reset() {
+    this.registerForm.reset()
+  }
 }

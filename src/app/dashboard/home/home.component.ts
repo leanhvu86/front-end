@@ -74,41 +74,34 @@ export class Home2Component implements OnInit {
     this.config.currentPage = event;
   }
   findRecipe() {
-    console.log(this.search)
     this.cookie.set('searchText', this.search);
     this.router.navigateByUrl('/recipe')
     this.search = '';
   }
   getTopGalleries() {
     this.galleryService.getTopGalleryies().subscribe(galleries => {
-      console.log(galleries)
       for (let gallery of galleries) {
         gallery.like = false
         if (this.interests.length > 0) {
           for (let inter of this.interests) {
-
             if (gallery._id === inter.objectId._id) {
-              gallery.like = true
-              console.log(gallery)
+              gallery.like = true;
             }
           }
         }
         if (gallery.recipe.length > 0) {
           gallery.image = gallery.recipe[0].imageUrl
         } else {
-          gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+          gallery.image = 'fvt7rkr59r9d7wk8ndbd';
         }
       }
-      this.galleryTop = galleries
-      console.log(this.galleryTop)
+      this.galleryTop = galleries;
     })
   }
   getPersonalGallery() {
     let email = this.cookie.get('email')
-
     if (email !== '') {
       this.galleryService.getGalleryies().subscribe(data => {
-        console.log(data)
         if (data != null) {
           for (let gallery of data) {
             if (gallery.user.email === email) {
@@ -125,20 +118,17 @@ export class Home2Component implements OnInit {
     }
   }
   addBookmark(recipe: any) {
-
     this.message = ''
     if (this.isAuthenicate !== true) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
-    console.log(recipe)
     this.addRecipe = recipe
     const radio: HTMLElement = document.getElementById('modal-button1');
     radio.click();
   }
   addRecipeBookMark(gallery: any) {
-    console.log(gallery)
     if (gallery.recipe !== undefined) {
       for (let recipe of gallery.recipe) {
         if (recipe.name === this.addRecipe.name) {
@@ -147,15 +137,12 @@ export class Home2Component implements OnInit {
         }
       }
     }
-    this.galleryObject._id = gallery
-    this.galleryObject.recipe = this.addRecipe
-    console.log(this.galleryObject)
+    this.galleryObject._id = gallery;
+    this.galleryObject.recipe = this.addRecipe;
     this.galleryService.addGallery(this.galleryObject).subscribe(data => {
       if (data.body['status'] === 200) {
-        let gallery = data.body['gallery']
-
-        this.message = data.body['message']
-        console.log(this.message)
+        let gallery = data.body['gallery'];
+        this.message = data.body['message'];
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
@@ -168,8 +155,6 @@ export class Home2Component implements OnInit {
   getRecipes() {
     this.recipeService.getRecipes().subscribe(recipes => {
       if (recipes !== undefined) {
-
-
         if (this.isAuthenicate == true) {
           this.userObject.email = this.cookie.get('email')
           if (this.userObject.email !== undefined || this.userObject.email !== '') {
@@ -223,19 +208,13 @@ export class Home2Component implements OnInit {
           }
         }
       }
-
-      console.log(this.recipes);
     });
   }
   video(link: any) {
-    console.log(link)
     var url = 'https://www.youtube.com/watch?v=' + link;
     window.open(url, "MsgWindow", "width=600,height=400");
   }
   likeGallerry(gallery: any, index: any) {
-
-    console.log(gallery);
-    console.log(index);
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     if (this.isAuthenicate === false) {
       console.log('false');
@@ -244,7 +223,6 @@ export class Home2Component implements OnInit {
       return;
     }
     gallery.like = true;
-    console.log(gallery.user.email)
     let user = this.cookie.get('email');
     let interestObject = new Object({
       user: user,
@@ -255,10 +233,8 @@ export class Home2Component implements OnInit {
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'red';
     radio.style.opacity = '0.8';
-    console.log(interestObject)
     this.recipeService.likeRecipe(interestObject).subscribe((data) => {
       if (data !== undefined) {
-        console.log('success')
         let userObject = new Object({
           email: gallery.user.email
         })
@@ -270,19 +246,15 @@ export class Home2Component implements OnInit {
         });
       }
     });
-    console.log(gallery.like);
   }
   nolikeGallery(gallery: any, index: any) {
     gallery.like = false;
-    console.log(gallery);
-    console.log(index);
     if (this.isAuthenicate !== true) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
     gallery.like = false;
-    console.log(gallery.user.email)
     let user = this.cookie.get('email');
     let interestObject = new Object({
       user: user,
@@ -293,8 +265,6 @@ export class Home2Component implements OnInit {
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'grey';
     radio.style.opacity = '0.5';
-    console.log(gallery.user.email)
-    console.log(interestObject)
     this.recipeService.dislikeRecipe(interestObject).subscribe((data) => {
       if (data !== undefined) {
         let userObject = new Object({
@@ -310,11 +280,8 @@ export class Home2Component implements OnInit {
 
 
     })
-    console.log(gallery.like);
   }
   likeRecipe(recipe: any, index: any) {
-    console.log(recipe);
-    console.log(index);
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     if (this.isAuthenicate === false) {
       console.log('false');
@@ -323,7 +290,6 @@ export class Home2Component implements OnInit {
       return;
     }
     recipe.like = true;
-    console.log(recipe.user.email)
     let user = this.cookie.get('email');
     let interestObject = new Object({
       user: user,
@@ -334,7 +300,6 @@ export class Home2Component implements OnInit {
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'red';
     radio.style.opacity = '0.8';
-    console.log(interestObject)
     this.recipeService.likeRecipe(interestObject).subscribe((data) => {
       if (data !== undefined) {
         console.log('success')
@@ -349,18 +314,14 @@ export class Home2Component implements OnInit {
         });
       }
     });
-    console.log(recipe.like);
   }
   dislikeRecipe(recipe: any, index: any) {
-    console.log(recipe);
-    console.log(index);
     if (this.isAuthenicate !== true) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
     recipe.like = false;
-    console.log(recipe.user.email)
     let user = this.cookie.get('email');
     let interestObject = new Object({
       user: user,
@@ -371,8 +332,6 @@ export class Home2Component implements OnInit {
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'white';
     radio.style.opacity = '0.4';
-    console.log(recipe.user.email)
-    console.log(interestObject)
     this.recipeService.dislikeRecipe(interestObject).subscribe((data) => {
       if (data !== undefined) {
         let userObject = new Object({
@@ -385,10 +344,7 @@ export class Home2Component implements OnInit {
           }
         });
       }
-
-
-    })
-    console.log(recipe.like);
+    });
   }
   getTopUser() {
     this.userService.getTopUsers().subscribe(users => {

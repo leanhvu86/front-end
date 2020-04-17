@@ -26,7 +26,20 @@
             <span style="color: rgb(255, 124, 36);">{{user.name}}</span>
           </a>
         </h3>
+        <div *ngIf="loading">
 
+          <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
         <div class="mem-statis-box">
           <span class="headline">
             {{user.level}}
@@ -161,10 +174,10 @@
                 </tr>
                 <!--  -->
                 <tr>
-                  <th scope="col" style="text-align: right;width: 200px;">Ngày sinh</th>
+                  <th scope="col" style="text-align: right;width: 200px;">Năm sinh</th>
                   <td>
 
-                    <select type="text" formControlName="birthday" style="width:25%; border-radius:10px; margin:0 5% ; "
+                    <select type="text" formControlName="birthday" style="width:25%; border-radius:10px; "
                       id="birthday">
                       <option [value]="year" *ngFor="let year of years">{{year}}</option>
                     </select>
@@ -177,7 +190,7 @@
                     <div class="dropdown">
                       <select type="text" formControlName="gender"
                         [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
-                        style="width:25%; border-radius:10px; margin:0 5% ; " id="gender">
+                        style="width:25%; border-radius:10px; " id="gender">
                         <option [value]="1">Nam</option>
                         <option [value]="2">Nữ</option>
                         <option [value]="3">Không xác định</option>
@@ -194,11 +207,11 @@
                     <div class="dropdown">
                       <select type="text" formControlName="materialStatus"
                         [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
-                        style="width:50%; border-radius:10px; margin:0 5% ;">
+                        style="width:50%; border-radius:10px; ">
                         <option [value]="1">Độc thân</option>
                         <option [value]="2">Mối quan hệ phức tạp</option>
                         <option [value]="3">Đang hẹn hò</option>
-                        <option [value]="4">Đã đính hôn</option>
+                        <option [value]="4">Đã kết hôn</option>
                         <option [value]="5">Quan hệ mở</option>
                       </select>
 
@@ -210,16 +223,18 @@
                   <th scope="col" style="text-align: right;width: 200px;">Chữ kí</th>
                   <td>
                     <textarea class="form-control" formControlName="signature" rows="3"></textarea>
+                    <span style="color: red;font-size: 12px;">{{errorMessage}}</span>
                   </td>
                 </tr>
 
                 <tr>
                   <td style="width: 200px;"></td>
                   <td>
-                    <button type="button" class="btn btn-primary" style="margin-right: 3%;" (click)="onSubmit()">
+
+                    <button type="button" class="btn btn-success" style="margin-right: 3%;" (click)="onSubmit()">
                       Lưu thay đổi
                     </button>
-                    <button type="button" class="btn btn-light" (click)="onClear()">Hủy</button>
+                    <!-- <button type="button" class="btn btn-light" (click)="onClear()">Xóa thông tin</button> -->
                   </td>
                 </tr>
               </tbody>
@@ -280,7 +295,7 @@
                     Thay đổi mật khẩu
                   </button>
 
-                  <p style="text-align:center;">
+                  <p style="text-align:center; color: red;font-size: 12px;">
                     {{ errorPassMessage }}
                   </p>
                 </form>
@@ -288,7 +303,6 @@
               </div>
             </div>
           </div>
-          {{message}}
         </div>
         <!--  -->
 
@@ -298,7 +312,7 @@
     </div>
   </div>
 </div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" id="modal-button2"
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" 
   hidden>Large modal</button>
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -312,13 +326,35 @@
         </button>
       </div>
       <div class="container mt-40">
-        <h5 class="text-left">Thông báo hệ thống</h5>
+        
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" hidden data-target="#staticBackdrop"
+  id="modal-button2">
+  Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Thông báo hệ thống</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
         {{message}}
 
       </div>
     </div>
   </div>
 </div>
-
-
 <app-scroll-top></app-scroll-top>

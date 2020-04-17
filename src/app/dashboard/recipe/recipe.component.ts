@@ -41,8 +41,10 @@ export class RecipeComponent implements OnInit {
     private router: ActivatedRoute,
     private countryService: CountryService
   ) {
-    this.searchText = this.cookie.get('searchText');
-    this.cookie.set('searchText', '');
+    if (this.cookie.get('searchText') !== undefined && this.cookie.get('searchText') !== 'undefined') {
+      this.searchText = this.cookie.get('searchText');
+      this.cookie.set('searchText', '');
+    }
   }
 
   ngOnInit() {

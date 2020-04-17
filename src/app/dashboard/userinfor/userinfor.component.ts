@@ -43,6 +43,7 @@ export class UserinforComponent implements OnInit {
     introduction: '',
     imageUrl: '',
   }
+  loading = false
   isAuthenicate: boolean = false
   years: number[] = []
   imageUrl: string = 'jbiajl3qqdzshdw0z749'
@@ -165,11 +166,12 @@ export class UserinforComponent implements OnInit {
     showTicksValues: false
   };
   changePass() {
-    this.passSubmitted = true;
+    this.loading = true;
     if (this.changePassForm.invalid) {
       console.log(this.changePassForm.value)
-      return
+      return;
     }
+    this.passSubmitted = true;
     let email = this.cookie.get('email')
     this.userPassObject = this.changePassForm.value
     this.userPassObject.user = email
@@ -178,7 +180,13 @@ export class UserinforComponent implements OnInit {
         console.log(data)
         const status = data.body['status']
         if (status === 200) {
-          this.errorPassMessage = data.body['message']
+          this.message = data.body['message']
+          const radio: HTMLElement = document.getElementById('modal-button2');
+          radio.click();
+          setTimeout(() => {
+            this.loading = false;
+            window.location.reload()
+          }, 8000);
         } else {
           this.errorPassMessage = data.body['message']
         }
@@ -186,13 +194,17 @@ export class UserinforComponent implements OnInit {
   }
   handleFiles(event: any, index: any) {
     const files = event.target.files;
+    this.loading = true;
     console.log(files);
     if (files.length > 0) {
       let file: File
       file = files[0];
       if (file.size > 600000) {
-        alert('Kích thước file ảnh phải bé hơn 600 kB')
-        return
+        this.message = 'Kích thước file ảnh phải bé hơn 600 kB';
+        const radio: HTMLElement = document.getElementById('modal-button2');
+        radio.click();
+        this.loading = false;
+        return;
       } else {
         this.uploadFile(files[0]); // call the function to upload the file
 
@@ -290,33 +302,64 @@ export class UserinforComponent implements OnInit {
         this.imageUrl = value
         console.log(this.imageUrl)
         this.onSubmit();
+      } else {
+        this.message = 'Lỗi mạng vui lòng thử lại với file dung lượng thấp hơn'
+        const radio: HTMLElement = document.getElementById('modal-button2');
+        radio.click();
       }
-    }, 8000);
+      this.loading = false;
+    }, 16000);
 
   }
   onSubmit() {
     this.submitted = true;
+    if (this.registerForm.invalid) {
+      this.errorMessage = 'Bạn phải điền thông tin email!'
+      return;
+    }
+    this.registerForm.value.id = this.user._id
+    console.log(this.registerForm.value)
     this.userObject = this.registerForm.value
     this.userObject.imageUrl = this.imageUrl
-    this.userObject.signature = btoa(this.userObject.signature);
+    if (this.userObject !== undefined || this.userObject.signature !== '') {
+      this.userObject.signature = btoa(this.userObject.signature);
+    } else {
+      this.userObject.signature = ''
+    }
     this.userService.updateUser(this.userObject).subscribe(user => {
-      if (user != undefined) {
+
+      const status = user.body['status']
+      console.log(status)
+      if (status === 200) {
         console.log(user)
-        this.user.signature = atob(this.user.signature)
+        if (this.user.signature !== undefined) {
+          this.user.signature = atob(this.user.signature)
+        }
         this.message = user.body['message']
         const radio: HTMLElement = document.getElementById('modal-button2');
         radio.click();
+        this.loading = false;
         setTimeout(() => {
-          const radio: HTMLElement = document.getElementById('close-modal');
-          radio.click();
+
+          window.location.reload();
         }, 4000);
+      } else {
+        this.loading = false;
+        this.errorMessage = user.body['message']
       }
     })
-    window.location.reload()
+
   }
   onClear() {
     this.submitted = false;
-    this.registerForm.reset()
+    this.registerForm.value.email = ''
+    this.registerForm.value.name = ''
+    this.registerForm.value.lastName = ''
+    this.registerForm.value.birthday = ''
+    this.registerForm.value.gender = 3
+    this.registerForm.value.materialStatus = 5
+    this.registerForm.value.signature = ''
+    this.registerForm.value.introduction = ''
   }
   getAllYear() {
     let temp = parseInt(new Date().getFullYear().toString()) - 4;
