@@ -139,7 +139,7 @@ export class UserinforComponent implements OnInit {
           this.registerForm = this.formBuilder.group({
             id: [this.user._id],
             email: [email, [Validators.required, Validators.email]],
-            name: [name],
+            name: [name, Validators.maxLength(20)],
             lastName: [lastName],
             birthday: [birthday],
             gender: [gender],
@@ -314,7 +314,7 @@ export class UserinforComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.invalid) {
-      this.errorMessage = 'Bạn phải điền thông tin email!'
+      this.errorMessage = 'Bạn phải kiểm tra lại thông tin!'
       return;
     }
     this.registerForm.value.id = this.user._id

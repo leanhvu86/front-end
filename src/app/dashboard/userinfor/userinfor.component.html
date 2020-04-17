@@ -162,7 +162,11 @@
                 <tr>
                   <th scope="col" style="text-align: right;width: 200px;">Tên</th>
                   <td>
-                    <input type="text" class="form-control" formControlName="name" />
+                    <input type="text" class="form-control" formControlName="name"
+                      [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                      <div *ngIf="f.name.errors.maxlength">Tên không dài quá 20 ký tự</div>
+                    </div>
                   </td>
                 </tr>
                 <!--  -->
