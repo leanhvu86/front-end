@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Title } from '@angular/platform-browser';
-import { CookieService } from 'ngx-cookie-service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { LoginServiceService } from '../../shared/service/login-service.service'
-import { UserService } from 'src/app/shared/service/user.service.';
-import { User } from 'src/app/shared/model/user';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {Title} from '@angular/platform-browser';
+import {CookieService} from 'ngx-cookie-service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LoginServiceService} from '../../shared/service/login-service.service';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Message} from '../../shared/model/message';
+
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',

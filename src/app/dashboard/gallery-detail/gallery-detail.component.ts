@@ -69,17 +69,16 @@ export class GalleryDetailComponent implements OnInit {
               let interests = data.body['interests']
               console.log(data)
               this.recipes.forEach(function (recipe) {
-                recipe.like = false
+                recipe.like = false;
                 if (interests !== undefined) {
                   for (let interest of interests) {
                     if (interest.objectId._id === recipe._id) {
-                      recipe.like = true
+                      recipe.like = true;
                     }
                   }
                 }
-
                 if (recipe.user.imageUrl === undefined) {
-                  recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+                  recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749';
                 }
               });
             })
