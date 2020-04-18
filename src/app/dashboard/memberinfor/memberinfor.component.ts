@@ -60,6 +60,17 @@ export class MemberinforComponent implements OnInit {
         if (user.imageUrl !== '') {
           this.imageUrl = user.imageUrl
         }
+        if (user.totalPoint > 600) {
+          user.level = 'Mastee';
+        } else if (user.totalPoint > 400) {
+          user.level = 'Cheffe';
+        } else if (user.totalPoint > 250) {
+          user.level = 'Cookee';
+        } else if (user.totalPoint > 100) {
+          user.level = 'Tastee';
+        } else {
+          user.level = 'Newbee';
+        }
         this.recipeService.getRecipes().subscribe(recipes => {
           if (recipes !== undefined) {
             this.userObject.email = this.cookie.get('email')
