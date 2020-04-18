@@ -13,12 +13,13 @@ import {Gallery} from 'src/app/shared/model/gallery';
 })
 export class MygalleryComponent implements OnInit {
   id: String = '1';
-  value: number = 2;
+  value: number = 0;
   options: Options = {
     floor: 0,
-    ceil: 4,
-    showOuterSelectionBars: true,
-    showTicksValues: false
+    ceil: 1000,
+    showTicksValues: false,
+    disabled:true,
+    hideLimitLabels:true,
   };
 
   userObject = {
@@ -61,19 +62,19 @@ export class MygalleryComponent implements OnInit {
             this.id = user._id;
             this.loadPage = true;
             if (user.totalPoint > 600) {
-              this.value = 4;
+              this.value = user.totalPoint;
               user.level = 'Mastee';
             } else if (user.totalPoint > 400) {
-              this.value = 3;
+              this.value = user.totalPoint;
               user.level = 'Cheffe';
             } else if (user.totalPoint > 250) {
-              this.value = 2;
+              this.value = user.totalPoint;
               user.level = 'Cookee';
             } else if (user.totalPoint > 100) {
-              this.value = 1;
+              this.value = user.totalPoint;
               user.level = 'Tastee';
             } else {
-              this.value = 0;
+              this.value = user.totalPoint;
               user.level = 'Newbee';
             }
           })

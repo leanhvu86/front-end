@@ -87,19 +87,19 @@ export class UserinforComponent implements OnInit {
           console.log(this.id)
           this.loadPage = true
           if (user.totalPoint > 600) {
-            this.value = 4
+            this.value = user.totalPoint
             user.level = 'Mastee'
           } else if (user.totalPoint > 400) {
-            this.value = 3
+            this.value = user.totalPoint
             user.level = 'Cheffe'
           } else if (user.totalPoint > 250) {
-            this.value = 2
+            this.value = user.totalPoint
             user.level = 'Cookee'
           } else if (user.totalPoint > 100) {
-            this.value = 1
+            this.value = user.totalPoint
             user.level = 'Tastee'
           } else {
-            this.value = 0
+            this.value = user.totalPoint
             user.level = 'Newbee'
           }
           this.loadPage = true
@@ -161,11 +161,10 @@ export class UserinforComponent implements OnInit {
   value: number = 0;
   options: Options = {
     floor: 0,
-    ceil: 4,
-    showOuterSelectionBars: true,
+    ceil: 1000,
     showTicksValues: false,
     disabled:true,
-    hideLimitLabels:true
+    hideLimitLabels:true,
   };
   changePass() {
     this.loading = true;

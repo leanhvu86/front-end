@@ -312,11 +312,11 @@
       <form id="demo-2">
         <img style="height: 40px;width:185px;margin-left: 0px;" src="../../../assets/images/logo1.png" />
       </form>
-      <a class="py-2 d-none d-md-inline-block register-button" style="right: 18%;padding: 2px 8px; "
+      <a class="py-2 d-none d-md-inline-block register-button" style="right: 18%;padding: 2px 8px; " title="Đăng công thức mới"
         (click)="onChange($event)"><i class="fa fa-pencil-square-o" style="padding: 2px 8px;"
           aria-hidden="true"></i>{{ "register.recipe" | translate }}</a>
       <div class="nav-item avatar dropdown" *ngIf="isAuthenicate" style="margin-top: -40px;">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" title="Thông báo cá nhân"
           (click)="changeStatus($event)" aria-haspopup="true" aria-expanded="false"
           style=" position: absolute; right: 12%; top:0px; width: 70px; padding: 0 auto;">
           <ng-template #other_content1>
@@ -339,7 +339,7 @@
       <ng-template #other_content>
         <div class="nav-item avatar dropdown" style="margin-top: -40px;">
           <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false" style=" position: absolute; right: 5%; top:-10px;">
+           title="Quản lý tài khoản" aria-expanded="false" style=" position: absolute; right: 5%; top:-10px;">
             <cl-image public-id="{{ imageUrl }}" style="border-radius: 50px;">
               <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill" background="#e9ebee">
               </cl-transformation>
@@ -367,10 +367,10 @@
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Đăng nhập</h5>
+        <div class="modal-header" style="background:  #008325;">
+          <h5 class="modal-title"  style="color:  white;" id="exampleModalLongTitle">Đăng nhập</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
-            <span aria-hidden="true">&times;</span>
+            <span style="color:  white;" aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">

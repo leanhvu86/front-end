@@ -25,6 +25,7 @@ export class AppRecipeGalleryComponent implements OnInit {
     user: '',
     recipes: []
   };
+  searchText: string = '';
   message: String = '';
   gallerys: Gallery[] = [];
   oldRecipes: Recipe[] = [];

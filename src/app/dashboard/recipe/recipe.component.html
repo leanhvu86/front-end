@@ -26,7 +26,7 @@
       <div>
         <input type="checkbox" [checked]="foodType.status" (change)="getFoodTypeValues($event,foodType) "/>
         <div class=" state">
-          <label>{{foodType.foodTypeName}}</label>
+          <a title="Lọc theo loại món">{{foodType.foodTypeName}}</a>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
       <div>
         <input type="checkbox" [checked]="country.status" (change)="getCountryValues($event,country) "/>
         <div class=" state">
-          <label>{{country.countryName}}</label>
+          <a title="Lọc theo ẩm thực các quốc gia">{{country.countryName}}</a>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
       <div>
         <input type="checkbox" [checked]="cookWay.status" (change)="getCookWayValues($event,cookWay) "/>
         <div class=" state">
-          <label>{{cookWay.cookWayName}}</label>
+          <a title="Lọc theo cách chế biến">{{cookWay.cookWayName}}</a>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@
       <div>
         <input type="checkbox" [checked]="ingredient.status" (change)="getIngredientValues($event,ingredient) "/>
         <div class=" state">
-          <label>{{ingredient.cookWayName}}</label>
+          <a title="Lọc theo nguyên liệu chế biến">{{ingredient.cookWayName}}</a>
         </div>
       </div>
     </div>
@@ -86,7 +86,7 @@
             left: 88px;
             top: 100px; color: gray; opacity: 0.8;"></i></span>
 
-          <a class=" btn-act btn-add-favourite ng-isolate-scope">
+          <a class=" btn-act btn-add-favourite ng-isolate-scope" title="Yêu thích món ăn">
             <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content" style="position: absolute;
                 left: -42px;
                 bottom: 3px;
@@ -106,7 +106,7 @@
         <div class="item-info">
           <div class="item-title">
             <h3>
-              <a [routerLink]="['/detail/', recipe._id]" class="namenamename">{{recipe.recipeName}}</a>
+              <a [routerLink]="['/detail/', recipe._id]" class="namenamename" title="{{recipe.recipeName}}">{{recipe.recipeName}}</a>
             </h3>
           </div>
           <div class="desc ng-binding">
@@ -119,18 +119,18 @@
         </div>
         <div class="item-footer">
           <div class="recipe-acts">
-            <div style="top: 340px;
+            <a style="top: 340px;
               opacity: 0.8;
               float: left;
               margin-right: -17px;
               padding-top: 10px;
-           ">
+           " title="Thời gian thực hiện món ăn">
               &#160;
               <i class="fa fa-clock-o stats-ico" aria-hidden="true" style="text-overflow: ellipsis;
               overflow: hidden;
               white-space:nowrap; width: 60px;"> {{recipe.time}}</i>
-            </div>
-            <div style="    top: 340px;
+            </a>
+            <a style="    top: 340px;
               left: 43px;
 
               opacity: 0.8;
@@ -139,19 +139,19 @@
               padding-top: 10px;
 
 
-            ">
+            " title="Lượt xem món ăn">
               &#160;
               <i class="fa fa-bar-chart stats-ico" aria-hidden="true"> {{recipe.viewCount}}</i>
-            </div>
-            <div style="
+            </a>
+            <a style="
             opacity: 0.8;
             float: left;
             padding-top: 10px;
-          ">
+          " title="Độ khó món ăn">
               <i class="fa fa-bolt stats-ico" aria-hidden="true" style="text-overflow: ellipsis;
               overflow: hidden;
               white-space:nowrap;width: 80px;">{{recipe.hardLevel}}&#160; {{recipe.user.name}}</i>
-            </div>
+            </a>
             <div style="float: left;
             margin-top: -31px; margin-left: 132px;">
               <!-- <i class="fa fa-bookmark"></i> -->

@@ -2205,7 +2205,7 @@ body {
   border-radius: 50%;
   font-size: 18px;
   color: rgb(122, 121, 121);
-  
+
   /* border: 0.5px solid rgb(150, 150, 150); */
   margin-right: 5px;
   transition: all 0.3s ease-in-out 0s;
@@ -2888,9 +2888,6 @@ body {
 .link-name {
   position: relative;
   display: inline-block;
-}
-.link-name:hover {
-  border-bottom: 1px dotted black;
 }
 .button_slidehr {
   /* color: #156466; */

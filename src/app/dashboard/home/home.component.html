@@ -68,7 +68,7 @@
                 </figure>
 
             </div>
-            <a class="link-name"
+            <a class="link-name" title="xem chi tiết công thức"
                 style="bottom:20px;left: 40px;text-align: center; -webkit-line-clamp: 3; position: absolute; min-width:150px; width: 260px;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
@@ -76,7 +76,7 @@
                 [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</a>
 
             <div style="top:340px;left:  2px; position: absolute; font-size: 12px; opacity: 0.8; height: 100px;">&#160;
-                <i class="fa fa-clock-o stats-ico" aria-hidden="true"> {{recipe.time}}ph</i>
+             <i class="fa fa-clock-o stats-ico" aria-hidden="true">  {{recipe.time}}ph </i>
             </div>
             <div style="top:340px;left: 43px; position: absolute; font-size: 12px;opacity: 0.8; height: 100px; ">&#160;
                 <i class="fa fa-bar-chart stats-ico" aria-hidden="true">
@@ -98,7 +98,7 @@
                 <span (click)="dislikeRecipe(recipe,i)" style="position: absolute; left:270px; bottom: 20%;"><i
                         class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
             </ng-template>
-            <div style="top:375px;left: -35px; position: absolute; font-size: 12px; height: 100px; ">
+            <div style="top:375px;left: 35px; position: absolute; font-size: 12px; height: 100px; ">
                 <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]" style="color: black;">
                     <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
                         <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
@@ -109,11 +109,9 @@
                     </cl-image>&#160;{{recipe.user.name}}
                 </a>
 
-
+              <app-add-bookmark [childMessage]="recipe"  ></app-add-bookmark>
             </div>
-            <a style="top:385px;left: 205px; position: absolute; ">
-                <app-add-bookmark [childMessage]="recipe" style="width: 50px;"></app-add-bookmark>
-            </a>
+
             <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
                     aria-hidden="true" style="top:40%;left:155px;width: 30%;"></i></span>
         </div>
@@ -137,9 +135,9 @@
                     </cl-transformation>
                 </cl-image>
                 <div class="box-content">
-                    <h3 class="title" style=" width: 96% ; text-align: center;"
+                    <a class="title" style=" width: 96% ;text-decoration: none; text-align: center;" title="{{gallery.content}}"
                         [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}
-                    </h3>
+                    </a>
 
                     <ul class="icon" style=" bottom:100px ;">
                         <li><a><i class="fa fa-heart fa-2x " id="heartGallery{{i}}" style="margin-top: 15px;"

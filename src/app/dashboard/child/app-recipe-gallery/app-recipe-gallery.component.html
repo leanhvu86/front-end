@@ -1,5 +1,5 @@
-<button class="register-button" (click)="registerGallery()"><i class="fa fa-hand-pointer-o" style="padding: 2px 8px;"
-    aria-hidden="true"></i></button>
+<a class="register-button" title="Thêm công thức vào bộ sưu tập"  (click)="registerGallery()"><i class="fa fa-hand-pointer-o" style="padding: 2px 8px;"
+    aria-hidden="true"></i></a>
 <!-- Extra large modal -->
 <button type="button" id="add-recipe-gallery" class="btn btn-primary" style="display: none;" data-toggle="modal"
   data-target=".bd-example-modal-xl">Extra large modal</button>
@@ -8,12 +8,13 @@
   aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content" style="height: 1000px;">
-      <div class="modal-header">
+      <div class="modal-header" style="background: #008325;">
+        <a style="color: white;">Chỉnh sửa thông tin bộ sưu tập</a>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true" style="color: white;">&times;</span>
         </button>
       </div>
-      <form class="form-signin" (ngSubmit)="updateGallery()" #loginForm="ngForm" [formGroup]="registerForm"
+      <form class="form-signin" (ngSubmit)="updateGallery()" [formGroup]="registerForm"
         style="margin-top: 10px;">
         <div class="container">
           <div class="row">
@@ -47,9 +48,9 @@
               </div>
             </div>
             <div class="col">
-              <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
-                style="width: 50%;margin-left: 30%;">
-                Lưu vào bộ sưu tập
+              <button class="btn btn-lg btn-success btn-block btn-signin" type="submit"
+                style="width: 50%;margin-left: 30%;padding: 5px 5px;margin-top: 10px;">
+                Lưu bộ sưu tập
               </button>
             </div>
           </div>
@@ -61,13 +62,18 @@
         </p>
         {{message}}
       </form>
-      <h6 style="margin-top: 5px;">Thêm công thức vào bộ sưu tập</h6>
       <div class="container">
+
         <div class="row">
+
           <div class="col recipeLst">
+            <a style="margin-top: 5px;">Danh sách tất cả công thức</a>
             <ul class="list">
               <cdk-virtual-scroll-viewport style="height: 600px" itemSize="40">
-                <ng-container *cdkVirtualFor="let recipe of recipes; let j = index;">
+                <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+                       placeholder="Tìm kiêm công thức" style="width: 100%; display: block;
+        cursor: pointer;">
+                <ng-container *cdkVirtualFor="let recipe of recipes |filter:searchText; let j = index;">
                   <li>
                     <div class="container">
                       <div class="row">
@@ -85,13 +91,13 @@
                             </cl-transformation>
                           </cl-image>
 
-                          <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"> <i
+                          <a *ngIf="!recipe.like;else other_content" title="Thêm công thức vào bộ sưu tập"> <i
                               class="fa fa-check-circle fa-lg" id="icon{{ j }}" aria-hidden="true"
-                              (click)="addRecipe(recipe, j)"></i></span>
+                              (click)="addRecipe(recipe, j)"></i></a>
                           <ng-template #other_content>
-                            <span (click)="dislikeRecipe(recipe,i)">
+                            <a title="Loại công thức ra khỏi bộ sưu tập" >
                               <i class="fa fa-check-circle fa-lg checkIcon" aria-hidden="true"
-                                (click)="removeRecipe(recipe, j)"></i></span>
+                                (click)="removeRecipe(recipe, j)"></i></a>
                           </ng-template>
                         </div>
                       </div>
@@ -103,6 +109,7 @@
             </ul>
           </div>
           <div class="col recipeLst">
+            <a style="margin-top: 5px;">Danh sách công thức của bộ sưu tập</a>
             <ul class="list">
               <cdk-virtual-scroll-viewport style="height: 600px" itemSize="30">
                 <ng-container *cdkVirtualFor="let recipe of oldRecipes; let i = index;">
@@ -111,7 +118,7 @@
                       <div class="row" id="old{{i}}">
                         <div class="col">
                           <a (click)="removeRecipe(recipe,i)" style="width: 7px; height: auto; margin-top: 20px;"
-                            title="Xóa nhóm"><i class="fa fa-trash-o buttonhover" aria-hidden="true"></i></a>
+                            title="Xóa công thức ra khỏi bộ sưu tập"><i class="fa fa-trash-o buttonhover" aria-hidden="true"></i></a>
                         </div>
                         <div class="col-6">
                           <a style="font-size: 16px;">{{recipe.recipeName}}</a>
