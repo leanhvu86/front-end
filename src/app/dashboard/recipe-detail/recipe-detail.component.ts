@@ -471,7 +471,7 @@ export class RecipeDetailComponent implements OnInit {
     this.recipeService.addComment(doneObject).subscribe(data => {
       const status = data.body['status'];
       console.log(status);
-      if (status === '200') {
+      if (status === 200) {
         this.doneCount = this.recipe.doneCount;
         this.recipe = data.body['recipe'];
         if (this.recipe.hardLevel !== undefined) {
@@ -491,6 +491,10 @@ export class RecipeDetailComponent implements OnInit {
         const radio: HTMLElement = document.getElementById('modal-button10');
         radio.click();
         console.log('success');
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+
       } else {
         this.message = data.body['message'];
         const radio: HTMLElement = document.getElementById('modal-button10');

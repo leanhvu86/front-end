@@ -500,7 +500,8 @@ export class RegisterPassengerComponent implements OnInit {
             this.message = result['message'];
             const radio: HTMLElement = document.getElementById('modal-button');
             radio.click();
-            this.profileForm.reset()
+            this.profileForm.reset();
+            this.finish();
           } else {
             this.message = result['message'];
             const radio: HTMLElement = document.getElementById('modal-button');

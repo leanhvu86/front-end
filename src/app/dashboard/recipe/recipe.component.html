@@ -2,7 +2,7 @@
   <form class="form" style="width: 750px; margin: 20px 350px;">
     <input title="Search" value="" type="submit" class="button">
     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-      placeholder="Tìm kiêm công thức" style="width: 90%;
+           placeholder="Tìm kiêm công thức" style="width: 90%;
         cursor: pointer;">
   </form>
 
@@ -11,20 +11,20 @@
   <div class="row" style="width: 100%;">
     <a style="color: red; margin:10px 10px;"><i class="fa fa-sliders" aria-hidden="true"></i></a>
     <button (click)="onChangedFoodType($event)" class="button-filter" style=" margin: 10px  30px;">Món ăn&#160;<i
-        class="fa fa-caret-down" aria-hidden="true"></i></button>
+      class="fa fa-caret-down" aria-hidden="true"></i></button>
     <button (click)="onChangedCountry($event)" class="button-filter" style=" margin: 10px  30px;">Ẩm thực&#160;<i
-        class="fa fa-caret-down" aria-hidden="true"></i></button>
+      class="fa fa-caret-down" aria-hidden="true"></i></button>
     <button (click)="onChangedCookWay($event)" class="button-filter" style=" margin: 10px  30px;">Chế biến&#160;<i
-        class="fa fa-caret-down" aria-hidden="true"></i></button>
+      class="fa fa-caret-down" aria-hidden="true"></i></button>
     <button (click)="onChangedIngredient($event)" class="button-filter" style=" margin: 10px  30px;">Nguyên
       liệu&#160;<i class="fa fa-caret-down" aria-hidden="true"></i></button>
   </div>
 
-  <div *ngIf="showFoodtype" style="font-size: 12px; margin-left: 50px;" class="row">
+  <div *ngIf="showFoodType" style="font-size: 12px; margin-left: 50px;" class="row">
     <div class="pretty p-switch p-switch p-primary" *ngFor="let foodType of foodTypes"
-      style="width: 15%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+         style="width: 15%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
       <div>
-        <input type="checkbox" [checked]="foodType.status" (change)="getFoodTypeValues($event,foodType) " />
+        <input type="checkbox" [checked]="foodType.status" (change)="getFoodTypeValues($event,foodType) "/>
         <div class=" state">
           <label>{{foodType.foodTypeName}}</label>
         </div>
@@ -33,9 +33,9 @@
   </div>
   <div *ngIf="showCountrys" style="font-size: 12px; margin-left: 50px;" class="row">
     <div class="pretty p-switch p-switch p-primary" *ngFor="let country of countrys"
-      style="width: 15%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+         style="width: 15%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
       <div>
-        <input type="checkbox" [checked]="country.status" (change)="getCountryValues($event,country) " />
+        <input type="checkbox" [checked]="country.status" (change)="getCountryValues($event,country) "/>
         <div class=" state">
           <label>{{country.countryName}}</label>
         </div>
@@ -44,9 +44,9 @@
   </div>
   <div *ngIf="showCookWays" style="font-size: 12px; margin-left: 50px;" class="row">
     <div class="pretty p-switch p-switch p-primary" *ngFor="let cookWay of cookWays"
-      style="width: 15%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+         style="width: 15%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
       <div>
-        <input type="checkbox" [checked]="cookWay.status" (change)="getCookWayValues($event,cookWay) " />
+        <input type="checkbox" [checked]="cookWay.status" (change)="getCookWayValues($event,cookWay) "/>
         <div class=" state">
           <label>{{cookWay.cookWayName}}</label>
         </div>
@@ -55,9 +55,9 @@
   </div>
   <div *ngIf="showIngredient" style="font-size: 12px; margin-left: 50px;" class="row">
     <div class="pretty p-switch p-switch p-primary" *ngFor="let ingredient of ingredients"
-      style="width: 15%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+         style="width: 15%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
       <div>
-        <input type="checkbox" [checked]="ingredient.status" (change)="getIngredientValues($event,ingredient) " />
+        <input type="checkbox" [checked]="ingredient.status" (change)="getIngredientValues($event,ingredient) "/>
         <div class=" state">
           <label>{{ingredient.cookWayName}}</label>
         </div>
@@ -68,10 +68,10 @@
 <div class="container">
   <br><br>
   <h6>Tổng số <a style="color: red;">{{countRecipe}}</a> công thức</h6>
-  <div class="recipe-list-wrapper" style="float: left;     width: 100%;">
+  <div class="recipe-list-wrapper" style="float: left;width: 100%;">
     <!-- 1 anh -->
     <div class="ng-scope member-recipe-item"
-      *ngFor="let recipe of recipes|filter:searchText|paginate:{itemsPerPage: 20, currentPage:p};let i = index">
+         *ngFor="let recipe of recipes|filter:searchText|paginate:{itemsPerPage: 20, currentPage:p};let i = index">
       <div class="item-inner ng-scope" style="background: white;">
         <div class="item-photo" style="    position: relative;">
           <a [routerLink]="['/detail/', recipe._id]" class="photo">
@@ -82,7 +82,7 @@
 
           </a>
           <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
-              aria-hidden="true" style="    position: absolute;
+                                                                              aria-hidden="true" style="    position: absolute;
             left: 88px;
             top: 100px; color: gray; opacity: 0.8;"></i></span>
 
@@ -93,12 +93,12 @@
                 width: 30px;
                 height: 30px;"><i id="heart{{i}}" class="fa fa-heart fa-3x heart" aria-hidden="true"></i></span>
             <ng-template #other_content>
-              <span (click)="dislikeRecipe(recipe,i)" style="    position: absolute;
+              <span (click)="dislikeRecipe(recipe,i)" style="position: absolute;
                 left: -42px;
                 bottom: 3px;
                 width: 30px;
                 height: 30px;"><i class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}"
-                  aria-hidden="true"></i></span>
+                                  aria-hidden="true"></i></span>
             </ng-template>
           </a>
 
@@ -119,9 +119,7 @@
         </div>
         <div class="item-footer">
           <div class="recipe-acts">
-            <div style="    top: 340px;
-
-
+            <div style="top: 340px;
               opacity: 0.8;
               float: left;
               margin-right: -17px;

@@ -34,7 +34,7 @@ export class Home2Component implements OnInit {
   collection = { count: 60, data: [] };
   galleryTop: Gallery[] = []
   personalGallery: Gallery[] = []
-  addRecipe = Recipe
+  addRecipe = Recipe;
   galleryObject = {
     _id: "",
     recipe: Recipe
@@ -156,7 +156,7 @@ export class Home2Component implements OnInit {
     this.recipeService.getRecipes().subscribe(recipes => {
       if (recipes !== undefined) {
         if (this.isAuthenicate == true) {
-          this.userObject.email = this.cookie.get('email')
+          this.userObject.email = this.cookie.get('email');
           if (this.userObject.email !== undefined || this.userObject.email !== '') {
             this.recipeService.findInterest(this.userObject).subscribe(data => {
               let interests = data.body['interests']

@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {RecipeService} from '../.././shared/service/recipe-service.service';
-import {Recipe} from '../../shared/model/recipe';
-import {CookieService} from 'ngx-cookie-service';
-import {UserService} from 'src/app/shared/service/user.service.';
-import {ActivatedRoute} from '@angular/router';
-import {FoodType} from 'src/app/shared/model/foodType';
-import {CountryService} from 'src/app/shared/service/country.service';
-import {Country} from 'src/app/shared/model/country';
-import {CookWay} from 'src/app/shared/model/cookWay';
+import { Component, OnInit } from '@angular/core';
+import { RecipeService } from '../.././shared/service/recipe-service.service';
+import { Recipe } from '../../shared/model/recipe';
+import { CookieService } from 'ngx-cookie-service';
+import { UserService } from 'src/app/shared/service/user.service.';
+import { ActivatedRoute } from '@angular/router';
+import { FoodType } from 'src/app/shared/model/foodType';
+import { CountryService } from 'src/app/shared/service/country.service';
+import { Country } from 'src/app/shared/model/country';
+import { CookWay } from 'src/app/shared/model/cookWay';
+import { Interest } from 'src/app/shared/model/interest';
 
 @Component({
   selector: 'app-recipe',
@@ -18,7 +19,7 @@ export class RecipeComponent implements OnInit {
   recipes: Recipe[];
   isAuthenicate: boolean = false;
   searchText: string = '';
-  showFoodtype: boolean = false;
+  showFoodType: boolean = false;
   showCountrys: boolean = false;
   showCookWays: boolean = false;
   showIngredient: boolean = false;
@@ -32,7 +33,12 @@ export class RecipeComponent implements OnInit {
   recipesFilter: Recipe[] = [];
   empty: Recipe[] = [];
   countRecipe: number = 0;
-  p:number;
+  p: number;
+  userObject = {
+    email: "",
+    password: ""
+  };
+  public interests: Interest[] = [];
   constructor(
     private service: RecipeService,
     private cookie: CookieService,
@@ -158,11 +164,9 @@ export class RecipeComponent implements OnInit {
 
   }
   getRecipe = () => {
-    this.service.getRecipes().subscribe(data => {
-      this.recipes = data;
-      this.recipesFilter = this.recipes;
-      this.countRecipe = this.recipes.length + 1;
-      this.recipes.forEach(recipe => {
+    this.service.getRecipes().subscribe(recipes => {
+
+      recipes.forEach(recipe => {
         recipe.like = false;
         if (recipe.hardLevel !== undefined) {
           if (recipe.hardLevel === '') {
@@ -181,13 +185,36 @@ export class RecipeComponent implements OnInit {
           recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749';
         }
       });
+      this.userObject.email = this.cookie.get('email');
+      this.recipeService.findInterest(this.userObject).subscribe(data => {
+        let interests = data.body['interests']
+        this.interests = interests
+        recipes.forEach(function (recipe) {
+          recipe.like = false
+          if (interests !== undefined) {
+            for (let interest of interests) {
+              if (interest.objectId._id === recipe._id && interest.objectType === '2') {
+                recipe.like = true
+              }
+            }
+          }
+
+          if (recipe.user.imageUrl === undefined) {
+            recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+          }
+        });
+      });
+      console.log(recipes)
+      this.recipes = recipes;
+      this.recipesFilter = this.recipes;
+      this.countRecipe = this.recipes.length;
     });
   };
   onChangedIngredient(ingredient: any) {
     if (this.showIngredient === false) {
 
       this.showIngredient = true;
-      this.showFoodtype = false;
+      this.showFoodType = false;
       this.showCountrys = false;
       this.showCookWays = false;
       console.log('add');
@@ -199,7 +226,7 @@ export class RecipeComponent implements OnInit {
 
       this.showCookWays = true;
       this.showIngredient = false;
-      this.showFoodtype = false;
+      this.showFoodType = false;
       this.showCountrys = false;
     }
     cookWay.status = true;
@@ -208,14 +235,14 @@ export class RecipeComponent implements OnInit {
     if (this.showCountrys === false) {
       this.showCountrys = true;
       this.showIngredient = false;
-      this.showFoodtype = false;
+      this.showFoodType = false;
       this.showCookWays = false;
     }
     country.status = true;
   }
   onChangedFoodType(foodType: any) {
-    if (this.showFoodtype === false) {
-      this.showFoodtype = true;
+    if (this.showFoodType === false) {
+      this.showFoodType = true;
       this.showIngredient = false;
       this.showCountrys = false;
       this.showCookWays = false;
