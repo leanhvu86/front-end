@@ -16,6 +16,18 @@
   background:#4CAF50 ;
   color: white;
 }
+.active-button{
+  color: #b31212;
+}
+.active-button:hover{
+  color: #ffffff;
+}
+.no-active-button{
+  color: #b8bbba;
+}
+.no-active-button:hover{
+  color: #ff7171;
+}
 .button2 {
   width: 80px;
   height: 40px;
@@ -38,17 +50,17 @@
   }
   .play:hover{
     opacity: 1;
-    
+
 	transition: .3s ease-in-out;
   }
   .hover{
   color:   rgb(248, 132, 0);
   }
-  
+
 nav > .nav.nav-tabs{
 
   border: none;
-   
+
 
 }
 #nav-home-tab{
@@ -59,7 +71,7 @@ nav > .nav.nav-tabs{
 }
 nav > div a.nav-item.nav-link{
   color:rgb(8, 8, 8);
-  
+
 }
 #number{
   border-radius: 50%;
@@ -104,7 +116,7 @@ nav > div a.nav-item.nav-link.active:after
     line-height: 25px;
     border: 1px solid #ddd;
    /* border-bottom:5px solid #e9d3d1; */
-  
+
     width: 100%;
     height: auto;
 }
@@ -119,7 +131,7 @@ nav > div a.nav-item.nav-link:focus
     color:black;
     /* background-color: rgb(232, 240, 237); */
     border-radius:0.02 solid;
-    
+
 }
 .button_change{
   border-radius: 5px;
@@ -132,7 +144,7 @@ nav > div a.nav-item.nav-link:focus
   width: 450px;
   height: 350px;
   border: 3px solid #ccc;
-  background: #eee; 
+  background: #eee;
   margin: auto;
   padding: 15px 25px;
   }
@@ -330,11 +342,11 @@ width: 350px;
 background:none;
 margin-right:15%;
 margin-left:15%;
-transition: all .2s ease-in-out; 
+transition: all .2s ease-in-out;
 width: 260px;
 }
 .memberfunny:hover{
-transform: scale(1.1); 
+transform: scale(1.1);
 }
 
 /* Zoom Out #1 */
@@ -1144,6 +1156,6 @@ position: relative;
 display: inline-block;
 }
 .link-name:hover{
-  
+
 border-bottom: 1px dotted black;
 }

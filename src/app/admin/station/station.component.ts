@@ -13,14 +13,18 @@ export class StationComponent implements OnInit {
   users: User[] = [];
   config: any;
   searchText;
-  collection = { count: 60, data: [] };
+  collection = {count: 60, data: []};
   userObject = {
     role: 0,
     id: '',
   };
-  key:any;
+  key: any;
   admin: boolean = false;
   message: string = '';
+  user: User;
+  openMember = false;
+  updateMember = false;
+  messageModal=false;
   constructor(
     private userService: UserService,
     private orderPipe: OrderPipe,
@@ -32,7 +36,7 @@ export class StationComponent implements OnInit {
       this.collection.data.push(
         {
           id: i + 1,
-          value: "items number " + (i + 1)
+          value: 'items number ' + (i + 1)
         }
       );
     }
@@ -43,8 +47,10 @@ export class StationComponent implements OnInit {
       totalItems: this.users.length
     };
   }
+
   order: string = 'info.totalPoint';
   reverse: boolean = false;
+
   ngOnInit() {
     this.getStaff();
     let role = this.cookies.get('role');
@@ -52,9 +58,11 @@ export class StationComponent implements OnInit {
       this.admin = true;
     }
   }
+
   pageChanged(event) {
     this.config.currentPage = event;
   }
+
   getStaff() {
     this.userService.getUsers().subscribe(users => {
       if (users === undefined) {
@@ -72,7 +80,7 @@ export class StationComponent implements OnInit {
           user.role = 'Thành viên';
         } else if (user.role === 1) {
           user.role = 'Quản trị';
-          user.isAdmin === true
+          user.isAdmin === true;
         } else if (user.role > 1) {
           user.isAdmin === true;
           user.role = 'Admin';
@@ -82,7 +90,7 @@ export class StationComponent implements OnInit {
         let userAccess = user;
         this.users = this.users.filter(use => use._id !== userAccess._id);
 
-        this.users.push(user)
+        this.users.push(user);
       }
       this.users.sort((a, b) => {
         if (a.totalPoint > b.totalPoint) {
@@ -103,6 +111,28 @@ export class StationComponent implements OnInit {
 
     this.order = value;
   }
+
+  openModal(user: any, openMember: any, updateMember: any) {
+    this.user = user;
+    this.messageModal=false;
+    if (updateMember === 0) {
+      this.updateMember = false;
+    }
+    if (openMember === true) {
+      this.openMember = true;
+      this.message = 'Bạn muốn mở khóa tài khoản này ?';
+    } else if (openMember === false) {
+      this.openMember = false;
+      this.message = 'Bạn muốn khóa tài khoản này ?';
+    }
+    if (updateMember === true) {
+      this.updateMember = true;
+      this.message = 'Bạn muốn phân quyền tài khoản này ?';
+    }
+    const radio: HTMLElement = document.getElementById('modal-button222');
+    radio.click();
+  }
+
   updateRole(user: any) {
     if (user.warningReport === 0) {
       this.userObject.role = 1;
@@ -123,7 +153,7 @@ export class StationComponent implements OnInit {
               user.role = 'Thành viên';
             } else if (user.role === 1) {
               user.role = 'Quản trị';
-              user.isAdmin === true
+              user.isAdmin === true;
             } else if (user.role > 1) {
               user.isAdmin === true;
               user.role = 'Admin';
@@ -134,6 +164,7 @@ export class StationComponent implements OnInit {
               user.imageUrl = 'jbiajl3qqdzshdw0z749';
             }
             this.users.push(user);
+            this.messageModal=true;
             if (this.userObject.role === 0) {
               this.message = 'Hạ quyền quản trị viên thành công';
             } else {
@@ -142,12 +173,15 @@ export class StationComponent implements OnInit {
 
             setTimeout(() => {
               this.message = '';
+              const radio: HTMLElement = document.getElementById('close-button');
+              radio.click();
             }, 5000);
           }
         }
       }
     });
   }
+
   /*updateReport(user: any) {
     this.userObject.id = user._id;
     this.userService.updateReport(this.userObject).subscribe(data => {
@@ -182,6 +216,7 @@ export class StationComponent implements OnInit {
     })
   }*/
   bannedUser(user: any) {
+    console.log('ban user');
     this.userObject.id = user._id;
     this.userService.bannedUser(this.userObject).subscribe(data => {
       if (data.body['status'] === 200) {
@@ -205,15 +240,19 @@ export class StationComponent implements OnInit {
               user.role = 'Khóa';
             }
             this.users.push(user);
+            this.messageModal=true;
             this.message = 'Khóa thành viên thành công';
             setTimeout(() => {
               this.message = '';
+              const radio: HTMLElement = document.getElementById('close-button');
+              radio.click();
             }, 3000);
           }
         }
       }
-    })
+    });
   }
+
   activeMember(user: any) {
     console.log('active user');
     let userTemp = user;
@@ -240,12 +279,15 @@ export class StationComponent implements OnInit {
         user.role = 'Khóa';
       }
       this.users.push(user);
+      this.messageModal=true;
       this.message = 'Mở khóa thành viên thành công';
       setTimeout(() => {
-        this.message = ''
+        this.message = '';
+        const radio: HTMLElement = document.getElementById('close-button');
+        radio.click();
       }, 3000);
 
-    })
+    });
   }
 
 }

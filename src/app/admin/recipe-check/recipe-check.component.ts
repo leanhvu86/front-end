@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Recipe } from 'src/app/shared/model/recipe';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { Comment } from 'src/app/shared/model/comment';
-import { CookStep } from '../../shared/model/cookStep';
+import {Component, OnInit} from '@angular/core';
+import {Recipe} from 'src/app/shared/model/recipe';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
+import {RecipeService} from 'src/app/shared/service/recipe-service.service';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {Comment} from 'src/app/shared/model/comment';
+import {CookStep} from '../../shared/model/cookStep';
 
 @Component({
   selector: 'app-recipe-check',
@@ -29,6 +29,9 @@ export class RecipeCheckComponent implements OnInit {
   message: string = '';
   recipeComment: Comment[] = [];
   lstComment: Comment[];
+  viewFull = true;
+  messageModal = false;
+  accept = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,7 +52,6 @@ export class RecipeCheckComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
     this.recipeService.getRecipeDetail(this.id).subscribe(data => {
 
-      this.recipe;
       let recipeTem = data['recipe'];
       this.recipe = recipeTem;
       if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
@@ -102,7 +104,7 @@ export class RecipeCheckComponent implements OnInit {
           }
         }
       }
-      this.recipes = arr.filter(function (item, pos) {
+      this.recipes = arr.filter(function(item, pos) {
         return arr.indexOf(item) == pos;
       });
       this.getComent();
@@ -117,15 +119,13 @@ export class RecipeCheckComponent implements OnInit {
     console.log(recipe);
     if (recipe !== undefined && recipe.ingredients.length > 0) {
       for (let ingredient of recipe.ingredients) {
-        let quantity = parseInt(ingredient.quantitative) * this.multiplyElement;
-        ingredient.quantitative = quantity;
+        ingredient.quantitative = parseInt(ingredient.quantitative) * this.multiplyElement;
         this.oldMultiplyElement = this.multiplyElement;
       }
     }
     if (recipe !== undefined && recipe.cockStep.length > 0) {
       for (let ingredient of recipe.ingredients) {
-        let quantity = parseInt(ingredient.quantitative) * this.multiplyElement;
-        ingredient.quantitative = quantity;
+        ingredient.quantitative = parseInt(ingredient.quantitative) * this.multiplyElement;
         this.oldMultiplyElement = this.multiplyElement;
       }
       for (let cookStep of recipe.cockStep) {
@@ -182,20 +182,35 @@ export class RecipeCheckComponent implements OnInit {
 
 
   countIngredient(multiplyElement: any) {
+    this.multiplyElement = multiplyElement;
     if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
       for (let ingredient of this.recipe.ingredients) {
-        let quantity = parseInt(ingredient.quantitative) / this.oldMultiplyElement * this.multiplyElement;
-        ingredient.quantitative = quantity;
+        ingredient.quantitative = parseInt(ingredient.quantitative) / this.oldMultiplyElement * this.multiplyElement;
       }
       this.oldMultiplyElement = this.multiplyElement;
     }
   }
 
+  openModal(approve: any) {
+    const radio: HTMLElement = document.getElementById('modal-button');
+    radio.click();
+    this.errorMessage = '';
+    this.message = '';
+    this.messageModal = false;
+    if (approve === true) {
+      this.message = 'Bạn muốn duyệt công thức này?';
+      this.accept = true;
+    } else {
+      this.accept = false;
+      this.message = 'Bạn muốn từ chối công thức này?';
+    }
+  }
+
   acceptRecipe(event: any) {
-    if (this.recipe.status == 1) {
+    if (this.recipe.status === 1) {
       this.errorMessage = 'Công thức này đã được duyệt';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.message = '';
+      this.messageModal = true;
       return;
     }
     let token = this.cookie.get('email');
@@ -208,11 +223,11 @@ export class RecipeCheckComponent implements OnInit {
       console.log(result);
       if (result['status'] === 200) {
         this.message = result['message'];
-        const radio: HTMLElement = document.getElementById('modal-button');
-        radio.click();
+        this.messageModal = true;
         setTimeout(() => {
-          this._router.navigateByUrl('/recipeAccess');
+          window.location.reload();
         }, 3000);
+        this.recipe.status=1;
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
       }
@@ -220,12 +235,13 @@ export class RecipeCheckComponent implements OnInit {
   }
 
   declineRecipe(event: any) {
-    if (this.recipe.status == -1) {
+    if (this.recipe.status === -1) {
       this.errorMessage = 'Công thức này đã bị từ chối';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.message = '';
+      this.messageModal = true;
       return;
     }
+
     let token = this.cookie.get('email');
     let recipeObject = {
       recipe: this.recipe,
@@ -235,11 +251,11 @@ export class RecipeCheckComponent implements OnInit {
       const result = data.body;
       console.log(result);
       if (result['status'] === 200) {
-        this.errorMessage = result['message'];
-        const radio: HTMLElement = document.getElementById('modal-button');
-        radio.click();
+        this.message = result['message'];
+        this.messageModal = true;
+        this.recipe.status=-1;
         setTimeout(() => {
-          this._router.navigateByUrl('/recipeAccess');
+          window.location.reload();
         }, 3000);
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
@@ -253,6 +269,7 @@ export class RecipeCheckComponent implements OnInit {
   }
 
   fullImage() {
+    this.viewFull = true;
     var arrayNoimag = Array.from(document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>);
     arrayNoimag.forEach((element) => {
       element.style.height = '300px';
@@ -303,6 +320,7 @@ export class RecipeCheckComponent implements OnInit {
   }
 
   noImage() {
+    this.viewFull = false;
     var arrayNoimag = Array.from(document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>);
     arrayNoimag.forEach((element) => {
       element.style.height = '150px';

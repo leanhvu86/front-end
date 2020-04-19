@@ -61,12 +61,12 @@
 
 <div class="container">
   <div>
-    <h6>CÔNG THỨC CÁ NHÂN <span style="color: red; font-size: 12px;">{{recipeCount}}</span> </h6>
+    <h6>CÔNG THỨC CÁ NHÂN <span style="color: red; font-size: 12px;">{{recipeCount}}</span></h6>
   </div>
   <div class="recipe-list-wrapper" style="float: left; width: 100%;">
     <!-- 1 anh -->
     <div class="ng-scope member-recipe-item"
-      *ngFor="let recipe of memberRecipes|paginate:{itemsPerPage: 4, currentPage:p};let i = index">
+         *ngFor="let recipe of memberRecipes|paginate:{itemsPerPage: 4, currentPage:p};let i = index">
       <div class="item-inner ng-scope" style="background: white;">
         <div class="item-photo" style="    position: relative;">
           <a [routerLink]="['/detail/', recipe._id]" class="photo">
@@ -77,7 +77,7 @@
 
           </a>
           <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
-              aria-hidden="true" style="    position: absolute;
+                                                                              aria-hidden="true" style="    position: absolute;
               left: 88px;
               top: 100px; color: gray; opacity: 0.8;"></i></span>
 
@@ -92,7 +92,7 @@
                   bottom: 3px;
                   width: 30px;
                   height: 30px;"><i class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}"
-                  aria-hidden="true"></i></span>
+                                    aria-hidden="true"></i></span>
             </ng-template>
           </a>
 
@@ -179,13 +179,13 @@
         </cl-image>
         <div class="box-content">
           <ul class="icon">
-            <li><a><i class="fa fa-search"></i></a></li>
+            <li><a [routerLink]="['/galleryDetail/', gallery._id]"><i class="fa fa-search"></i></a></li>
             <li><a><i class="fa fa-heart  " id="heartGallery{{i}}" (click)="likeGallerry(gallery,i)"
-                  *ngIf="!gallery.like;else other_content"></i>
-                <ng-template #other_content><i id="heartGallery{{i}}" (click)="nolikeGallery(gallery,i)"
-                    class="fa fa-heart  check" aria-hidden="true"></i>
-                </ng-template>
-              </a></li>
+                      *ngIf="!gallery.like;else other_content"></i>
+              <ng-template #other_content><i id="heartGallery{{i}}" (click)="nolikeGallery(gallery,i)"
+                                             class="fa fa-heart  check" aria-hidden="true"></i>
+              </ng-template>
+            </a></li>
           </ul>
           <h6 class="title" [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}</h6>
         </div>

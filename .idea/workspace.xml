@@ -32,11 +32,11 @@
     <property name="ts.external.directory.path" value="F:\dự án 2\front end\front-end\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\dự án 2\front end\front-end\src\app\dashboard\child" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\dự án 2\front end\front-end\src\app\shared\service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\dự án 2\front end\front-end\src\app\dashboard\child" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
@@ -86,6 +86,7 @@
       <workItem from="1587172082559" duration="429000" />
       <workItem from="1587172726242" duration="244000" />
       <workItem from="1587219471451" duration="10239000" />
+      <workItem from="1587292339459" duration="13932000" />
     </task>
     <servers />
   </component>
@@ -101,26 +102,26 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="463" y="127" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1587172970568" />
-    <state x="186" y="15" key="SettingsEditor" timestamp="1587220276748">
+    <state x="186" y="15" key="SettingsEditor" timestamp="1587293533458">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="186" y="15" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587220276748" />
+    <state x="186" y="15" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587293533458" />
     <state x="92" y="92" width="1182" height="554" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1586665150265">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="92" y="92" width="1182" height="554" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.738@0.0.1366.738" timestamp="1586665150265" />
-    <state x="390" y="125" width="586" height="488" key="find.popup" timestamp="1586683296374">
+    <state x="390" y="125" width="586" height="530" key="find.popup" timestamp="1587303876273">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="390" y="125" width="586" height="488" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1586683296374" />
-    <state x="339" y="165" key="run.anything.popup" timestamp="1586687756439">
+    <state x="390" y="125" width="586" height="530" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1587303876273" />
+    <state x="339" y="165" key="run.anything.popup" timestamp="1587304549837">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1586687756439" />
-    <state x="339" y="22" width="672" height="676" key="search.everywhere.popup" timestamp="1587224331781">
+    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1587304549837" />
+    <state x="339" y="22" width="672" height="676" key="search.everywhere.popup" timestamp="1587296427251">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="339" y="22" width="672" height="676" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1587224331781" />
+    <state x="339" y="22" width="672" height="676" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1587296427251" />
   </component>
   <component name="masterDetails">
     <states>

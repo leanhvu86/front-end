@@ -475,13 +475,13 @@ body{background-color:#f1f1f2}
 @media only screen and (max-width:359px){.box21 .title{padding-bottom:10px}
 }
 .register-button{
-    border-radius: 5px; 
+    border-radius: 5px;
     color: gray;
     border: 1px solid rgb(202, 201, 201);
     font-size: 12px;
     padding: 10px 10px;
 }
 .register-button:hover{
-    color: orange;
+    color: #03f109;
     z-index: 1000;
 }

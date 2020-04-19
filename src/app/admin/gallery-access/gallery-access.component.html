@@ -1,7 +1,7 @@
 <h5 style="margin-left: 3%;">DANH SÁCH BỘ SƯU TẬP</h5>
 <div class="search-hero">
   <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-    placeholder="&#61442;  Từ khóa tìm kiếm">
+         placeholder="&#61442;  Từ khóa tìm kiếm">
 </div>
 <div *ngFor="let gallery of gallerys | filter:searchText| orderBy: key : reverse| paginate: config; let i=index">
 
@@ -9,36 +9,40 @@
 <div class="table-responsive">
   <table class="table table-striped table-sm">
     <thead>
-      <tr>
-        <th>STT</th>
-        <th>
-          Tên bộ sưu tập</th>
-        <th>
-          Người tạo</th>
-        <th>Nội dung</th>
-        <th>Tổng điểm</th>
-        <th>Ảnh</th>
-      </tr>
+    <tr>
+      <th>STT</th>
+      <th>
+        Tên bộ sưu tập
+      </th>
+      <th>
+        Người tạo
+      </th>
+      <th>Nội dung</th>
+      <th>Tổng điểm</th>
+      <th>Ảnh</th>
+    </tr>
     </thead>
     <tbody *ngFor="let gallery of gallerys | filter:searchText| paginate: config; let i=index">
 
-      <tr class="texthover">
-        <td>{{i+1}}</td>
-        <td style="max-width: 50px;" [routerLink]="['/detailgallery/', gallery._id]">
-          {{gallery.name}}</td>
-        <td style="max-width: 80px;">{{gallery.user.name}}</td>
-        <td style="max-width: 60px;">{{gallery.content}}</td>
-        <td style="max-width: 60px;">{{gallery.totalPoint}}</td>
-        <td [routerLink]="['/detailgallery/', gallery._id]" class="ahover">
-          <a title="{{gallery.image}}">
-            <cl-image public-id="{{gallery.image}}">
-              <cl-transformation aspect-ratio="1:1" gravity="auto" width="100" height="100" crop="fill">
-              </cl-transformation>
-            </cl-image>
-          </a>
-        </td>
-      </tr>
+    <tr class="texthover">
+      <td>{{i + 1}}</td>
+      <td style="max-width: 50px;" [routerLink]="['/detailgallery/', gallery._id]">
+        {{gallery.name}}</td>
+      <td style="max-width: 80px;">{{gallery.user.name}}</td>
+      <td style="max-width: 60px;">{{gallery.content}}</td>
+      <td style="max-width: 60px;">{{gallery.totalPoint}}</td>
+      <td [routerLink]="['/detailgallery/', gallery._id]" class="ahover">
+        <a title="{{gallery.image}}">
+          <cl-image public-id="{{gallery.image}}">
+            <cl-transformation aspect-ratio="1:1" gravity="auto" width="100" height="100" crop="fill">
+            </cl-transformation>
+          </cl-image>
+        </a>
+      </td>
+    </tr>
     </tbody>
   </table>
 
   <pagination-controls (pageChange)="pageChanged($event)" style="margin-left: 25%;"></pagination-controls>
+</div>
+<app-scroll-top></app-scroll-top>

@@ -482,7 +482,7 @@ body{background-color:#f1f1f2}
   padding: 10px 10px;
 }
 .register-button:hover{
-  color: orange;
+  color: #10e502;
   z-index: 1000;
 }
 .recipeLst{

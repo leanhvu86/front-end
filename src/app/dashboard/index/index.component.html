@@ -296,14 +296,14 @@
         <i><img style="height: 45px;width:60px;margin-left: -20px;margin-top: -5px;"
             src="../../../assets/images/logo.png" /></i>
       </a>
-      <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;" id="index-home-link"
+      <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;" id="index-home-link" title="Trang chủ ẩm thực chay"
         routerLink="/index">{{ "index.home" | translate }}</a>
       <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;"
-        routerLink="/recipe">{{ "index.routing" | translate }}</a>
+        routerLink="/recipe" title="Trang danh sách các công thức">{{ "index.routing" | translate }}</a>
       <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;"
-        routerLink="/gallery">{{ "index.servie" | translate }}</a>
+        routerLink="/gallery" title="Trang danh sách các bộ sưu tập nổi bát">{{ "index.servie" | translate }}</a>
       <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;"
-        routerLink="/about">{{ "index.about" | translate }}</a>
+        routerLink="/about" title="Trang giới thiệu về ẩm thực chay">{{ "index.about" | translate }}</a>
       <a class="py-2 d-none d-md-inline-block" routerLink="/gioithieu">Về chúng tôi</a>
       <a class="py-2 d-none d-md-inline-block" href="#"></a>
       <a class="py-2 d-none d-md-inline-block" href="#"></a>
@@ -336,7 +336,7 @@
           <a class="dropdown-item" *ngFor="let message of userMessage"><span *ngIf="message.news"
               style="color: red;">&#9679;</span>
             {{ message.content }}</a>
-          <a class="dropdown-item">Chúc mừng bạn đã đăng công thức đầu tiên</a>
+          <a class="dropdown-item" *ngIf="mailBoxEmpty">Hòm thư rỗng</a>
         </div>
       </div>
       <a class="py-2 d-none d-md-inline-block register-button" *ngIf="!isAuthenicate; else other_content"

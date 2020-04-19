@@ -32,10 +32,11 @@ export class IndexComponent implements OnInit {
   showModal: boolean = false;
   addPassenger: boolean = false;
   addGallery: boolean = true;
-  errorMessage: string = null
+  errorMessage: string = null;
   isAuthenicate: boolean = false;
   userMessage: Message[] = [];
-  newMessage: boolean = false
+  newMessage: boolean = false;
+  mailBoxEmpty=false;
   search: string = '';
   constructor(
     private title: Title,
@@ -101,6 +102,9 @@ export class IndexComponent implements OnInit {
             mess.news = false
           }
           this.userMessage.push(mess)
+        }
+        if(this.userMessage.length===0){
+          this.mailBoxEmpty=true;
         }
       })
     }

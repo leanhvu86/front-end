@@ -13,6 +13,7 @@ import { callbackify } from 'util';
 export class GalleryService {
   headerOptions: any = null
   private baseUrl = AppSetting.BASE_SERVER_URL;
+
   constructor(private http: HttpClient) {
   }
 
@@ -34,24 +35,32 @@ export class GalleryService {
         tap(_ => console.log('load Gallery'))
       );
   }
+
   // tslint:disable-next-line:no-shadowed-variable
   createGallery(gallery: any) {
-    return this.http.post(`${this.baseUrl}/createGallery`, { gallery: gallery }, { observe: 'response' });
+    return this.http.post(`${this.baseUrl}/createGallery`, {gallery: gallery}, {observe: 'response'});
   }
+
   findGallery(gallery: any) {
-    return this.http.post(`${this.baseUrl}/findGallery`, { gallery: gallery }, { observe: 'response' });
+    return this.http.post(`${this.baseUrl}/findGallery`, {gallery: gallery}, {observe: 'response'});
   }
+
   addGallery(gallery: any) {
-    return this.http.post(`${this.baseUrl}/addGallery`, { gallery: gallery }, { observe: 'response' });
+    return this.http.post(`${this.baseUrl}/addGallery`, {gallery: gallery}, {observe: 'response'});
   }
+
   galleryDetail = (id: string): Observable<Gallery> => {
     const url = `${this.baseUrl}/galleryDetail/${id}`;
     return this.http.get<Gallery>(url).pipe(
       tap(_ => console.log('Gallery'))
     );
   }
+
   updateGallery(gallery: any) {
-    return this.http.post(`${this.baseUrl}/updateGallery`, { gallery }, { observe: 'response' });
+    return this.http.post(`${this.baseUrl}/updateGallery`, {gallery}, {observe: 'response'});
+  }
+
+  deleteGallery(gallery: any) {
+    return this.http.post(`${this.baseUrl}/deleteGallery`, {gallery: gallery}, {observe: 'response'});
   }
 }
-
