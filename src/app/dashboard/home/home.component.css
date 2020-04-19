@@ -520,7 +520,8 @@ figure:hover + span {
 }
 
 .form > .button:hover {
-  background-color: rgb(24, 231, 24);;
+  background-color: rgb(24, 231, 24);
+  color: white;
 }
 .glow {
   font-size: 32px;

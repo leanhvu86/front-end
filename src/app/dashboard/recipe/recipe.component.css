@@ -223,7 +223,7 @@
   text-align: center;
   line-height: 42px;
   border: 0;
-  color: rgba(252, 103, 5, 0.986);
+  color: rgb(24, 231, 24);;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: 16px;
   text-rendering: auto;
@@ -235,7 +235,8 @@
 }
 
 .form > .button:hover {
-  background-color: rgba(252, 103, 5, 0.986);
+  background-color: rgb(24, 231, 24);
+  color: white;
 }
 .button-filter{
   border-radius: 10px;
