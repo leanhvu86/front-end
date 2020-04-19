@@ -76,7 +76,7 @@
                 [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</a>
 
             <div style="top:340px;left:  2px; position: absolute; font-size: 12px; opacity: 0.8; height: 100px;">&#160;
-             <i class="fa fa-clock-o stats-ico" aria-hidden="true">  {{recipe.time}}ph </i>
+                <i class="fa fa-clock-o stats-ico" aria-hidden="true"> {{recipe.time}}ph </i>
             </div>
             <div style="top:340px;left: 43px; position: absolute; font-size: 12px;opacity: 0.8; height: 100px; ">&#160;
                 <i class="fa fa-bar-chart stats-ico" aria-hidden="true">
@@ -99,17 +99,19 @@
                         class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
             </ng-template>
             <div style="top:375px;left: 35px; position: absolute; font-size: 12px; height: 100px; ">
-                <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]" style="color: black;">
+                <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]"
+                    style="font-size: 12px;color: black;">
                     <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
-                        <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
+                        <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill"
                             background="#e9ebee">
                         </cl-transformation>
-                        <cl-transformation width="75" crop="scale">
+                        <cl-transformation width="55" crop="scale">
                         </cl-transformation>
-                    </cl-image>&#160;{{recipe.user.name}}
+                    </cl-image>&#160;
+                    {{recipe.user.name}}
                 </a>
 
-              <app-add-bookmark [childMessage]="recipe"  ></app-add-bookmark>
+                <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
             </div>
 
             <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
@@ -135,8 +137,8 @@
                     </cl-transformation>
                 </cl-image>
                 <div class="box-content">
-                    <a class="title" style=" width: 96% ;text-decoration: none; text-align: center;" title="{{gallery.content}}"
-                        [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}
+                    <a class="title" style=" width: 96% ;text-decoration: none; text-align: center;"
+                        title="{{gallery.content}}" [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}
                     </a>
 
                     <ul class="icon" style=" bottom:100px ;">

@@ -10,7 +10,7 @@
         title="Duyệt" (click)="acceptRecipe($event)" class="button1">
         <!-- ngIf: status != 1 --><span class="ng-scope">Duyệt </span>
         <!-- end ngIf: status != 1 -->
-      </button> <button title="Từ chối" (click)="declineRecipe($event)" class="button1"
+      </button> <button title="Từ chối" (click)="declineRecipe($event)" class=" button2"
         style="margin-left: 50px; border:  2px solid red;">
         <!-- ngIf: status != 1 --><span class="ng-scope">Từ chối</span>
         <!-- end ngIf: status != 1 -->
@@ -24,13 +24,17 @@
       </div>
       <div class="row" style="text-align: left; padding: 10px 50px;">
         <div class="col">Nguyên liệu: {{recipe.ingredients.length}}</div>
+        <div class="col">Độ khó: {{recipe.hardLevel}}</div>
         <div class="col">Thực hiện: {{recipe.time}} phút</div>
       </div>
-      <div class="row" style="text-align: left; padding: 10px 50px;">
+      <!-- <div class="row" style="text-align: left; padding: 10px 50px;">
         <div class="col">Khẩu phần ăn: 04 người</div>
-        <div class="col">Độ khó: {{recipe.hardLevel}}</div>
+       
       </div>
-
+      <div class="row" style="text-align: left; padding: 10px 50px;">
+        <div class="col">Nguyên liệu: {{recipe.ingredients.length}}</div>
+        <div class="col">Thực hiện: {{recipe.time}} phút</div>
+      </div> -->
     </div>
     <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><img
         src="../../../assets/images/cooky-video-play-fill-2.png"
@@ -286,7 +290,7 @@
             <div class="col">Thực hiện: {{recipeView.time}} phút</div>
           </div>
           <div class="row" style="text-align: left; padding: 10px 0;">
-            <div class="col">Khẩu phần ăn: 04 người</div>
+            <div class="col">Khẩu phần ăn: {{multiplyElement}} người</div>
             <div class="col">Độ khó: {{recipeView.hardLevel}}</div>
           </div>
         </div>
@@ -343,11 +347,13 @@
             </div>
             <div class="clearfix"></div>
             <hr>
-            <div *ngFor=" let ingredient of recipeView.ingredients; let j =index">
-              <div style="float: left;text-align: left;padding-top:20px ; padding-left: 30px;">
-                <a> <i class="fa fa-check fa-lg" style="color: rgb(95, 228, 6);" aria-hidden="true"></i>
-                  {{ingredient.ingredientName}}&#160;&#160;&#160;<a>{{ingredient.quantitative}}</a>&#160;&#160;
-                  {{ingredient.typeOfquantitative}}</a>
+            <div class="row">
+              <div *ngFor=" let ingredient of recipeView.ingredients; let j =index">
+                <div style="float: left;text-align: left;padding-top:20px ; padding-left: 30px;">
+                  <a> <i class="fa fa-check fa-lg" style="color: rgb(95, 228, 6);" aria-hidden="true"></i>
+                    {{ingredient.ingredientName}}&#160;&#160;&#160;<a>{{ingredient.quantitative}}</a>&#160;&#160;
+                    {{ingredient.typeOfquantitative}}</a>
+                </div>
               </div>
             </div>
           </div>
@@ -418,8 +424,8 @@
   data-target="#exampleModalCenter" id="modal-button">
 </a>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">

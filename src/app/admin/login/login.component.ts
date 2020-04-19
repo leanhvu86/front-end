@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
           this.cookie.set('email', this.userObject.email);
           sessionStorage.setItem('user', this.userObject.email);
           this._loginService.updateAuthStatus(true);
-          this._router.navigateByUrl('/adminHome');
+          this._router.navigateByUrl('/loadPage');
         }
 
 

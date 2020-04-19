@@ -50,16 +50,16 @@
             <a class="user-lv1 " title="0 - 100 điểm. Bạn là người quan tâm đến những món ăn ngon và đẹp"
               style="float: left; width: 20%; color: #00bcd4; font-size: 12px; font-weight: bold;">
               Newbee</a>
-            <a class="user-lv1 "  title="101 - 250 điểm. Bạn là chuyên gia nêm nếm thưởng thức món ăn"
+            <a class="user-lv1 " title="101 - 250 điểm. Bạn là chuyên gia nêm nếm thưởng thức món ăn"
               style="float: left; width: 20%; color: #ffc107;  font-size: 12px; font-weight: bold;">Tastee
             </a>
-            <a class="user-lv1 "  title="251 - 400 điểm. Bạn là người nấu ăn ngon"
+            <a class="user-lv1 " title="251 - 400 điểm. Bạn là người nấu ăn ngon"
               style="float: left;  width: 20%; color: #ff4f4f;  font-size: 12px; font-weight: bold;">Cookee
             </a>
-            <a class="user-lv1 "  title="401 - 600 điểm. Bạn là đầu bếp chuyên ngiệp"
+            <a class="user-lv1 " title="401 - 600 điểm. Bạn là đầu bếp chuyên ngiệp"
               style="float: left; width: 20%; color: #a930ca;  font-size: 12px; font-weight: bold;">Chefee
             </a>
-            <a class="user-lv1 "  title="600 điểm trở lên. Vua đầu bếp"
+            <a class="user-lv1 " title="600 điểm trở lên. Vua đầu bếp"
               style="float: left; width: 20%; color: #ff0834;  font-size: 12px; font-weight: bold;">
               Mastee</a>
           </div>
@@ -151,7 +151,7 @@
                 <tr>
                   <th scope="col" style="text-align: right;width: 200px;">Email</th>
                   <td>
-                    <input type="text" class="form-control" formControlName="email" name="email"
+                    <input type="text" class="form-control" formControlName="email" name="email" disabled
                       [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                       <div *ngIf="f.email.errors.email">Mail chưa hợp lệ!</div>
@@ -295,7 +295,7 @@
                     </div>
                   </div>
 
-                  <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
+                  <button class="btn btn-lg btn-success btn-block btn-signin" type="submit">
                     Thay đổi mật khẩu
                   </button>
 

@@ -24,9 +24,9 @@
     color: darkgray;
   }
   .site-header a:hover {
-    color: rgb(255, 136, 0);
+    color: rgb(24, 231, 24);
     text-decoration: none;
-    border-bottom:2px  rgb(255, 136, 0);
+    border-bottom:2px  rgb(24, 231, 24);
   }
   
   /*

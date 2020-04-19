@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Recipe} from 'src/app/shared/model/recipe';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie-service';
-import {RecipeService} from 'src/app/shared/service/recipe-service.service';
-import {UserService} from 'src/app/shared/service/user.service.';
-import {Comment} from 'src/app/shared/model/comment';
-import {CookStep} from '../../shared/model/cookStep';
+import { Component, OnInit } from '@angular/core';
+import { Recipe } from 'src/app/shared/model/recipe';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import { UserService } from 'src/app/shared/service/user.service.';
+import { Comment } from 'src/app/shared/model/comment';
+import { CookStep } from '../../shared/model/cookStep';
 
 @Component({
   selector: 'app-recipe-check',
@@ -16,8 +16,8 @@ export class RecipeCheckComponent implements OnInit {
   recipe: Recipe;
   recipeView: Recipe;
   cookSteps: CookStep[] = [];
-  cookStepsView: CookStep [] = [];
-  multiplyElement: number = 4;
+  cookStepsView: CookStep[] = [];
+  multiplyElement: number = 1;
   oldMultiplyElement: number;
   like: boolean = false;
   done: boolean = false;
@@ -102,7 +102,7 @@ export class RecipeCheckComponent implements OnInit {
           }
         }
       }
-      this.recipes = arr.filter(function(item, pos) {
+      this.recipes = arr.filter(function (item, pos) {
         return arr.indexOf(item) == pos;
       });
       this.getComent();
@@ -210,9 +210,9 @@ export class RecipeCheckComponent implements OnInit {
         this.message = result['message'];
         const radio: HTMLElement = document.getElementById('modal-button');
         radio.click();
-        // setTimeout(() => {
-        //   this._router.navigateByUrl('/recipeAccess');
-        // }, 2000);
+        setTimeout(() => {
+          this._router.navigateByUrl('/recipeAccess');
+        }, 3000);
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
       }
@@ -238,9 +238,9 @@ export class RecipeCheckComponent implements OnInit {
         this.errorMessage = result['message'];
         const radio: HTMLElement = document.getElementById('modal-button');
         radio.click();
-        // setTimeout(() => {
-        //   this._router.navigateByUrl('/recipeAccess');
-        // }, 2000);
+        setTimeout(() => {
+          this._router.navigateByUrl('/recipeAccess');
+        }, 3000);
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
       }

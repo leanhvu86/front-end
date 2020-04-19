@@ -117,7 +117,7 @@ export class RecipeComponent implements OnInit {
       this.recipes = tempArr;
     }
     if (this.recipes.length > 0) {
-      this.countRecipe = this.recipes.length + 1;
+      this.countRecipe = this.recipes.length;
     } else {
       this.countRecipe = 0;
     }
@@ -207,7 +207,7 @@ export class RecipeComponent implements OnInit {
       console.log(recipes)
       this.recipes = recipes;
       this.recipesFilter = this.recipes;
-      this.countRecipe = this.recipes.length;
+      this.countRecipe = this.recipesFilter.length;
     });
   };
   onChangedIngredient(ingredient: any) {

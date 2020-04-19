@@ -54,7 +54,7 @@ export class RecipeDetailComponent implements OnInit {
   registerForm: FormGroup;
   private hasBaseDropZoneOver1 = false;
   errorMessage: string = null;
-  multiplyElement: number = 4;
+  multiplyElement: number = 1;
   oldMultiplyElement: number;
   like: boolean = false;
   done: boolean = false;

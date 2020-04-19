@@ -1,5 +1,5 @@
-<a class="register-button" title="Thêm công thức vào bộ sưu tập"  (click)="registerGallery()"><i class="fa fa-hand-pointer-o" style="padding: 2px 8px;"
-    aria-hidden="true"></i></a>
+<a class="register-button" title="Thêm công thức vào bộ sưu tập" (click)="registerGallery()"><i
+    class="fa fa-hand-pointer-o" style="padding: 2px 8px;" aria-hidden="true"></i></a>
 <!-- Extra large modal -->
 <button type="button" id="add-recipe-gallery" class="btn btn-primary" style="display: none;" data-toggle="modal"
   data-target=".bd-example-modal-xl">Extra large modal</button>
@@ -14,14 +14,17 @@
           <span aria-hidden="true" style="color: white;">&times;</span>
         </button>
       </div>
-      <form class="form-signin" (ngSubmit)="updateGallery()" [formGroup]="registerForm"
-        style="margin-top: 10px;">
+      <form class="form-signin" (ngSubmit)="updateGallery()" [formGroup]="registerForm" style="margin-top: 10px;">
         <div class="container">
           <div class="row">
             <div class="col">
-              <input type="text" id="name" class="form-control" placeholder="Tên bộ sưu tập" name="name" minlength="5"
+              <!-- <input type="text" id="name" class="form-control" placeholder="Tên bộ sưu tập" name="name" minlength="5"
                 maxlength="200" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" autocomplete="off"
-                style="height:62px;" formControlName="name" />
+                style="height:62px;" formControlName="name" /> -->
+              <textarea id="content" class="form-control" name="name" autocomplete="off" formControlName="name"
+                [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Nội dung bộ sưu tập "
+                minlength="20" maxlength="500" title="Tên bộ sưu tập" required autofocus cols="12"
+                style="width: 100%;"></textarea>
               <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                 <div *ngIf="f.name.errors.required">Bạn phải điền tên bộ sưu tập</div>
                 <div *ngIf="f.name.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
@@ -35,7 +38,7 @@
             <div class="col-6">
               <textarea id="content" class="form-control" name="content" autocomplete="off" formControlName="content"
                 [ngClass]="{ 'is-invalid': submitted && f.content.errors }" placeholder="Nội dung bộ sưu tập "
-                minlength="20" maxlength="500" title="Please enter the content" required autofocus cols="12"
+                minlength="20" maxlength="500" title="Nội dung bộ sưu tập" required autofocus cols="12"
                 style="width: 100%;"></textarea>
               <div *ngIf="submitted && f.content.errors" class="invalid-feedback">
                 <div *ngIf="f.content.errors.required">Bạn phải mô tả nội dung bộ sưu tập</div>
@@ -71,7 +74,7 @@
             <ul class="list">
               <cdk-virtual-scroll-viewport style="height: 600px" itemSize="40">
                 <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-                       placeholder="Tìm kiêm công thức" style="width: 100%; display: block;
+                  placeholder="Tìm kiêm công thức" style="width: 100%; display: block;
         cursor: pointer;">
                 <ng-container *cdkVirtualFor="let recipe of recipes |filter:searchText; let j = index;">
                   <li>
@@ -95,7 +98,7 @@
                               class="fa fa-check-circle fa-lg" id="icon{{ j }}" aria-hidden="true"
                               (click)="addRecipe(recipe, j)"></i></a>
                           <ng-template #other_content>
-                            <a title="Loại công thức ra khỏi bộ sưu tập" >
+                            <a title="Loại công thức ra khỏi bộ sưu tập">
                               <i class="fa fa-check-circle fa-lg checkIcon" aria-hidden="true"
                                 (click)="removeRecipe(recipe, j)"></i></a>
                           </ng-template>
@@ -118,7 +121,8 @@
                       <div class="row" id="old{{i}}">
                         <div class="col">
                           <a (click)="removeRecipe(recipe,i)" style="width: 7px; height: auto; margin-top: 20px;"
-                            title="Xóa công thức ra khỏi bộ sưu tập"><i class="fa fa-trash-o buttonhover" aria-hidden="true"></i></a>
+                            title="Xóa công thức ra khỏi bộ sưu tập"><i class="fa fa-trash-o buttonhover"
+                              aria-hidden="true"></i></a>
                         </div>
                         <div class="col-6">
                           <a style="font-size: 16px;">{{recipe.recipeName}}</a>

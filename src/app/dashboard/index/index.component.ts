@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {Title} from '@angular/platform-browser';
-import {CookieService} from 'ngx-cookie-service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {LoginServiceService} from '../../shared/service/login-service.service';
-import {UserService} from 'src/app/shared/service/user.service.';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Message} from '../../shared/model/message';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginServiceService } from '../../shared/service/login-service.service';
+import { UserService } from 'src/app/shared/service/user.service.';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Message } from '../../shared/model/message';
 
 @Component({
   selector: 'app-index',
@@ -242,8 +242,8 @@ export class IndexComponent implements OnInit {
     }
     this.href = this._router.url;
     console.log(this.href)
-    if (this.href === 'index') {
-      window.location.reload()
+    if (this.href === '/index') {
+      window.location.reload();
     } else {
       this._router.navigate(['/'])
     }

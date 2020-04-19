@@ -55,6 +55,7 @@ export class RegisterPassengerComponent implements OnInit {
   title: string;
   hardLevelCheck: false;
   timeCheck: false;
+  successMessage = '';
   constructor(private cloudinary: Cloudinary,
     private zone: NgZone, private http: HttpClient,
     private formbuilder: FormBuilder, private countryService: CountryService, private cookStepService: CookStepService,
@@ -394,8 +395,8 @@ export class RegisterPassengerComponent implements OnInit {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click(); this.submitted = false;
       return;
-    } else if (this.profileForm.value.content.length < 10) {
-      this.message = 'Nội dung cho công thức có độ dài lớn hơn 10 ký tự';
+    } else if (this.profileForm.value.content.length < 20) {
+      this.message = 'Nội dung cho công thức có độ dài lớn hơn 20 ký tự';
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click(); this.submitted = false;
       return;
@@ -427,7 +428,7 @@ export class RegisterPassengerComponent implements OnInit {
       return;
     }
     if (this.profileForm.value.cookStep[0].psnote === '') {
-      this.message = 'Vui lòng điền hướng dẫn cho công thức';
+      this.message = 'Vui lòng điền hướng dẫn cho bước công thức';
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click(); this.submitted = false;
       return;
@@ -497,7 +498,7 @@ export class RegisterPassengerComponent implements OnInit {
         this.recipeService.registerRecipe(recipe).subscribe((data) => {
           const result = data.body;
           if (result['status'] === 200) {
-            this.message = result['message'];
+            this.successMessage = result['message'];
             const radio: HTMLElement = document.getElementById('modal-button');
             radio.click();
             this.profileForm.reset();
@@ -636,6 +637,8 @@ export class RegisterPassengerComponent implements OnInit {
                 var format = /[()]/;
                 if (format.test(arrTest[i]) !== true) {
                   ingredientNam += ' ' + arrTest[i];
+                } else {
+                  break;
                 }
               }
             }

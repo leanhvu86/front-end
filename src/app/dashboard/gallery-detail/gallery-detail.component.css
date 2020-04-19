@@ -1000,7 +1000,7 @@ body{background-color:#f1f1f2}
 .box21:hover .box-content{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);transform:scale(1);-moz-transition-delay:.4s;-webkit-transition-delay:.4s;-o-transition-delay:.4s;-ms-transition-delay:.4s;transition-delay:.4s}
 .box21 .title{font-size:21px;font-weight:700;text-transform:uppercase;border-bottom:1px solid #fff;padding-bottom:20px;margin-top:20px}
 .box21 .description{font-size:14px;font-style:italic;padding:0 10px;margin:15px 0}
-.box21 .read-more{display:block;width:120px;background:#178993;border-radius:5px;font-size:14px;color:#fff;text-transform:capitalize;padding:10px 0;margin:0 auto}
+.box21 .read-more{display:block;width:120px;background:#04cc04;border-radius:5px;font-size:14px;color:#fff;text-transform:capitalize;padding:10px 0;margin:0 auto}
 @media only screen and (max-width:990px){.box21{margin-bottom:30px}
 }
 @media only screen and (max-width:479px){.box21 .box-content{padding-top:0}

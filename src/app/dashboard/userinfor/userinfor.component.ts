@@ -163,8 +163,8 @@ export class UserinforComponent implements OnInit {
     floor: 0,
     ceil: 1000,
     showTicksValues: false,
-    disabled:true,
-    hideLimitLabels:true,
+    disabled: true,
+    hideLimitLabels: true,
   };
   changePass() {
     this.loading = true;

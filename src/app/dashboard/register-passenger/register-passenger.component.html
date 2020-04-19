@@ -44,7 +44,7 @@
                       <input type="file" accept="image/x-png,image/jpeg,image/jpg" id="example" #fileInput ng2FileSelect
                         [uploader]="uploader" multiple (change)="fileInput.value=''"
                         style="border-radius: 10px; top: 7%; border: 1px solid gray;display: block; bottom: 0px; left: 5%; right: 0px; opacity: 0;  position: absolute;"
-                        class="upload-button" formControlName= 'profilePhoto' />
+                        class="upload-button" formControlName='profilePhoto' />
                     </form>
                   </div>
                   <!-- <input id="example" type="file" name="image" (change)="fileProgress($event)"
@@ -126,7 +126,7 @@
                     <option [value]="4">{{'dokho.ratkho' | translate }}</option>
                   </select>
                   <input type="number" formControlName="time" style="width:10%; border-radius:10px; margin:0 5% ;"
-                    min="0">Phút
+                    min="0" required pattern="[0-9]+">Phút
                 </div>
                 <div style="margin-left: 5%;" *ngIf="submitted && f.hardLevel.errors" class="invalid-feedback">
                   <div *ngIf="f.hardLevel.errors.required">Bạn phải độ khó của công thức</div>
@@ -134,6 +134,9 @@
                 <br>
                 <div style="margin-left: 5%;" *ngIf="submitted && f.time.errors" class="invalid-feedback">
                   <div *ngIf="f.time.errors.required">Bạn phải nhập thời gian thực hiện</div>
+                </div>
+                <div style="margin-left: 5%;" *ngIf="submitted && f.time.errors" class="invalid-feedback">
+                  <div *ngIf="f.time.errors.min">Bạn phải nhập thời gian thực hiện lớn hơn 0</div>
                 </div>
                 <br />
 
@@ -213,7 +216,7 @@
                       </ul>
                     </div>
                   </div>
-                  <div style="margin-left: 5%;" *ngIf="submitted && f.ingredientArray.errors">
+                  <!-- <div style="margin-left: 5%;" *ngIf="submitted && f.ingredientArray.errors">
                     <div *ngIf="f.ingredientArray.errors.required" style="color: red; font-size: 12PX;">Bạn phải nhập
                       nguyên
                       liệu</div>
@@ -223,7 +226,7 @@
                   </div>
                   <div *ngIf="f.ingredientArray.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
                     Tên công thức chứa nhiều nhất 500 kí tự.
-                  </div>
+                  </div> -->
                 </div>
                 <br />
                 <!-- <div *ngIf="show"
@@ -293,7 +296,7 @@
                     *ngFor="let address of cookStep.controls; let i = index;"
                     style=" font-size: 10px;width:90%; position: relative; border-radius:10px; margin:0 5% ;margin-bottom: 5%; min-height: 350px; padding: 20px 0 50px 0; border: 2px gray;">
                     <label>
-                 s     <input formControlName="index" disabled
+                      <input formControlName="index" disabled
                         style="color: white; background: rgb(33,194,3); width: 5%;left: 2%; top: 5%; position: absolute; border-radius: 7px; text-align: center; border: 1px solid white;" />
                       <input type="text" formControlName="name" class="form-control"
                         style="left: 12%; top: 7%;width: 50%; position: absolute; "
@@ -318,10 +321,10 @@
                       <div class=".col-6 .col-md-4 hover" (fileOver)="fileOverBase1($event)"
                         style="width: 90px;height: 90px; border: 1px solid gray;"
                         [ngClass]="{'nv-file-over': hasBaseDropZoneOver1}">
-                        <input type="file" multiple
-                          accept="image/x-png,image/jpeg,image/jpg" formControlName="image"
+                        <input type="file" multiple accept="image/x-png,image/jpeg,image/jpg" formControlName="image"
                           (change)="handleFiles($event,i)" style="width: 90px;height: 90px;opacity: 0;" />
-                          <a style="position: absolute; left: 37px; top: 33px;"><i class="fa fa-picture-o" aria-hidden="true" ></i></a>
+                        <a style="position: absolute; left: 37px; top: 33px;"><i class="fa fa-picture-o"
+                            aria-hidden="true"></i></a>
                       </div>
 
                       <div class=".col-md-8" id="gallery{{i}}"
@@ -439,6 +442,7 @@
         </div>
         <div class="modal-body" style="color: red;">
           {{message}}
+          <a> {{successMessage}}</a>
         </div>
       </div>
     </div>

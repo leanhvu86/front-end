@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {GalleryService} from 'src/app/shared/service/gallery.service';
-import {Gallery} from 'src/app/shared/model/gallery';
-import {Recipe} from 'src/app/shared/model/recipe';
-import {CookieService} from 'ngx-cookie-service';
-import {UserService} from 'src/app/shared/service/user.service.';
-import {LoginServiceService} from 'src/app/shared/service/login-service.service';
-import {RecipeService} from 'src/app/shared/service/recipe-service.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GalleryService } from 'src/app/shared/service/gallery.service';
+import { Gallery } from 'src/app/shared/model/gallery';
+import { Recipe } from 'src/app/shared/model/recipe';
+import { CookieService } from 'ngx-cookie-service';
+import { UserService } from 'src/app/shared/service/user.service.';
+import { LoginServiceService } from 'src/app/shared/service/login-service.service';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 
 @Component({
   selector: 'app-gallery-detail',
@@ -20,6 +20,7 @@ export class GalleryDetailComponent implements OnInit {
   gallery: Gallery;
   checkRecipe: boolean = false;
   public recipes: Recipe[] = [];
+  public recipesTemp: Recipe[] = [];
   userObject = {
     email: '',
     password: ''
@@ -67,7 +68,7 @@ export class GalleryDetailComponent implements OnInit {
             this.recipeService.findInterest(this.userObject).subscribe(data => {
               let interests = data.body['interests'];
               console.log(data);
-              this.recipes.forEach(function(recipe) {
+              this.recipes.forEach(function (recipe) {
                 recipe.like = false;
                 if (interests !== undefined) {
                   for (let interest of interests) {
@@ -85,6 +86,8 @@ export class GalleryDetailComponent implements OnInit {
               this.mine = true;
             }
           }
+        } else {
+          this.recipes = this.recipesTemp;
         }
         if (this.gallery.user.imageUrl !== '') {
           this.imageUrl = this.gallery.user.imageUrl;
@@ -95,6 +98,8 @@ export class GalleryDetailComponent implements OnInit {
 
       }
     });
+    const radio: HTMLElement = document.getElementById('scroll-to-top');
+    radio.click();
   }
 
   getPersonalGallery() {
