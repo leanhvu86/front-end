@@ -43,7 +43,73 @@ body {
     border-top: #000 1px solid;
     border-bottom: #212121 1px solid;
  }
- 
+ body {
+   font-family: "Lato", sans-serif;
+ }
+
+ .sidebar {
+   height: 100%;
+   width: 0;
+   position: fixed;
+   z-index: 1;
+   top: 0;
+   left: 0;
+   background-color: #e5e9ef;
+   overflow-x: hidden;
+   transition: 0.5s;
+   padding-top: 60px;
+ }
+
+ .sidebar a {
+   padding: 8px 8px 8px 32px;
+   text-decoration: none;
+   font-size: 25px;
+   color: #353535;
+   display: block;
+   transition: 0.3s;
+ }
+
+ .sidebar a:hover {
+   color: #bebaba;
+ }
+
+ .sidebar .closebtn {
+   position: absolute;
+   top: 0;
+   right: 25px;
+   font-size: 36px;
+   margin-left: 50px;
+ }
+
+ .openbtn {
+   font-size: 20px;
+   cursor: pointer;
+   background-color: rgb(201, 201, 201);
+   color: white;
+   padding-top: 10px 15px;
+   margin-left: -100px;
+   border: none;
+ }
+
+ .openbtn:hover {
+   background-color: #444;
+ }
+
+ #main {
+   transition: margin-left .5s;
+   padding: 16px;
+ }
+
+ /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+ @media screen and (max-height: 450px) {
+   .sidebar {
+     padding-top: 15px;
+   }
+
+   .sidebar a {
+     font-size: 18px;
+   }
+ }
  footer .copy{
     font-size:13px;
     margin:15px 0px;

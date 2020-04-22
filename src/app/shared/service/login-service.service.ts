@@ -64,6 +64,7 @@ export class LoginServiceService {
     this.cookie.set('role', '');
     let token = this.cookie.get('token');
     console.log('xóa token nè' + token);
+    this.cookie.deleteAll();
     this.deleteAuth(token).subscribe((data) => {
       const result = data.body;
       if (data['status'] === 200) {

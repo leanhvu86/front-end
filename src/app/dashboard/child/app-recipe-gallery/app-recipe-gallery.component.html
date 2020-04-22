@@ -1,5 +1,5 @@
-<a class="register-button" title="Thêm công thức vào bộ sưu tập" (click)="registerGallery()"><i
-    class="fa fa-edit" style="padding: 2px 8px;" aria-hidden="true">&#160;Chỉnh sửa bộ sưu tập</i></a>
+<a class="register-button" title="Thêm công thức vào bộ sưu tập" (click)="registerGallery()"><i class="fa fa-edit"
+    style="padding: 2px 8px;" aria-hidden="true">&#160;Chỉnh sửa bộ sưu tập</i></a>
 <!-- Extra large modal -->
 <button type="button" id="add-recipe-gallery" class="btn btn-primary" style="display: none;" data-toggle="modal"
   data-target=".bd-example-modal-xl">Extra large modal</button>
@@ -23,7 +23,7 @@
                 style="height:62px;" formControlName="name" /> -->
               <textarea id="content" class="form-control" name="name" autocomplete="off" formControlName="name"
                 [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Nội dung bộ sưu tập "
-                minlength="20" maxlength="500" title="Tên bộ sưu tập" required autofocus cols="12"
+                minlength="5" maxlength="200" title="Tên bộ sưu tập" required autofocus cols="12"
                 style="width: 100%;"></textarea>
               <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                 <div *ngIf="f.name.errors.required">Bạn phải điền tên bộ sưu tập</div>
@@ -31,7 +31,7 @@
                   Tên bộ sưu tập chứa ít nhất 5 kí tự.
                 </div>
                 <div *ngIf="f.name.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
-                  Tên bộ sưu tập chứa nhiều nhất 500 kí tự.
+                  Tên bộ sưu tập chứa nhiều nhất 200 kí tự.
                 </div>
               </div>
             </div>

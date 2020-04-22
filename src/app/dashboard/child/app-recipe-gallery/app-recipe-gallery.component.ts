@@ -94,18 +94,21 @@ export class AppRecipeGalleryComponent implements OnInit {
     let email = this.cookie.get('email');
     this.galleryObject.user = email;
     this.galleryObject.recipes = this.newRecipe;
-    this.galleryObject._id = this._route.snapshot.params.id;
+    let id = JSON.stringify(this.childMessage._id);
+    id = id.substring(1);
+    id = id.substring(0, id.length - 1);
+    this.galleryObject._id = id;
     console.log(this.galleryObject);
 
     this.galleryService.updateGallery(this.galleryObject).subscribe(gallery => {
       console.log(gallery);
       if (gallery !== undefined) {
-        this.message = 'Chúc mừng bạn lưu thông tin bộ sưu tập thành công';
+        this.message = '    Chúc mừng bạn lưu thông tin bộ sưu tập thành công';
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
           this.message = '';
-          this.registerForm.reset();
+          //this.registerForm.reset();
           window.location.reload();
         }, 5000);
 
