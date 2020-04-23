@@ -17,6 +17,9 @@
     font-size: 3.5rem;
   }
 }
+.hover:hover{
+  cursor: pointer;
+}
 
 strong,
 b {

@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Recipe} from 'src/app/shared/model/recipe';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie-service';
-import {RecipeService} from 'src/app/shared/service/recipe-service.service';
-import {UserService} from 'src/app/shared/service/user.service.';
-import {Comment} from 'src/app/shared/model/comment';
-import {CookStep} from '../../shared/model/cookStep';
+import { Component, OnInit } from '@angular/core';
+import { Recipe } from 'src/app/shared/model/recipe';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import { UserService } from 'src/app/shared/service/user.service.';
+import { Comment } from 'src/app/shared/model/comment';
+import { CookStep } from '../../shared/model/cookStep';
 
 @Component({
   selector: 'app-recipe-check',
@@ -104,7 +104,7 @@ export class RecipeCheckComponent implements OnInit {
           }
         }
       }
-      this.recipes = arr.filter(function(item, pos) {
+      this.recipes = arr.filter(function (item, pos) {
         return arr.indexOf(item) == pos;
       });
       this.getComent();
@@ -187,8 +187,15 @@ export class RecipeCheckComponent implements OnInit {
       for (let ingredient of this.recipe.ingredients) {
         ingredient.quantitative = parseInt(ingredient.quantitative) / this.oldMultiplyElement * this.multiplyElement;
       }
-      this.oldMultiplyElement = this.multiplyElement;
+
     }
+    if (this.recipeView !== undefined && this.recipeView.ingredients.length > 0) {
+      for (let ingredient of this.recipeView.ingredients) {
+        ingredient.quantitative = parseInt(ingredient.quantitative) / this.oldMultiplyElement * this.multiplyElement;
+      }
+      // this.oldMultiplyElement = this.multiplyElement;
+    }
+    this.oldMultiplyElement = this.multiplyElement;
   }
 
   openModal(approve: any) {
@@ -227,7 +234,7 @@ export class RecipeCheckComponent implements OnInit {
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-        this.recipe.status=1;
+        this.recipe.status = 1;
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
       }
@@ -253,7 +260,7 @@ export class RecipeCheckComponent implements OnInit {
       if (result['status'] === 200) {
         this.message = result['message'];
         this.messageModal = true;
-        this.recipe.status=-1;
+        this.recipe.status = -1;
         setTimeout(() => {
           window.location.reload();
         }, 3000);

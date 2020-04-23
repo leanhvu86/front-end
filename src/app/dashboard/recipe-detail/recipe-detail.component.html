@@ -173,8 +173,9 @@
                   </div>
                   <div class="col-6 col-md-4">
                     <i class="fa fa-cutlery fa-lg" style="color: rgb(155, 15, 15);" aria-hidden="true"></i>&#160;
-                    <a>Phần ăn</a>&#160;&#160;&#160;&#160;&#160;<input type="number" id="multiplyElement"
-                      [(ngModel)]="multiplyElement" style="width: 46px;height: 25px;margin-right: 5px;" /><a><i
+                    <a>Phần ăn</a>&#160;&#160;&#160;&#160;&#160;<input type="number" id="multiplyElement" min="1"
+                      pattern="[0-9]+" [(ngModel)]="multiplyElement" (change)="countIngredient(multiplyElement)"
+                      style="width: 46px;height: 25px;margin-right: 5px;" /><a><i
                         (click)="countIngredient(multiplyElement)" class="fa fa-refresh fa-lg"
                         aria-hidden="true"></i></a>
                   </div>

@@ -6,7 +6,7 @@
     <form class="form-signin" (ngSubmit)="registerUser()" [formGroup]="registerForm">
       <input type="text" id="user" class="form-control" name="user" formControlName="user"
         [ngClass]="{ 'is-invalid': submitted && f.user.errors }" [(ngModel)]="userObject.user"
-        placeholder="Tên đăng nhập" title="Please enter the username" autocomplete="off" required autofocus />
+        placeholder="Tên tài khoản" title="Tên tài khoản" autocomplete="off" required autofocus />
       <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
         <div *ngIf="f.user.errors.required">
           Vui lòng nhập không để trống tên đăng nhập.
@@ -61,8 +61,8 @@
   data-target="#exampleModalCenter20" id="modal-button20">
 </a>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter20" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenter20" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">

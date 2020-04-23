@@ -16,3 +16,36 @@
   .form-control::placeholder  {
     font-family: FontAwesome;
   }
+  
+.button2 {
+  min-width: 120px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  border: 2px solid red; /* Green */
+  float: right;
+}
+.button2:hover{
+  background:red;
+  color: white;
+}
+
+.button1 {
+ min-width: 120px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50; /* Green */
+  float: right;
+}
+.button1:hover{
+  background:#4CAF50 ;
+  color: white;
+}
+  .cancel{
+    min-width: 120px; background: white; border: 1px solid black; height: 40px;
+  }
+  .cancel:hover{
+    background: rgb(56, 56, 56); color: white;
+  }
+  

@@ -17,13 +17,13 @@
   color: white;
 }
 .active-button{
-  color: #b31212;
+  color: #b31212;cursor: pointer;
 }
 .active-button:hover{
   color: #ffffff;
 }
 .no-active-button{
-  color: #b8bbba;
+  color: #b8bbba;cursor: pointer;
 }
 .no-active-button:hover{
   color: #ff7171;
@@ -46,7 +46,7 @@
 	  bottom: 20%;
 	right: 5%;
 	opacity: 0.8;
-	background: none;
+	background: none;cursor: pointer;
   }
   .play:hover{
     opacity: 1;

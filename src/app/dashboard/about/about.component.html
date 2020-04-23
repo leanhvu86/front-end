@@ -7,7 +7,7 @@
     <div class="member-item-wrapper" *ngFor="let user of topUsers; let i = index">
       <div class="member-item">
         <div class="member-profile nopadding">
-          <div class="avatar z-effect">
+          <div class="avatar z-effect" style="cursor: pointer;">
             <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">
               <cl-transformation width="120" height="120" gravity="face" radius="max" crop="fill" background="#e9ebee">
               </cl-transformation>
@@ -70,8 +70,14 @@
             <div class="member-item">
               <div class="member-profile nopadding">
                 <div class="avatar z-effect">
-                  <img src="https://media.cooky.vn/usr/g52/515973/avt/s60/user-default.png"
-                    class="img-responsive img-circle" alt="">
+
+                  <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px; cursor: pointer;">
+                    <cl-transformation width="60" height="60" gravity="face" radius="max" crop="fill"
+                      background="#e9ebee">
+                    </cl-transformation>
+                    <cl-transformation width="40" crop="scale">
+                    </cl-transformation>
+                  </cl-image>
                 </div>
                 <div class="profile">
                   <a [routerLink]="['/member/info/', user._id]" class="cooky-user-link name" data-userid="515973"

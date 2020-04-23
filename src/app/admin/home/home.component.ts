@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
   emailObject = {
     email: ""
   }
+  user = '';
+  id = ''
   constructor(private _loginService: LoginServiceService, private cookie: CookieService, private _router: Router) {
     // this.getAuthDetails();
   }
@@ -31,7 +33,9 @@ export class HomeComponent implements OnInit {
       let user = data.body['user'];
       if (user !== undefined && user.imageUrl !== '') {
         this.imageUrl = user.imageUrl
-        this.image = true
+        this.image = true;
+        this.user = user.name;
+        this.id = user._id;
       }
     })
   }

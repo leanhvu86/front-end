@@ -7,13 +7,12 @@
         </cl-transformation>
       </cl-image>
       <h4 style=" text-transform: uppercase;margin-top: 25px; margin-bottom: 15px;"> {{recipe.recipeName}}</h4>
-      <button
-        title="Duyệt" (click)="openModal(true)" class="button1">
+      <button title="Duyệt" (click)="openModal(true)" class="button1">
         <!-- ngIf: status != 1 --><span class="ng-scope">Duyệt </span>
         <!-- end ngIf: status != 1 -->
       </button>
-      <button title="Từ chối" (click)="openModal(false)" class=" button2"
-              style="margin-left: 50px; border:  2px solid red;">
+      <button title="Từ chối" (click)="openModal(false)" class="button2"
+        style="margin-left: 50px; border:  2px solid red;">
         <!-- ngIf: status != 1 --><span class="ng-scope">Từ chối</span>
         <!-- end ngIf: status != 1 -->
       </button>
@@ -39,8 +38,8 @@
       </div> -->
     </div>
     <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><img
-      src="../../../assets/images/cooky-video-play-fill-2.png"
-      style="top:220px;left:340px;width: 50px;height: 50px; position: absolute;"/></span>
+        src="../../../assets/images/cooky-video-play-fill-2.png"
+        style="top:220px;left:340px;width: 50px;height: 50px; position: absolute;" /></span>
     <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
       <div class="row">
 
@@ -58,7 +57,7 @@
           <div class="row atitle"><a>Công thức đăng bởi</a></div>
           <div class="row"><a>{{recipe.user.name}}</a></div>
           <div class="row"><a>{{recipe.user.totalPoint}}&#160;&#160;&#160;&#160;công
-            thức</a><a>&#160;&#160;&#160;&#160;{{recipe.user.totalPoint}}&#160;&#160;&#160;&#160;điểm</a></div>
+              thức</a><a>&#160;&#160;&#160;&#160;{{recipe.user.totalPoint}}&#160;&#160;&#160;&#160;điểm</a></div>
         </div>
         <div class="col col-lg-2">
 
@@ -84,10 +83,10 @@
           <nav style="background: white; border-radius: 10px 10px 10px 10px;">
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
               <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-                 aria-controls="nav-home" aria-selected="true" style="font-size: 14px;">
+                aria-controls="nav-home" aria-selected="true" style="font-size: 14px;">
                 Công thức</a>
               <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                 aria-controls="nav-profile" aria-selected="false" style="font-size: 14px;">Bình luận
+                aria-controls="nav-profile" aria-selected="false" style="font-size: 14px;">Bình luận
               </a>
             </div>
           </nav>
@@ -101,21 +100,21 @@
 
                 <div class="row">
                   <div class="col-sm-6 col-md-8" style="text-align:start;"><a
-                    style="font-size: 20px;font-weight: 500;font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Nguyên
-                    liệu
-                    làm
-                    &#160;{{recipe.recipeName}}</a>
+                      style="font-size: 20px;font-weight: 500;font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Nguyên
+                      liệu
+                      làm
+                      &#160;{{recipe.recipeName}}</a>
                     <br><a class="atitle">cho <span style="color: red; margin-left: 5px;">{{multiplyElement}}</span>
                       Phần ăn </a>
 
                   </div>
                   <div class="col-6 col-md-4"><i class="fa fa-cutlery fa-lg" style="color: rgb(155, 15, 15);"
-                                                 aria-hidden="true"></i>&#160;
-                    <a>Phần ăn</a>&#160;&#160;&#160;&#160;&#160;<input type="number" id="multiplyElement"
-                                                                       [(ngModel)]="multiplyElement"
-                                                                       style="width: 46px;height: 25px;margin-right: 5px;"/><a><i
-                      (click)="countIngredient(multiplyElement)" class="fa fa-refresh fa-lg"
-                      aria-hidden="true"></i></a>
+                      aria-hidden="true"></i>&#160;
+                    <a>Phần ăn</a>&#160;&#160;&#160;&#160;&#160;<input type="number" id="multiplyElement" min="1"
+                      pattern="[0-9]+" (change)="countIngredient(multiplyElement)" [(ngModel)]="multiplyElement"
+                      style="width: 46px;height: 25px;margin-right: 5px;" /><a><i
+                        (click)="countIngredient(multiplyElement)" class="fa fa-refresh fa-lg"
+                        aria-hidden="true"></i></a>
                   </div>
                 </div>
                 <div *ngFor=" let ingredient of recipe.ingredients; let i =index">
@@ -133,21 +132,24 @@
 
                 <div class="row">
                   <div class="col-sm-6 col-md-8" style="text-align:start;"><a
-                    style="font-size: 20px;font-weight: 500; font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Cách
-                    làm
-                    &#160;{{recipe.recipeName}}</a>
+                      style="font-size: 20px;font-weight: 500; font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Cách
+                      làm
+                      &#160;{{recipe.recipeName}}</a>
                     <br>
                     <a class="atitle" (click)="fullImage()">
-                      <span class="active-button" *ngIf="viewFull;else other_content"><i  class="fa fa-list fa-lg " aria-hidden="true"></i>&#160;&#160;Xem đầy đủ&#160;</span>
+                      <span class="active-button" *ngIf="viewFull;else other_content"><i class="fa fa-list fa-lg "
+                          aria-hidden="true"></i>&#160;&#160;Xem đầy đủ&#160;</span>
                       <ng-template #other_content>
-                        <span class="no-active-button"><i class="fa fa-list fa-lg " aria-hidden="true"></i>&#160;&#160;Xem đầy đủ&#160;</span>
+                        <span class="no-active-button"><i class="fa fa-list fa-lg "
+                            aria-hidden="true"></i>&#160;&#160;Xem đầy đủ&#160;</span>
                       </ng-template>
                     </a>
                     <a class="atitle" (click)="noImage()">
                       <span class="no-active-button" *ngIf="viewFull;else other_content1">
-                        <i  class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>&#160;&#160;Không hình</span>
+                        <i class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>&#160;&#160;Không hình</span>
                       <ng-template #other_content1>
-                        <span class="active-button"><i class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>&#160;&#160;Không hình</span>
+                        <span class="active-button"><i class="fa fa-file-text-o fa-lg"
+                            aria-hidden="true"></i>&#160;&#160;Không hình</span>
                       </ng-template>
                     </a>
                   </div>
@@ -159,7 +161,7 @@
                 <hr>
                 <a class="atitle" style="margin-left:5%; font-size: 25px; color: #181818;"> Thực hiện</a>
                 <div *ngFor=" let cookStep of cookSteps; let i =index" style="min-height: 400px; height: auto;"
-                     class="bigContent">
+                  class="bigContent">
                   <div style="position: relative; height: auto;min-height: 400px;margin-top: 10px; " class="noImage">
                     <div
                       style="border-radius: 5px;position: absolute;text-align: center; top:60px; left: 50px;
@@ -170,7 +172,7 @@
                       <br>
                       <a>___</a><br>
                       <i class="fa fa-check-circle fa-lg" id="icon{{i}}" aria-hidden="true"
-                         (click)="changeIcon($event,i)"></i>
+                        (click)="changeIcon($event,i)"></i>
                     </div>
                     <div
                       style=" position: absolute; top:60px; right: 0; width: 560px;text-align: left;padding-bottom: 5px; padding-left: 50px;">
@@ -181,7 +183,7 @@
                           </cl-transformation>
                         </cl-image> -->
                         <div class=".col-md-8" style="max-width: 200px;" id="image{{i}}"
-                             *ngFor="let imageUrl of cookStep.image; let i = index">
+                          *ngFor="let imageUrl of cookStep.image; let i = index">
                           <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
                             <cl-transformation height="125" radius="20" width="125" crop="scale">
                             </cl-transformation>
@@ -200,19 +202,19 @@
             </div>
             <div class="clearfix"></div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
-                 style="height: 600px;">
+              style="height: 600px;">
 
               <!-- Default switch -->
               <div style="width: 100%;font-size: 16px;">
                 <br>
                 <a style="margin-left: 10%;">Danh sách bình luận công thức </a>
                 <div class="container" style="margin-top: 10px;"
-                     *ngFor="let comment of recipeComment|paginate:{itemsPerPage: 6, currentPage:p};">
+                  *ngFor="let comment of recipeComment|paginate:{itemsPerPage: 6, currentPage:p};">
                   <div class="row">
                     <div class="col-4">
                       <cl-image public-id="{{ comment.user.imageUrl }}" style="border-radius: 50px;">
                         <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
-                                           background="#e9ebee">
+                          background="#e9ebee">
                         </cl-transformation>
                         <cl-transformation width="50" crop="scale"></cl-transformation>
                       </cl-image>
@@ -225,7 +227,7 @@
                       <a>{{comment.content}}</a>
                       <br>
                       <div class="row" id="image{{ i }}" *ngFor="let imageUrl of comment.imageUrl; let i = index"
-                           style="margin: 10px 0; float: left;">
+                        style="margin: 10px 0; float: left;">
                         <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
                       <cl-transformation height="100" width="100" crop="scale">
                       </cl-transformation>
@@ -290,7 +292,7 @@
           </h4>
           <div style="text-align: left; padding: 10px 0;">
             <a>Loại món: </a> <a class="atitle1" *ngFor="let foodType of recipeView.foodType">
-            {{foodType.foodTypeName}},</a>
+              {{foodType.foodTypeName}},</a>
             <br><br> <a> Cách thức thực hiện: </a>
             <a class="atitle1" *ngFor="let cookWays of recipeView.cookWay">
               {{cookWays.cookWayName}}, </a>
@@ -306,8 +308,8 @@
           </div>
         </div>
         <span *ngIf="recipeView.videoLink" (click)='video(recipeView.videoLink)'><img
-          src="../../../assets/images/cooky-video-play-fill-2.png"
-          style="top:140px;left:70px;width: 50px;height: 50px; position: absolute;"/></span>
+            src="../../../assets/images/cooky-video-play-fill-2.png"
+            style="top:140px;left:70px;width: 50px;height: 50px; position: absolute;" /></span>
         <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
           <div class="row">
 
@@ -315,7 +317,7 @@
 
               <cl-image public-id="{{recipeView.user.imageUrl}}" style="border-radius: 50px;">
                 <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill"
-                                   background="#e9ebee">
+                  background="#e9ebee">
                 </cl-transformation>
                 <cl-transformation width="75" crop="scale">
                 </cl-transformation>
@@ -343,18 +345,18 @@
           <div class="container" style="padding: 20px;">
             <div class="row">
               <div class="col" style="text-align:start;"><a
-                style="font-size: 20px;font-weight: 500;font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Nguyên
-                liệu
-              </a>
+                  style="font-size: 20px;font-weight: 500;font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Nguyên
+                  liệu
+                </a>
                 <br><a class="atitle">cho <span style="color: red; margin-left: 5px;">{{multiplyElement}}</span>
                   Phần ăn </a>
 
               </div>
               <div class="col">
-                <input type="number" id="multiplyElement" [(ngModel)]="multiplyElement"
-                       style="width: 46px;height: 25px;margin-right: 5px;float: left;"/><a><i
-                (click)="countIngredient(multiplyElement)"
-                class="fa fa-refresh fa-lg" aria-hidden="true"></i></a>
+                <input type="number" id="multiplyElement" [(ngModel)]="multiplyElement" min="1"
+                  (change)="countIngredient(multiplyElement)"
+                  style="width: 46px;height: 25px;margin-right: 5px;float: left;" /><a><i
+                    (click)="countIngredient(multiplyElement)" class="fa fa-refresh fa-lg" aria-hidden="true"></i></a>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -375,26 +377,29 @@
 
 
             <div class="row"><a
-              style="font-size: 20px;font-weight: 500; font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Cách
-              làm</a>
+                style="font-size: 20px;font-weight: 500; font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Cách
+                làm</a>
             </div>
             <div class="row">
               <div class="row">
                 <div class="col" style="width:250px;">
                   <a class="atitle" (click)="fullImage()">
-                    <span class="active-button" *ngIf="viewFull;else other_content"><i  class="fa fa-list fa-lg " aria-hidden="true"></i>&#160;&#160;Xem đầy đủ&#160;</span>
+                    <span class="active-button" *ngIf="viewFull;else other_content"><i class="fa fa-list fa-lg "
+                        aria-hidden="true"></i>&#160;&#160;Xem đầy đủ&#160;</span>
                     <ng-template #other_content>
-                      <span class="no-active-button"><i class="fa fa-list fa-lg " aria-hidden="true"></i>&#160;&#160;Xem đầy đủ&#160;</span>
+                      <span class="no-active-button"><i class="fa fa-list fa-lg " aria-hidden="true"></i>&#160;&#160;Xem
+                        đầy đủ&#160;</span>
                     </ng-template>
                   </a>
 
                 </div>
                 <div class="col">
                   <a class="atitle" (click)="noImage()">
-                      <span class="no-active-button" *ngIf="viewFull;else other_content1">
-                        <i  class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>&#160;&#160;Không hình</span>
+                    <span class="no-active-button" *ngIf="viewFull;else other_content1">
+                      <i class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>&#160;&#160;Không hình</span>
                     <ng-template #other_content1>
-                      <span class="active-button"><i class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>&#160;&#160;Không hình</span>
+                      <span class="active-button"><i class="fa fa-file-text-o fa-lg"
+                          aria-hidden="true"></i>&#160;&#160;Không hình</span>
                     </ng-template>
                   </a>
                 </div>
@@ -402,13 +407,13 @@
             </div>
             <hr>
             <div *ngFor=" let cookStep of cookStepsView; let j =index" style="min-height: 400px; height: auto;"
-                 class="bigC">
+              class="bigC">
               <div style="position: relative; height: auto;min-height: 400px;margin-top: 10px; " class="noImage1">
                 <div
                   style="border: 1px solid gray; border-radius: 5px; background: rgb(230, 230, 230); padding: 5px 5px; text-align: center;width: 60px !important;height: 50px;">
                   <a>Bước {{j + 1}}</a>
                   <i class="fa fa-check-circle fa-lg" id="iconTab{{j}}" aria-hidden="true"
-                     (click)="changeIconTab($event,j)"></i>
+                    (click)="changeIconTab($event,j)"></i>
                 </div>
                 <div>
                   <div class="row" style="padding: 5px 5px;"><a> {{cookStep.psnote}}</a></div>
@@ -418,7 +423,7 @@
                                 </cl-transformation>
                               </cl-image> -->
                     <div class=".col-md-8" style="max-width: 200px;" id="image{{i}}"
-                         *ngFor="let imageUrl of cookStep.image; let i = index">
+                      *ngFor="let imageUrl of cookStep.image; let i = index">
                       <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
                         <cl-transformation height="80" radius="5" width="80" crop="scale">
                         </cl-transformation>
@@ -443,13 +448,13 @@
 </div>
 <app-scroll-top></app-scroll-top>
 <button type="button" class="btn btn-primary" data-toggle="modal" hidden data-target="#staticBackdrop"
-        id="modal-button">
+  id="modal-button">
   Launch static backdrop modal
 </button>
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -465,13 +470,14 @@
         <br>
         <div class="row" *ngIf="!messageModal">
           <div class="col">
-            <button style="width: 100px; background: white; border: 1px solid greenyellow;float: right;"
-                    *ngIf="accept"  (click)="acceptRecipe(true)">Duyệt</button>
-            <button style="width: 100px; background: white; border: 1px solid red;float: right;"
-                    *ngIf="!accept"  (click)="declineRecipe(false)">Từ chối</button>
+            <button style="width: 100px; background: white; border: 1px solid greenyellow;float: right;" *ngIf="accept"
+              (click)="acceptRecipe(true)">Duyệt</button>
+            <button style="width: 100px; background: white; border: 1px solid red;float: right;" *ngIf="!accept"
+              (click)="declineRecipe(false)">Từ chối</button>
           </div>
           <div class="col">
-            <button type="button" id="close-button" style="width: 100px; background: white; border: 1px solid black;" data-dismiss="modal" aria-label="Close">
+            <button type="button" id="close-button" style="width: 100px; background: white; border: 1px solid black;"
+              data-dismiss="modal" aria-label="Close">
               Hủy
             </button>
           </div>

@@ -234,10 +234,10 @@
               <!-- Start Contact Info -->
               <ul class="contact-details">
                 <li>
-                  <a href="#"><i class="fa fa-phone"></i> +84 245 678 000</a>
+                  <a><i class="fa fa-phone"></i> +84 245 678 000</a>
                 </li>
                 <li>
-                  <a href="#"><i class="fa fa-envelope-o"></i>
+                  <a (click)="openSendMail()" style="cursor: pointer;"><i class="fa fa-envelope-o"></i>
                     amthuc.monchay.2020@gmail.com</a>
                 </li>
               </ul>
@@ -256,7 +256,7 @@
                   <a><i (click)="useLanguage('en')"><img style="height: auto;width:50%;margin-top: -15%;"
                         src="../../../assets/images/en.png" /></i></a>
                 </li> -->
-              <!--  <li>
+                <!--  <li>
                   <a href="#">
                     <fb-like url={{url}}></fb-like>
                   </a>
@@ -296,14 +296,14 @@
         <i><img style="height: 45px;width:60px;margin-left: -20px;margin-top: -5px;"
             src="../../../assets/images/logo.png" /></i>
       </a>
-      <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;" id="index-home-link" title="Trang chủ ẩm thực chay"
-        routerLink="/index">{{ "index.home" | translate }}</a>
-      <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;"
-        routerLink="/recipe" title="Trang danh sách các công thức">{{ "index.routing" | translate }}</a>
-      <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;"
-        routerLink="/gallery" title="Trang danh sách các bộ sưu tập nổi bát">{{ "index.servie" | translate }}</a>
-      <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;"
-        routerLink="/about" title="Trang giới thiệu về ẩm thực chay">{{ "index.about" | translate }}</a>
+      <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;" id="index-home-link"
+        title="Trang chủ ẩm thực chay" routerLink="/index">{{ "index.home" | translate }}</a>
+      <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;" routerLink="/recipe"
+        title="Trang danh sách các công thức">{{ "index.routing" | translate }}</a>
+      <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;" routerLink="/gallery"
+        title="Trang danh sách các bộ sưu tập nổi bát">{{ "index.servie" | translate }}</a>
+      <a class="py-2 d-none d-md-inline-block" style="border: 1px #444;" routerLink="/about"
+        title="Trang giới thiệu về ẩm thực chay">{{ "index.about" | translate }}</a>
       <a class="py-2 d-none d-md-inline-block" routerLink="/gioithieu">Về chúng tôi</a>
       <a class="py-2 d-none d-md-inline-block" href="#"></a>
       <a class="py-2 d-none d-md-inline-block" href="#"></a>
@@ -317,11 +317,11 @@
       <form id="demo-2">
         <img style="height: 40px;width:185px;margin-left: 0px;" src="../../../assets/images/logo1.png" />
       </form>
-      <a class="py-2 d-none d-md-inline-block register-button" style="right: 18%;padding: 2px 8px; "
+      <button class="py-2 d-none d-md-inline-block register-button" style="right: 18%;padding: 2px 8px; "
         title="Đăng công thức mới" (click)="onChange($event)"><i class="fa fa-pencil-square-o" style="padding: 2px 8px;"
-          aria-hidden="true"></i>{{ "register.recipe" | translate }}</a>
+          aria-hidden="true"></i>{{ "register.recipe" | translate }}</button>
       <div class="nav-item avatar dropdown" *ngIf="isAuthenicate" style="margin-top: -40px;">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle hover" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
           title="Thông báo cá nhân" (click)="changeStatus($event)" aria-haspopup="true" aria-expanded="false"
           style=" position: absolute; right: 12%; top:0px; width: 70px; padding: 0 auto;">
           <ng-template #other_content1>
@@ -333,18 +333,19 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
           style="margin-top: -2%;margin-right: 120px;height: auto;" aria-labelledby="navbarDropdownMenuLink-55">
-          <a class="dropdown-item" *ngFor="let message of userMessage"><span *ngIf="message.news"
+          <a class="dropdown-item hover" *ngFor="let message of userMessage"><span *ngIf="message.news"
               style="color: red;">&#9679;</span>
             {{ message.content }}</a>
-          <a class="dropdown-item" *ngIf="mailBoxEmpty">Hòm thư rỗng</a>
+          <a class="dropdown-item hover" *ngIf="mailBoxEmpty">Hòm thư rỗng</a>
         </div>
       </div>
-      <a class="py-2 d-none d-md-inline-block register-button" *ngIf="!isAuthenicate; else other_content"
+      <a class="py-2 d-none d-md-inline-block register-button hover" *ngIf="!isAuthenicate; else other_content"
         style=" padding: 2px 8px;" (click)="onChangecheck($event)">{{ "index.register" | translate }}</a>
       <ng-template #other_content>
         <div class="nav-item avatar dropdown" style="margin-top: -40px;">
-          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-44" data-toggle="dropdown" aria-haspopup="true"
-            title="Quản lý tài khoản" aria-expanded="false" style=" position: absolute; right: 5%; top:-10px;">
+          <a class="nav-link dropdown-toggle hover" id="navbarDropdownMenuLink-44" data-toggle="dropdown"
+            aria-haspopup="true" title="Quản lý tài khoản" aria-expanded="false"
+            style=" position: absolute; right: 5%; top:-10px;">
             <cl-image public-id="{{ imageUrl }}" style="border-radius: 50px;">
               <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill" background="#e9ebee">
               </cl-transformation>
@@ -353,11 +354,12 @@
           </a>
           <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
             style=" min-height: 200px; margin-right: 80px;" aria-labelledby="navbarDropdownMenuLink-55">
-            <a class="dropdown-item" [routerLink]="['/user/info/', id]">Quản lý tài khoản</a>
-            <a class="dropdown-item " (click)="redirect()">Trang quản trị</a>
-            <a class="dropdown-item" [routerLink]="['/personal/recipe/',id]">Công thức của tôi</a>
-            <a class="dropdown-item" routerLink="/myGallery">Bộ sưu tập của tôi</a>
-            <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
+            <a class="dropdown-item hover">Xin chào bạn {{user}}</a>
+            <a class="dropdown-item hover" [routerLink]="['/user/info/', id]">Quản lý tài khoản</a>
+            <a class="dropdown-item hover" (click)="redirect()">Trang quản trị</a>
+            <a class="dropdown-item hover" [routerLink]="['/personal/recipe/',id]">Công thức của tôi</a>
+            <a class="dropdown-item hover" routerLink="/myGallery">Bộ sưu tập của tôi</a>
+            <a class="dropdown-item hover" (click)="logout()">Đăng xuất</a>
           </div>
         </div>
       </ng-template>

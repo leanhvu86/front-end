@@ -221,6 +221,7 @@ figure:hover + span {
   right: 5%;
   opacity: 0.4;
   background: none;
+  cursor: pointer;
 }
 .heart:hover {
   color: red;
@@ -232,6 +233,7 @@ figure:hover + span {
   bottom: 20%;
   right: 5%;
   opacity: 0.8;
+  cursor: pointer;
   background: none;
 }
 .play:hover {
@@ -245,6 +247,7 @@ figure:hover + span {
   right: 5%;
   opacity: 0.6;
   background: none;
+  cursor: pointer;
 }
 .dislikeheart:hover {
   color: white;
@@ -2061,6 +2064,7 @@ body {
   padding: 0;
   list-style: none;
   color: red;
+  cursor: pointer;
 }
 .box14:hover .post {
   opacity: 1;

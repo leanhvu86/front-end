@@ -1,65 +1,101 @@
-<div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">☰ </a>
-  <a routerLink="/loadPage" style="font-size: 16px;">Trang quản trị</a>
-  <a routerLink="/memberAccess" style="font-size: 16px;">Quản lý thành viên</a>
-  <a routerLink="/recipeAccess" style="font-size: 16px;">Quản lý công thức</a>
-  <a routerLink="/gallery/access" style="font-size: 16px;">Quản lý bộ sưu tập</a>
-</div>
-<div id="main">
-  <div class="header" style="background: #e5e9ef;">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-5">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="Lee Ann Wu, Ling Ling, Minh Minh" />
+  <meta name="generator" content="Jekyll v3.8.6" />
+  <title>ẨM THỰC MÓN CHAY</title>
 
-          <div class="logo" id="menu-open">
-            <!-- <h1><a style="font-size: 20px;">ẨM THỰC ĂN CHAY</a></h1> -->
-            <button class="openbtn" (click)="openNav()">☰</button>
-            <a routerLink="/loadPage" style="margin-left: 30px;font-size: 16px;color: black;"> <i><img
-                  style="height: auto;width:30%;margin-left: -10%;" src="../../../assets/images/logo2.png" /></i></a>
-          </div>
-        </div>
-        <div class="col-md-5">
+  <link rel="canonical" href="https://amthuc.monchay.com.vn/" />
 
-        </div>
-        <div class="col" style="margin-right: -200px;">
-          <div class="nav-item avatar dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false" style="margin-right: -5%; padding-left: 100px;">
-              <img style="height: 40px;width:40px;border-radius: 20px;display:block; box-shadow: 0 8px 6px -6px black;"
-                src="../../../assets/images/men.jpg" *ngIf="!image;else other_content" />
-              <ng-template #other_content>
-                <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">
-                  <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill"
-                    background="#e9ebee">
-                  </cl-transformation>
-                  <cl-transformation width="55" crop="scale">
-                  </cl-transformation>
-                </cl-image>
-              </ng-template>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" style="margin-top: -2%;"
-              aria-labelledby="navbarDropdownMenuLink-44">
-              <a class="dropdown-item" routerLink="/">Trang người dùng</a>
-              <!-- <a class="dropdown-item" href="#">Công thức của tôi</a>
-        <a class="dropdown-item" href="#">Bộ sưu tập của tôi</a> -->
-              <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
+  <!-- Bootstrap core CSS -->
+  <!-- <link href="../../../assets/css/" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180" />
+  <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png" />
+  <link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json" />
+  <link rel="mask-icon" href="/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c" />
+  <link rel="icon" href="../../../assets/images/logo.ico" />
+  <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml" />
+  <meta name="theme-color" content="#563d7c" />
+</head>
+
+<body style="background: #e9ebee; width: 1360px;">
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">☰ </a>
+    <a routerLink="/loadPage" style="font-size: 16px;">Trang quản trị</a>
+    <a routerLink="/memberAccess" style="font-size: 16px;">Quản lý thành viên</a>
+    <a routerLink="/recipeAccess" style="font-size: 16px;">Quản lý công thức</a>
+    <a routerLink="/gallery/access" style="font-size: 16px;">Quản lý bộ sưu tập</a>
+  </div>
+  <div id="main">
+    <div class="header" style="background: #e5e9ef;">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5">
+
+            <div class="logo" id="menu-open">
+              <!-- <h1><a style="font-size: 20px;">ẨM THỰC ĂN CHAY</a></h1> -->
+              <button class=" btn openbtn" (click)="openNav()">
+                ☰
+              </button>
+              <a routerLink="/loadPage" style="margin-left: 30px;font-size: 16px;color: black;">
+                <img style="height: 45px;width:55px;" src="../../../assets/images/logo.png" />
+                <i><img style="height: 35px;width:auto;margin-left: 10px;" src="../../../assets/images/logo1.png" /></i>
+
+              </a>
             </div>
           </div>
+          <div class="col-md-5">
 
+          </div>
+          <div class="col" style="margin-right: -300px; float: left;">
+            <div class="nav-item avatar dropdown">
+
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="margin-right: -15%; padding-left: 100px;">
+
+                <img
+                  style="height: 40px;width:40px;border-radius: 20px;display:block; box-shadow: 0 8px 6px -6px black;"
+                  src="../../../assets/images/men.jpg" *ngIf="!image;else other_content" />
+                <ng-template #other_content>
+                  <cl-image public-id="{{imageUrl}}" style="border-radius: 50px; cursor: pointer;">
+                    <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill"
+                      background="#e9ebee">
+                    </cl-transformation>
+                    <cl-transformation width="55" crop="scale">
+                    </cl-transformation>
+                  </cl-image>
+                </ng-template>
+              </a>
+              <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                style="margin-top: -2%; margin-right: 100px;" aria-labelledby="navbarDropdownMenuLink-44">
+                <a class="dropdown-item">Xin chào quản trị viên {{user}}</a>
+                <a class="dropdown-item" routerLink="/">Trang người dùng</a>
+                <a class="dropdown-item hover" [routerLink]="['/user/info/', id]">Quản lý tài khoản</a>
+                <!-- <a class="dropdown-item" href="#">Công thức của tôi</a>
+        <a class="dropdown-item" href="#">Bộ sưu tập của tôi</a> -->
+                <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
+
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
+
+    <br>
+    <router-outlet></router-outlet>
+
   </div>
+  <footer style="background: #e5e9ef; color: black;">
 
-  <br>
-  <router-outlet></router-outlet>
-
-</div>
-<footer style="background-color: #2cc83b;">
-
-  <!-- Footer Links -->
-  <!-- <div class="container-fluid text-center text-md-left">
+    <!-- Footer Links -->
+    <!-- <div class="container-fluid text-center text-md-left">
 
     <div class="row">
 
@@ -138,9 +174,10 @@
 
 </div> -->
 
-  <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a> ẨM THỰC ĂN CHAY</a>
-  </div>
-  <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a style="color: black;"> ẨM THỰC ĂN CHAY</a>
+    </div>
+    <!-- Copyright -->
 
-</footer>
+  </footer>
+</body>

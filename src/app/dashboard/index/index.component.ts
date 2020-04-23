@@ -36,8 +36,9 @@ export class IndexComponent implements OnInit {
   isAuthenicate: boolean = false;
   userMessage: Message[] = [];
   newMessage: boolean = false;
-  mailBoxEmpty=false;
+  mailBoxEmpty = false;
   search: string = '';
+  user = '';
   constructor(
     private title: Title,
     private translate: TranslateService,
@@ -79,7 +80,7 @@ export class IndexComponent implements OnInit {
         if (user !== undefined) {
 
           this.id = user._id
-          console.log(this.id)
+          this.user = user.name;
         }
       })
     }
@@ -103,8 +104,8 @@ export class IndexComponent implements OnInit {
           }
           this.userMessage.push(mess)
         }
-        if(this.userMessage.length===0){
-          this.mailBoxEmpty=true;
+        if (this.userMessage.length === 0) {
+          this.mailBoxEmpty = true;
         }
       })
     }
@@ -255,4 +256,8 @@ export class IndexComponent implements OnInit {
 
   }
 
+  openSendMail() {
+    let url = 'https://mail.google.com/mail/?view=cm&fs=1&to=amthuc.anchay.2020@gmail.com&su=Thư Góp Ý&body=Xin Chào ban quản trị website Ẩm thực Ăn chay! ';
+    window.open(url, "MsgWindow", "width=800,height=600");
+  }
 }

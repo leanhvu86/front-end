@@ -226,6 +226,7 @@ figure:hover+span {
 	right: 5%;
 	opacity: 0.4;
 	background: none;
+	cursor: pointer;
   }
   .heart:hover{
 	color: red;
@@ -238,6 +239,7 @@ figure:hover+span {
 	right: 5%;
 	opacity: 0.8;
 	background: none;
+	cursor: pointer;
   }
   .play:hover{
 	opacity: 1;

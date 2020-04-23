@@ -1,14 +1,15 @@
 <div class="row">
   <app-nav></app-nav>
   <div style="height: 150px; position: relative; margin-top: -400px;margin-left: 100px;">
-<!--    <div style="margin-top: 2%;height: 2px;width: 90%;margin-left: 5%;"></div>-->
-    <a class="glow" style=" width: 500px;color: white; top: 15%;left: 40%; position: absolute;">Ẩm thực món chay truyền thống</a>
+    <!--    <div style="margin-top: 2%;height: 2px;width: 90%;margin-left: 5%;"></div>-->
+    <a class="glow" style=" width: 500px;color: white; top: 15%;left: 40%; position: absolute;">Ẩm thực món chay truyền
+      thống</a>
     <br>
     <div style="width: 100%; margin-top: 10%; margin-left: 25%;">
       <form (submit)="findRecipe()" class="form" style="width: 750px;">
         <input title="Search" value="" type="submit" class="button">
         <input class="form-control" type="text" name="search" [(ngModel)]="search" autocomplete="off"
-               placeholder="Tìm kiêm công thức" style="width: 90%;
+          placeholder="Tìm kiêm công thức" style="width: 90%;
                 cursor: pointer;">
       </form>
     </div>
@@ -57,9 +58,9 @@
   <div style="width: 90%; margin-left: 5%; min-height: auto;" class="row" data-aos="fade-in" data-aos-duration="4000">
 
     <div class=".col-md-8" *ngFor="let recipe of recipes| paginate: config; let i=index"
-         style="position: relative;margin-bottom: 100px;">
+      style="position: relative;margin-bottom: 100px;">
       <div class="hover15 column"
-           style="float: left; margin-left: 3%; width: 30%; position: relative; text-align: center;">
+        style="float: left; margin-left: 3%; width: 30%; position: relative; text-align: center;">
         <div [routerLink]="['/detail/', recipe._id]">
           <figure>
             <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
@@ -70,11 +71,11 @@
 
         </div>
         <a class="link-name" title="xem chi tiết công thức"
-           style="bottom:20px;left: 40px;text-align: center; -webkit-line-clamp: 3; position: absolute; min-width:150px; width: 260px;
+          style="bottom:20px;left: 40px;text-align: center; -webkit-line-clamp: 3; position: absolute; min-width:150px; width: 260px;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                     display: -webkit-box;text-decoration: none; font-style: inherit;font-size: 16px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
-           [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</a>
+          [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</a>
 
         <div style="top:340px;left:  2px; position: absolute; font-size: 12px; opacity: 0.8; height: 100px;">&#160;
           <i class="fa fa-clock-o stats-ico" aria-hidden="true"> {{recipe.time}}ph </i>
@@ -93,18 +94,17 @@
 
         </div>
         <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"
-              style="position: absolute; left:270px; bottom: 20%;"><i id="heart{{i}}" class="fa fa-heart fa-3x heart"
-                                                                      aria-hidden="true"></i></span>
+          style="position: absolute; left:270px; bottom: 20%;"><i id="heart{{i}}" class="fa fa-heart fa-3x heart"
+            aria-hidden="true"></i></span>
         <ng-template #other_content>
-                <span (click)="dislikeRecipe(recipe,i)" style="position: absolute; left:270px; bottom: 20%;"><i
-                  class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
+          <span (click)="dislikeRecipe(recipe,i)" style="position: absolute; left:270px; bottom: 20%;"><i
+              class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
         </ng-template>
         <div style="top:375px;left: 35px; position: absolute; font-size: 12px; height: 100px; ">
           <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]"
-             style="font-size: 12px;color: black;">
+            style="font-size: 12px;color: black;">
             <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
-              <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill"
-                                 background="#e9ebee">
+              <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill" background="#e9ebee">
               </cl-transformation>
               <cl-transformation width="55" crop="scale">
               </cl-transformation>
@@ -116,7 +116,7 @@
         </div>
 
         <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
-                                                                            aria-hidden="true" style="top:40%;left:155px;width: 30%;"></i></span>
+            aria-hidden="true" style="top:40%;left:155px;width: 30%;"></i></span>
       </div>
     </div>
 
@@ -138,19 +138,18 @@
             </cl-transformation>
           </cl-image>
           <div class="box-content">
-            <a class="title" style=" width: 96% ;text-decoration: none; text-align: center;"
-               title="{{gallery.content}}" [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}
+            <a class="title" style=" width: 96% ;text-decoration: none; text-align: center;" title="{{gallery.content}}"
+              [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}
             </a>
 
             <ul class="icon" style=" bottom:100px ;">
               <li><a><i class="fa fa-heart fa-2x " id="heartGallery{{i}}" style="margin-top: 15px;"
-                        (click)="likeGallerry(gallery,i)" *ngIf="!gallery.like;else other_content"></i>
-                <ng-template #other_content><i style="margin-top: 15px;" id="heartGallery{{i}}"
-                                               (click)="nolikeGallery(gallery,i)" class="fa fa-heart fa-2x check"
-                                               aria-hidden="true"></i>
-                </ng-template>
+                    (click)="likeGallerry(gallery,i)" *ngIf="!gallery.like;else other_content"></i>
+                  <ng-template #other_content><i style="margin-top: 15px;" id="heartGallery{{i}}"
+                      (click)="nolikeGallery(gallery,i)" class="fa fa-heart fa-2x check" aria-hidden="true"></i>
+                  </ng-template>
 
-              </a></li>
+                </a></li>
 
             </ul>
           </div>
@@ -167,7 +166,7 @@
   <div style="width: 90%; margin-left: 5%; min-height: auto;" data-aos="fade-in" data-aos-duration="4000">
 
     <div *ngFor="let user of topUsers"
-         style=" float: left;border-radius: 50%; background: none; width: 120px; position: relative;">
+      style=" float: left;border-radius: 50%; background: none; width: 120px; position: relative; cursor: pointer;">
       <div class="memberfunny" [routerLink]="['/member/info/',user._id]">
         <!-- <div>
             <figure style="padding: 15% 10%;"> -->
@@ -178,8 +177,7 @@
         <!-- </figure> -->
         <a title="{{user.name}}">
           <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">
-            <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
-                               background="#e9ebee">
+            <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill" background="#e9ebee">
             </cl-transformation>
             <cl-transformation width="75" crop="scale">
             </cl-transformation>
@@ -252,11 +250,11 @@
           </div>
       </div>
   </div> -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" id="modal-button1"
-          hidden>Large modal</button>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
+    id="modal-button1" hidden>Large modal</button>
 
   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-       aria-hidden="true" style="height: auto;min-height: 600px;">
+    aria-hidden="true" style="height: auto;min-height: 600px;">
     <div class="modal-dialog modal-lg" role="document" style="height: auto;min-height: 600px;">
       <div class="modal-content" style="height: auto; margin-bottom: 50px;min-height: 600px;">
         <div class="modal-header">
