@@ -21,6 +21,177 @@
   cursor: pointer;
 }
 
+
+.bell{
+  /* display:block; */
+  width: 15px;
+  height: 15px;
+  font-size: 20px;
+  color: #f50202;
+  -webkit-animation: ring 4s .7s ease-in-out infinite;
+  -webkit-transform-origin: 50% 4px;
+  -moz-animation: ring 4s .7s ease-in-out infinite;
+  -moz-transform-origin: 50% 4px;
+  animation: ring 4s .7s ease-in-out infinite;
+  transform-origin: 50% 4px;
+}
+/* .jm-logo a {
+	padding: 60px;
+} */
+.blink_me:hover {
+ transform: 1.1;
+}
+.rotate {
+  width: 185px;
+  height:auto;
+  background:rgb(255, 255, 255);
+}
+.rotate .rotate-inner {
+  -webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+-ms-box-sizing: border-box;
+box-sizing: border-box;
+-webkit-transition: all 0.5s;
+-moz-transition: all 0.5s;
+transition: all 0.5s;
+  /* padding:20px; */
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  margin: 0 auto;
+  font-family: sans-serif;
+  color: white;
+  border-top: rgb(255, 255, 255) 3px solid;
+}
+
+.rotate:hover .rotate-inner {
+  letter-spacing: 5px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  -ms-transform: rotatex(360deg);
+  -webkit-transform: rotatex(360deg);
+  transform: rotatex(360deg);
+}
+.jm-logo img:hover, 
+.jm-logo img:focus, 
+.jm-logo img:active {
+	-webkit-animation-name: buzz;
+	animation-name: buzz;
+	-webkit-animation-duration: 0.15s;
+	animation-duration: 0.15s;
+	-webkit-animation-timing-function: linear;
+	animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+}
+	
+@-webkit-keyframes buzz {
+  	50% {
+  	    -ms-transform: translateX(3px) rotate(2deg);
+	    -webkit-transform: translateX(3px) rotate(2deg);
+	    transform: translateX(3px) rotate(2deg);
+  	}
+  	100% {
+	    -ms-transform: translateX(-3px) rotate(-2deg);
+	    -webkit-transform: translateX(-3px) rotate(-2deg);
+	    transform: translateX(-3px) rotate(-2deg);
+  	}
+}
+@keyframes buzz {
+  	50% {
+	    -ms-transform: translateX(3px) rotate(2deg);
+	    -webkit-transform: translateX(3px) rotate(2deg);
+	    transform: translateX(3px) rotate(2deg);
+  	}
+  	100% {
+	    -ms-transform: translateX(-3px) rotate(-2deg);
+	    -webkit-transform: translateX(-3px) rotate(-2deg);
+	    transform: translateX(-3px) rotate(-2deg);
+  	}
+}
+@-webkit-keyframes ring {
+  0% { -webkit-transform: rotateZ(0); }
+  1% { -webkit-transform: rotateZ(30deg); }
+  3% { -webkit-transform: rotateZ(-28deg); }
+  5% { -webkit-transform: rotateZ(34deg); }
+  7% { -webkit-transform: rotateZ(-32deg); }
+  9% { -webkit-transform: rotateZ(30deg); }
+  11% { -webkit-transform: rotateZ(-28deg); }
+  13% { -webkit-transform: rotateZ(26deg); }
+  15% { -webkit-transform: rotateZ(-24deg); }
+  17% { -webkit-transform: rotateZ(22deg); }
+  19% { -webkit-transform: rotateZ(-20deg); }
+  21% { -webkit-transform: rotateZ(18deg); }
+  23% { -webkit-transform: rotateZ(-16deg); }
+  25% { -webkit-transform: rotateZ(14deg); }
+  27% { -webkit-transform: rotateZ(-12deg); }
+  29% { -webkit-transform: rotateZ(10deg); }
+  31% { -webkit-transform: rotateZ(-8deg); }
+  33% { -webkit-transform: rotateZ(6deg); }
+  35% { -webkit-transform: rotateZ(-4deg); }
+  37% { -webkit-transform: rotateZ(2deg); }
+  39% { -webkit-transform: rotateZ(-1deg); }
+  41% { -webkit-transform: rotateZ(1deg); }
+
+  43% { -webkit-transform: rotateZ(0); }
+  100% { -webkit-transform: rotateZ(0); }
+}
+
+@-moz-keyframes ring {
+  0% { -moz-transform: rotate(0); }
+  1% { -moz-transform: rotate(30deg); }
+  3% { -moz-transform: rotate(-28deg); }
+  5% { -moz-transform: rotate(34deg); }
+  7% { -moz-transform: rotate(-32deg); }
+  9% { -moz-transform: rotate(30deg); }
+  11% { -moz-transform: rotate(-28deg); }
+  13% { -moz-transform: rotate(26deg); }
+  15% { -moz-transform: rotate(-24deg); }
+  17% { -moz-transform: rotate(22deg); }
+  19% { -moz-transform: rotate(-20deg); }
+  21% { -moz-transform: rotate(18deg); }
+  23% { -moz-transform: rotate(-16deg); }
+  25% { -moz-transform: rotate(14deg); }
+  27% { -moz-transform: rotate(-12deg); }
+  29% { -moz-transform: rotate(10deg); }
+  31% { -moz-transform: rotate(-8deg); }
+  33% { -moz-transform: rotate(6deg); }
+  35% { -moz-transform: rotate(-4deg); }
+  37% { -moz-transform: rotate(2deg); }
+  39% { -moz-transform: rotate(-1deg); }
+  41% { -moz-transform: rotate(1deg); }
+
+  43% { -moz-transform: rotate(0); }
+  100% { -moz-transform: rotate(0); }
+}
+
+@keyframes ring {
+  0% { transform: rotate(0); }
+  1% { transform: rotate(30deg); }
+  3% { transform: rotate(-28deg); }
+  5% { transform: rotate(34deg); }
+  7% { transform: rotate(-32deg); }
+  9% { transform: rotate(30deg); }
+  11% { transform: rotate(-28deg); }
+  13% { transform: rotate(26deg); }
+  15% { transform: rotate(-24deg); }
+  17% { transform: rotate(22deg); }
+  19% { transform: rotate(-20deg); }
+  21% { transform: rotate(18deg); }
+  23% { transform: rotate(-16deg); }
+  25% { transform: rotate(14deg); }
+  27% { transform: rotate(-12deg); }
+  29% { transform: rotate(10deg); }
+  31% { transform: rotate(-8deg); }
+  33% { transform: rotate(6deg); }
+  35% { transform: rotate(-4deg); }
+  37% { transform: rotate(2deg); }
+  39% { transform: rotate(-1deg); }
+  41% { transform: rotate(1deg); }
+
+  43% { transform: rotate(0); }
+  100% { transform: rotate(0); }
+}
+
 strong,
 b {
   font-weight: 600;
@@ -202,18 +373,35 @@ ul.social-list li a:hover i {
   top: 10%;
   right: 5%;
   position: absolute;
-  color: gray;
-  border: 1px solid rgb(202, 201, 201);
+  color: rgb(77, 75, 75);
+  border: 1px solid rgb(24, 231, 24);
   font-size: 12px;
 }
 .register-button:hover {
-  color: rgb(24, 231, 24);;
+  color: rgb(24, 231, 24);
   z-index: 1000;
+  animation: flash 1s;
 }
 
+@keyframes flash {
+  25%
+  {
+                  opacity: 0.5;
+  }
+  50%{
+                  opacity: 1;
+  }
+  75% {
+                  opacity: 0.5;
+  }
+  100% {
+                  opacity: 1;
+  }
+}
 .text-muted :hover {
   color: rgb(24, 231, 24);;
 }
+
 /* .div-shadow {
     -webkit-box-shadow: 3px 3px 5px 6px whitesmoke;
     -moz-box-shadow:    3px 3px 5px 6px whitesmoke;

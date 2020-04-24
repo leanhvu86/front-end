@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from 'src/app/shared/service/user.service.';
-import {User} from 'src/app/shared/model/user';
-import {OrderPipe} from 'ngx-order-pipe';
-import {CookieService} from 'ngx-cookie-service';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/shared/service/user.service.';
+import { User } from 'src/app/shared/model/user';
+import { OrderPipe } from 'ngx-order-pipe';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-station',
@@ -13,7 +13,7 @@ export class StationComponent implements OnInit {
   users: User[] = [];
   config: any;
   searchText;
-  collection = {count: 60, data: []};
+  collection = { count: 60, data: [] };
   userObject = {
     role: 0,
     id: '',
@@ -24,7 +24,7 @@ export class StationComponent implements OnInit {
   user: User;
   openMember = false;
   updateMember = false;
-  messageModal=false;
+  messageModal = false;
   constructor(
     private userService: UserService,
     private orderPipe: OrderPipe,
@@ -114,7 +114,7 @@ export class StationComponent implements OnInit {
 
   openModal(user: any, openMember: any, updateMember: any) {
     this.user = user;
-    this.messageModal=false;
+    this.messageModal = false;
     if (updateMember === 0) {
       this.updateMember = false;
     }
@@ -164,7 +164,7 @@ export class StationComponent implements OnInit {
               user.imageUrl = 'jbiajl3qqdzshdw0z749';
             }
             this.users.push(user);
-            this.messageModal=true;
+            this.messageModal = true;
             if (this.userObject.role === 0) {
               this.message = 'Hạ quyền quản trị viên thành công';
             } else {
@@ -240,7 +240,7 @@ export class StationComponent implements OnInit {
               user.role = 'Khóa';
             }
             this.users.push(user);
-            this.messageModal=true;
+            this.messageModal = true;
             this.message = 'Khóa thành viên thành công';
             setTimeout(() => {
               this.message = '';
@@ -279,12 +279,13 @@ export class StationComponent implements OnInit {
         user.role = 'Khóa';
       }
       this.users.push(user);
-      this.messageModal=true;
+      this.messageModal = true;
       this.message = 'Mở khóa thành viên thành công';
       setTimeout(() => {
         this.message = '';
         const radio: HTMLElement = document.getElementById('close-button');
         radio.click();
+        window.location.reload()
       }, 3000);
 
     });

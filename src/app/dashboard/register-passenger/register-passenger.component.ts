@@ -501,8 +501,9 @@ export class RegisterPassengerComponent implements OnInit {
             this.successMessage = result['message'];
             const radio: HTMLElement = document.getElementById('modal-button');
             radio.click();
-            this.profileForm.reset();
-            this.finish();
+            setTimeout(() => {
+              window.location.reload()
+            }, 3000);
           } else {
             this.message = result['message'];
             const radio: HTMLElement = document.getElementById('modal-button');
@@ -513,12 +514,6 @@ export class RegisterPassengerComponent implements OnInit {
       }
     });
 
-  }
-
-
-  finish() {
-    const radio: HTMLElement = document.getElementById('index-home-link');
-    radio.click();
   }
 
   getcookStep() {
@@ -612,6 +607,7 @@ export class RegisterPassengerComponent implements OnInit {
           console.log(arrayTest);
           console.log(arrTest);
           if (arrTest.length < 1) {
+            console.log(arrTest)
             this.message = 'Vui lòng nhập lại nguyên liệu cho công thức đúng định dạng';
             const radio: HTMLElement = document.getElementById('modal-button');
             radio.click();
@@ -672,6 +668,15 @@ export class RegisterPassengerComponent implements OnInit {
               note: not
             });
             // this.ingredientArrays['ingerdient'].push(this.ingredient)
+            const removeIndex = this.ingredientArrays.findIndex(itm => itm.ingredientName === ingredient['ingredientName']);
+
+            if (removeIndex !== -1) {
+              const mess = ingredient['ingredientName'];
+              this.message = 'Nguyên liệu ' + mess.toUpperCase() + ' của bạn đã tồn tại.';
+              const radio: HTMLElement = document.getElementById('modal-button');
+              radio.click();
+              return;
+            }
             this.recipeService.createIngredient(ingredient).subscribe((data) => {
               const result = data.body;
               console.log(data);

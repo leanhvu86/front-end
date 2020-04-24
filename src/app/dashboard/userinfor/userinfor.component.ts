@@ -187,7 +187,7 @@ export class UserinforComponent implements OnInit {
           setTimeout(() => {
             this.loading = false;
             window.location.reload()
-          }, 8000);
+          }, 5000);
         } else {
           this.errorPassMessage = data.body['message']
         }

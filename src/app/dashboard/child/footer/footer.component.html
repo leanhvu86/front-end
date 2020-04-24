@@ -2,7 +2,12 @@
 <footer class="footer" *ngIf="summary" style="background: white; padding-top: 10px;margin-top: 50px;">
   <div class="row" style="background: white;">
     <div class="col-12 col-md" style="margin-left:5%;">
-      <i><img style="height: 80px;width:auto;margin-left: -10%;" src="../../../assets/images/logo.png" /></i>
+      <div class="jm-logo">
+        <a>
+          <i><img style="height: 80px;width:auto;margin-left: -10%;" src="../../../assets/images/logo.png" /></i>
+        </a>
+      </div>
+
       <small class="d-block mb-3 text-muted">© 2020-2030</small>
     </div>
     <div class="col-4 col-md">
@@ -10,15 +15,16 @@
       <div class="row">
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">
-            <li>{{summary.recipeCount}}<a class="text-muted" routerLink="/recipe"> Công thức món chay</a></li>
-            <li>{{summary.galleryCount}}<a class="text-muted" routerLink="/gallery"> Bộ sưu tập</a></li>
-            <li>{{summary.userCount}}<a class="text-muted" routerLink="/about"> Thành viên</a></li>
+            <li><span>{{summary.recipeCount}}</span><a class="text-muted" routerLink="/recipe"> Công thức món chay</a>
+            </li>
+            <li><span>{{summary.galleryCount}}</span><a class="text-muted" routerLink="/gallery"> Bộ sưu tập</a></li>
+            <li><span>{{summary.userCount}}</span><a class="text-muted" routerLink="/about"> Thành viên</a></li>
           </ul>
         </div>
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">
-            <li>{{summary.loginCount}}<a class="text-muted"> Lượt đăng nhập</a></li>
-            <li>{{summary.connectCount}}<a class="text-muted"> Lượt truy cập</a></li>
+            <li><span>{{summary.loginCount}}</span><a class="text-muted"> Lượt đăng nhập</a></li>
+            <li><span>{{summary.connectCount}}</span><a class="text-muted"> Lượt truy cập</a></li>
             <!-- <li><a class="text-muted" href="#"> Team feature</a></li> -->
           </ul>
         </div>
