@@ -201,7 +201,7 @@
                             )</span></li>
                         <li>Định_lượng: số lượng; đơn_vị_tính: gram, lít, cái...; tên_nguyên_liệu: tên nguyên liệu;
                           ghi_chú: diễn giải nếu có </li>
-                        <li>ví dụ: <span class="note-gray-highlight">1/4 con gà; 3 trái ớt (đỏ); 1 lít nước</span>
+                        <li>ví dụ: <span class="note-gray-highlight">1/4 quả chanh; 3 trái ớt (đỏ); 1 lít nước</span>
                           <!-- <li>
                           <span>Nhập nhiều nguyên liệu hoặc nhóm trên cùng dòng</span>
                           <ul>
@@ -345,8 +345,8 @@
 
                   </div>
                   <div style="width: 20%;height: auto;  border-radius: 5px; padding: 3px; margin: 2% 5%;">
-                    <button [disabled]="!profileForm.controls.cookStep.valid" class="btn btn-outline-success"
-                      (click)="addInputs('cookStep')">Thêm bước </button>
+                    <a [disabled]="!profileForm.controls.cookStep.valid" class="btn btn-outline-success"
+                      (click)="addInputs('cookStep')">Thêm bước </a>
                   </div>
                 </div>
 
@@ -405,7 +405,13 @@
           <br>
 
           <a style="padding: 15px 20px;background-image: linear-gradient(to right, #3cc603 0%, #3cc908  51%, #32a103  100%); cursor: pointer;color: white ; height: 80px;width: 250px;border-radius: 5px; margin-left: 40%; "
-            (click)="onSubmit()">Lưu công thức</a>
+            (click)="onSubmit()" *ngIf="!saving;else other_content10">Lưu công thức</a>
+          <ng-template #other_content10>
+            <button class="btn btn-dark"
+              style="color: white ; height: 40px;width: 180px;border-radius: 5px; margin-left: 40%;background:lightgrey; opacity: 0.7;">
+              <i class="fa fa-check fa-lg"></i>Đang lưu</button>
+          </ng-template>
+
         </div>
       </form>
       <br />
@@ -439,7 +445,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header" style="background:  #008325;">
-          <h5 class="modal-title" id="exampleModalLongTitle" style="color: white;">Vui lòng hoàn tất tạo công thức</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle" style="color: white;">Thông báo</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

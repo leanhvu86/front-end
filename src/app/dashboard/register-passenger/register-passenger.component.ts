@@ -40,6 +40,7 @@ export class RegisterPassengerComponent implements OnInit {
   public cookWays: CookWay[] = [];
   public cookWayArray: CookWay[] = [];
   public message = '';
+  saving = false;
   checkIngredient = false;
   urlArray: Array<Array<String>>[] = [];
   submitted = false;
@@ -468,6 +469,8 @@ export class RegisterPassengerComponent implements OnInit {
       console.log(inputValue);
       cookSteps[i].image = inputValue;
     }
+    this.message = '';
+    this.saving = true;
     this.cookStepService.createCookSteps(cookSteps).subscribe((data) => {
       console.log('fdaafasf')
       console.log(cookSteps)
@@ -492,7 +495,7 @@ export class RegisterPassengerComponent implements OnInit {
         }
         console.log(recipe);
 
-
+        this.message = '';
         recipe.ingredients = this.ingredientArrays;
         console.log(this.ingredientArrays);
         this.recipeService.registerRecipe(recipe).subscribe((data) => {
@@ -722,14 +725,12 @@ export class RegisterPassengerComponent implements OnInit {
     if (str === '') {
       return false;
     }
-    try {
-      const check = !isNaN(Number(str));
-      if (check === true) {
-        console.log(check);
-        return true;
-      }
-      return false;
-    } catch (error) {
+
+    const check = !isNaN(Number(str));
+    if (check === true) {
+      console.log(check);
+      return true;
+    } else {
       const patt = new RegExp('[0-9][/][0-9]');
       const res = patt.exec(str);
       console.log(res);
@@ -739,8 +740,6 @@ export class RegisterPassengerComponent implements OnInit {
         return false;
       }
     }
-
-
   }
 
   onSearchChange(searchValue: Element): void {
