@@ -111,8 +111,9 @@
             </cl-image>&#160;
             {{recipe.user.name}}
           </a>
-
-          <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
+          <a class="button_slidehr slide_downhr" style="margin-left: 50px; width: 50px;margin-top: 10px;" id="bookmark"
+            title="Thêm công thức vào bộ sưu tập" (click)="addBookmark(recipe)"></a>
+          <!-- <app-add-bookmark [childMessage]="recipe" id="i"></app-add-bookmark> -->
         </div>
 
         <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
@@ -268,7 +269,7 @@
           {{message}}
           <div class="row mt-30">
             <div class="col-md-4 col-sm-6" *ngFor="let gallery of personalGallery" style="margin-bottom: 30px;">
-              <div class="box3" (click)="addRecipeBookMark(gallery._id)">
+              <div class="box3" (click)="addRecipeBookMark(gallery)">
                 <cl-image public-id="{{gallery.image}}">
                   <cl-transformation height="171" width="235" crop="scale">
                   </cl-transformation>

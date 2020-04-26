@@ -314,6 +314,7 @@ export class UserinforComponent implements OnInit {
   }
   onSubmit() {
     this.submitted = true;
+    this.loading = true;
     if (this.registerForm.invalid) {
       this.errorMessage = 'Bạn phải kiểm tra lại thông tin!'
       return;
@@ -336,6 +337,7 @@ export class UserinforComponent implements OnInit {
         if (this.user.signature !== undefined) {
           this.user.signature = atob(this.user.signature)
         }
+        this.loading = false;
         this.message = user.body['message']
         const radio: HTMLElement = document.getElementById('modal-button2');
         radio.click();

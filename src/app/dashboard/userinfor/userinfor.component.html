@@ -134,9 +134,27 @@
 
                   </td>
                   <td>
-                    <button class="btn btn-success" (click)="onSubmit()">
+                    <button class="btn btn-success" (click)="onSubmit()" *ngIf="!loading;else other_content10">
                       Lưu thay đổi
                     </button>
+
+                    <ng-template #other_content10>
+                      <div *ngIf="loading">
+
+                        <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    </ng-template>
+
                   </td>
                 </tr>
                 <!--  -->
@@ -235,7 +253,8 @@
                   <td style="width: 200px;"></td>
                   <td>
 
-                    <button type="button" class="btn btn-success" style="margin-right: 3%;" (click)="onSubmit()">
+                    <button type="button" class="btn btn-success" style="margin-right: 3%;"
+                      *ngIf="!loading;else other_content10" (click)="onSubmit()">
                       Lưu thay đổi
                     </button>
                     <!-- <button type="button" class="btn btn-light" (click)="onClear()">Xóa thông tin</button> -->
@@ -295,7 +314,8 @@
                     </div>
                   </div>
 
-                  <button class="btn btn-lg btn-success btn-block btn-signin" type="submit">
+                  <button class="btn btn-lg btn-success btn-block btn-signin" *ngIf="!loading;else other_content10"
+                    type="submit">
                     Thay đổi mật khẩu
                   </button>
 

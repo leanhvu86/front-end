@@ -407,9 +407,29 @@
           <a style="padding: 15px 20px;background-image: linear-gradient(to right, #3cc603 0%, #3cc908  51%, #32a103  100%); cursor: pointer;color: white ; height: 80px;width: 250px;border-radius: 5px; margin-left: 40%; "
             (click)="onSubmit()" *ngIf="!saving;else other_content10">Lưu công thức</a>
           <ng-template #other_content10>
-            <button class="btn btn-dark"
-              style="color: white ; height: 40px;width: 180px;border-radius: 5px; margin-left: 40%;background:lightgrey; opacity: 0.7;">
-              <i class="fa fa-check fa-lg"></i>Đang lưu</button>
+            <div>
+
+              <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                <span class="sr-only">Loading...</span>
+              </div>
+
+              <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                <span class="sr-only">Loading...</span>
+              </div>
+
+              <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
           </ng-template>
 
         </div>

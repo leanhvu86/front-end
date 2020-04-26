@@ -34,7 +34,7 @@ export class Home2Component implements OnInit {
   collection = { count: 60, data: [] };
   galleryTop: Gallery[] = []
   personalGallery: Gallery[] = []
-  addRecipe = Recipe;
+  addRecipe: any;
   galleryObject = {
     _id: "",
     recipe: Recipe
@@ -117,7 +117,7 @@ export class Home2Component implements OnInit {
       })
     }
   }
-  addBookmark(recipe: any) {
+  addBookmark(recipe: Recipe) {
     this.message = ''
     if (this.isAuthenicate !== true) {
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -137,7 +137,7 @@ export class Home2Component implements OnInit {
         }
       }
     }
-    this.galleryObject._id = gallery;
+    this.galleryObject._id = gallery._id;
     this.galleryObject.recipe = this.addRecipe;
     this.galleryService.addGallery(this.galleryObject).subscribe(data => {
       if (data.body['status'] === 200) {

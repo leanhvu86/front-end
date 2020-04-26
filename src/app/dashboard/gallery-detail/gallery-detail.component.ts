@@ -25,7 +25,9 @@ export class GalleryDetailComponent implements OnInit {
     email: '',
     password: ''
   };
+  addRecipe: any;
   message: String = '';
+  errormessage = '';
   personalCheck: boolean = false;
   imageUrl: String = 'jbiajl3qqdzshdw0z749';
   isAuthenicate: boolean = false;
@@ -33,7 +35,10 @@ export class GalleryDetailComponent implements OnInit {
   gallerys: Gallery[] = [];
   mine: boolean = false;
   p: number;
-
+  galleryObject = {
+    _id: "",
+    recipe: Recipe
+  };
   constructor(
     private route: ActivatedRoute,
     private galleryService: GalleryService,
@@ -237,5 +242,40 @@ export class GalleryDetailComponent implements OnInit {
 
     });
     console.log(recipe.like);
+  }
+  addBookmark(recipe: Recipe) {
+    this.message = ''
+    if (this.isAuthenicate !== true) {
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    this.addRecipe = recipe
+    const radio: HTMLElement = document.getElementById('modal-button1');
+    radio.click();
+  }
+  addRecipeBookMark(gallery: any) {
+    if (gallery.recipe !== undefined) {
+      for (let recipe of gallery.recipe) {
+        if (recipe.name === this.addRecipe.name) {
+          this.errormessage = 'Công thức đã có trong bộ sưu tập';
+          return;
+        }
+      }
+    }
+    this.galleryObject._id = gallery._id;
+    this.galleryObject.recipe = this.addRecipe;
+    this.galleryService.addGallery(this.galleryObject).subscribe(data => {
+      if (data.body['status'] === 200) {
+        let gallery = data.body['gallery'];
+        this.message = data.body['message'];
+        setTimeout(() => {
+          const radio: HTMLElement = document.getElementById('close-modal');
+          radio.click();
+          window.location.reload()
+        }, 4000);
+
+      }
+    })
   }
 }

@@ -364,6 +364,9 @@ export class RegisterPassengerComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.saving === true) {
+      return;
+    }
     this.submitted = true;
     console.log('submit');
     console.log(this.nowUrl);
@@ -507,10 +510,12 @@ export class RegisterPassengerComponent implements OnInit {
             setTimeout(() => {
               window.location.reload()
             }, 3000);
+            this.saving = false;
           } else {
             this.message = result['message'];
             const radio: HTMLElement = document.getElementById('modal-button');
             radio.click(); this.submitted = false;
+            this.saving = false;
             return;
           }
         });
