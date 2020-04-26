@@ -152,7 +152,7 @@ figure {
   width: 270px;
   height: 400px;
   margin: 5px 15%;
-  padding: 3% 12% 2% 12%;
+  /* padding: 3% 12% 2% 12%; */
   background: #fff;
   overflow: hidden;
   border-radius: 20px;
@@ -626,7 +626,7 @@ body {
   margin-top: 30px;
 }
 .mt-40 {
-  margin-top: 40px;
+  margin-top: -32px;
 }
 .mb-30 {
   margin-bottom: 30px;
