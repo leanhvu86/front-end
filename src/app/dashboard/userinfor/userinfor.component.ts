@@ -168,12 +168,14 @@ export class UserinforComponent implements OnInit {
   };
   changePass() {
 
+    this.passSubmitted = true;
     if (this.changePassForm.invalid) {
-      console.log(this.changePassForm.value)
+      this.message = 'Không để trống các trường mật khẩu';
+      const radio: HTMLElement = document.getElementById('modal-button2');
+      radio.click();
       return;
     }
     this.loading = true;
-    this.passSubmitted = true;
     let email = this.cookie.get('email')
     this.userPassObject = this.changePassForm.value
     this.userPassObject.user = email
@@ -188,8 +190,9 @@ export class UserinforComponent implements OnInit {
           setTimeout(() => {
             this.loading = false;
             window.location.reload()
-          }, 5000);
+          }, 3000);
         } else {
+          this.loading = false;
           this.errorPassMessage = data.body['message']
         }
       })
