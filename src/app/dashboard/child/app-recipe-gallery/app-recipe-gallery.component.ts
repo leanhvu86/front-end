@@ -89,6 +89,8 @@ export class AppRecipeGalleryComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
+    const radio1: HTMLElement = document.getElementById('start-loading');
+    radio1.click();
     this.saving = true;
     this.galleryObject = this.registerForm.value;
 
@@ -109,6 +111,8 @@ export class AppRecipeGalleryComponent implements OnInit {
         this.message = '    Chúc mừng bạn lưu thông tin bộ sưu tập thành công';
         const radio: HTMLElement = document.getElementById('complete-loading');
         radio.click();
+        const radio1: HTMLElement = document.getElementById('complete-loading');
+        radio1.click();
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
