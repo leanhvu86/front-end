@@ -6,5 +6,5 @@ export class CookStep {
   time: string;
   psnote: string;
   image: any;
-  check: string;
+  check: any;
 }

@@ -144,7 +144,11 @@ export class RecipeDetailComponent implements OnInit {
         for (let cookStep of this.recipe.cockStep) {
           let arrayTemp = cookStep.image;
           cookStep.image = arrayTemp.split(',');
-          cookStep.check = true;
+          if (cookStep.check === 'true') {
+            cookStep.check = 'là bước chuẩn bị';
+          } else {
+            cookStep.check = '';
+          }
         }
         if (this.recipe.hardLevel !== undefined) {
           if (this.recipe.hardLevel === '') {

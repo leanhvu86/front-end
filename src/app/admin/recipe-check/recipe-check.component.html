@@ -94,8 +94,8 @@
           <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
 
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <div
-                style="background: white; border-radius: 10px; padding-top: 30px; min-height:200px;padding-left: 15px;">
+              <div style="background: white; border-radius: 10px; padding: 30px 0;display: block;
+                overflow: hidden;padding-left: 15px;">
 
 
                 <div class="row">
@@ -117,17 +117,19 @@
                         aria-hidden="true"></i></a>
                   </div>
                 </div>
-                <div *ngFor=" let ingredient of recipe.ingredients; let i =index">
-                  <div style="width: 50%; float: left;text-align: left;padding-top:20px ;">
-                    <a> <i class="fa fa-check fa-lg" style="color: rgb(95, 228, 6);" aria-hidden="true"></i>
-                      {{ingredient.ingredientName}}&#160;&#160;&#160;<a>{{ingredient.quantitative}}</a>&#160;&#160;
-                      {{ingredient.typeOfquantitative}}</a>
+                <div *ngFor="let ingredient of recipe.ingredients; let i = index">
+                  <div style="width: 30%; float: left;text-align: left;padding-top:20px ;">
+                    <a>
+                      <i class="fa fa-check fa-lg" style="color: rgb(95, 228, 6);" aria-hidden="true"></i>
+                      {{ ingredient.ingredientName }}&#160;&#160;&#160;<a>{{
+                        ingredient.quantitative
+                      }}</a>&#160;&#160; {{ ingredient.typeOfquantitative }}</a>
                   </div>
                 </div>
               </div>
               <div class="clearfix"></div>
               <div
-                style="background: white; border-radius: 10px; padding-top: 30px; min-height:800px;padding-left: 15px; text-align: left;">
+                style="background: white; border-radius: 10px;margin-top: 50px; padding-top: 30px; min-height:800px;padding-left: 15px; text-align: left;">
 
 
                 <div class="row">
@@ -175,7 +177,10 @@
                         (click)="changeIcon($event,i)"></i>
                     </div>
                     <div
-                      style=" position: absolute; top:60px; right: 0; width: 560px;text-align: left;padding-bottom: 5px; padding-left: 50px;">
+                      style=" position: absolute; top:60px; left: 100px; width: 560px;text-align: left;padding-bottom: 5px; padding-left: 50px;">
+                      <div class="row"><a style="color: olivedrab;"> {{cookStep.check}}</a> <a> {{cookStep.time}}
+                          phút</a>
+                      </div>
                       <div class="row"><a> {{cookStep.psnote}}</a></div>
                       <div class="row" style="margin: 10px 10px; padding: 0 0;" *ngIf="!showImageStep">
                         <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
@@ -307,9 +312,9 @@
             <div class="col">Độ khó: {{recipeView.hardLevel}}</div>
           </div>
         </div>
-        <span *ngIf="recipeView.videoLink" (click)='video(recipeView.videoLink)'><img
-            src="../../../assets/images/cooky-video-play-fill-2.png"
-            style="top:140px;left:70px;width: 50px;height: 50px; position: absolute;" /></span>
+        <span *ngIf="recipeView.videoLink" (click)='video(recipeView.videoLink)'
+          style="top:140px;left:170px;width: 50px;height: 50px; position: absolute;">
+          <img src="../../../assets/images/cooky-video-play-fill-2.png" /></span>
         <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
           <div class="row">
 
