@@ -34,7 +34,6 @@ export class IndexComponent implements OnInit {
   addGallery: boolean = true;
   errorMessage: string = null;
   isAuthenicate: boolean = false;
-  url: string;
   userMessage: Message[] = [];
   newMessage: boolean = false;
   mailBoxEmpty = false;
