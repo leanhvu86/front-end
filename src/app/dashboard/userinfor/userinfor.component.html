@@ -185,6 +185,9 @@
                     <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                       <div *ngIf="f.name.errors.maxlength">Tên không dài quá 20 ký tự</div>
                     </div>
+                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                      <div *ngIf="f.name.errors.name">Tên không được để trống</div>
+                    </div>
                   </td>
                 </tr>
                 <!--  -->
