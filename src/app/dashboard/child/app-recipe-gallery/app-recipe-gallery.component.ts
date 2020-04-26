@@ -32,6 +32,7 @@ export class AppRecipeGalleryComponent implements OnInit {
   newRecipe: Recipe[] = [];
   errorMessage: String = '';
   recipes: Recipe[] = []
+  saving = false;
   constructor(
     private cookie: CookieService,
     private formBuilder: FormBuilder,
@@ -86,7 +87,7 @@ export class AppRecipeGalleryComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-
+    this.saving = true;
     this.galleryObject = this.registerForm.value;
 
     console.log(this.galleryObject);

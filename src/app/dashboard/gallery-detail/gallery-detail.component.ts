@@ -154,8 +154,12 @@ export class GalleryDetailComponent implements OnInit {
   }
 
   video(link: any) {
-    console.log(link);
-    var url = 'https://www.youtube.com/watch?v=' + link;
+    var url
+    if (link.includes('https:')) {
+      url = link;
+    } else {
+      url = 'https://www.youtube.com/watch?v=' + link;
+    }
     window.open(url, 'MsgWindow', 'width=600,height=400');
   }
 

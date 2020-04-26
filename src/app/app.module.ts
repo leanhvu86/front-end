@@ -13,9 +13,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './shared/helper';
 import { CookieService } from 'ngx-cookie-service';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -30,9 +28,6 @@ import { MatInputModule } from '@angular/material/input';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
-    MatInputModule,
     RouterModule.forRoot(AppRoutes, { onSameUrlNavigation: 'reload' }),
     FormsModule,
     Ng2SearchPipeModule,

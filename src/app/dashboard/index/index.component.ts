@@ -7,6 +7,7 @@ import { LoginServiceService } from '../../shared/service/login-service.service'
 import { UserService } from 'src/app/shared/service/user.service.';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Message } from '../../shared/model/message';
+import { LoadingBarService } from "ngx-loading-bar";
 
 @Component({
   selector: 'app-index',
@@ -39,6 +40,10 @@ export class IndexComponent implements OnInit {
   mailBoxEmpty = false;
   search: string = '';
   user = '';
+  height = 3;
+  color = "rgb(111, 250, 123)";
+  runInterval = 300;
+
   constructor(
     private title: Title,
     private translate: TranslateService,
@@ -47,14 +52,16 @@ export class IndexComponent implements OnInit {
     private _router: Router,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private loadingBarService: LoadingBarService
   ) {
-
+    this.emitStart()
     translate.setDefaultLang('vi');
     sessionStorage.setItem('currentLang', 'vi');
   }
 
   ngOnInit() {
+
     this.translate.get('Ẩm thực món chay').subscribe(name => {
       this.title.setTitle(name);
     });
@@ -67,6 +74,9 @@ export class IndexComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+  }
+  emitStart() {
+    this.loadingBarService.start();
   }
   getImage() {
     let email = this.cookie.get('email');
@@ -212,6 +222,17 @@ export class IndexComponent implements OnInit {
 
       this._router.navigate(['/loadPage']);
     }
+  }
+  emitStop() {
+    this.loadingBarService.stop();
+  }
+
+  emitReset() {
+    this.loadingBarService.reset();
+  }
+
+  emitComplete() {
+    this.loadingBarService.complete();
   }
   findRecipe() {
     console.log(this.search)
