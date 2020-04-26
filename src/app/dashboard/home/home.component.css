@@ -152,7 +152,7 @@ figure {
   width: 270px;
   height: 400px;
   margin: 5px 15%;
-  padding: 3% 12% 2% 12%;
+  /* padding: 3% 12% 2% 12%; */
   background: #fff;
   overflow: hidden;
   border-radius: 20px;
