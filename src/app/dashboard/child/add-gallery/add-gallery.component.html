@@ -65,9 +65,29 @@
               Thêm bộ sưu tập
             </button>
             <ng-template #other_content10>
-              <button class="btn btn-dark"
-                style="color: white; height: 40px;width: 180px;border-radius: 5px;background: rgb(192, 191, 191); margin-left: 40%;">
-                <i class="fa fa-spinner fa-lg"></i> Đang lưu</button>
+              <div>
+
+                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                  <span class="sr-only">Loading...</span>
+                </div>
+
+                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                  <span class="sr-only">Loading...</span>
+                </div>
+
+                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
             </ng-template>
             <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
               {{ errorMessage }}
