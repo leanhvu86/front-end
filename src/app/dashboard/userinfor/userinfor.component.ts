@@ -167,11 +167,12 @@ export class UserinforComponent implements OnInit {
     hideLimitLabels: true,
   };
   changePass() {
-    this.loading = true;
+
     if (this.changePassForm.invalid) {
       console.log(this.changePassForm.value)
       return;
     }
+    this.loading = true;
     this.passSubmitted = true;
     let email = this.cookie.get('email')
     this.userPassObject = this.changePassForm.value
