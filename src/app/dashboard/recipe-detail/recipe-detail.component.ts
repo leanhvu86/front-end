@@ -41,6 +41,7 @@ export class RecipeDetailComponent implements OnInit {
     objectId: Recipe,
     objectType: ''
   };
+  viewFull = true;
   totalPoint: number = 0;
   doneCount: number = 0;
   addRecipe = Recipe;
@@ -364,6 +365,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   fullImage() {
+    this.viewFull = true;
     var arrayNoimag = Array.from(
       document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>
     );
@@ -395,6 +397,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   noImage() {
+    this.viewFull = false;
     var arrayNoimag = Array.from(
       document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>
     );
