@@ -233,14 +233,14 @@
                         <a> {{ cookStep.psnote }}</a>
                       </div>
                       <div class="row" id="image{{ i }}" *ngFor="let imageUrl of cookStep.image; let i = index"
-                        style="margin: 10px 0;">
+                        style="margin: 10px 0; float: left;">
                         <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
                           <cl-transformation height="100" width="100" crop="scale">
                           </cl-transformation>
                         </cl-image> -->
                         <div *ngIf="!showImageStep">
                           <cl-image public-id="{{ imageUrl }}" *ngIf="imageUrl">
-                            <cl-transformation height="250" radius="20" width="250" crop="scale">
+                            <cl-transformation height="150" radius="20" width="150" crop="scale">
                             </cl-transformation>
                             <cl-transformation angle="0"> </cl-transformation>
                           </cl-image>
