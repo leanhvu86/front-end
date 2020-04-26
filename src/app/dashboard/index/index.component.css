@@ -44,7 +44,6 @@
 .rotate {
   width: 185px;
   height:auto;
-  background:rgb(255, 255, 255);
 }
 .rotate .rotate-inner {
   -webkit-box-sizing: border-box;
@@ -55,12 +54,10 @@ box-sizing: border-box;
 -moz-transition: all 0.5s;
 transition: all 0.5s;
   /* padding:20px; */
-  background-color: rgb(255, 255, 255);
   text-align: center;
   margin: 0 auto;
   font-family: sans-serif;
   color: white;
-  border-top: rgb(255, 255, 255) 3px solid;
 }
 
 .rotate:hover .rotate-inner {
