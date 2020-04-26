@@ -82,7 +82,7 @@ export class AddGalleryComponent implements OnInit {
           this.messageCheck = false;
           this.message = ''
           window.location.reload();
-        }, 10000);
+        }, 3000);
 
       }
     })
