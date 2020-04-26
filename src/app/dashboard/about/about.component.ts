@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from 'src/app/shared/service/user.service.';
-import {User} from 'src/app/shared/model/user';
-import {RecipeService} from 'src/app/shared/service/recipe-service.service';
-import {GalleryService} from 'src/app/shared/service/gallery.service';
-import {Recipe} from 'src/app/shared/model/recipe';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/shared/service/user.service.';
+import { User } from 'src/app/shared/model/user';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import { GalleryService } from 'src/app/shared/service/gallery.service';
+import { Recipe } from 'src/app/shared/model/recipe';
 
 @Component({
   selector: 'app-about',
@@ -16,12 +16,15 @@ export class AboutComponent implements OnInit {
   topUsers: User[] = [];
   imageUrl: string = 'jbiajl3qqdzshdw0z749';
   recipes: Recipe[] = [];
-  p:number;
+  p: number;
   constructor(
     private userService: UserService,
     private recipeService: RecipeService,
     private galleryService: GalleryService
-  ) { }
+  ) {
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
+  }
 
   ngOnInit() {
     this.getTopUser();
@@ -102,6 +105,8 @@ export class AboutComponent implements OnInit {
                 }
               }
             }
+            const radio: HTMLElement = document.getElementById('complete-loading');
+            radio.click();
           });
         }
       });

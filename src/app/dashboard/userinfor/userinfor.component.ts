@@ -334,17 +334,25 @@ export class UserinforComponent implements OnInit {
       return;
     }
 
-    this.submitted = true;
-    this.loading = true;
-    this.registerForm.value.id = this.user._id
-    console.log(this.registerForm.value)
     this.userObject = this.registerForm.value
     this.userObject.imageUrl = this.imageUrl
+
     if (this.userObject !== undefined || this.userObject.signature !== '') {
+
+      const pattern = new RegExp("^[a-zA-Z0-9 ]*$");
+      if (!pattern.test(this.userObject.signature)) {
+        this.errorMessage = 'Chữ ký chỉ chứa kí tự chữ số! Không chứa ký tự đặc biệt và UTF-8'
+        return;
+      }
       this.userObject.signature = btoa(this.userObject.signature);
     } else {
       this.userObject.signature = ''
     }
+
+    this.submitted = true;
+    this.loading = true;
+    this.registerForm.value.id = this.user._id
+    console.log(this.registerForm.value)
     this.userService.updateUser(this.userObject).subscribe(user => {
 
       const status = user.body['status']
