@@ -25,6 +25,7 @@ export class StationComponent implements OnInit {
   openMember = false;
   updateMember = false;
   messageModal = false;
+  disableAdmin = true;
   constructor(
     private userService: UserService,
     private orderPipe: OrderPipe,
@@ -114,6 +115,7 @@ export class StationComponent implements OnInit {
 
   openModal(user: any, openMember: any, updateMember: any) {
     this.user = user;
+
     this.messageModal = false;
     if (updateMember === 0) {
       this.updateMember = false;
@@ -128,6 +130,12 @@ export class StationComponent implements OnInit {
     if (updateMember === true) {
       this.updateMember = true;
       this.message = 'Bạn muốn phân quyền tài khoản này ?';
+    }
+    console.log(user.role);
+    if (user.role === 'Admin') {
+      this.messageModal = true;
+      this.updateMember = false;
+      this.message = 'Tài khoản chủ website không thay đổi được quyền!';
     }
     const radio: HTMLElement = document.getElementById('modal-button222');
     radio.click();

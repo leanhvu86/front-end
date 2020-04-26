@@ -34,6 +34,7 @@ export class IndexComponent implements OnInit {
   addGallery: boolean = true;
   errorMessage: string = null;
   isAuthenicate: boolean = false;
+  url: string;
   userMessage: Message[] = [];
   newMessage: boolean = false;
   mailBoxEmpty = false;
@@ -164,12 +165,16 @@ export class IndexComponent implements OnInit {
         this.cookie.set('email', '');
         this.cookie.set('email', this.userObject.email);
         this.isAuthenicate = true;
-        this.getMessage()
+        this.getMessage();
+        this.href = this._router.url;
         if (this.addPassenger == true) {
           console.log('true');
           this._router.navigate(['/addPassenger']);
           this.addPassenger = false;
-        } else {
+        } else if (this.href = '/register') {
+          this._router.navigate(['/index']);
+        }
+        else {
           window.location.reload()
           // this._router.navigate(['/index']);
         }
@@ -252,7 +257,7 @@ export class IndexComponent implements OnInit {
     } else {
       this._router.navigate(['/'])
     }
-
+    this.cookie.deleteAll();
 
   }
 
