@@ -184,7 +184,7 @@ export class IndexComponent implements OnInit {
           this._router.navigate(['/index']);
         }
         else {
-          window.location.reload()
+          window.location.reload();
           // this._router.navigate(['/index']);
         }
       }

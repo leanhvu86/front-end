@@ -77,6 +77,8 @@ export class RecipeDetailComponent implements OnInit {
     private _router: Router,
     private galleryService: GalleryService
   ) {
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
   }
 
   id: string;
@@ -202,6 +204,8 @@ export class RecipeDetailComponent implements OnInit {
       this.recipes = arr.filter(function (item, pos) {
         return arr.indexOf(item) == pos;
       });
+      const radio: HTMLElement = document.getElementById('complete-loading');
+      radio.click();
       this.doneCount = this.recipe.doneCount;
       this.totalPoint = this.recipe.totalPoint;
       this.getComent();

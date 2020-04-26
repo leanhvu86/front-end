@@ -42,7 +42,8 @@ export class MemberinforComponent implements OnInit {
   }
   id: string;
   ngOnInit() {
-
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
     this.getMemerInfo()
   }
   openModal(recipe: any) {
@@ -138,8 +139,11 @@ export class MemberinforComponent implements OnInit {
                       }
                     }
                     this.galleryCount = this.memberGallery.length
+
                   }
                 })
+                const radio: HTMLElement = document.getElementById('complete-loading');
+                radio.click();
                 this.memberInfo = user
                 this.infoCheck = true;
               })

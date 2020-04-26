@@ -51,6 +51,8 @@ export class RecipeComponent implements OnInit {
       this.searchText = this.cookie.get('searchText');
       this.cookie.set('searchText', '');
     }
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
   }
 
   ngOnInit() {
@@ -208,6 +210,8 @@ export class RecipeComponent implements OnInit {
           }
         });
       });
+      const radio: HTMLElement = document.getElementById('complete-loading');
+      radio.click();
       console.log(recipes)
       this.recipes = recipes;
       this.recipesFilter = this.recipes;

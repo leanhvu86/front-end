@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {User} from 'src/app/shared/model/user';
-import {LoginServiceService} from 'src/app/shared/service/login-service.service';
-import {CookieService} from 'ngx-cookie-service';
-import {Options} from 'ng5-slider';
-import {GalleryService} from 'src/app/shared/service/gallery.service';
-import {Gallery} from 'src/app/shared/model/gallery';
+import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/shared/model/user';
+import { LoginServiceService } from 'src/app/shared/service/login-service.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Options } from 'ng5-slider';
+import { GalleryService } from 'src/app/shared/service/gallery.service';
+import { Gallery } from 'src/app/shared/model/gallery';
 
 @Component({
   selector: 'app-mygallery',
@@ -41,6 +41,8 @@ export class MygalleryComponent implements OnInit {
     private cookie: CookieService,
     private gallerrService: GalleryService
   ) {
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
   }
 
   ngOnInit() {
@@ -85,6 +87,8 @@ export class MygalleryComponent implements OnInit {
               this.value = user.totalPoint;
               user.level = 'Newbee';
             }
+            const radio: HTMLElement = document.getElementById('complete-loading');
+            radio.click();
           });
         }
       });
@@ -92,7 +96,7 @@ export class MygalleryComponent implements OnInit {
   }
 
   openModal(id: any) {
-    this.deleteId=id;
+    this.deleteId = id;
     this.deleteCheck = true;
     this.message = 'Bạn muốn xóa bộ sưu tập này ?';
     const radio: HTMLElement = document.getElementById('modal-button28');
@@ -112,7 +116,7 @@ export class MygalleryComponent implements OnInit {
         this.myGallery = this.myGallery.filter(gallery => gallery._id !== id);
       }
       this.deleteId = '';
-      this.deleteCheck=false;
+      this.deleteCheck = false;
     });
   }
 }
