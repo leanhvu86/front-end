@@ -247,7 +247,7 @@
                         <a> {{ cookStep.psnote }}</a>
                       </div>
                       <div class="row" id="image{{ i }}" *ngFor="let imageUrl of cookStep.image; let i = index"
-                        style="margin: 10px 10px; float: left;">
+                        style="margin: 10px 10px; float: left; display: block; overflow: hidden;">
                         <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
                           <cl-transformation height="100" width="100" crop="scale">
                           </cl-transformation>
