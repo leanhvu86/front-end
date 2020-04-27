@@ -1019,6 +1019,17 @@ body{background-color:#f1f1f2}
 	  
 	border-bottom: 1px dotted black;
   }
+  .bd-example-modal-lg .modal-dialog{
+    display: table;
+    position: relative;
+    margin: 0 auto;
+    top: calc(50% - 24px);
+  }
+  
+  .bd-example-modal-lg .modal-dialog .modal-content{
+    background-color: transparent;
+    border: none;
+  }
   .button_slidehr {
 	/* color: #156466; */
 	/* border: 1px solid rgba(21,100,102,0.35); */

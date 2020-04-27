@@ -77,6 +77,8 @@ export class RecipeDetailComponent implements OnInit {
     private _router: Router,
     private galleryService: GalleryService
   ) {
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
   }
 
   id: string;
@@ -144,7 +146,11 @@ export class RecipeDetailComponent implements OnInit {
         for (let cookStep of this.recipe.cockStep) {
           let arrayTemp = cookStep.image;
           cookStep.image = arrayTemp.split(',');
-          cookStep.check = true;
+          if (cookStep.check === 'true') {
+            cookStep.check = 'là bước chuẩn bị';
+          } else {
+            cookStep.check = '';
+          }
         }
         if (this.recipe.hardLevel !== undefined) {
           if (this.recipe.hardLevel === '') {
@@ -198,6 +204,8 @@ export class RecipeDetailComponent implements OnInit {
       this.recipes = arr.filter(function (item, pos) {
         return arr.indexOf(item) == pos;
       });
+      const radio: HTMLElement = document.getElementById('complete-loading');
+      radio.click();
       this.doneCount = this.recipe.doneCount;
       this.totalPoint = this.recipe.totalPoint;
       this.getComent();
@@ -355,7 +363,12 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   video(link: any) {
-    var url = 'https://www.youtube.com/watch?v=' + link;
+    var url
+    if (link.includes('https:')) {
+      url = link;
+    } else {
+      url = 'https://www.youtube.com/watch?v=' + link;
+    }
     window.open(url, 'MsgWindow', 'width=600,height=400');
   }
 
@@ -447,11 +460,11 @@ export class RecipeDetailComponent implements OnInit {
         let userObject = new Object({
           email: user.email
         });
-        this.userService.likeAddPoint(userObject).subscribe(data => {
-          if (data.body['status'] === 200) {
-            console.log('success');
-          }
-        });
+        // this.userService.likeAddPoint(userObject).subscribe(data => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success');
+        //   }
+        // });
       }
     });
   }
@@ -589,12 +602,12 @@ export class RecipeDetailComponent implements OnInit {
         let userObject = new Object({
           email: user.email
         });
-        this.userService.dislikeremovePoint(userObject).subscribe(data => {
-          if (data.body['status'] === 200) {
-            console.log('success');
-            this.totalPoint--;
-          }
-        });
+        // this.userService.dislikeremovePoint(userObject).subscribe(data => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success');
+        //     this.totalPoint--;
+        //   }
+        // });
       }
     });
   }

@@ -58,6 +58,8 @@ export class AddGalleryComponent implements OnInit {
     if (this.saving === true) {
       return;
     }
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
     this.saving = true;
     this.galleryObject = this.registerForm.value
     let email = this.cookie.get('email')
@@ -73,6 +75,8 @@ export class AddGalleryComponent implements OnInit {
         if (tem.image == '') {
           tem.image = 'fvt7rkr59r9d7wk8ndbd'
         }
+        const radio: HTMLElement = document.getElementById('complete-loading');
+        radio.click();
         this.registerForm.reset();
         this.saving = false;
         this.gallerys.push(tem)

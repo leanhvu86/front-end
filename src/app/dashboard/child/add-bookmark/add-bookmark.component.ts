@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Gallery} from 'src/app/shared/model/gallery';
-import {Recipe} from 'src/app/shared/model/recipe';
-import {CookieService} from 'ngx-cookie-service';
-import {RecipeService} from 'src/app/shared/service/recipe-service.service';
-import {GalleryService} from 'src/app/shared/service/gallery.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Gallery } from 'src/app/shared/model/gallery';
+import { Recipe } from 'src/app/shared/model/recipe';
+import { CookieService } from 'ngx-cookie-service';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import { GalleryService } from 'src/app/shared/service/gallery.service';
 
 @Component({
   selector: 'app-add-bookmark',
@@ -33,6 +33,8 @@ export class AddBookmarkComponent implements OnInit {
 
   ngOnInit() {
     this.getPersonalGallery();
+    this.galleryObject.recipe = this.childMessage;
+    console.log(this.galleryObject)
   }
 
   addBookmark() {
@@ -53,28 +55,39 @@ export class AddBookmarkComponent implements OnInit {
   }
 
   addRecipeBookMark(gallery: any) {
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
     console.log(gallery);
+    let check = false;
     //check công thức đã tồn tại trong bộ sưu tập chưa
-    if (gallery.recipe !== undefined) {
-      const recipes = gallery.recipe;
-      recipes.forEach((recipe) => {
-        if (recipe.recipeName === this.childMessage.recipeName) {
-          this.errMessage = 'Công thức của bạn đã có trong bộ sưu tâp! Vui lòng chọn công thức khác';
-          const radio: HTMLElement = document.getElementById('modal-button113');
-          radio.click();
-          const radio1: HTMLElement = document.getElementById('close-modal5');
-          radio1.click();
-          return;
-        }
-      });
-    }
+    // if (gallery.recipe !== undefined) {
+    //   const recipes = gallery.recipe;
+    //   console.log(gallery.recipe)
+
+    //   recipes.forEach((recipe) => {
+    //     if (recipe._id === this.childMessage._id) {
+    //       check = true;
+    //       console.log(JSON.stringify(recipe._id))
+    //       console.log(JSON.stringify(this.childMessage._id))
+    //       this.errMessage = 'Công thức của bạn đã có trong bộ sưu tâp! Vui lòng chọn công thức khác';
+    //       const radio: HTMLElement = document.getElementById('modal-button113');
+    //       radio.click();
+    //       const radio1: HTMLElement = document.getElementById('close-modal5');
+    //       radio1.click();
+    //       return;
+    //     }
+    //   });
+    // }
+    console.log('ra đây')
     this.galleryObject._id = gallery._id;
-    this.galleryObject.recipe = this.childMessage;
+    console.log(this.childMessage);
     console.log(this.galleryObject);
     this.galleryService.addGallery(this.galleryObject).subscribe(data => {
       if (data.body['status'] === 200) {
         this.message = data.body['message'];
         console.log(this.message);
+        const radio: HTMLElement = document.getElementById('complete-loading');
+        radio.click();
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal5');
           radio.click();

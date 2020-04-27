@@ -24,6 +24,7 @@
   color: black;
   border: 2px solid red; /* Green */
   float: right;
+  margin-left: -53px;
 }
 .button2:hover{
   background:red;

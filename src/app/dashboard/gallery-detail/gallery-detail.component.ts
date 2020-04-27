@@ -50,7 +50,8 @@ export class GalleryDetailComponent implements OnInit {
   ) {
     this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
     this.id = this.route.snapshot.params.id;
-
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
   }
 
   ngOnInit() {
@@ -102,6 +103,8 @@ export class GalleryDetailComponent implements OnInit {
         }
 
       }
+      const radio: HTMLElement = document.getElementById('complete-loading');
+      radio.click();
     });
     const radio: HTMLElement = document.getElementById('scroll-to-top');
     radio.click();
@@ -154,8 +157,12 @@ export class GalleryDetailComponent implements OnInit {
   }
 
   video(link: any) {
-    console.log(link);
-    var url = 'https://www.youtube.com/watch?v=' + link;
+    var url
+    if (link.includes('https:')) {
+      url = link;
+    } else {
+      url = 'https://www.youtube.com/watch?v=' + link;
+    }
     window.open(url, 'MsgWindow', 'width=600,height=400');
   }
 
@@ -188,12 +195,12 @@ export class GalleryDetailComponent implements OnInit {
         let userObject = new Object({
           email: recipe.user.email
         });
-        this.userService.likeAddPoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success');
-
-          }
-        });
+        // this.userService.likeAddPoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success');
+        //
+        //   }
+        // });
       }
     });
     console.log(recipe.like);
@@ -231,12 +238,12 @@ export class GalleryDetailComponent implements OnInit {
         let userObject = new Object({
           email: recipe.user.email
         });
-        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success');
-
-          }
-        });
+        // this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success');
+        //
+        //   }
+        // });
       }
 
 

@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     console.log(this.userObject.email + " user đăng nhập");
-    this._loginService.loginAuth(this.userObject).subscribe((data) => {
+    this._loginService.loginAdmin(this.userObject).subscribe((data) => {
       this.errorMessage = null;
       if (data.body['status'] === 200) {
 
@@ -87,7 +87,10 @@ export class LoginComponent implements OnInit {
       }
       if (data.body['status'] === 404) {
         this.errorMessage = data.body['message'];
+      } else {
+        this.errorMessage = data.body['message'];
       }
+
     })
   }
 

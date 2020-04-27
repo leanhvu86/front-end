@@ -52,9 +52,35 @@
             </div>
             <div class="col">
               <button class="btn btn-lg btn-success btn-block btn-signin" type="submit"
+                *ngIf="!saving;else other_content10;"
                 style="width: 50%;margin-left: 30%;padding: 5px 5px;margin-top: 10px;">
                 Lưu bộ sưu tập
               </button>
+              <ng-template #other_content10>
+                <div>
+
+                  <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+
+                  <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+
+                  <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </ng-template>
             </div>
           </div>
         </div>

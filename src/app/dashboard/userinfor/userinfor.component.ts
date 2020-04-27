@@ -56,7 +56,11 @@ export class UserinforComponent implements OnInit {
     private _loginService: LoginServiceService,
     private formBuilder: FormBuilder,
     private datePipe: DatePipe
-  ) { this.isAuthenicate = this.cookie.get("email") !== "" ? true : false; }
+  ) {
+    this.isAuthenicate = this.cookie.get("email") !== "" ? true : false;
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
+  }
   fileOverBase1(e: any): void {
     console.log(e);
     this.hasBaseDropZoneOver1 = e;
@@ -149,6 +153,8 @@ export class UserinforComponent implements OnInit {
           });
           console.log(this.registerForm.value)
         }
+        const radio: HTMLElement = document.getElementById('complete-loading');
+        radio.click();
       })
 
     }
@@ -167,7 +173,8 @@ export class UserinforComponent implements OnInit {
     hideLimitLabels: true,
   };
   changePass() {
-
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
     this.passSubmitted = true;
     if (this.changePassForm.invalid) {
       this.message = 'Không để trống các trường mật khẩu';
@@ -187,6 +194,8 @@ export class UserinforComponent implements OnInit {
           this.message = data.body['message']
           const radio: HTMLElement = document.getElementById('modal-button2');
           radio.click();
+          const radio1: HTMLElement = document.getElementById('complete-loading');
+          radio1.click();
           setTimeout(() => {
             this.loading = false;
             window.location.reload()
@@ -217,11 +226,14 @@ export class UserinforComponent implements OnInit {
     }
   }
   uploadFile(file: any) {
+
     if (this.isAuthenicate == false) {
       const radio: HTMLElement = document.getElementById("modal-button");
       radio.click();
       return;
     }
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
     let inputValue;
     console.log(file);
     const url = `https://api.cloudinary.com/v1_1/${
@@ -322,17 +334,25 @@ export class UserinforComponent implements OnInit {
       return;
     }
 
-    this.submitted = true;
-    this.loading = true;
-    this.registerForm.value.id = this.user._id
-    console.log(this.registerForm.value)
     this.userObject = this.registerForm.value
     this.userObject.imageUrl = this.imageUrl
+
     if (this.userObject !== undefined || this.userObject.signature !== '') {
+
+      const pattern = new RegExp("^[a-zA-Z0-9 ]*$");
+      if (!pattern.test(this.userObject.signature)) {
+        this.errorMessage = 'Chữ ký chỉ chứa kí tự chữ số! Không chứa ký tự đặc biệt và UTF-8'
+        return;
+      }
       this.userObject.signature = btoa(this.userObject.signature);
     } else {
       this.userObject.signature = ''
     }
+
+    this.submitted = true;
+    this.loading = true;
+    this.registerForm.value.id = this.user._id
+    console.log(this.registerForm.value)
     this.userService.updateUser(this.userObject).subscribe(user => {
 
       const status = user.body['status']
@@ -347,6 +367,8 @@ export class UserinforComponent implements OnInit {
         const radio: HTMLElement = document.getElementById('modal-button2');
         radio.click();
         this.loading = false;
+        const radio1: HTMLElement = document.getElementById('complete-loading');
+        radio1.click();
         setTimeout(() => {
 
           window.location.reload();

@@ -23,7 +23,8 @@ export class ForgetPasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _router: Router,
   ) {
-
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
   }
 
   ngOnInit() {
@@ -46,6 +47,8 @@ export class ForgetPasswordComponent implements OnInit {
     console.log(this.userObject)
     this.userService.resetPassword(this.userObject).subscribe(data => {
       const result = data.body
+      const radio: HTMLElement = document.getElementById('complete-loading');
+      radio.click();
       if (result['status'] === 200) {
         this.message = result['message'];
         setTimeout(() => {

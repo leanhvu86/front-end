@@ -32,6 +32,7 @@ export class AppRecipeGalleryComponent implements OnInit {
   newRecipe: Recipe[] = [];
   errorMessage: String = '';
   recipes: Recipe[] = []
+  saving = false;
   constructor(
     private cookie: CookieService,
     private formBuilder: FormBuilder,
@@ -82,11 +83,15 @@ export class AppRecipeGalleryComponent implements OnInit {
   }
 
   updateGallery() {
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
     this.submitted = true;
     if (this.registerForm.invalid) {
       return;
     }
-
+    const radio1: HTMLElement = document.getElementById('start-loading');
+    radio1.click();
+    this.saving = true;
     this.galleryObject = this.registerForm.value;
 
     console.log(this.galleryObject);
@@ -104,6 +109,10 @@ export class AppRecipeGalleryComponent implements OnInit {
       console.log(gallery);
       if (gallery !== undefined) {
         this.message = '    Chúc mừng bạn lưu thông tin bộ sưu tập thành công';
+        const radio: HTMLElement = document.getElementById('complete-loading');
+        radio.click();
+        const radio1: HTMLElement = document.getElementById('complete-loading');
+        radio1.click();
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();

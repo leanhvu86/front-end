@@ -42,15 +42,21 @@ export class MemberinforComponent implements OnInit {
   }
   id: string;
   ngOnInit() {
-
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
     this.getMemerInfo()
   }
   openModal(recipe: any) {
     console.log(recipe)
   }
   video(link: any) {
-    var url = 'https://www.youtube.com/watch?v=' + link;
-    window.open(url, "MsgWindow", "width=600,height=400");
+    var url
+    if (link.includes('https:')) {
+      url = link;
+    } else {
+      url = 'https://www.youtube.com/watch?v=' + link;
+    }
+    window.open(url, 'MsgWindow', 'width=600,height=400');
   }
   getMemerInfo() {
     this.id = this.route.snapshot.params.id;
@@ -133,8 +139,11 @@ export class MemberinforComponent implements OnInit {
                       }
                     }
                     this.galleryCount = this.memberGallery.length
+
                   }
                 })
+                const radio: HTMLElement = document.getElementById('complete-loading');
+                radio.click();
                 this.memberInfo = user
                 this.infoCheck = true;
               })
@@ -174,12 +183,12 @@ export class MemberinforComponent implements OnInit {
         let userObject = new Object({
           email: gallery.user.email
         })
-        this.userService.likeAddPoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.likeAddPoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
     });
     console.log(gallery.like);
@@ -213,12 +222,12 @@ export class MemberinforComponent implements OnInit {
         let userObject = new Object({
           email: gallery.user.email
         })
-        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
 
 
@@ -254,12 +263,12 @@ export class MemberinforComponent implements OnInit {
         let userObject = new Object({
           email: recipe.user.email
         })
-        this.userService.likeAddPoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.likeAddPoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
     });
     console.log(recipe.like);
@@ -291,12 +300,12 @@ export class MemberinforComponent implements OnInit {
         let userObject = new Object({
           email: recipe.user.email
         })
-        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
 
 

@@ -51,6 +51,8 @@ export class RecipeComponent implements OnInit {
       this.searchText = this.cookie.get('searchText');
       this.cookie.set('searchText', '');
     }
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
   }
 
   ngOnInit() {
@@ -60,9 +62,13 @@ export class RecipeComponent implements OnInit {
     this.getFoodTypes()
   }
   video(link: any) {
-    console.log(link);
-    var url = 'https://www.youtube.com/watch?v=' + link;
-    window.open(url, "MsgWindow", "width=600,height=400");
+    var url
+    if (link.includes('https:')) {
+      url = link;
+    } else {
+      url = 'https://www.youtube.com/watch?v=' + link;
+    }
+    window.open(url, 'MsgWindow', 'width=600,height=400');
   }
 
   loadFilter() {
@@ -204,6 +210,8 @@ export class RecipeComponent implements OnInit {
           }
         });
       });
+      const radio: HTMLElement = document.getElementById('complete-loading');
+      radio.click();
       console.log(recipes)
       this.recipes = recipes;
       this.recipesFilter = this.recipes;
@@ -276,12 +284,12 @@ export class RecipeComponent implements OnInit {
         let userObject = new Object({
           email: recipe.user.email
         });
-        this.userService.likeAddPoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.likeAddPoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
     });
   }
@@ -434,12 +442,12 @@ export class RecipeComponent implements OnInit {
         let userObject = new Object({
           email: recipe.user.email
         });
-        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
 
 

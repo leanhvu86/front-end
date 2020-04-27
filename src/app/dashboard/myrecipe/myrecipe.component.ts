@@ -17,20 +17,23 @@ export class MyrecipeComponent implements OnInit {
     floor: 0,
     ceil: 1000,
     showTicksValues: false,
-    disabled:true,
-    hideLimitLabels:true,
+    disabled: true,
+    hideLimitLabels: true,
   };
   acceptRecipe: Recipe[] = [];
   waitingRecipe: Recipe[] = [];
   decilineRecipe: Recipe[] = [];
   user: User;
   loadPage: boolean = false;
-  p:number;
+  p: number;
   constructor(
     private _loginService: LoginServiceService,
     private cookie: CookieService,
     private recipeService: RecipeService
-  ) { }
+  ) {
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
+  }
 
   ngOnInit() {
     this.getUserInfo()
@@ -65,7 +68,10 @@ export class MyrecipeComponent implements OnInit {
                   this.decilineRecipe.push(recipe)
                 }
               }
+              const radio: HTMLElement = document.getElementById('complete-loading');
+              radio.click();
             })
+
           })
           this.user = user;
           this.id = user._id;

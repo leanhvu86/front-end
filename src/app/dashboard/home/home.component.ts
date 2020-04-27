@@ -46,7 +46,8 @@ export class Home2Component implements OnInit {
     private userService: UserService,
     private galleryService: GalleryService,
     private router: Router) {
-
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
         {
@@ -207,12 +208,19 @@ export class Home2Component implements OnInit {
             }
           }
         }
+        const radio: HTMLElement = document.getElementById('complete-loading');
+        radio.click();
       }
     });
   }
   video(link: any) {
-    var url = 'https://www.youtube.com/watch?v=' + link;
-    window.open(url, "MsgWindow", "width=600,height=400");
+    var url
+    if (link.includes('https:')) {
+      url = link;
+    } else {
+      url = 'https://www.youtube.com/watch?v=' + link;
+    }
+    window.open(url, 'MsgWindow', 'width=600,height=400');
   }
   likeGallerry(gallery: any, index: any) {
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
@@ -238,12 +246,12 @@ export class Home2Component implements OnInit {
         let userObject = new Object({
           email: gallery.user.email
         })
-        this.userService.likeAddPoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.likeAddPoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
     });
   }
@@ -270,12 +278,12 @@ export class Home2Component implements OnInit {
         let userObject = new Object({
           email: gallery.user.email
         })
-        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
 
 
@@ -306,12 +314,12 @@ export class Home2Component implements OnInit {
         let userObject = new Object({
           email: recipe.user.email
         })
-        this.userService.likeAddPoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
+        // this.userService.likeAddPoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
 
-          }
-        });
+        //   }
+        // }); 
       }
     });
   }
@@ -337,12 +345,12 @@ export class Home2Component implements OnInit {
         let userObject = new Object({
           email: recipe.user.email
         })
-        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
     });
   }

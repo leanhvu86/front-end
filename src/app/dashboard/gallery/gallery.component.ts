@@ -39,7 +39,8 @@ export class GalleryComponent implements OnInit {
   ) {
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     console.log(this.isAuthenicate)
-
+    const radio: HTMLElement = document.getElementById('start-loading');
+    radio.click();
   }
 
   ngOnInit() {
@@ -86,6 +87,8 @@ export class GalleryComponent implements OnInit {
           }
         })
       }
+      const radio: HTMLElement = document.getElementById('complete-loading');
+      radio.click();
     })
   }
   likeGallerry(gallery: any, index: any) {
@@ -118,12 +121,12 @@ export class GalleryComponent implements OnInit {
         let userObject = new Object({
           email: gallery.user.email
         })
-        this.userService.likeAddPoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.likeAddPoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
     });
     console.log(gallery.like);
@@ -156,12 +159,12 @@ export class GalleryComponent implements OnInit {
         let userObject = new Object({
           email: gallery.user.email
         })
-        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
 
 
