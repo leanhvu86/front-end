@@ -9,6 +9,8 @@ import { CountryService } from 'src/app/shared/service/country.service';
 import { Country } from 'src/app/shared/model/country';
 import { CookWay } from 'src/app/shared/model/cookWay';
 import { Interest } from 'src/app/shared/model/interest';
+import { GalleryService } from 'src/app/shared/service/gallery.service';
+import { Gallery } from 'src/app/shared/model/gallery';
 
 @Component({
   selector: 'app-recipe',
@@ -38,6 +40,15 @@ export class RecipeComponent implements OnInit {
     email: "",
     password: ""
   };
+
+  galleryObject = {
+    _id: "",
+    recipe: Recipe
+  };
+  message = ''
+  addRecipe: any;
+
+  personalGallery: Gallery[] = []
   public interests: Interest[] = [];
   constructor(
     private service: RecipeService,
@@ -45,12 +56,14 @@ export class RecipeComponent implements OnInit {
     private recipeService: RecipeService,
     private userService: UserService,
     private router: ActivatedRoute,
-    private countryService: CountryService
+    private countryService: CountryService,
+    private galleryService: GalleryService
   ) {
     if (this.cookie.get('searchText') !== undefined && this.cookie.get('searchText') !== 'undefined') {
       this.searchText = this.cookie.get('searchText');
       this.cookie.set('searchText', '');
     }
+    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     const radio: HTMLElement = document.getElementById('start-loading');
     radio.click();
   }
@@ -59,7 +72,28 @@ export class RecipeComponent implements OnInit {
     this.getRecipe();
     this.getCookWays();
     this.getCountrys();
-    this.getFoodTypes()
+    this.getFoodTypes();
+
+    this.getPersonalGallery();
+  }
+  getPersonalGallery() {
+    let email = this.cookie.get('email')
+    if (email !== '') {
+      this.galleryService.getGalleryies().subscribe(data => {
+        if (data != null) {
+          for (let gallery of data) {
+            if (gallery.user.email === email) {
+              if (gallery.recipe.length > 0) {
+                gallery.image = gallery.recipe[0].imageUrl
+              } else {
+                gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+              }
+              this.personalGallery.push(gallery)
+            }
+          }
+        }
+      })
+    }
   }
   video(link: any) {
     var url
@@ -212,7 +246,6 @@ export class RecipeComponent implements OnInit {
       });
       const radio: HTMLElement = document.getElementById('complete-loading');
       radio.click();
-      console.log(recipes)
       this.recipes = recipes;
       this.recipesFilter = this.recipes;
       this.countRecipe = this.recipesFilter.length;
@@ -454,4 +487,43 @@ export class RecipeComponent implements OnInit {
     });
     console.log(recipe.like);
   }
+  addBookmark(recipe: Recipe) {
+    this.message = ''
+    if (this.isAuthenicate !== true) {
+      console.log(this.isAuthenicate)
+      console.log(recipe.recipeName)
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    this.addRecipe = recipe
+    const radio: HTMLElement = document.getElementById('button111');
+    console.log(radio)
+    radio.click();
+  }
+  addRecipeBookMark(gallery: any) {
+    if (gallery.recipe !== undefined) {
+      for (let recipe of gallery.recipe) {
+        if (recipe.recipeName === this.addRecipe.recipeName) {
+          console.log(recipe.recipeName + "   " + this.addRecipe.recipeName)
+          this.message = 'Công thức đã có trong bộ sưu tập'
+          return
+        }
+      }
+    }
+    this.galleryObject._id = gallery._id;
+    this.galleryObject.recipe = this.addRecipe;
+    this.galleryService.addGallery(this.galleryObject).subscribe(data => {
+      if (data.body['status'] === 200) {
+        let gallery = data.body['gallery'];
+        this.message = data.body['message'];
+        setTimeout(() => {
+          const radio: HTMLElement = document.getElementById('close-modal');
+          radio.click();
+        }, 4000);
+
+      }
+    })
+  }
+
 }

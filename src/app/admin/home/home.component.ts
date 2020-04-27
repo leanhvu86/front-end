@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this._loginService.logoutUser()
-    this._router.navigate(['/'])
+    this._router.navigateByUrl('/login')
   }
   openNav() {
     const radio: HTMLElement = document.getElementById("mySidebar");
