@@ -284,12 +284,12 @@ export class RecipeComponent implements OnInit {
         let userObject = new Object({
           email: recipe.user.email
         });
-        this.userService.likeAddPoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.likeAddPoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
     });
   }
@@ -442,12 +442,12 @@ export class RecipeComponent implements OnInit {
         let userObject = new Object({
           email: recipe.user.email
         });
-        this.userService.dislikeremovePoint(userObject).subscribe((data) => {
-          if (data.body['status'] === 200) {
-            console.log('success')
-
-          }
-        });
+        // this.userService.dislikeremovePoint(userObject).subscribe((data) => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success')
+        //
+        //   }
+        // });
       }
 
 

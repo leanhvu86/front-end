@@ -34,6 +34,16 @@ export class LoginServiceService {
     }
     return this._http.post(`${this.baseUrl}/login`, { user: userObj }, { observe: 'response', headers: this.headerOptions });
   }
+  loginAdmin(userObj: any) {
+    if (userObj.authcode) {
+      console.log('Appending headers');
+      this.headerOptions = new HttpHeaders({
+        'x-tfa': userObj.authcode,
+        'Authorization': 'Bear' + 'fdasfsafasfsafasfdsdafdasfaf'
+      });
+    }
+    return this._http.post(`${this.baseUrl}/loginAdmin`, { user: userObj }, { observe: 'response', headers: this.headerOptions });
+  }
 
   // setupAuth(email: any) {
   //   return this._http.post("http://localhost:8000/currentAuthen", { email: email }, { observe: 'response' })
