@@ -10,6 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class WelcomeComponent implements OnInit {
   id: string;
+  message = '';
   constructor(private route: ActivatedRoute,
     private cookie: CookieService,
     private userService: UserService) { }
@@ -22,7 +23,7 @@ export class WelcomeComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
     console.log(this.id);
     this.userService.activeMember(this.id).subscribe(data => {
-      console.log(data)
+      this.message = data['message'];
     })
 
   }
