@@ -64,7 +64,7 @@
         <div [routerLink]="['/detail/', recipe._id]">
           <figure>
             <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 15px;">
-              <cl-transformation width="230" height="280" crop="crop" quality="auto">
+              <cl-transformation width="230" height="280" crop="scale" quality="auto">
               </cl-transformation>
             </cl-image>
           </figure>
