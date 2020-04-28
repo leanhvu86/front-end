@@ -88,9 +88,7 @@ export class GalleryDetailComponent implements OnInit {
                 }
               });
             });
-            if (this.userObject.email === this.gallery.user.email) {
-              this.mine = true;
-            }
+
           }
         } else {
           this.recipes = this.recipesTemp;
@@ -102,6 +100,9 @@ export class GalleryDetailComponent implements OnInit {
           this.getPersonalGallery();
         }
 
+      }
+      if (this.userObject.email === this.gallery.user.email) {
+        this.mine = true;
       }
       const radio: HTMLElement = document.getElementById('complete-loading');
       radio.click();

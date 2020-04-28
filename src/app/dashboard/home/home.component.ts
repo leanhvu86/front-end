@@ -126,13 +126,15 @@ export class Home2Component implements OnInit {
       return;
     }
     this.addRecipe = recipe
+    console.log(recipe.recipeName)
     const radio: HTMLElement = document.getElementById('modal-button1');
     radio.click();
   }
   addRecipeBookMark(gallery: any) {
     if (gallery.recipe !== undefined) {
       for (let recipe of gallery.recipe) {
-        if (recipe.name === this.addRecipe.name) {
+        if (recipe.recipeName === this.addRecipe.recipeName) {
+          console.log(recipe.recipeName + "   " + this.addRecipe.recipeName)
           this.message = 'Công thức đã có trong bộ sưu tập'
           return
         }
