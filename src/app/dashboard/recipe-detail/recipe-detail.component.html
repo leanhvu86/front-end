@@ -1,7 +1,7 @@
 <div class="row" style="margin-left: 100px;">
   <ul *ngIf="recipe" class="breadcrumb nomargin">
     <li><a class="atitle" routerLink="/recipe" target="_self">Công thức /</a></li>
-    <li><a class="atitle" routerLink="/about" target="_self">#Tag /</a></li>
+    <!-- <li><a class="atitle" routerLink="/about" target="_self">#Tag /</a></li> -->
     <li class="active">
       <a class="atitle">{{ recipe.recipeName }}</a>
     </li>
@@ -61,35 +61,42 @@
         </div>
         <div class="col"></div>
       </div>
-      <div style="background: #f4f4f4; height: 100px; border-radius: 0 0 20px 20px; margin-top: 30px; padding: 30px;">
-        <div class="row row-cols-2" style="padding-right: 80px;padding-left: 80px;">
+      <div style="background: #f4f4f4; height: 150px; border-radius: 0 0 20px 20px; margin: 30px 0; padding: 30px;">
+        <div class="row row-cols-2" style="padding:5px 80px;">
           <div class="col">
             <div class="row row-cols-2">
               <div class="col">
-                <a><img src="../../../assets/images/heart-o.png" (click)="likeRecipe(recipe)"
-                    *ngIf="!like; else other_content"
-                    style="width: 30px;height: 30px; margin-left: 2px; opacity: 0.8;" />
-                  <ng-template #other_content>
-                    <img src="../../../assets/images/heart-o.red.png" (click)="dislikeRecipe(recipe, i)"
-                      style="width: 30px;height: 30px; margin-left: 2px;opacity: 1;" />
-                  </ng-template>
-                  &#160;&#160;&#160;&#160;{{recipe.totalPoint}}
+                <!-- <img src="../../../assets/images/heart-o.png" (click)="likeRecipe(recipe)"
+                  *ngIf="!like; else other_content" style="width: 30px;height: 30px; margin-left: 2px; opacity: 0.8;" />
+                <ng-template #other_content>
+                  <img src="../../../assets/images/heart-o.red.png" (click)="dislikeRecipe(recipe, i)"
+                    style="width: 30px;height: 30px; margin-left: 2px;opacity: 1;" />
+                </ng-template>
+                &#160;&#160;&#160;&#160;{{recipe.totalPoint}} -->
+                <a class=" btn-act btn-add-favourite ng-isolate-scope" title="Yêu thích món ăn"
+                  style="margin-left: 50px;">
+                  <span (click)="likeRecipe(recipe,i)" *ngIf="!likeUser;else other_content100"><i id="heart{{i}}"
+                      class="fa fa-heart fa-3x heart" aria-hidden="true" style="margin-left: 55px;"></i></span>
+                  <ng-template #other_content100>
+                    <span (click)="dislikeRecipe(recipe,i)"><i class="fa fa-heart fa-3x dislikeheart "
+                        style="margin-left: 55px;" id="heart{{i}}" aria-hidden="true"></i></span>
+                  </ng-template>{{recipe.totalPoint}}
                 </a>
               </div>
               <div class="col">
                 <a (click)="addDoneRecipe(recipe)"><img src="../../../assets/images/check-o.gray.png"
-                    *ngIf="!recipe.like; else other_content1"
+                    *ngIf="!recipe.like; else other_content11111"
                     style="width: 30px;height: 30px; margin-left: 2px;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
-                <ng-template #other_content1>
+                <ng-template #other_content11111>
                   <img src="../../../assets/images/check-o.red.png"
-                    style="width: 30px;height: 30px; margin-left: 2px;opacity: 1;" />
+                    style="width: 30px;height: 30px; margin-left: 2px;" />
                 </ng-template>
               </div>
               <div class="col">
                 <app-add-bookmark [childMessage]="recipe"></app-add-bookmark>
               </div>
             </div>
-            <div class="row row-cols-2" style="margin-top: 5px; font-weight: 500;font-size: 14px;">
+            <div class="row row-cols-2" style=" font-weight: 500;font-size: 14px;">
               <div class="col"><a>Lượt thích</a></div>
               <div class="col">
                 <a>Đã thực hiện</a>
@@ -158,7 +165,7 @@
           <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
               <div style="background: white; border-radius: 10px; padding: 30px 0;display: block;
-                overflow: hidden;padding-left: 15px;">
+                overflow: hidden;padding:0px 15px;">
                 <div class="row">
                   <div class="col-sm-6 col-md-8" style="text-align:start;">
                     <a
@@ -181,7 +188,7 @@
                   </div>
                 </div>
                 <div *ngFor="let ingredient of recipe.ingredients; let i = index">
-                  <div style="width: 30%; float: left;text-align: left;padding-top:20px ;">
+                  <div style="width: 30%; float: left;text-align: left;padding:20px 20px;">
                     <a>
                       <i class="fa fa-check fa-lg" style="color: rgb(95, 228, 6);" aria-hidden="true"></i>
                       {{ ingredient.ingredientName }}&#160;&#160;&#160;<a>{{
@@ -192,7 +199,7 @@
               </div>
               <div class="clearfix"></div>
               <div
-                style="background: white; border-radius: 10px;margin-top: 50px; padding-top: 30px; min-height:800px;padding-left: 15px; text-align: left;">
+                style="background: white; border-radius: 10px;margin-top: 50px; padding: 30px 0; display: block;overflow: hidden;padding-left: 15px; text-align: left;">
                 <div class="row">
                   <div class="col-sm-6 col-md-8" style="text-align:start;">
                     <a
@@ -240,29 +247,35 @@
                     </div>
                     <div
                       style=" position: absolute; top:60px; right: 50px; width: 560px;text-align: left;padding-bottom: 5px;">
-                      <div class="row"><a style="color: olivedrab;"> {{cookStep.check}}</a> <a> {{cookStep.time}}
+                      <div class="row"><a style="color: olivedrab;display: block;overflow: hidden;">
+                          {{cookStep.check}}</a> <a *ngIf="cookStep.time"> {{cookStep.time}}
                           phút</a>
                       </div>
                       <div class="row">
                         <a> {{ cookStep.psnote }}</a>
                       </div>
-                      <div class="row" id="image{{ i }}" *ngFor="let imageUrl of cookStep.image; let i = index"
-                        style="margin: 10px 10px; float: left; display: block; overflow: hidden;">
-                        <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
+                      <div class="container" *ngIf="!showImageStep">
+
+                        <div class="row" id="image{{ i }}" *ngFor="let imageUrl of cookStep.image; let i = index"
+                          style="margin: 10px 10px; float: left; display: block; overflow: hidden;">
+                          <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
                           <cl-transformation height="100" width="100" crop="scale">
                           </cl-transformation>
                         </cl-image> -->
-                        <div *ngIf="!showImageStep">
-                          <cl-image public-id="{{ imageUrl }}" *ngIf="imageUrl">
-                            <cl-transformation height="150" radius="20" width="150" crop="scale">
-                            </cl-transformation>
-                            <cl-transformation angle="0"> </cl-transformation>
-                          </cl-image>
+                          <div>
+                            <cl-image public-id="{{ imageUrl }}" *ngIf="imageUrl">
+                              <cl-transformation height="150" radius="20" width="150" crop="scale">
+                              </cl-transformation>
+                              <cl-transformation angle="0"> </cl-transformation>
+                            </cl-image>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <br>
+                <br>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -375,14 +388,14 @@
             </div>
 
             <!-- <p>{{profileForm.status}}</p> -->
-            <nav style="width: 100%; background: white; border-radius:0 0 10px 10px; height: 60px; padding: 5px 0;">
+            <nav style="width: 100%; background: white; border-radius:0 0 10px 10px; height: 60px; padding: 55px 0;">
               <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                 <a class="button_change" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
                   style="font-size: 14px;margin-left: 35px;" aria-controls="nav-home" aria-selected="true">
                   <i class="fa fa-angle-double-left" aria-hidden="true"></i>
                   Công thức</a>
                 <a class="button_change" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                  style=" font-size: 14px; margin-left: 550px;" aria-controls="nav-profile" aria-selected="false">Bình
+                  style=" font-size: 14px; margin-left: 550px;" aria-controls="na v-profile" aria-selected="false">Bình
                   luận
                   <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                 </a>

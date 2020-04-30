@@ -57,7 +57,7 @@ export class RecipeDetailComponent implements OnInit {
   errorMessage: string = null;
   multiplyElement: number = 1;
   oldMultiplyElement: number;
-  like: boolean = false;
+  likeUser: boolean = false;
   done: boolean = false;
   showImageStep: boolean = false;
   prepared: number;
@@ -65,7 +65,7 @@ export class RecipeDetailComponent implements OnInit {
   totalRecipe: number = 0;
   recipeComment: Comment[] = [];
   lstComment: Comment[];
-
+  loadingRest = false;
   constructor(
     private cloudinary: Cloudinary,
     private route: ActivatedRoute,
@@ -196,7 +196,7 @@ export class RecipeDetailComponent implements OnInit {
         let interests = data.body['interests']
         for (let interst of interests) {
           if (interst.objectId._id === this.recipe._id) {
-            this.like = true;
+            this.likeUser = true;
             console.log(interst)
           }
         }
@@ -415,14 +415,14 @@ export class RecipeDetailComponent implements OnInit {
       document.getElementsByClassName('noImage') as HTMLCollectionOf<HTMLElement>
     );
     arrayNoimag.forEach(element => {
-      element.style.height = '150px';
+      element.style.height = 'auto';
       element.style.minHeight = '150px';
     });
     var arrayNoimag = Array.from(
       document.getElementsByClassName('bigContent') as HTMLCollectionOf<HTMLElement>
     );
     arrayNoimag.forEach(element => {
-      element.style.height = '150px';
+      element.style.height = 'auto';
       element.style.minHeight = '150px';
     });
     this.showImageStep = true;
@@ -434,7 +434,12 @@ export class RecipeDetailComponent implements OnInit {
       radio.click();
       return;
     }
-    this.like = true;
+    if (this.loadingRest === true) {
+      console.log('like vẫn thích vào đó' + this.loadingRest)
+      return;
+    }
+    console.log('like')
+    this.loadingRest = true;
     let user = recipe.user;
     this.interestObject.user = recipe.user.email;
     this.interestObject.objectId = recipe;
@@ -455,11 +460,10 @@ export class RecipeDetailComponent implements OnInit {
             this.recipe.hardLevel = 'Rất khó';
           }
         }
+        this.loadingRest = false;
+        this.likeUser = true;
         console.log('success');
         this.totalPoint++;
-        let userObject = new Object({
-          email: user.email
-        });
         // this.userService.likeAddPoint(userObject).subscribe(data => {
         //   if (data.body['status'] === 200) {
         //     console.log('success');
@@ -468,6 +472,39 @@ export class RecipeDetailComponent implements OnInit {
       }
     });
   }
+  dislikeRecipe(recipe: any) {
+    if (this.isAuthenicate == false) {
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+      return;
+    }
+    if (this.loadingRest === true) {
+      console.log('dislike vẫn thích vào đó' + this.loadingRest)
+      return;
+    }
+    console.log('dislike')
+    let user = recipe.user;
+    this.interestObject.user = recipe.user.email;
+    this.interestObject.objectId = recipe;
+    this.interestObject.objectType = '2';
+    this.recipeService.dislikeRecipe(this.interestObject).subscribe(data => {
+      if (data !== undefined) {
+        this.recipe.totalPoint--;
+        let userObject = new Object({
+          email: user.email
+        });
+        // this.userService.dislikeremovePoint(userObject).subscribe(data => {
+        //   if (data.body['status'] === 200) {
+        //     console.log('success');
+        //     this.totalPoint--;
+        //   }
+        // });
+        this.loadingRest = false;
+        this.likeUser = false;
+      }
+    });
+  }
+
 
   addDoneRecipe(recipe: any) {
     if (this.isAuthenicate == false) {
@@ -585,32 +622,6 @@ export class RecipeDetailComponent implements OnInit {
     });
   }
 
-  dislikeRecipe(recipe: any) {
-    if (this.isAuthenicate == false) {
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
-      return;
-    }
-    this.like = false;
-    let user = recipe.user;
-    this.interestObject.user = recipe.user.email;
-    this.interestObject.objectId = recipe;
-    this.interestObject.objectType = '2';
-    this.recipeService.dislikeRecipe(this.interestObject).subscribe(data => {
-      if (data !== undefined) {
-        this.recipe.totalPoint--;
-        let userObject = new Object({
-          email: user.email
-        });
-        // this.userService.dislikeremovePoint(userObject).subscribe(data => {
-        //   if (data.body['status'] === 200) {
-        //     console.log('success');
-        //     this.totalPoint--;
-        //   }
-        // });
-      }
-    });
-  }
 
   addBookmark(recipe: any) {
 

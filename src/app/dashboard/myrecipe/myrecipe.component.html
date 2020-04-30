@@ -97,7 +97,7 @@
                 *ngFor="let recipe of acceptRecipe|paginate:{itemsPerPage: 6, currentPage:p};let i = index">
                 <div class="box13">
                   <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
-                    <cl-transformation width="203" height="203" crop="crop" quality="auto">
+                    <cl-transformation width="203" height="203" crop="scale" quality="auto">
                     </cl-transformation>
                   </cl-image>
                   <div class="box-content">
@@ -134,7 +134,7 @@
               <div class="col-md-4 col-sm-6" *ngFor="let recipe of waitingRecipe;let i = index">
                 <div class="box13">
                   <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
-                    <cl-transformation width="203" height="203" crop="crop" quality="auto">
+                    <cl-transformation width="203" height="203" crop="scale" quality="auto">
                     </cl-transformation>
                   </cl-image>
                   <div class="box-content">
@@ -171,7 +171,7 @@
               <div class="col-md-4 col-sm-6" *ngFor="let recipe of decilineRecipe;let i = index">
                 <div class="box13">
                   <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
-                    <cl-transformation width="203" height="203" crop="crop" quality="auto">
+                    <cl-transformation width="203" height="203" crop="scale" quality="auto">
                     </cl-transformation>
                   </cl-image>
                   <div class="box-content">

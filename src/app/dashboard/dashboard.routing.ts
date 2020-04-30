@@ -38,7 +38,7 @@ export const DashBoardRoutes: Routes = [
         component: Home2Component
       },
       {
-        path: "addPassenger",
+        path: "addRecipe",
         component: RegisterPassengerComponent
       },
       {

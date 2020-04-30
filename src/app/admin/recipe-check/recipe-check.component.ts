@@ -32,6 +32,7 @@ export class RecipeCheckComponent implements OnInit {
   viewFull = true;
   messageModal = false;
   accept = false;
+  totalRecipe = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -106,6 +107,9 @@ export class RecipeCheckComponent implements OnInit {
               arr.push(recip);
             }
           }
+        }
+        if (this.recipe.user._id === recip.user._id) {
+          this.totalRecipe++;
         }
       }
       this.recipes = arr.filter(function (item, pos) {

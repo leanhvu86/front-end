@@ -215,11 +215,8 @@ nav > div a.nav-item.nav-link:focus
 }
 .heart {
   display: block;
-  color: white;
+  color: rgb(255, 128, 128);
   position: absolute;
-  bottom: 20%;
-  right: 5%;
-  opacity: 0.4;
   background: none;
 }
 .heart:hover {
@@ -241,13 +238,10 @@ nav > div a.nav-item.nav-link:focus
   display: block;
   color: red;
   position: absolute;
-  bottom: 20%;
-  right: 5%;
-  opacity: 0.6;
   background: none;
 }
 .dislikeheart:hover {
-  color: white;
+  color: rgb(245, 101, 101);
 }
 /* Zoom Out #2 */
 .hover04 figure img {

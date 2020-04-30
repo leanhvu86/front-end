@@ -20,25 +20,20 @@
 
               <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div id="containerimage" style="cursor: pointer;">
-                  <div *ngIf="fileUploadProgress">
-                    Upload progress: {{ fileUploadProgress }}
-                  </div>
-                  <div class="image-preview mb-3" *ngIf="previewUrl;else other_content"
-                    style="margin-top: 5%; margin-left: 13%;">
-                    <cl-image public-id="{{previewUrl}}">
-                      <cl-transformation width="620" height="320" crop="scale" quality="auto">
-                      </cl-transformation>
-                    </cl-image>
-                  </div>
-                  <ng-template #other_content>
-                    <img id="profile-img" style="width:90%;height: 20%; margin-left: 5%;cursor: pointer;"
-                      src="../../../assets/images/unnamed.png" />
-                  </ng-template>
-                  <div *ngIf="uploadedFilePath">
-                    {{uploadedFilePath}}
-                  </div>
                   <div id="direct_upload" ng2FileDrop [uploader]="uploader" (fileOver)="fileOverBase($event)"
                     [ngClass]="{'nv-file-over': hasBaseDropZoneOver}">
+                    <div class="image-preview mb-3" *ngIf="previewUrl;else other_content"
+                      style="margin-top: 5%; margin-left: 13%;">
+                      <cl-image public-id="{{previewUrl}}">
+                        <cl-transformation width="620" height="320" crop="scale" quality="auto">
+                        </cl-transformation>
+                      </cl-image>
+                    </div>
+                    <ng-template #other_content>
+                      <img id="profile-img" style="width:90%;height: 20%; margin-left: 5%;cursor: pointer;"
+                        src="../../../assets/images/unnamed.png" />
+                    </ng-template>
+
                     <form>
                       <!-- onChange hanlder resets the input value to get the change event when uploading the same file consecutively -->
                       <input type="file" accept="image/x-png,image/jpeg,image/jpg" id="example" #fileInput ng2FileSelect

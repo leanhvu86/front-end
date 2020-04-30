@@ -56,7 +56,7 @@
         <div class="col">
           <div class="row atitle"><a>Công thức đăng bởi</a></div>
           <div class="row"><a>{{recipe.user.name}}</a></div>
-          <div class="row"><a>{{recipe.user.totalPoint}}&#160;&#160;&#160;&#160;công
+          <div class="row"><a>{{totalRecipe}}&#160;&#160;&#160;&#160;công
               thức</a><a>&#160;&#160;&#160;&#160;{{recipe.user.totalPoint}}&#160;&#160;&#160;&#160;điểm</a></div>
         </div>
         <div class="col col-lg-2">
@@ -252,7 +252,7 @@
               </div>
             </div>
             <div class="clearfix"></div>
-            <div class="clearfix"></div>
+            <div class="clearfix" style="margin-bottom: 55px;"></div>
             <!-- <p>{{profileForm.status}}</p> -->
             <!-- <nav style="width: 100%; background: white; border-radius:0 0 10px 10px; height: 60px; padding: 5px 0;">
               <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
@@ -278,7 +278,8 @@
     <a style="margin-top: 50px; font-size: 15px;">CÔNG THỨC LIÊN QUAN</a>
     <hr>
     <div class="row">
-      <div class="col" *ngFor="let recipe of recipes;let i = index" (click)="showRecipe(recipe)">
+      <div class="col" *ngFor="let recipe of recipes;let i = index" (click)="showRecipe(recipe)"
+        style="margin-bottom: 15px;">
         <cl-image public-id="{{recipe.imageUrl}}">
           <cl-transformation width="150" height="150" crop="scale" quality="auto" radius="20">
           </cl-transformation>
@@ -428,7 +429,7 @@
                                 </cl-transformation>
                               </cl-image> -->
                     <div class=".col-md-8"
-                      style="max-width: 200px; padding: 10px 10px; display: block; overflow: hidden;" id="image{{i}}"
+                      style="max-width: 200px; margin:  10px 10px; display: block; overflow: hidden;" id="image{{i}}"
                       *ngFor="let imageUrl of cookStep.image; let i = index">
                       <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
                         <cl-transformation height="80" radius="5" width="80" crop="scale">
