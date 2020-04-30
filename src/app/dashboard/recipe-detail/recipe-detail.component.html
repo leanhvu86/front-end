@@ -165,7 +165,7 @@
           <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
               <div style="background: white; border-radius: 10px; padding: 30px 0;display: block;
-                overflow: hidden;padding-left: 15px;">
+                overflow: hidden;padding:0px 15px;">
                 <div class="row">
                   <div class="col-sm-6 col-md-8" style="text-align:start;">
                     <a
@@ -188,7 +188,7 @@
                   </div>
                 </div>
                 <div *ngFor="let ingredient of recipe.ingredients; let i = index">
-                  <div style="width: 30%; float: left;text-align: left;padding-top:20px ;">
+                  <div style="width: 30%; float: left;text-align: left;padding:20px 20px;">
                     <a>
                       <i class="fa fa-check fa-lg" style="color: rgb(95, 228, 6);" aria-hidden="true"></i>
                       {{ ingredient.ingredientName }}&#160;&#160;&#160;<a>{{
