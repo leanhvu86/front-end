@@ -53,6 +53,7 @@
     "ngx-order-pipe": "^2.0.4",
     "ngx-pagination": "^5.0.0",
     "ngx-show-hide-password": "^2.1.0",
+    "ngx-skeleton-loader": "^1.2.7",
     "path": "^0.12.7",
     "pretty-checkbox": "^3.0.3",
     "rxjs": "^6.3.3",

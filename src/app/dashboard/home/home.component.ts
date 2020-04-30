@@ -97,6 +97,9 @@ export class Home2Component implements OnInit {
         }
       }
       this.galleryTop = galleries;
+
+      const radio: HTMLElement = document.getElementById('complete-loading');
+      radio.click();
     })
   }
   getPersonalGallery() {
@@ -210,8 +213,6 @@ export class Home2Component implements OnInit {
             }
           }
         }
-        const radio: HTMLElement = document.getElementById('complete-loading');
-        radio.click();
       }
     });
   }

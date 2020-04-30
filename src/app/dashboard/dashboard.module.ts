@@ -51,6 +51,7 @@ import { AddGalleryComponent } from './child/add-gallery/add-gallery.component';
 import { AppRecipeGalleryComponent } from './child/app-recipe-gallery/app-recipe-gallery.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LoadingBarModule } from "ngx-loading-bar";
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -99,6 +100,7 @@ import { LoadingBarModule } from "ngx-loading-bar";
     LoadingBarModule,
     Ng2SearchPipeModule,
     FormsModule,
+    NgxSkeletonLoaderModule,
     NgxPaginationModule,
     TranslateModule.forRoot({
       loader: {

@@ -178,7 +178,7 @@ export class IndexComponent implements OnInit {
         this.href = this._router.url;
         if (this.addPassenger == true) {
           console.log('true');
-          this._router.navigate(['/addPassenger']);
+          this._router.navigate(['/addRecipe']);
           this.addPassenger = false;
         } else if (this.href = '/register') {
           this._router.navigate(['/index']);
@@ -207,7 +207,7 @@ export class IndexComponent implements OnInit {
       this.addPassenger = true;
     } else {
       console.log('true')
-      this._router.navigate(['/addPassenger']);
+      this._router.navigate(['/addRecipe']);
     }
   }
   onChangecheck(value: any) {
