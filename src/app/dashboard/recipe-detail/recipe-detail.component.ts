@@ -441,11 +441,12 @@ export class RecipeDetailComponent implements OnInit {
     console.log('like')
     this.loadingRest = true;
     let user = recipe.user;
-    this.interestObject.user = recipe.user.email;
+    this.interestObject.user = this.cookie.get('email');
     this.interestObject.objectId = recipe;
     this.interestObject.objectType = '2';
     this.recipeService.likeRecipe(this.interestObject).subscribe(data => {
       if (data !== undefined) {
+        console.log(data)
         this.recipe = data.body['recipe'];
         if (this.recipe.hardLevel !== undefined) {
           if (this.recipe.hardLevel === '') {
@@ -484,7 +485,7 @@ export class RecipeDetailComponent implements OnInit {
     }
     console.log('dislike')
     let user = recipe.user;
-    this.interestObject.user = recipe.user.email;
+    this.interestObject.user = this.cookie.get('email');
     this.interestObject.objectId = recipe;
     this.interestObject.objectType = '2';
     this.recipeService.dislikeRecipe(this.interestObject).subscribe(data => {
