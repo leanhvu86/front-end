@@ -52,6 +52,7 @@ import { AppRecipeGalleryComponent } from './child/app-recipe-gallery/app-recipe
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LoadingBarModule } from "ngx-loading-bar";
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+
 @NgModule({
   declarations: [
     IndexComponent,

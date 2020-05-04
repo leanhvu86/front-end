@@ -8,6 +8,7 @@ import { UserService } from 'src/app/shared/service/user.service.';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Message } from '../../shared/model/message';
 import { LoadingBarService } from "ngx-loading-bar";
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-index',
@@ -83,6 +84,7 @@ export class IndexComponent implements OnInit {
     if (email !== '') {
       this._loginService.testEmail(email).subscribe(data => {
         let user = data.body['user'];
+        console.log(data);
         if (user !== undefined && user.imageUrl !== '') {
           this.imageUrl = user.imageUrl
 
