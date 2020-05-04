@@ -31,8 +31,6 @@ export class MyrecipeComponent implements OnInit {
     private cookie: CookieService,
     private recipeService: RecipeService
   ) {
-    const radio: HTMLElement = document.getElementById('start-loading');
-    radio.click();
   }
 
   ngOnInit() {
@@ -68,8 +66,6 @@ export class MyrecipeComponent implements OnInit {
                   this.decilineRecipe.push(recipe)
                 }
               }
-              const radio: HTMLElement = document.getElementById('complete-loading');
-              radio.click();
             })
 
           })

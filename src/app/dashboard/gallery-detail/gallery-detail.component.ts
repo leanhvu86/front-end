@@ -50,8 +50,6 @@ export class GalleryDetailComponent implements OnInit {
   ) {
     this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
     this.id = this.route.snapshot.params.id;
-    const radio: HTMLElement = document.getElementById('start-loading');
-    radio.click();
   }
 
   ngOnInit() {
@@ -104,8 +102,6 @@ export class GalleryDetailComponent implements OnInit {
       if (this.userObject.email === this.gallery.user.email) {
         this.mine = true;
       }
-      const radio: HTMLElement = document.getElementById('complete-loading');
-      radio.click();
     });
     const radio: HTMLElement = document.getElementById('scroll-to-top');
     radio.click();

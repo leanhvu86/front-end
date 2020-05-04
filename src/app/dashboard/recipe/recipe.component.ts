@@ -35,7 +35,8 @@ export class RecipeComponent implements OnInit {
   recipesFilter: Recipe[] = [];
   empty: Recipe[] = [];
   countRecipe: number = 0;
-  errormessage = ''
+  stringFilter = '';
+  errormessage = '';
   p: number;
   userObject = {
     email: "",
@@ -65,8 +66,6 @@ export class RecipeComponent implements OnInit {
       this.cookie.set('searchText', '');
     }
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
-    const radio: HTMLElement = document.getElementById('start-loading');
-    radio.click();
   }
 
   ngOnInit() {
@@ -111,6 +110,22 @@ export class RecipeComponent implements OnInit {
     this.recipes = this.empty;
     let tempArr = this.empty;
     console.log(this.recipesFilter);
+    this.stringFilter = '';
+    this.cookWaysFilter.forEach(cookWay => {
+      if (this.stringFilter.indexOf(cookWay.cookWayCode) === -1) {
+        this.stringFilter = this.stringFilter + ' #' + cookWay.cookWayCode;
+      }
+    });
+    this.countrysFilter.forEach(country => {
+      if (this.stringFilter.indexOf(country.countryCode) === -1) {
+        this.stringFilter = this.stringFilter + ' #' + country.countryCode;
+      }
+    });
+    this.foodTypesFilter.forEach(food => {
+      if (this.stringFilter.indexOf(food.foodTypeCode) === -1) {
+        this.stringFilter = this.stringFilter + ' #' + food.foodTypeCode;
+      }
+    })
     for (let recipe of this.recipesFilter) {
       let checkFoodType = false;
       let checkCountry = false;
@@ -245,8 +260,6 @@ export class RecipeComponent implements OnInit {
           }
         });
       });
-      const radio: HTMLElement = document.getElementById('complete-loading');
-      radio.click();
       this.recipes = recipes;
       this.recipesFilter = this.recipes;
       this.countRecipe = this.recipesFilter.length;

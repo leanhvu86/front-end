@@ -407,13 +407,14 @@
       <div class="col-4" style="min-height: 500px;  border-radius: 5px; "></div>
     </div>
   </div>
-  <div class="col" style="background: white; height: 800px; margin-top: 40px; border-radius: 20px;">
+  <div class="col"
+    style="background: white; min-height: 800px; margin-top: 40px; border-radius: 20px; display:block; overflow:hidden;">
     <br>
     <a style="margin-top: 50px;">CÔNG THỨC LIÊN QUAN</a>
     <hr />
     <div class="row">
       <div class="col" *ngFor="let recipe of recipes; let i = index">
-        <cl-image public-id="{{ recipe.imageUrl }}" [routerLink]="['/detail/', recipe._id]" (click)="loadPage()">
+        <cl-image public-id="{{ recipe.imageUrl }}" (click)="getRecipeDetail(recipe._id)">
           <cl-transformation width="150" height="150" crop="scale" quality="auto" radius="20">
           </cl-transformation>
         </cl-image>

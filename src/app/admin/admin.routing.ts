@@ -45,7 +45,7 @@ export const AdminRoutes: Routes = [
             {
                 path: 'loadPage',
                 component: LoadPageComponent
-            },
+            }
             // {
             //     path: 'customer',
             //     component: CustomerComponent

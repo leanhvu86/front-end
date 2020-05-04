@@ -23,6 +23,7 @@ export class Home2Component implements OnInit {
     email: "",
     password: ""
   }
+
   imageUrl: string = 'jbiajl3qqdzshdw0z749'
   topUsers: User[] = []
   tfaFlag: boolean = false
@@ -46,8 +47,6 @@ export class Home2Component implements OnInit {
     private userService: UserService,
     private galleryService: GalleryService,
     private router: Router) {
-    const radio: HTMLElement = document.getElementById('start-loading');
-    radio.click();
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
         {
@@ -97,9 +96,6 @@ export class Home2Component implements OnInit {
         }
       }
       this.galleryTop = galleries;
-
-      const radio: HTMLElement = document.getElementById('complete-loading');
-      radio.click();
     })
   }
   getPersonalGallery() {

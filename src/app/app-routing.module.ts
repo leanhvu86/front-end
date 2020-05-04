@@ -29,13 +29,13 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: './admin/admin.module#AdminModule'
-    //loadChildren: () => AdminModule
+    //loadChildren: './admin/admin.module#AdminModule'
+    loadChildren: () => AdminModule
   },
   {
     path: '',
-    loadChildren: './dashboard/dashboard.module#DashboardModule'
-    //loadChildren: () => DashboardModule
+    //loadChildren: './dashboard/dashboard.module#DashboardModule'
+    loadChildren: () => DashboardModule
   },
   { path: 'no-access', component: NoAccessComponent },
   { path: '**', component: PageNotFoundComponent }

@@ -55,8 +55,6 @@ export class AddBookmarkComponent implements OnInit {
   }
 
   addRecipeBookMark(gallery: any) {
-    const radio: HTMLElement = document.getElementById('start-loading');
-    radio.click();
     console.log(gallery);
     let check = false;
     //check công thức đã tồn tại trong bộ sưu tập chưa
@@ -86,8 +84,6 @@ export class AddBookmarkComponent implements OnInit {
       if (data.body['status'] === 200) {
         this.message = data.body['message'];
         console.log(this.message);
-        const radio: HTMLElement = document.getElementById('complete-loading');
-        radio.click();
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal5');
           radio.click();

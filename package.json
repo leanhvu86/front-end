@@ -52,6 +52,7 @@
     "ngx-loading-bar": "0.0.9",
     "ngx-order-pipe": "^2.0.4",
     "ngx-pagination": "^5.0.0",
+    "ngx-progressbar": "^6.0.2",
     "ngx-show-hide-password": "^2.1.0",
     "ngx-skeleton-loader": "^1.2.7",
     "path": "^0.12.7",

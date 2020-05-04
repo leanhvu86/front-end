@@ -22,8 +22,6 @@ export class AboutComponent implements OnInit {
     private recipeService: RecipeService,
     private galleryService: GalleryService
   ) {
-    const radio: HTMLElement = document.getElementById('start-loading');
-    radio.click();
   }
 
   ngOnInit() {
@@ -105,8 +103,6 @@ export class AboutComponent implements OnInit {
                 }
               }
             }
-            const radio: HTMLElement = document.getElementById('complete-loading');
-            radio.click();
           });
         }
       });

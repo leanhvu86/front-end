@@ -41,8 +41,6 @@ export class MygalleryComponent implements OnInit {
     private cookie: CookieService,
     private gallerrService: GalleryService
   ) {
-    const radio: HTMLElement = document.getElementById('start-loading');
-    radio.click();
   }
 
   ngOnInit() {
@@ -87,8 +85,6 @@ export class MygalleryComponent implements OnInit {
               this.value = user.totalPoint;
               user.level = 'Newbee';
             }
-            const radio: HTMLElement = document.getElementById('complete-loading');
-            radio.click();
           });
         }
       });

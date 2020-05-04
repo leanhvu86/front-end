@@ -53,10 +53,8 @@ export class IndexComponent implements OnInit {
     private _router: Router,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private router: ActivatedRoute,
-    private loadingBarService: LoadingBarService
+    private router: ActivatedRoute
   ) {
-    this.emitStart()
     translate.setDefaultLang('vi');
     sessionStorage.setItem('currentLang', 'vi');
   }
@@ -76,15 +74,11 @@ export class IndexComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
-  emitStart() {
-    this.loadingBarService.start();
-  }
   getImage() {
     let email = this.cookie.get('email');
     if (email !== '') {
       this._loginService.testEmail(email).subscribe(data => {
         let user = data.body['user'];
-        console.log(data);
         if (user !== undefined && user.imageUrl !== '') {
           this.imageUrl = user.imageUrl
 
@@ -182,11 +176,12 @@ export class IndexComponent implements OnInit {
           console.log('true');
           this._router.navigate(['/addRecipe']);
           this.addPassenger = false;
-        } else if (this.href = '/register') {
-          this._router.navigate(['/index']);
-        }
-        else {
+        } else if (this.href === '/index') {
           window.location.reload();
+        } else {
+          console.log('reload')
+
+          this._router.navigate(['/index']);
           // this._router.navigate(['/index']);
         }
       }
@@ -224,17 +219,6 @@ export class IndexComponent implements OnInit {
 
       this._router.navigate(['/loadPage']);
     }
-  }
-  emitStop() {
-    this.loadingBarService.stop();
-  }
-
-  emitReset() {
-    this.loadingBarService.reset();
-  }
-
-  emitComplete() {
-    this.loadingBarService.complete();
   }
   findRecipe() {
     console.log(this.search)

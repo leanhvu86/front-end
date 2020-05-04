@@ -39,8 +39,6 @@ export class GalleryComponent implements OnInit {
   ) {
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     console.log(this.isAuthenicate)
-    const radio: HTMLElement = document.getElementById('start-loading');
-    radio.click();
   }
 
   ngOnInit() {
@@ -87,8 +85,6 @@ export class GalleryComponent implements OnInit {
           }
         })
       }
-      const radio: HTMLElement = document.getElementById('complete-loading');
-      radio.click();
     })
   }
   likeGallerry(gallery: any, index: any) {

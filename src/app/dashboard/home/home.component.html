@@ -100,19 +100,28 @@
           <span (click)="dislikeRecipe(recipe,i)" style="position: absolute; left:270px; bottom: 20%;"><i
               class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
         </ng-template>
-        <div style="top:375px;left: 35px; position: absolute; font-size: 12px; height: 100px; ">
-          <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]"
-            style="font-size: 12px;color: black;">
-            <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
-              <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill" background="#e9ebee">
-              </cl-transformation>
-              <cl-transformation width="55" crop="scale">
-              </cl-transformation>
-            </cl-image>&#160;
-            {{recipe.user.name}}
+        <div style="top:375px;left: 45px; position: absolute; font-size: 12px; height: 100px; ">
+          <a title="Công thức đăng bởi: {{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]"
+            style="font-size: 12px;color: black;width: 270px;text-align: left;">
+            <div class="row">
+              <div class="col">
+                <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
+                  <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill"
+                    background="#e9ebee">
+                  </cl-transformation>
+                  <cl-transformation width="55" crop="scale">
+                  </cl-transformation>
+                </cl-image>
+                <br>
+                Đăng bởi:{{recipe.user.name}}
+              </div>
+              <div class="col-md-3">
+                <a class="button_slidehr slide_downhr" style=" width: 50px;margin-top: 10px;" id="bookmark"
+                  title="Thêm công thức vào bộ sưu tập" (click)="addBookmark(recipe)"></a>
+              </div>
+            </div>
           </a>
-          <a class="button_slidehr slide_downhr" style="margin-left: 50px; width: 50px;margin-top: 10px;" id="bookmark"
-            title="Thêm công thức vào bộ sưu tập" (click)="addBookmark(recipe)"></a>
+
           <!-- <app-add-bookmark [childMessage]="recipe" id="i"></app-add-bookmark> -->
         </div>
 

@@ -90,7 +90,6 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     AppRecipeGalleryComponent,
   ],
   imports: [
-    BrowserModule,
     CommonModule,
     FileUploadModule,
     Ng5SliderModule,
@@ -101,7 +100,6 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     LoadingBarModule,
     Ng2SearchPipeModule,
     FormsModule,
-    NgxSkeletonLoaderModule,
     NgxPaginationModule,
     TranslateModule.forRoot({
       loader: {
