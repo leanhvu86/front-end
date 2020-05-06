@@ -52,13 +52,7 @@ export class GalleryAccessComponent implements OnInit {
   getGallery() {
     this.galleryService.getGalleryies().subscribe(gallerys => {
       this.gallerys = gallerys;
-      for (let gallery of this.gallerys) {
-        if (gallery.recipe.length > 0) {
-          gallery.image = gallery.recipe[0].imageUrl;
-        } else {
-          gallery.image = 'fvt7rkr59r9d7wk8ndbd';
-        }
-      }
+      
       this.gallerys.sort((a, b) => {
         if (a.totalPoint > b.totalPoint) {
           return -1;
@@ -68,6 +62,15 @@ export class GalleryAccessComponent implements OnInit {
           return 0;
         }
       });
+       for (let i= 0; i < this.gallerys.length; i++) {
+         let gallery = this.gallerys[i];
+         gallery.seq=i+1;
+        if (gallery.recipe.length > 0) {
+          gallery.image = gallery.recipe[0].imageUrl;
+        } else {
+          gallery.image = 'fvt7rkr59r9d7wk8ndbd';
+        }
+      }
     });
   }
 }
