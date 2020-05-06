@@ -9,4 +9,5 @@ export class Gallery {
   description: String;
   like: any;
   updateAr: any;
+  seq: any;
 }
