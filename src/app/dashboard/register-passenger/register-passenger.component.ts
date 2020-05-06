@@ -367,8 +367,6 @@ export class RegisterPassengerComponent implements OnInit {
     if (this.saving === true) {
       return;
     }
-    const radio: HTMLElement = document.getElementById('start-loading');
-    radio.click();
     this.submitted = true;
     console.log('submit');
     console.log(this.nowUrl);
@@ -509,8 +507,6 @@ export class RegisterPassengerComponent implements OnInit {
             this.successMessage = result['message'];
             const radio: HTMLElement = document.getElementById('modal-button');
             radio.click();
-            const radio1: HTMLElement = document.getElementById('complete-loading');
-            radio1.click();
             setTimeout(() => {
               window.location.reload()
             }, 3000);
