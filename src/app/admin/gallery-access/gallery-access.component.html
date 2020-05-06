@@ -1,9 +1,9 @@
 <h5 style="margin-left: 3%;">DANH SÁCH BỘ SƯU TẬP</h5>
 <div class="search-hero">
-  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" (input)="keyUp()"
     placeholder="&#61442;  Từ khóa tìm kiếm">
 </div>
-<div *ngFor="let gallery of gallerys | filter:searchText| orderBy: key : reverse| paginate: config; let i=index">
+<div *ngFor="let gallery of gallerys | LockFilter:searchText | orderBy: key : reverse| paginate: config; let i=index">
 
 </div>
 <div class="table-responsive">
@@ -25,14 +25,17 @@
     <tbody *ngFor="let gallery of gallerys | filter:searchText| paginate: config; let i=index">
 
       <tr class="texthover">
-        <td>{{i + 1}}</td>
-        <td style="max-width: 50px;" [routerLink]="['/galleryDetail/', gallery._id]">
+        <td style="max-width: 50px;background: white; padding-top: 20px; text-align: center;">{{gallery.seq}}</td>
+        <td style="max-width: 50px;background: white; padding-top: 20px; text-align: center;"
+          [routerLink]="['/galleryDetail/', gallery._id]">
           {{gallery.name}}</td>
-        <td style="max-width: 80px;">{{gallery.user.name}}</td>
-        <td style="max-width: 60px;">{{gallery.content}}</td>
-        <td style="max-width: 60px;">{{gallery.totalPoint}}</td>
-        <td [routerLink]="['/galleryDetail/', gallery._id]" class="ahover">
-          <a title="{{gallery.image}}">
+        <td style="max-width: 80px;background: white; padding-top: 20px; text-align: center;">{{gallery.user.name}}</td>
+        <td style="max-width: 60px;background: white; padding-top: 20px; text-align: center;">{{gallery.content}}</td>
+        <td style="max-width: 60px;background: white; padding-top: 20px; text-align: center;">{{gallery.totalPoint}}
+        </td>
+        <td [routerLink]="['/galleryDetail/', gallery._id]"
+          style="max-width: 60px;background: white; padding-top: 20px; text-align: center;">
+          <a title="{{gallery.image}}" class="ahover">
             <cl-image public-id="{{gallery.image}}">
               <cl-transformation aspect-ratio="1:1" gravity="auto" width="100" height="100" crop="fill">
               </cl-transformation>

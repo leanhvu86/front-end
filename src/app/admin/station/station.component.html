@@ -1,6 +1,6 @@
 <h5 style="margin-left: 3%;">DANH SÁCH THÀNH VIÊN</h5>
 <div class="search-hero">
-  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" (input)="keyUp()"
     placeholder="&#61442;  Tìm kiếm thành viên">
 </div>
 
@@ -32,7 +32,7 @@
       *ngFor="let user of users | orderBy: order:reverse:'case-insensitive'| filter:searchText| paginate: config; let i=index">
 
       <tr>
-        <td style="background: white; padding-top: 20px; text-align: center;">{{i + 1}}</td>
+        <td style="background: white; padding-top: 20px; text-align: center;">{{user.id}}</td>
         <td style="max-width: 50px;background: white;padding-top: 20px; text-align: center;">{{user.name}}</td>
         <td style="max-width: 80px;background: white;padding-top: 20px; text-align: center;">{{user.email}}</td>
         <!-- <td style="max-width: 100px;

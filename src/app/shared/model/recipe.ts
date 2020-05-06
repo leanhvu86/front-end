@@ -27,4 +27,6 @@ export class Recipe {
     description: string;
     createAt: any;
     updateAt: any;
+    seq: any;
+    ord: any;
 }

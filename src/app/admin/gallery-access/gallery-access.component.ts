@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {GalleryService} from 'src/app/shared/service/gallery.service';
-import {Gallery} from 'src/app/shared/model/gallery';
-import {OrderPipe} from 'ngx-order-pipe';
+import { Component, OnInit } from '@angular/core';
+import { GalleryService } from 'src/app/shared/service/gallery.service';
+import { Gallery } from 'src/app/shared/model/gallery';
+import { OrderPipe } from 'ngx-order-pipe';
 
 @Component({
   selector: 'app-gallery-access',
@@ -13,9 +13,9 @@ export class GalleryAccessComponent implements OnInit {
   gallerys: Gallery[] = [];
   config: any;
   searchText;
-  collection = {count: 60, data: []};
+  collection = { count: 60, data: [] };
   key: any;
-
+  pageSize = 10;
   constructor(
     private galleryService: GalleryService,
     private orderPipe: OrderPipe
@@ -32,7 +32,7 @@ export class GalleryAccessComponent implements OnInit {
     }
 
     this.config = {
-      itemsPerPage: 10,
+      itemsPerPage: this.pageSize,
       currentPage: 1,
       totalItems: this.gallerys.length
     };
@@ -52,7 +52,7 @@ export class GalleryAccessComponent implements OnInit {
   getGallery() {
     this.galleryService.getGalleryies().subscribe(gallerys => {
       this.gallerys = gallerys;
-      
+
       this.gallerys.sort((a, b) => {
         if (a.totalPoint > b.totalPoint) {
           return -1;
@@ -62,15 +62,26 @@ export class GalleryAccessComponent implements OnInit {
           return 0;
         }
       });
-       for (let i= 0; i < this.gallerys.length; i++) {
-         let gallery = this.gallerys[i];
-         gallery.seq=i+1;
+      for (let i = 0; i < this.gallerys.length; i++) {
+        let gallery = this.gallerys[i];
+        gallery.seq = i + 1;
         if (gallery.recipe.length > 0) {
           gallery.image = gallery.recipe[0].imageUrl;
         } else {
           gallery.image = 'fvt7rkr59r9d7wk8ndbd';
         }
       }
+      console.log(this.gallerys)
     });
+
+  }
+  keyUp() {
+    console.log(this.pageSize)
+    if (this.searchText.length > 2) {
+      this.pageSize = this.gallerys.length;
+      this.pageChanged(1);
+    } else {
+      this.pageSize = 10;
+    }
   }
 }

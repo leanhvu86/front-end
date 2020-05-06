@@ -23,6 +23,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../shared/helper';
 import { GalleryAccessComponent } from './gallery-access/gallery-access.component';
 import { LoadPageComponent } from './load-page/load-page.component';
+import { SearchPipe } from '../shared/helper/search.pipe';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -33,7 +34,8 @@ import { LoadPageComponent } from './load-page/load-page.component';
     RecipeCheckComponent,
     ScrollTopComponent,
     GalleryAccessComponent,
-    LoadPageComponent
+    LoadPageComponent,
+    SearchPipe
   ],
   imports: [
     CommonModule,

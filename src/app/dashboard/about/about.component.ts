@@ -4,11 +4,17 @@ import { User } from 'src/app/shared/model/user';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Recipe } from 'src/app/shared/model/recipe';
+import { trigger } from '@angular/animations';
+import { fadeIn } from '../../shared/animation/fadeIn';
+
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+  styleUrls: ['./about.component.css'],
+  animations: [
+    trigger('fadeIn', fadeIn())
+  ]
 })
 export class AboutComponent implements OnInit {
 
@@ -17,6 +23,7 @@ export class AboutComponent implements OnInit {
   imageUrl: string = 'jbiajl3qqdzshdw0z749';
   recipes: Recipe[] = [];
   p: number;
+  loadingSuccess = false;
   constructor(
     private userService: UserService,
     private recipeService: RecipeService,
@@ -103,6 +110,7 @@ export class AboutComponent implements OnInit {
                 }
               }
             }
+            this.loadingSuccess = true;
           });
         }
       });

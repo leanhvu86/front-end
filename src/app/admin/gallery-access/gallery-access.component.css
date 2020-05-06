@@ -16,6 +16,9 @@
   .form-control::placeholder  {
     font-family: FontAwesome;
   }
+  .ahover{
+    background: white;
+  }
   .ahover:hover{
     transform: scale(1.5);
   }

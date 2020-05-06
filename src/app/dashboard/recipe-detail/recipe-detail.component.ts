@@ -348,6 +348,11 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   countIngredient(multiplyElement: any) {
+    if (this.multiplyElement < 0) {
+      alert('Giá trị nhập vào  phải lớn hơn 0');
+      this.multiplyElement = 1;
+      return;
+    }
     if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
       for (let ingredient of this.recipe.ingredients) {
         let quantity =

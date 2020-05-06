@@ -62,6 +62,7 @@ export class AddGalleryComponent implements OnInit {
     this.galleryObject = this.registerForm.value
     let email = this.cookie.get('email')
     this.galleryObject.user = email
+    this.galleryObject.image = 'fvt7rkr59r9d7wk8ndbd';
     console.log(this.galleryObject)
     this.galleryService.createGallery(this.galleryObject).subscribe(gallery => {
       console.log(gallery)
@@ -70,9 +71,7 @@ export class AddGalleryComponent implements OnInit {
         this.message = 'Chúc mừng bạn thêm bộ sưu tập thành công'
         let tem = new Gallery
         tem = gallery.body['gallery']
-        if (tem.image == '') {
-          tem.image = 'fvt7rkr59r9d7wk8ndbd'
-        }
+        console.log(tem)
         this.registerForm.reset();
         this.saving = false;
         this.gallerys.push(tem)

@@ -5,11 +5,17 @@ import { CookieService } from 'ngx-cookie-service';
 import { Options } from 'ng5-slider';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Gallery } from 'src/app/shared/model/gallery';
+import { trigger } from '@angular/animations';
+import { fadeIn } from '../../shared/animation/fadeIn';
+
 
 @Component({
   selector: 'app-mygallery',
   templateUrl: './mygallery.component.html',
-  styleUrls: ['./mygallery.component.css']
+  styleUrls: ['./mygallery.component.css'],
+  animations: [
+    trigger('fadeIn', fadeIn())
+  ]
 })
 export class MygalleryComponent implements OnInit {
   id: String = '1';

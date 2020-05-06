@@ -8,12 +8,18 @@ import { User } from 'src/app/shared/model/user';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Gallery } from 'src/app/shared/model/gallery';
 import { Router } from '@angular/router';
+import { trigger } from '@angular/animations';
+import { fadeIn } from '../../shared/animation/fadeIn';
+
 
 declare var $: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  animations: [
+    trigger('fadeIn', fadeIn())
+  ]
 })
 export class Home2Component implements OnInit {
   public recipes: Recipe[] = [];
@@ -24,6 +30,7 @@ export class Home2Component implements OnInit {
     password: ""
   }
 
+  loadingSuccess = false;
   imageUrl: string = 'jbiajl3qqdzshdw0z749'
   topUsers: User[] = []
   tfaFlag: boolean = false
@@ -96,6 +103,7 @@ export class Home2Component implements OnInit {
         }
       }
       this.galleryTop = galleries;
+      this.loadingSuccess = true;
     })
   }
   getPersonalGallery() {
@@ -159,35 +167,53 @@ export class Home2Component implements OnInit {
       if (recipes !== undefined) {
         if (this.isAuthenicate == true) {
           this.userObject.email = this.cookie.get('email');
-          if (this.userObject.email !== undefined || this.userObject.email !== '') {
-            this.recipeService.findInterest(this.userObject).subscribe(data => {
-              let interests = data.body['interests']
-              this.interests = interests
-              this.getTopGalleries()
-              recipes.forEach(function (recipe) {
-                recipe.like = false
-                if (interests !== undefined) {
-                  for (let interest of interests) {
-                    if (interest.objectId._id === recipe._id && interest.objectType === '2') {
-                      recipe.like = true
+          this.galleryService.getTopGalleryies().subscribe(galleries => {
+            if (this.userObject.email !== undefined || this.userObject.email !== '') {
+              this.recipeService.findInterest(this.userObject).subscribe(data => {
+                let interests = data.body['interests']
+                this.interests = interests
+                //this.getTopGalleries()
+                recipes.forEach(function (recipe) {
+                  recipe.like = false
+                  if (interests !== undefined) {
+                    for (let interest of interests) {
+                      if (interest.objectId._id === recipe._id && interest.objectType === '2') {
+                        recipe.like = true
+                      }
                     }
                   }
-                }
 
+                  if (recipe.user.imageUrl === undefined) {
+                    recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+                  }
+                });
+                for (let gallery of galleries) {
+                  gallery.like = false
+                  if (this.interests.length > 0) {
+                    for (let inter of this.interests) {
+                      if (gallery._id === inter.objectId._id) {
+                        gallery.like = true;
+                      }
+                    }
+                  }
+                  if (gallery.recipe.length > 0) {
+                    gallery.image = gallery.recipe[0].imageUrl
+                  } else {
+                    gallery.image = 'fvt7rkr59r9d7wk8ndbd';
+                  }
+                }
+                this.galleryTop = galleries;
+                this.loadingSuccess = true;
+              })
+            } else {
+              recipes.forEach(function (recipe) {
+                recipe.like = false
                 if (recipe.user.imageUrl === undefined) {
                   recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
                 }
               });
-            })
-          } else {
-            recipes.forEach(function (recipe) {
-              recipe.like = false
-              if (recipe.user.imageUrl === undefined) {
-                recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
-              }
-            });
-          }
-
+            }
+          })
         } else {
           this.getTopGalleries()
         }

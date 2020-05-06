@@ -66,7 +66,7 @@
     </div>
   </div>
 </div>
-<div class="container">
+<div class="container" *ngIf="loadingSuccess; else skeleton">
   <br><a style="color: red;font-size: 10px;">{{stringFilter}}</a><br>
   <h6>Tổng số <a style="color: red;">{{countRecipe}}</a> công thức</h6>
   <div class="recipe-list-wrapper" style="float: left;width: 100%;">
@@ -157,8 +157,9 @@
             <div style="float: left;
             margin-top: -50px; margin-left: 132px;">
               <!-- <i class="fa fa-bookmark"></i> -->
-              <a class="button_slidehr slide_downhr" style="margin-left: 50px; width: 50px;margin-top: 10px;"
-                id="bookmark" title="Thêm công thức vào bộ sưu tập" (click)="addBookmark(recipe)"></a>
+              <a class="button_slidehr slide_downhr"
+                style="margin-left: 50px; width: 50px;background: none;margin-top: 10px;" id="bookmark"
+                title="Thêm công thức vào bộ sưu tập" (click)="addBookmark(recipe)"></a>
             </div>
 
           </div>
@@ -217,3 +218,279 @@
     </div>
   </div>
 </div>
+<ng-template #skeleton>
+  <!-- <main class="container mt-2">
+    <div class="row">
+      <div class="col-4 col-lg-2 p-2">
+        <div class="user-img m-2 mr-auto ml-auto">
+          <img src="/assets/img/user.svg" class="img-fluid rounded-circle">
+        </div>
+      </div>
+      <div class="col-8 col-lg-10 pt-3 sm-text-center">
+        <h2 class="display-5 text-capitalize sm-mr-auto sm-ml-auto"></h2>
+        <p class="lead sm-mr-auto sm-ml-auto"></p>
+        <a href="#" class="btn btn-secondary mr-1"></a><a href="#" class="btn btn-secondary"></a>
+      </div>
+    </div>
+  </main> -->
+  <section>
+    <!-- <div class="pt-2 pb-4 text-center">
+      <h5 class="mr-auto ml-auto"></h5>
+    </div> -->
+    <div class="container">
+      <br>
+      <br>
+      Tổng số công thức
+      <div class="row">
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>

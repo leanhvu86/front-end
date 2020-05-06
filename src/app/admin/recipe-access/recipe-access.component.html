@@ -1,6 +1,6 @@
 <h5 style="margin-left: 3%;">DANH SÁCH CÔNG THỨC</h5>
 <div class="search-hero">
-  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" (input)="keyUp()"
     placeholder="&#61442;  Từ khóa tìm kiếm">
 </div>
 <div *ngFor="let recipe of recipes | filter:searchText| orderBy: key : reverse| paginate: config; let i=index">
@@ -11,21 +11,17 @@
     <thead>
       <tr>
         <th>STT</th>
-        <th [class.active]="order === 'info.name'" (click)="setOrder('info.name')"
-          class="mdl-data-table__cell--non-numeric">
-          Tên công thức<span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
-        <th [class.active]="order === 'info.email'" (click)="setOrder('info.email')"
-          class="mdl-data-table__cell--non-numeric">
-          Thời gian nấu <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
+        <th [class.active]="order === 'info.name'" class="mdl-data-table__cell--non-numeric">
+          Tên công thức</th>
+        <th [class.active]="order === 'info.email'" class="mdl-data-table__cell--non-numeric">
+          Thời gian nấu </th>
         <th>Độ khó</th>
         <th>Đăng bởi</th>
         <th>Ảnh</th>
-        <th [class.active]="order === 'info.totalPoint'" (click)="setOrder('info.totalPoint')"
-          class="mdl-data-table__cell--non-numeric">
-          Lượt yêu thích <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
-        <th [class.active]="order === 'info.viewCount'" (click)="setOrder('info.viewCount')"
-          class="mdl-data-table__cell--non-numeric">
-          Lượt xem <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span></th>
+        <th [class.active]="order === 'info.totalPoint'" class="mdl-data-table__cell--non-numeric">
+          Lượt yêu thích </th>
+        <th [class.active]="order === 'info.viewCount'" class="mdl-data-table__cell--non-numeric">
+          Lượt xem </th>
         <th [class.active]="order === 'info.status'" (click)="setOrder('info.status')"
           class="mdl-data-table__cell--non-numeric">Trạng thái <span [hidden]="reverse">▼</span><span
             [hidden]="!reverse">▲</span></th>
@@ -36,7 +32,7 @@
       *ngFor="let recipe of recipes | orderBy: order:reverse:'case-insensitive'| filter:searchText| paginate: config; let i=index">
 
       <tr class="texthover">
-        <td>{{i+1}}</td>
+        <td>{{recipe.seq}}</td>
         <td style="max-width: 50px;cursor: pointer;" [routerLink]="['/detailRecipe/', recipe._id]">
           {{recipe.recipeName}}</td>
         <td style="max-width: 80px;">{{recipe.time}}&#160;&#160;phút</td>

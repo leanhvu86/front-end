@@ -11,11 +11,16 @@ import { CookWay } from 'src/app/shared/model/cookWay';
 import { Interest } from 'src/app/shared/model/interest';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Gallery } from 'src/app/shared/model/gallery';
+import { trigger } from '@angular/animations';
+import { fadeIn } from '../../shared/animation/fadeIn';
 
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
-  styleUrls: ['./recipe.component.css']
+  styleUrls: ['./recipe.component.css'],
+  animations: [
+    trigger('fadeIn', fadeIn())
+  ]
 })
 export class RecipeComponent implements OnInit {
   recipes: Recipe[];
@@ -42,7 +47,7 @@ export class RecipeComponent implements OnInit {
     email: "",
     password: ""
   };
-
+  loadingSuccess = false;
   galleryObject = {
     _id: "",
     recipe: Recipe
@@ -263,6 +268,7 @@ export class RecipeComponent implements OnInit {
       this.recipes = recipes;
       this.recipesFilter = this.recipes;
       this.countRecipe = this.recipesFilter.length;
+      this.loadingSuccess = true;
     });
   };
   onChangedIngredient(ingredient: any) {

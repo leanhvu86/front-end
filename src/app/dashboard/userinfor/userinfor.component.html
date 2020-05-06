@@ -1,4 +1,4 @@
-<div class="container" *ngIf="loadPage">
+<div class="container" *ngIf="loadPage; else skeleton;">
   <div class="row" style="background: rgb(233, 235, 238); padding: 20px 0 20px 0;">
     <!--  -->
     <div class="col-3 account-sidebar">
@@ -385,3 +385,179 @@
   </div>
 </div>
 <app-scroll-top></app-scroll-top>
+<ng-template #skeleton>
+  <!-- <main class="container mt-2">
+    <div class="row">
+      <div class="col-4 col-lg-2 p-2">
+        <div class="user-img m-2 mr-auto ml-auto">
+          <img src="/assets/img/user.svg" class="img-fluid rounded-circle">
+        </div>
+      </div>
+      <div class="col-8 col-lg-10 pt-3 sm-text-center">
+        <h2 class="display-5 text-capitalize sm-mr-auto sm-ml-auto"></h2>
+        <p class="lead sm-mr-auto sm-ml-auto"></p>
+        <a href="#" class="btn btn-secondary mr-1"></a><a href="#" class="btn btn-secondary"></a>
+      </div>
+    </div>
+  </main> -->
+  <section style="width: 100%; min-height: auto;">
+    <!-- <div class="pt-2 pb-4 text-center">
+      <h5 class="mr-auto ml-auto"></h5>
+    </div> -->
+    <div class="container">
+
+      <div class="row">
+        <div class="col-3 account-sidebar">
+
+          <h5 class="card-title"
+            style="height: 180px;border-radius: 90px; width: 190px;margin-top: 10px;margin-left: 30px;">
+          </h5>
+          <p class="card-text" style="width: 250px;"></p>
+          <div class="form-inline">
+            <a href="#" class="btn btn-outline-primary mr-auto ml-auto"
+              style="height: 20px;width: 100px;margin-left: 50px;"></a>
+          </div>
+          <br>
+          <br>
+          <div class="form-inline">
+            <a href="#" class="btn btn-outline-primary mr-auto ml-auto" style="height: 10px;width: 250px;"></a>
+          </div>
+          <br>
+          <br>
+          <div class="form-inline">
+            <a href="#" class="btn btn-outline-primary mr-auto ml-auto" style="height: 20px;width: 200px;"></a>
+          </div>
+        </div>
+        <div class="col-8 page-account-info">
+          <h3>Thông tin cá nhân</h3>
+          <div class="row">
+            <table class="table table-borderless table-condensed ">
+              <tr>
+                <td style="width: 200px;">
+
+                </td>
+                <td>
+                  <h4>Thông tin giới thiệu</h4>
+                </td>
+              </tr>
+              <tbody>
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">
+
+
+                    Giới thiệu
+                  </th>
+                  <td>
+                    <p class="card-text" style="width: 100%; height: 100px;"></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 200px;">
+
+                  </td>
+                  <td>
+                    <p class="card-text" style="width: 250px; height: 30px;"></p>
+
+                    <ng-template #other_content10>
+                      <div *ngIf="loading">
+
+                        <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    </ng-template>
+
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <td style="width: 200px;">
+
+                  </td>
+                  <td>
+                    <h4>Thông tin tài khoản</h4>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Email</th>
+                  <td>
+                    <p class="card-text" style="width: 100%;"></p>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Tên người dùng</th>
+                  <td>
+                    <p class="card-text" style="width: 100%;"></p>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Họ</th>
+                  <td>
+                    <p class="card-text" style="width: 100%;"></p>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Năm sinh</th>
+                  <td>
+
+                    <p class="card-text" style="width: 250px;"></p>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Giới tính</th>
+                  <td>
+                    <div class="dropdown">
+                      <p class="card-text" style="width: 250px;"></p>
+                    </div>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">
+                    Tình trạng hôn nhân
+                  </th>
+                  <td>
+                    <div class="dropdown">
+                      <p class="card-text" style="width: 40%;"></p>
+
+                    </div>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;">Chữ kí</th>
+                  <td>
+                    <p class="card-text" style="width: 100%;height: 100px;"></p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="width: 200px;"></td>
+                  <td>
+
+                    <p class="card-text" style="width: 250px;"></p>
+                    <!-- <button type="button" class="btn btn-light" (click)="onClear()">Xóa thông tin</button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</ng-template>

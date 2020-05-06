@@ -26,6 +26,7 @@ export class StationComponent implements OnInit {
   updateMember = false;
   messageModal = false;
   disableAdmin = true;
+  pageSize = 10;
   constructor(
     private userService: UserService,
     private orderPipe: OrderPipe,
@@ -43,7 +44,7 @@ export class StationComponent implements OnInit {
     }
 
     this.config = {
-      itemsPerPage: 10,
+      itemsPerPage: this.pageSize,
       currentPage: 1,
       totalItems: this.users.length
     };
@@ -102,6 +103,13 @@ export class StationComponent implements OnInit {
           return 0;
         }
       });
+
+      for (let i = 0; i < this.users.length; i++) {
+        let user = this.users[i];
+        user.id = i + 1;
+      }
+
+      console.log(this.users)
     });
   }
 
@@ -140,7 +148,15 @@ export class StationComponent implements OnInit {
     const radio: HTMLElement = document.getElementById('modal-button222');
     radio.click();
   }
-
+  keyUp() {
+    console.log(this.pageSize)
+    if (this.searchText.length > 2) {
+      this.pageSize = this.users.length;
+      this.pageChanged(1);
+    } else {
+      this.pageSize = 10;
+    }
+  }
   updateRole(user: any) {
     if (user.warningReport === 0) {
       this.userObject.role = 1;

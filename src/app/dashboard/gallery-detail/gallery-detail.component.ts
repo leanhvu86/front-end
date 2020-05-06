@@ -260,8 +260,10 @@ export class GalleryDetailComponent implements OnInit {
   }
   addRecipeBookMark(gallery: any) {
     if (gallery.recipe !== undefined) {
+      console.log(gallery.recipe)
+      console.log(this.addRecipe)
       for (let recipe of gallery.recipe) {
-        if (recipe.name === this.addRecipe.name) {
+        if (recipe.recipeName === this.addRecipe.recipeName) {
           this.errormessage = 'Công thức đã có trong bộ sưu tập';
           return;
         }
