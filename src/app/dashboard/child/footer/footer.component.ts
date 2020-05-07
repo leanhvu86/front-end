@@ -19,7 +19,6 @@ export class FooterComponent implements OnInit {
   getSummary() {
     this.userService.getSummary(1).subscribe(data => {
       this.summary = data.body['summary']
-      console.log(this.summary)
       this.loadInfo == true
     })
   }

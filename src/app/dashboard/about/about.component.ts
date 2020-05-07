@@ -72,6 +72,10 @@ export class AboutComponent implements OnInit {
                 }
               }
             }
+
+
+
+
           })
         }
       })
@@ -111,6 +115,39 @@ export class AboutComponent implements OnInit {
               }
             }
             this.loadingSuccess = true;
+            this.userService.getNewUsers().subscribe(users => {
+              users.forEach(user => {
+                if (user.status >= 0) {
+                  user.role = 0;
+                  user.warningReport = 0
+
+                }
+              });
+              this.allUser = users;
+
+              for (let i = 0; i < recipes.length; i++) {
+                let recipe = recipes[i];
+                for (let userIndex = 0; userIndex < this.allUser.length; userIndex++) {
+                  let user = this.allUser[userIndex];
+
+                  if (user.imageUrl === undefined) {
+                    user.imageUrl = this.imageUrl;
+                  }
+                  if (user._id === recipe.user._id) {
+                    user.role++;
+                  }
+                }
+              }
+              for (let i = 0; i < gallerys.length; i++) {
+                let gallery = gallerys[i];
+                for (let userIndex = 0; userIndex < this.allUser.length; userIndex++) {
+                  let user = this.allUser[userIndex];
+                  if (user._id === gallery.user._id) {
+                    user.warningReport++;
+                  }
+                }
+              }
+            })
           });
         }
       });
