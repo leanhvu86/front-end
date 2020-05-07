@@ -8,15 +8,15 @@
             <li>
               <div class="container" [routerLink]="['/detailRecipe/', recipe._id]" style="cursor: pointer;">
                 <div class="row">
-                  <div class="col">
+                  <div class="col-1">
                     <a style="font-size: 16px;">{{i+1}}</a>
                   </div>
-                  <div class="col-6">
+                  <div class="col-8">
                     <a style="font-size: 16px;">{{recipe.recipeName}}</a>
                     <br>
                     <a style="font-size: 10px;">{{recipe.content}}</a>
                   </div>
-                  <div class="col">
+                  <div class="col-1">
                     <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;" class="hover">
                       <cl-transformation width="100" height="100" crop="scale" quality="auto">
                       </cl-transformation>
