@@ -66,6 +66,7 @@ export class RecipeDetailComponent implements OnInit {
   recipeComment: Comment[] = [];
   lstComment: Comment[];
   loadingRest = false;
+  loading = false;
   constructor(
     private cloudinary: Cloudinary,
     private route: ActivatedRoute,
@@ -515,6 +516,7 @@ export class RecipeDetailComponent implements OnInit {
       radio.click();
       return;
     }
+    this.loading = true;
     this.done = true;
     let user = this.cookie.get('email');
     let doneObject = new Object({
@@ -550,7 +552,7 @@ export class RecipeDetailComponent implements OnInit {
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-
+        this.loading = false;
       } else {
         this.message = data.body['message'];
         const radio: HTMLElement = document.getElementById('modal-button10');
@@ -577,6 +579,7 @@ export class RecipeDetailComponent implements OnInit {
     } else {
       typeDone = 0;
     }
+    this.loading = true;
     let user = this.cookie.get('email');
     const inputValue = (document.getElementById(
       'imageArray'
@@ -608,12 +611,22 @@ export class RecipeDetailComponent implements OnInit {
         let imageArr = comment.imageUrl.split(',');
         comment.imageUrl = imageArr;
         this.recipeComment.push(comment);
-        this.message = data.body['message'];
-        const radio: HTMLElement = document.getElementById('modal-button10');
-        radio.click();
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
+        this.recipeComment.sort((a, b) => {
+          if (a.order > b.order) {
+            return -1;
+          } else if (a.order < b.order) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        this.loading = false;
+        // this.message = data.body['message'];
+        // const radio: HTMLElement = document.getElementById('modal-button10');
+        // radio.click();
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 3000);
 
       } else {
         this.message = data.body['message'];
