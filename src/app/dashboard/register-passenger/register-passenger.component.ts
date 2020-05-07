@@ -501,6 +501,11 @@ export class RegisterPassengerComponent implements OnInit {
         this.message = '';
         recipe.ingredients = this.ingredientArrays;
         console.log(this.ingredientArrays);
+        let nameSpace = recipe.recipeName;
+        nameSpace = nameSpace.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        console.log(nameSpace);
+        recipe.nameSpace = nameSpace;
+
         this.recipeService.registerRecipe(recipe).subscribe((data) => {
           const result = data.body;
           if (result['status'] === 200) {

@@ -6,8 +6,6 @@ import { DashBoardRoutes } from './dashboard.routing';
 import { Home2Component } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { RoutingComponent } from './routing/routing.component';
-import { AccordionGroupComponent } from './accordion/accordion-group.component';
-import { AccordionComponent } from './accordion/accordion.component';
 import { RegisterPassengerComponent } from './register-passenger/register-passenger.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComboBoxComponent } from './combo-box/combo-box.component';
@@ -59,8 +57,6 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     Home2Component,
     AboutComponent,
     RoutingComponent,
-    AccordionGroupComponent,
-    AccordionComponent,
     RegisterPassengerComponent,
     ComboBoxComponent,
     LoginComponent,

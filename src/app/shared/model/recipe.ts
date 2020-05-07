@@ -29,4 +29,5 @@ export class Recipe {
     updateAt: any;
     seq: any;
     ord: any;
+    nameSpace: any;
 }
