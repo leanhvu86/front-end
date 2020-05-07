@@ -75,7 +75,7 @@
       *ngFor="let recipe of recipes|filter:searchText|paginate:{itemsPerPage: 20, currentPage:p};let i = index">
       <div class="item-inner ng-scope" style="background: white;">
         <div class="item-photo" style="    position: relative;">
-          <a [routerLink]="['/detail/', recipe._id]" class="photo">
+          <a [routerLink]="['/detail/', recipe.nameSpace]" class="photo">
             <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: -4px;">
               <cl-transformation width="216" height="226" radius="20" crop="scale" quality="auto">
               </cl-transformation>
@@ -107,7 +107,7 @@
         <div class="item-info">
           <div class="item-title">
             <h3>
-              <a [routerLink]="['/detail/', recipe._id]" class="namenamename"
+              <a [routerLink]="['/detail/', recipe.nameSpace]" class="namenamename"
                 title="{{recipe.recipeName}}">{{recipe.recipeName}}</a>
             </h3>
           </div>

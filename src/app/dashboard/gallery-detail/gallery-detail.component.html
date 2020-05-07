@@ -50,7 +50,7 @@
       style="position: relative;margin-bottom: 100px;">
       <div class="hover15 column"
         style="float: left; margin-left: 3.5%; width: 30%; position: relative; text-align: center;">
-        <div [routerLink]="['/detail/', recipe._id]">
+        <div [routerLink]="['/detail/', recipe.nameSpace]">
           <figure>
             <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
               <cl-transformation width="200" height="280" crop="crop" quality="auto">
@@ -64,7 +64,7 @@
                 -webkit-box-orient: vertical;
                 overflow: hidden;
                 display: -webkit-box;text-decoration: none; font-style: inherit;font-size: 16px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
-          [routerLink]="['/detail/', recipe._id]">{{recipe.recipeName}}</a>
+          [routerLink]="['/detail/', recipe.nameSpace]">{{recipe.recipeName}}</a>
 
         <div style="top:340px;left:  2px; position: absolute; font-size: 12px; opacity: 0.8; ">&#160;
           <i class="fa fa-clock-o stats-ico" aria-hidden="true"> {{recipe.time}}ph</i>

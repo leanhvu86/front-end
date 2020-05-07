@@ -178,7 +178,8 @@
                     </div>
                     <div
                       style=" position: absolute; top:60px; left: 100px; width: 560px;text-align: left;padding-bottom: 5px; padding-left: 50px;">
-                      <div class="row"><a style="color: olivedrab;"> {{cookStep.check}}</a> <a> {{cookStep.time}}
+                      <div class="row"><a style="color: olivedrab;"> {{cookStep.check}}</a> <a *ngIf="cookStep.time">
+                          {{cookStep.time}}
                           phút</a>
                       </div>
                       <div class="row"><a> {{cookStep.psnote}}</a></div>

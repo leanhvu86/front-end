@@ -557,6 +557,7 @@ export class RecipeDetailComponent implements OnInit {
         this.message = data.body['message'];
         const radio: HTMLElement = document.getElementById('modal-button10');
         radio.click();
+        this.loading = false;
       }
     });
   }

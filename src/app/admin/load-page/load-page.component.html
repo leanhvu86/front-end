@@ -6,7 +6,7 @@
         <cdk-virtual-scroll-viewport style="height: 600px" itemSize="50">
           <ng-container *cdkVirtualFor="let recipe of recipes; let i = index;">
             <li>
-              <div class="container" [routerLink]="['/detailRecipe/', recipe._id]" style="cursor: pointer;">
+              <div class="container" [routerLink]="['/detailRecipe/', recipe.nameSpace]" style="cursor: pointer;">
                 <div class="row">
                   <div class="col-1">
                     <a style="font-size: 16px;">{{i+1}}</a>
