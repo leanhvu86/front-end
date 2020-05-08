@@ -194,7 +194,7 @@
     </ng-template>
     <div class="row" data-aos="fade-in" data-aos-duration="4000" *ngIf="loadingSuccess; else skeleton">
 
-      <div class="col-3 px-0" *ngFor="let recipe of recipes| paginate: config; let i=index"
+      <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 px-0" *ngFor="let recipe of recipes| paginate: config; let i=index"
         style="position: relative;">
         <div class="hover15 column"
           style="float: left;position: relative; text-align: center;">
@@ -202,7 +202,7 @@
             <div class="w-100">
               <figure>
                 <cl-image public-id="{{recipe.imageUrl}}" class="img-fluid" style="margin-top: 15px;">
-                  <cl-transformation height="260" crop="scale" width="250" quality="auto">
+                  <cl-transformation height="280" crop="scale" width="260" quality="auto">
                   </cl-transformation>
                 </cl-image>
               </figure>
@@ -294,7 +294,7 @@
         <h5 class="mr-auto ml-auto"></h5>
       </div> -->
         <div class="container">
-          <div class="row">
+          <div class="row justify-content-between">
             <div class="col-lg-3 col-md-4 mb-4">
               <div class="card ">
                 <!-- <img class="card-img-top"  alt=" "> -->
@@ -351,10 +351,10 @@
     <div class="container mt-40" *ngIf="loadingSuccess; else skeleton1">
 
       <div class="row mt-30">
-        <div class="col-md-3 col-sm-6 justify-content-around " *ngFor="let gallery of galleryTop;let i = index" style="margin-top: 50px;">
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 justify-content-around " *ngFor="let gallery of galleryTop;let i = index" style="margin-top: 50px;">
           <div class="box15">
             <cl-image public-id="{{gallery.image}}">
-              <cl-transformation width="255" height="300" crop="crop" quality="auto" radius="2">
+              <cl-transformation width="240" height="230" crop="crop" quality="auto" radius="2">
               </cl-transformation>
             </cl-image>
             <div class="box-content">
@@ -384,9 +384,8 @@
     <div class="clearfix" style="width: 10px;"></div>
     <br><br><br>
     <div style="width: 90%; margin-left: 5%; min-height: auto;" data-aos="fade-in" data-aos-duration="4000">
-
       <div *ngFor="let user of topUsers"
-        style=" float: left;border-radius: 50%; background: none; width: 90px; position: relative; cursor: pointer;">
+        style=" float: left;border-radius: 50%; background: none; width: 80px; position: relative; cursor: pointer;">
         <div class="memberfunny" [routerLink]="['/member/info/',user._id]">
           <!-- <div>
             <figure style="padding: 15% 10%;"> -->
@@ -397,9 +396,9 @@
           <!-- </figure> -->
           <a title="{{user.name}}">
             <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">
-              <cl-transformation width="50" height="50" gravity="face" radius="max" crop="fill" background="#e9ebee">
+              <cl-transformation width="40" height="40" gravity="face" radius="max" crop="fill" background="#e9ebee">
               </cl-transformation>
-              <cl-transformation width="55" crop="scale">
+              <cl-transformation width="45" crop="scale">
               </cl-transformation>
             </cl-image>
           </a>
