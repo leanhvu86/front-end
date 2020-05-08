@@ -1018,6 +1018,9 @@ body {
 .box4 {
   position: relative;
 }
+.box-content {
+  cursor: pointer;
+}
 .box4:before {
   width: 0;
   height: 200%;

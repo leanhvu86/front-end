@@ -351,7 +351,7 @@
     <div class="container mt-40" *ngIf="loadingSuccess; else skeleton1">
 
       <div class="row mt-30">
-        <div class="col-md-3 col-sm-6 justify-content-around" *ngFor="let gallery of galleryTop;let i = index" style="margin-top: 50px;">
+        <div class="col-md-3 col-sm-6 justify-content-around " *ngFor="let gallery of galleryTop;let i = index" style="margin-top: 50px;">
           <div class="box15">
             <cl-image public-id="{{gallery.image}}">
               <cl-transformation width="255" height="300" crop="crop" quality="auto" radius="2">
