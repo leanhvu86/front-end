@@ -9,6 +9,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Message } from '../../shared/model/message';
 import { LoadingBarService } from "ngx-loading-bar";
 import { catchError } from 'rxjs/operators';
+import { AppSetting } from '../../appsetting';
+import * as io from 'socket.io-client';
+import { ChatService } from 'src/app/shared/service/chat.service';
+// socket
 
 @Component({
   selector: 'app-index',
@@ -16,6 +20,9 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
+  socket;
+  BASE_URL = AppSetting.BASE_SERVER_URL;
+
   registerForm: FormGroup;
   submitted = false;
 
@@ -23,6 +30,11 @@ export class IndexComponent implements OnInit {
   userObject = {
     email: "",
     password: ""
+  }
+
+  data = {
+    name: '',
+    userId: ''
   }
   public href: string = "";
   id: string = '1'
@@ -53,14 +65,14 @@ export class IndexComponent implements OnInit {
     private _router: Router,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private chatService: ChatService
   ) {
     translate.setDefaultLang('vi');
     sessionStorage.setItem('currentLang', 'vi');
   }
 
   ngOnInit() {
-
     this.translate.get('Ẩm thực món chay').subscribe(name => {
       this.title.setTitle(name);
     });
@@ -124,14 +136,13 @@ export class IndexComponent implements OnInit {
       return;
     }
 
-    console.log(this.userObject.email + " user đăng nhập");
-    this._loginService.loginAuth(this.userObject).subscribe((data) => {
+    this._loginService.loginAuth(this.userObject).subscribe((userData) => {
       this.errorMessage = null;
-      if (data.body['status'] === 200) {
+      if (userData.body['status'] === 200) {
         this._loginService.updateAuthStatus(true);
 
 
-        let user = data.body;
+        let user = userData.body;
         let role;
         for (let key in user) {
           if (key === 'role') {
@@ -147,7 +158,6 @@ export class IndexComponent implements OnInit {
           if (key === 'user') {
             let users = user[key];
             this.id = users._id
-            console.log(this.id);
             this.cookie.set('token', '');
             this.cookie.set('token', users.token);
             this.cookie.set('isAuthenicate', '');
@@ -172,12 +182,19 @@ export class IndexComponent implements OnInit {
         this.isAuthenicate = true;
         this.getMessage();
         this.href = this._router.url;
+
+        this.socket = io(this.BASE_URL);
+        this.data.name = this.id;
+        this.data.userId = this.socket.id;
+        console.log(this.socket);
+        this.socket.emit('setSocketId', this.data);
+        this.message = '';
         if (this.addPassenger == true) {
           console.log('true');
           this._router.navigate(['/addRecipe']);
           this.addPassenger = false;
         } else if (this.href === '/index') {
-          window.location.reload();
+          //  window.location.reload();
         } else {
           console.log('reload')
 
@@ -185,14 +202,14 @@ export class IndexComponent implements OnInit {
           // this._router.navigate(['/index']);
         }
       }
-      if (data.body['status'] === 206) {
+      if (userData.body['status'] === 206) {
         this.tfaFlag = true;
       }
-      if (data.body['status'] !== 200) {
-        this.errorMessage = data.body['message'];
+      if (userData.body['status'] !== 200) {
+        this.errorMessage = userData.body['message'];
       }
-      if (data.body['status'] === 404) {
-        this.errorMessage = data.body['message'];
+      if (userData.body['status'] === 404) {
+        this.errorMessage = userData.body['message'];
       }
     })
   }

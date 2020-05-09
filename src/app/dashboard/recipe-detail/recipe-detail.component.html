@@ -236,7 +236,9 @@
                 <!-- tìm hiểu để hiển thị bình luận -->
                 <div *ngFor="let cookStep of cookSteps; let i = index" style="display: block;overflow: hidden;"
                   class="bigContent">
-                  <div style="position: relative; height: auto;min-height: 400px;" class="noImage">
+                  <div
+                    style="position: relative; min-height: 400px;display: block;overflow: scroll;padding-bottom: 20px;"
+                    class="noImage">
                     <div
                       style="border-radius: 5px;position: absolute;text-align: center; top:60px; left: 50px;
                       padding-top: 5px; width: 70px;color: rgb(179, 179, 179);; background: #f8f8f8; border: 1px solid #c5c5c5;">
@@ -249,7 +251,7 @@
                         (click)="changeIcon($event, i)"></i>
                     </div>
                     <div
-                      style=" position: absolute; top:60px; right: 50px; width: 560px;text-align: left;padding-bottom: 5px;">
+                      style=" position: absolute; top:60px; right: 30px; width: 560px;text-align: left;padding-bottom: 5px;">
                       <div class="row"><a style="color: olivedrab;display: block;overflow: hidden;">
                           {{cookStep.check}}</a> <a *ngIf="cookStep.time"> {{cookStep.time}}
                           phút</a>
@@ -257,7 +259,8 @@
                       <div class="row">
                         <a> {{ cookStep.psnote }}</a>
                       </div>
-                      <div class="container" *ngIf="!showImageStep">
+                      <div class="container" *ngIf="!showImageStep"
+                        style="margin: 10px 10px; float: left; display: block; overflow: hidden;min-height: 400px;">
 
                         <div class="row" id="image{{ i }}" *ngFor="let imageUrl of cookStep.image; let i = index"
                           style="margin: 10px 10px; float: left; display: block; overflow: hidden;">
@@ -424,7 +427,7 @@
     </div>
   </div>
 
-  <div class="col" style="background: white; height: 800px; margin-top: 40px; border-radius: 20px;display: block;
+  <div class="col" style="background: white;  margin-top: 40px; border-radius: 20px;display: block;
                 overflow: hidden;">
     <br>
     <a style="margin-top: 50px;">CÔNG THỨC LIÊN QUAN</a>

@@ -3,6 +3,7 @@ import { LoginServiceService } from 'src/app/shared/service/login-service.servic
 import { CookieService } from 'ngx-cookie-service';
 import { Token } from 'src/app/shared/model/token';
 import { Router } from '@angular/router';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-home',
@@ -19,13 +20,28 @@ export class HomeComponent implements OnInit {
     email: ""
   }
   user = '';
-  id = ''
-  constructor(private _loginService: LoginServiceService, private cookie: CookieService, private _router: Router) {
+  id = '';
+  newMessage: string;
+  messageList: string[] = [];
+  constructor(
+    private _loginService: LoginServiceService,
+    private cookie: CookieService,
+    private _router: Router,
+    private chatService: ChatService
+  ) {
     // this.getAuthDetails();
   }
-
+  sendMessage() {
+    this.chatService.sendMessage(this.newMessage);
+    this.newMessage = '';
+  }
   ngOnInit() {
-    this.getImage()
+    this.getImage();
+    this.chatService
+      .getMessages()
+      .subscribe((message: string) => {
+        this.messageList.push(message);
+      });
   }
   getImage() {
     let email = this.cookie.get('email');

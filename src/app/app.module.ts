@@ -13,7 +13,8 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './shared/helper';
 import { CookieService } from 'ngx-cookie-service';
-
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 @NgModule({
   declarations: [
     AppComponent
@@ -33,6 +34,7 @@ import { CookieService } from 'ngx-cookie-service';
     Ng2SearchPipeModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     BrowserAnimationsModule,
+    SocketIoModule.forRoot(config)
     // ɵangular_packages_forms_forms_bb
   ],
   schemas: [

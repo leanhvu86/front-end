@@ -118,7 +118,7 @@ img {
 .column div {
   position: relative;
   float: left;
-  width: 270px;
+  width: 250px;
   /* height: 300px; */
   margin: 0 5%;
   padding: 0;
@@ -144,7 +144,7 @@ img {
   opacity: 0;
 }
 figure {
-  width: 270px;
+  width: 240px;
   height: 400px;
   /* padding: 3% 12% 2% 12%; */
   background: #fff;
