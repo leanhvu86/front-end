@@ -2,7 +2,7 @@ export class Gallery {
   _id: Object;
   user: any;
   name: String;
-  content: String;
+  content: any;
   recipe: any;
   totalPoint: any;
   image: String;

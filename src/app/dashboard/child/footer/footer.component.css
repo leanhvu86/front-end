@@ -6,6 +6,9 @@ li:hover span{
 .jm-logo a {
 	padding: 20px;
 }
+.text-muted{
+	color: white;
+}
 .jm-logo img:hover {
 	-webkit-animation-name: wobble-to-top-right;
 	animation-name: wobble-to-top-right;

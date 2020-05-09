@@ -216,7 +216,6 @@
         opacity: 1;
       }
     }
-
   </style>
   <!-- Custom styles for this template -->
   <link href="../../../assets/css/product.css" rel="stylesheet" />
@@ -226,7 +225,7 @@
 </head>
 
 <!-- <body> -->
-<div style="background-color: #08a736cf;" >
+<div style="background-color: #08a736cf;">
   <div class="container">
     <div class="row py-2">
       <div class="col-md-2 text-left">
@@ -304,22 +303,23 @@
             </a>
           </div>
         </a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase font-weight-bold"  id="index-home-link"
+        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " id="index-home-link"
           title="Trang chủ ẩm thực chay" routerLink="/index">{{ "index.home" | translate }}</a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase font-weight-bold" routerLink="/recipe"
+        <a class="py-4 d-none d-md-inline-block blinker text-uppercase" routerLink="/recipe"
           title="Trang danh sách các công thức">{{ "index.routing" | translate }}</a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase font-weight-bold" routerLink="/gallery"
+        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " routerLink="/gallery"
           title="Trang danh sách các bộ sưu tập nổi bát">{{ "index.servie" | translate }}</a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase font-weight-bold" routerLink="/about"
+        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " routerLink="/about"
           title="Trang giới thiệu về ẩm thực chay">{{ "index.about" | translate }}</a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase font-weight-bold" routerLink="/gioithieu">Về chúng tôi</a>
+        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " routerLink="/gioithieu">Về
+          chúng tôi</a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>
-    
+
       </div>
     </div>
   </div>
@@ -331,14 +331,16 @@
             <div class="rotate">
               <div class="rotate-inner">
                 <form id="demo-2">
-                  <img style="height: 40px;width:185px;margin-left: 0px;"  routerLink="/index" src="../../../assets/images/logo1.png" />
+                  <img style="height: 40px;width:185px;margin-left: 0px;" routerLink="/index"
+                    src="../../../assets/images/logo1.png" />
                 </form>
               </div>
             </div>
           </div>
           <div class="col-2">
-            <button class="py-2 d-none d-md-inline-block register-button pl" style="right: 18%;padding: 2px 8px; " title="Đăng công thức mới" (click)="onChange($event)"><i class="fa fa-pencil-square-o" style="padding: 2px 8px;"
-aria-hidden="true"></i>{{ "register.recipe" | translate }}</button>
+            <button class="py-2 d-none d-md-inline-block register-button pl" style="right: 18%;padding: 2px 8px; "
+              title="Đăng công thức mới" (click)="onChange($event)"><i class="fa fa-pencil-square-o"
+                style="padding: 2px 8px;" aria-hidden="true"></i>{{ "register.recipe" | translate }}</button>
           </div>
           <div class="col-1">
             <div class="nav-item avatar dropdown" *ngIf="isAuthenicate">
@@ -366,12 +368,13 @@ aria-hidden="true"></i>{{ "register.recipe" | translate }}</button>
             <a class="py-2 d-none d-md-inline-block register-button hover" *ngIf="!isAuthenicate; else other_content"
               style=" padding: 2px 8px;" (click)="onChangecheck($event)">{{ "index.register" | translate }}</a>
             <ng-template #other_content>
-              <div class="nav-item avatar dropdown" >
+              <div class="nav-item avatar dropdown">
                 <a class="nav-link dropdown-toggle hover" id="navbarDropdownMenuLink-44" data-toggle="dropdown"
                   aria-haspopup="true" title="Quản lý tài khoản" aria-expanded="false"
                   style=" position: absolute; right: 5%; top:-15px;">
                   <cl-image public-id="{{ imageUrl }}" style="border-radius: 50px;">
-                    <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill" background="#e9ebee">
+                    <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill"
+                      background="#e9ebee">
                     </cl-transformation>
                     <cl-transformation width="55" crop="scale"> </cl-transformation>
                   </cl-image>

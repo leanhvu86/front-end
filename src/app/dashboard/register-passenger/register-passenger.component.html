@@ -111,6 +111,7 @@
                 <br />
                 <a style="margin-left: 5%;">{{'dokho.thoigian' | translate }}<span style="color: red;">*</span></a>
                 <br />
+                <br>
                 <div class="row" style="width: 90%; margin: 0 5%;">
                   <select type="text" formControlName="hardLevel"
                     [ngClass]="{ 'is-invalid': submitted && f.hardLevel.errors }"
@@ -358,22 +359,22 @@
                   hơn</a>
                 <div style="width: 100%; padding:2% 5%; "><a>Công thức</a></div>
                 <div class="pretty p-switch p-switch p-primary" *ngFor="let foodType of foodTypes"
-                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 13px;">
                   <div>
                     <input type="checkbox" value={{foodType}} (change)="getCheckboxValuesFoodType($event,foodType) " />
                     <div class=" state">
-                      <label>{{foodType.foodTypeName}}</label>
+                      <label style="font-size: 13px;">{{foodType.foodTypeName}}</label>
                     </div>
                   </div>
                 </div>
                 <br>
                 <div style="width: 100%; padding:5% 5%; "><a>Ẩm thực</a></div>
                 <div class="pretty p-switch p-switch p-primary" *ngFor="let country of countrys"
-                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 13px;">
                   <div>
                     <input type="checkbox" value={{country}} (change)="getCheckboxValues($event,country) " />
                     <div class=" state">
-                      <label>{{country.countryName}}</label>
+                      <label style="font-size: 13px;">{{country.countryName}}</label>
                     </div>
                   </div>
                 </div>
@@ -382,11 +383,11 @@
                 <br>
                 <div style="width: 100%; padding:2% 5%; "><a>Cách chế biến, nguyên liệu</a></div>
                 <div class="pretty p-switch p-switch p-primary" *ngFor="let cookWay of cookWays"
-                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 13px;">
                   <div>
                     <input type="checkbox" value={{cookWay}} (change)="getCheckboxValuesCookWay($event,cookWay) " />
                     <div class=" state">
-                      <label>{{cookWay.cookWayName}}</label>
+                      <label style="font-size: 13px;">{{cookWay.cookWayName}}</label>
                     </div>
                   </div>
                 </div>

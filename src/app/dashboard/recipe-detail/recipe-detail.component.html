@@ -208,6 +208,7 @@
                       style="font-size: 20px;font-weight: 500; font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Cách
                       làm &#160;{{ recipe.recipeName }}</a>
                     <br />
+                    <br>
                     <a class="atitle" (click)="fullImage()">
                       <span class="active-button" *ngIf="viewFull;else other_content"><i class="fa fa-list fa-lg "
                           aria-hidden="true"></i>&#160;&#160;Xem đầy đủ&#160;</span>
@@ -234,52 +235,51 @@
                 <a class="atitle" style="margin-left:5%; font-size: 25px; color: #c5c5c5;">
                   Thực hiện</a>
                 <!-- tìm hiểu để hiển thị bình luận -->
-                <div *ngFor="let cookStep of cookSteps; let i = index" style="display: block;overflow: hidden;"
-                  class="bigContent">
-                  <div
-                    style="position: relative; min-height: 400px;display: block;overflow: scroll;padding-bottom: 20px;"
-                    class="noImage">
-                    <div
-                      style="border-radius: 5px;position: absolute;text-align: center; top:60px; left: 50px;
-                      padding-top: 5px; width: 70px;color: rgb(179, 179, 179);; background: #f8f8f8; border: 1px solid #c5c5c5;">
-                      <a>Bước </a>
-                      <br />
-                      <a>{{ i + 1 }}</a>
-                      <br />
-                      <a>___</a><br />
-                      <i class="fa fa-check-circle fa-lg" id="icon{{ i }}" aria-hidden="true"
-                        (click)="changeIcon($event, i)"></i>
-                    </div>
-                    <div
-                      style=" position: absolute; top:60px; right: 30px; width: 560px;text-align: left;padding-bottom: 5px;">
-                      <div class="row"><a style="color: olivedrab;display: block;overflow: hidden;">
-                          {{cookStep.check}}</a> <a *ngIf="cookStep.time"> {{cookStep.time}}
-                          phút</a>
-                      </div>
-                      <div class="row">
-                        <a> {{ cookStep.psnote }}</a>
-                      </div>
-                      <div class="container" *ngIf="!showImageStep"
-                        style="margin: 10px 10px; float: left; display: block; overflow: hidden;min-height: 400px;">
+                <br>
+                <div class="container" *ngFor="let cookStep of cookSteps; let i = index">
+                  <div class="row" style="margin-top: 10px;">
+                    <div class="col-9" style="text-align: right;"><a style="color: olivedrab;">
+                        {{cookStep.check}}</a> <a *ngIf="cookStep.time"> {{cookStep.time}}
+                        phút</a></div>
+                    <div class="col-2">
 
-                        <div class="row" id="image{{ i }}" *ngFor="let imageUrl of cookStep.image; let i = index"
-                          style="margin: 10px 10px; float: left; display: block; overflow: hidden;">
-                          <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
+                    </div>
+                    <div class="col-2 ">
+                      <div
+                        style="border-radius: 5px;text-align: center; margin-left: 30%;
+                      padding-top: 5px; width: 70px;color: rgb(179, 179, 179);; background: #f8f8f8; border: 1px solid #c5c5c5;">
+                        <a>Bước </a>
+                        <br />
+                        <a>{{ i + 1 }}</a>
+                        <br />
+                        <a>___</a><br />
+                        <i class="fa fa-check-circle fa-lg" id="icon{{ i }}" aria-hidden="true"
+                          (click)="changeIcon($event, i)"></i>
+                      </div>
+                    </div>
+                    <div class="col-9"> <a> {{ cookStep.psnote }}</a></div>
+                  </div>
+                  <div class="container" *ngIf="!showImageStep"
+                    style="margin: 10px 10px; float: left; display: block; overflow: hidden;">
+
+                    <div class="row" id="image{{ i }}" *ngFor="let imageUrl of cookStep.image; let i = index"
+                      style="margin: 10px 10px; float: left; display: block; overflow: hidden;">
+                      <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
                           <cl-transformation height="100" width="100" crop="scale">
                           </cl-transformation>
                         </cl-image> -->
-                          <div>
-                            <cl-image public-id="{{ imageUrl }}" *ngIf="imageUrl">
-                              <cl-transformation height="160" radius="20" width="160" crop="scale">
-                              </cl-transformation>
-                              <cl-transformation angle="0"> </cl-transformation>
-                            </cl-image>
-                          </div>
-                        </div>
+                      <div>
+                        <cl-image public-id="{{ imageUrl }}" *ngIf="imageUrl">
+                          <cl-transformation height="220" radius="20" width="220" crop="scale">
+                          </cl-transformation>
+                          <cl-transformation angle="0"> </cl-transformation>
+                        </cl-image>
                       </div>
                     </div>
                   </div>
                 </div>
+
+
                 <br>
                 <br>
               </div>

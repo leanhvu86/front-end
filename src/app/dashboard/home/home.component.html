@@ -13,9 +13,9 @@
             thống</p>
         </div>
         <div style="width: 100%;" class="d-flex justify-content-center pt-5">
-          <form (submit)="findRecipe()" class="form pt-5 pb-5" style="width: 750px;">
+          <form (submit)="findRecipe()" class="form pt-5 pb-5" style="width: 770px;">
             <input class="form-control" type="text" name="search" [(ngModel)]="search" autocomplete="off"
-              placeholder="Tìm kiêm công thức" style="width: 90%; height: 50px;cursor: pointer;float: left;">
+              placeholder="Tìm kiêm công thức" style="width: 89%; height: 50px;cursor: pointer;float: left;">
             <input title="Search" value="" type="submit" class="button" style="">
           </form>
         </div>
@@ -212,7 +212,7 @@
 
           </div>
           <a class="link-name" title="xem chi tiết công thức"
-            style="top: 300px;bottom:20px;text-align: center; -webkit-line-clamp: 3; position: absolute; min-width:150px; width: 260px;
+            style="top: 300px;bottom:20px;text-align: center; -webkit-line-clamp: 3; position: absolute; min-width:150px; width: 250px;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                     display: -webkit-box;text-decoration: none; font-style: inherit;font-size: 16px;color: rgb(0, 0, 0);"
@@ -244,10 +244,10 @@
               <div class="row">
                 <div class="col" [routerLink]="['/member/info/', recipe.user._id]">
                   <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;display: inline-block;">
-                    <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill"
+                    <cl-transformation width="50" height="50" gravity="face" radius="max" crop="fill"
                       background="#e9ebee">
                     </cl-transformation>
-                    <cl-transformation width="55" crop="scale">
+                    <cl-transformation width="35" crop="scale">
                     </cl-transformation>
                   </cl-image>
                   <input type="text" value="{{recipe.user.name}}"
@@ -266,7 +266,7 @@
           </div>
 
           <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
-              aria-hidden="true" style="top:25%;left:95px;width: 30%;"></i></span>
+              aria-hidden="true" style="top:26%;left:31%;width: 30%;"></i></span>
         </div>
       </div>
 
@@ -409,7 +409,7 @@
           </a>
 
           <!-- </div> -->
-
+          <br><br>
         </div>
         <!-- <a class="link-name" routerLink="/detail/{{recipe._id}}">{{user.userName}}</a> -->
         <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"

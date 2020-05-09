@@ -7,6 +7,11 @@ import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Gallery } from 'src/app/shared/model/gallery';
 import { trigger } from '@angular/animations';
 import { fadeIn } from '../../shared/animation/fadeIn';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Recipe } from 'src/app/shared/model/recipe';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/shared/service/user.service.';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 
 
 @Component({
@@ -33,25 +38,140 @@ export class MygalleryComponent implements OnInit {
     password: ''
   };
   deleteId = '';
-  galleryObject = {
-    id: ''
-  };
   message = '';
   myGallery: Gallery[] = [];
   user: User;
   loadPage: boolean = false;
   p: number;
-
+  submitted: boolean = false;
+  registerForm: FormGroup;
+  isAuthenicate: boolean;
+  childMessage: Gallery;
+  galleryObject = {
+    content: '',
+    _id: '',
+    name: '',
+    user: '',
+    recipes: []
+  };
+  searchText: string = '';
+  gallerys: Gallery[] = [];
+  oldRecipes: Recipe[] = [];
+  newRecipe: Recipe[] = [];
+  errorMessage: String = '';
+  recipes: Recipe[] = []
+  saving = false;
+  chooseGallery: Gallery;
   constructor(
-    private _loginService: LoginServiceService,
     private cookie: CookieService,
+    private formBuilder: FormBuilder,
+    private galleryService: GalleryService,
+    private userService: UserService,
+    private recipeService: RecipeService,
+    private _route: ActivatedRoute,
+    private _loginService: LoginServiceService,
     private gallerrService: GalleryService
   ) {
   }
 
   ngOnInit() {
     this.getUserInfo();
+
+    this.getRecipes();
+    this.registerForm = this.formBuilder.group({
+      name: new FormControl(['', [Validators.required, Validators.minLength(5), Validators.maxLength(200)]]),
+      content: new FormControl(['', [Validators.required, Validators.minLength(20), Validators.maxLength(500)]])
+      // , image: ['']
+    });
   }
+
+  get f() {
+    return this.registerForm.controls;
+  }
+
+  removeRecipe(recipe: any, i: any) {
+    // const radio: HTMLElement = document.getElementById('old' + i);
+    // radio.style.display = 'none';
+    recipe.like = false;
+    this.newRecipe = this.newRecipe.filter(obj => obj.recipeName !== recipe.recipeName);
+    this.oldRecipes = this.oldRecipes.filter(obj => obj.recipeName !== recipe.recipeName);
+    console.log(this.newRecipe.length)
+  }
+  addRecipe(recipe: any, i: any) {
+    recipe.like = true
+    this.newRecipe.push(recipe);
+    console.log(this.newRecipe.length)
+  }
+
+  registerGallery(gallery: any) {
+    console.log('add');
+    this.chooseGallery = gallery;
+    this.oldRecipes = this.chooseGallery.recipe;
+    this.newRecipe = this.oldRecipes;
+
+    console.log(this.oldRecipes.length + 'công thức của bộ sưu tập');
+    this.registerForm.patchValue({
+      name: this.chooseGallery.name,
+      content: this.chooseGallery.content
+    });
+
+    const radio: HTMLElement = document.getElementById('add-recipe-gallery');
+    radio.click();
+    console.log(this.registerForm.value)
+  }
+
+  updateGallery() {
+    this.submitted = true;
+    if (this.registerForm.invalid) {
+      return;
+    }
+    this.saving = true;
+    this.galleryObject = this.registerForm.value;
+
+    console.log(this.galleryObject);
+    console.log(this.newRecipe)
+    let email = this.cookie.get('email');
+    this.galleryObject.user = email;
+    this.galleryObject.recipes = this.newRecipe;
+    let id = JSON.stringify(this.chooseGallery._id);
+    id = id.substring(1);
+    id = id.substring(0, id.length - 1);
+    this.galleryObject._id = id;
+    console.log(this.galleryObject);
+
+    this.galleryService.updateGallery(this.galleryObject).subscribe(gallery => {
+      console.log(gallery);
+      if (gallery !== undefined) {
+        this.message = '    Chúc mừng bạn lưu thông tin bộ sưu tập thành công';
+        setTimeout(() => {
+          const radio: HTMLElement = document.getElementById('close-modal');
+          radio.click();
+          this.message = '';
+          //this.registerForm.reset();
+          window.location.reload();
+        }, 5000);
+
+      }
+    });
+  }
+  getRecipes() {
+    this.recipeService.getRecipes().subscribe(recipes => {
+      if (recipes !== undefined) {
+        this.recipes = recipes;
+        this.recipes.forEach(recipe => {
+          recipe.like = false;
+          for (let recipe of this.oldRecipes) {
+            this.recipes = this.recipes.filter(temp =>
+              temp.recipeName !== recipe.recipeName)
+          }
+        })
+      }
+      console.log(this.recipes.length + 'công thức của website');
+    });
+  }
+
+
+
 
   getUserInfo() {
     let email = this.cookie.get('email');
@@ -110,7 +230,7 @@ export class MygalleryComponent implements OnInit {
       this.message = 'Bạn chưa chọn bộ sưu tập. Vui lòng thao tác lại';
       return;
     }
-    this.galleryObject.id = id;
+    this.galleryObject._id = id;
     this.gallerrService.deleteGallery(this.galleryObject).subscribe(data => {
       console.log(data);
       this.message = data.body['message'];

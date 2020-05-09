@@ -23,8 +23,8 @@
         <th [class.active]="order === 'info.viewCount'" class="mdl-data-table__cell--non-numeric">
           Lượt xem </th>
         <th [class.active]="order === 'info.status'" (click)="setOrder('info.status')"
-          class="mdl-data-table__cell--non-numeric">Trạng thái <span [hidden]="reverse">▼</span><span
-            [hidden]="!reverse">▲</span></th>
+          class="mdl-data-table__cell--non-numeric">Trạng thái <span [hidden]="reverse"
+            style="cursor: pointer;">▼</span><span [hidden]="!reverse">▲</span></th>
         <th>Duyệt bởi</th>
       </tr>
     </thead>
