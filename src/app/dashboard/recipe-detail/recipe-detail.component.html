@@ -70,20 +70,21 @@
                 <a class=" btn-act btn-add-favourite ng-isolate-scope" title="Yêu thích món ăn"
                   style="margin-left: 50px;">
                   <span (click)="likeRecipe(recipe,i)" *ngIf="!likeUser;else other_content100"><i id="heart{{i}}"
-                      class="fa fa-heart fa-3x heart" aria-hidden="true" style="margin-left: 55px;"></i></span>
+                      class="fa fa-heart fa-3x heart" aria-hidden="true"
+                      style="margin-left: 55px;cursor: pointer;"></i></span>
                   <ng-template #other_content100>
                     <span (click)="dislikeRecipe(recipe,i)"><i class="fa fa-heart fa-3x dislikeheart "
-                        style="margin-left: 55px;" id="heart{{i}}" aria-hidden="true"></i></span>
+                        style="margin-left: 55px;cursor: pointer;" id="heart{{i}}" aria-hidden="true"></i></span>
                   </ng-template>{{recipe.totalPoint}}
                 </a>
               </div>
               <div class="col">
                 <a (click)="addDoneRecipe(recipe)"><img src="../../../assets/images/check-o.gray.png"
                     *ngIf="!recipe.like; else other_content11111"
-                    style="width: 30px;height: 30px; margin-left: 2px; background: none;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
+                    style="width: 30px;height: 30px; margin-left: 2px; background: none;cursor: pointer;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
                 <ng-template #other_content11111>
                   <img src="../../../assets/images/check-o.red.png"
-                    style="width: 30px;height: 30px; margin-left: 2px;background: none;" />
+                    style="width: 30px;height: 30px; margin-left: 2px;background: none;cursor: pointer;" />
                 </ng-template>
               </div>
               <div class="col">

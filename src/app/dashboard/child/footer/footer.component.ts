@@ -22,4 +22,8 @@ export class FooterComponent implements OnInit {
       this.loadInfo == true
     })
   }
+  clickMenu() {
+    const radio: HTMLElement = document.getElementById('scroll-to-top');
+    radio.click();
+  }
 }
