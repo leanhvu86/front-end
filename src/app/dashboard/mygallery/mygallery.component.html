@@ -458,9 +458,13 @@
                               aria-hidden="true"></i></a>
                         </div>
                         <div class="col-6">
-                          <a style="font-size: 16px;">{{recipe.recipeName}}</a>
+                          <a style="font-size: 16px;text-overflow: ellipsis;
+                          overflow: hidden;
+                          white-space:nowrap;">{{recipe.recipeName}}</a>
                           <br>
-                          <a style="font-size: 10px;">{{recipe.content}}</a>
+                          <a style="font-size: 10px;text-overflow: ellipsis;
+                          overflow: hidden;
+                          white-space:nowrap;">{{recipe.content}}</a>
                         </div>
                         <div class="col">
                           <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">

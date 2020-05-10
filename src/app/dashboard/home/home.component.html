@@ -363,8 +363,10 @@
               </cl-transformation>
             </cl-image>
             <div class="box-content">
-              <a class="title" style=" width: 100% ;text-decoration: none; text-align: center;"
-                title="{{gallery.content}}" [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}
+              <a class="title" style=" width: 100% ;text-decoration: none; text-align: center;text-overflow: ellipsis;
+              overflow: hidden;
+              white-space:nowrap;" title="{{gallery.content}}"
+                [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}
               </a>
 
               <ul class="icon" style=" bottom:15% ;">
