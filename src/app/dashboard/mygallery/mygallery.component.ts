@@ -230,6 +230,7 @@ export class MygalleryComponent implements OnInit {
       this.message = 'Bạn chưa chọn bộ sưu tập. Vui lòng thao tác lại';
       return;
     }
+    console.log(id)
     this.galleryObject._id = id;
     this.gallerrService.deleteGallery(this.galleryObject).subscribe(data => {
       console.log(data);
