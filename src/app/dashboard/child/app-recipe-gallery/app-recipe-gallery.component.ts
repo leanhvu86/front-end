@@ -47,7 +47,10 @@ export class AppRecipeGalleryComponent implements OnInit {
 
   ngOnInit() {
     this.oldRecipes = this.childMessage.recipe;
-    this.newRecipe = this.oldRecipes;
+    this.oldRecipes.forEach(recipe => {
+      this.newRecipe.push(recipe)
+    })
+    // this.newRecipe = this.oldRecipes;
     this.registerForm = this.formBuilder.group({
       name: [this.childMessage.name, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
       content: [this.childMessage.content, [Validators.required, Validators.minLength(20), Validators.maxLength(500)]]
