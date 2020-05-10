@@ -434,12 +434,12 @@
     <hr />
     <div class="row">
       <div class="col" *ngFor="let recipe of recipes; let i = index">
-        <cl-image public-id="{{ recipe.imageUrl }}" (click)="getRecipeDetail(recipe._id)">
+        <cl-image public-id="{{ recipe.imageUrl }}" (click)="getRecipeDetail(recipe.nameSpace)">
           <cl-transformation width="150" height="150" crop="scale" quality="auto" radius="20">
           </cl-transformation>
         </cl-image>
         <br />
-        <a (click)="getRecipeDetail(recipe._id)" style="color: black;">{{ recipe.recipeName }}</a>
+        <a (click)="getRecipeDetail(recipe.nameSpace)" style="color: black;">{{ recipe.recipeName }}</a>
         <br /><a>{{ recipe.viewCount }} <a style="color: #c5c5c5;">lượt xem</a>
           {{ recipe.time }} phút</a>
       </div>

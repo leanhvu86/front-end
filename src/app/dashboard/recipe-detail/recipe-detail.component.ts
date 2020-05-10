@@ -128,6 +128,8 @@ export class RecipeDetailComponent implements OnInit {
     this.recipeService.getRecipeDetail(id).subscribe(data => {
       let recipeTem = data['recipe'];
       this.recipe = recipeTem;
+      console.log(id);
+      console.log(this.recipe)
       if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
         for (let ingredient of this.recipe.ingredients) {
           let quantity =
@@ -219,11 +221,11 @@ export class RecipeDetailComponent implements OnInit {
 
   getComent() {
     this.doneCount = 0;
+    this.recipeComment.length = 0;
     this.recipeService.getComments().subscribe(data => {
       if (data !== undefined) {
         this.lstComment = data['comments'];
         for (const comment of this.lstComment) {
-          console.log(comment.recipe.recipeName);
           if (comment.recipe.recipeName === this.recipe.recipeName) {
             if (comment.type === 1) {
               this.doneCount++;
@@ -241,6 +243,8 @@ export class RecipeDetailComponent implements OnInit {
             this.recipeComment.push(comment);
           }
         }
+        console.log(this.recipe)
+        console.log(this.recipeComment)
       }
     });
   }
@@ -511,14 +515,15 @@ export class RecipeDetailComponent implements OnInit {
 
 
   addDoneRecipe(recipe: any) {
-    if (this.isAuthenicate == false) {
+    let user = this.cookie.get('email');
+    if (this.isAuthenicate == false && user === '') {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
     this.loading = true;
     this.done = true;
-    let user = this.cookie.get('email');
+
     let doneObject = new Object({
       user: user,
       recipe: recipe,
@@ -563,13 +568,14 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   addComment() {
+    let user = this.cookie.get('email');
     this.submitted = true;
-    if (this.registerForm.invalid) {
-      return;
-    }
-    if (this.isAuthenicate == false) {
+    if (this.isAuthenicate == false && user === '') {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
+      return;
+    }
+    if (this.registerForm.invalid) {
       return;
     }
     this.userObject = this.registerForm.value;
@@ -581,7 +587,6 @@ export class RecipeDetailComponent implements OnInit {
       typeDone = 0;
     }
     this.loading = true;
-    let user = this.cookie.get('email');
     const inputValue = (document.getElementById(
       'imageArray'
     ) as HTMLInputElement).value;
