@@ -471,7 +471,7 @@ export class RecipeComponent implements OnInit {
       cookWay.status = false;
       this.cookWays.push(cookWay);
     }
-    if (this.countrysFilter.length === 0) {
+    if (this.cookWaysFilter.length === 0) {
       const radio: HTMLElement = document.getElementById('CookWay');
       radio.style.color = 'black';
       radio.style.background = '#e7e7e7';

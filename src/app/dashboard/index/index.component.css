@@ -251,7 +251,12 @@ a:active {
   line-height: 32px;
   border-left: 1px solid #f2f2f2;
 }
-
+.link{
+  color: #66CC75;
+}
+.link:hover{
+  color: rgb(7, 150, 28);
+}
 .dropdown-item:active {
   background: white;
 }
