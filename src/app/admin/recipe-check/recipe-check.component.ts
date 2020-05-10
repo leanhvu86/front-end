@@ -13,6 +13,7 @@ import { CookStep } from '../../shared/model/cookStep';
   styleUrls: ['./recipe-check.component.css']
 })
 export class RecipeCheckComponent implements OnInit {
+  loadingSuccess2 = false;
   recipe: Recipe;
   recipeView: Recipe;
   cookSteps: CookStep[] = [];
@@ -92,6 +93,7 @@ export class RecipeCheckComponent implements OnInit {
         }
         this.cookSteps = this.recipe.cockStep;
       }
+      this.loadingSuccess2 = true;
       this.getRecipes();
     });
   }
