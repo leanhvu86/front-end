@@ -34,7 +34,6 @@ export class AddBookmarkComponent implements OnInit {
   ngOnInit() {
     this.getPersonalGallery();
     this.galleryObject.recipe = this.childMessage;
-    console.log(this.galleryObject)
   }
 
   addBookmark() {

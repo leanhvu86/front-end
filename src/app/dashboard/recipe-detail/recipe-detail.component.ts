@@ -67,6 +67,7 @@ export class RecipeDetailComponent implements OnInit {
   lstComment: Comment[];
   loadingRest = false;
   loading = false;
+  loadingSuccess = false;
   constructor(
     private cloudinary: Cloudinary,
     private route: ActivatedRoute,
@@ -128,8 +129,6 @@ export class RecipeDetailComponent implements OnInit {
     this.recipeService.getRecipeDetail(id).subscribe(data => {
       let recipeTem = data['recipe'];
       this.recipe = recipeTem;
-      console.log(id);
-      console.log(this.recipe)
       if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
         for (let ingredient of this.recipe.ingredients) {
           let quantity =
@@ -168,7 +167,7 @@ export class RecipeDetailComponent implements OnInit {
           }
         }
         this.cookSteps = this.recipe.cockStep;
-
+        this.loadingSuccess = true;
         this.getRecipes();
       }
     });
@@ -199,7 +198,7 @@ export class RecipeDetailComponent implements OnInit {
         for (let interst of interests) {
           if (interst.objectId._id === this.recipe._id) {
             this.likeUser = true;
-            console.log(interst)
+
           }
         }
       })
@@ -243,8 +242,6 @@ export class RecipeDetailComponent implements OnInit {
             this.recipeComment.push(comment);
           }
         }
-        console.log(this.recipe)
-        console.log(this.recipeComment)
       }
     });
   }

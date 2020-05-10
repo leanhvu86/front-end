@@ -86,10 +86,10 @@
               <div class="col">
                 <a (click)="addDoneRecipe(recipe)"><img src="../../../assets/images/check-o.gray.png"
                     *ngIf="!recipe.like; else other_content11111"
-                    style="width: 30px;height: 30px; margin-left: 2px;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
+                    style="width: 30px;height: 30px; margin-left: 2px; background: white;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
                 <ng-template #other_content11111>
                   <img src="../../../assets/images/check-o.red.png"
-                    style="width: 30px;height: 30px; margin-left: 2px;" />
+                    style="width: 30px;height: 30px; margin-left: 2px;background: white;" />
                 </ng-template>
               </div>
               <div class="col">
