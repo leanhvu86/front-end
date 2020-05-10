@@ -1,15 +1,9 @@
-<div class="row" style="margin-left: 100px;">
-  <ul *ngIf="recipe" class="breadcrumb nomargin">
-    <li><a class="atitle" routerLink="/recipe" target="_self">Công thức /</a></li>
-    <!-- <li><a class="atitle" routerLink="/about" target="_self">#Tag /</a></li> -->
-    <li class="active">
-      <a class="atitle">{{ recipe.recipeName }}</a>
-    </li>
-  </ul>
-</div>
-<div class="row" *ngIf="recipe" style="width: 90%;margin-left: 5%;padding: 0 15px; ">
+<br>
+<br>
+<div class="row" *ngIf="loadingSuccess; else skeleton1"
+  style="width: 90%;margin-left: 5%;padding: 0 15px; margin-top: -100px;">
   <div class="col-8" style="position: relative; font-size: 13px; text-align: center; ">
-    <div class="image-preview mb-3" style="margin-top: 5%;border-radius: 20px;background: white;">
+    <div class="image-preview mb-3" style="margin-top: 1%;border-radius: 20px;background: white;">
       <cl-image public-id="{{ recipe.imageUrl }}" style="margin-top: 60px;">
         <cl-transformation width="650" height="350" crop="scale" quality="auto" radius="20">
         </cl-transformation>
@@ -86,10 +80,10 @@
               <div class="col">
                 <a (click)="addDoneRecipe(recipe)"><img src="../../../assets/images/check-o.gray.png"
                     *ngIf="!recipe.like; else other_content11111"
-                    style="width: 30px;height: 30px; margin-left: 2px; background: white;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
+                    style="width: 30px;height: 30px; margin-left: 2px; background: none;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
                 <ng-template #other_content11111>
                   <img src="../../../assets/images/check-o.red.png"
-                    style="width: 30px;height: 30px; margin-left: 2px;background: white;" />
+                    style="width: 30px;height: 30px; margin-left: 2px;background: none;" />
                 </ng-template>
               </div>
               <div class="col">
@@ -109,7 +103,7 @@
     </div>
     <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><img
         src="../../../assets/images/cooky-video-play-fill-2.png"
-        style="top:250px;left:360px;width: 50px;height: 50px; position: absolute;" /></span>
+        style="top:250px;left:360px;width: 50px;height: 50px; position: absolute;background: none;" /></span>
     <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
       <div class="row">
         <div class="col col-lg-2">
@@ -507,3 +501,77 @@
   </div>
   <app-scroll-top></app-scroll-top>
 </div>
+
+<ng-template #skeleton1>
+  <!-- <main class="container mt-2">
+    <div class="row">
+      <div class="col-4 col-lg-2 p-2">
+        <div class="user-img m-2 mr-auto ml-auto">
+          <img src="/assets/img/user.svg" class="img-fluid rounded-circle">
+        </div>
+      </div>
+      <div class="col-8 col-lg-10 pt-3 sm-text-center">
+        <h2 class="display-5 text-capitalize sm-mr-auto sm-ml-auto"></h2>
+        <p class="lead sm-mr-auto sm-ml-auto"></p>
+        <a href="#" class="btn btn-secondary mr-1"></a><a href="#" class="btn btn-secondary"></a>
+      </div>
+    </div>
+  </main> -->
+  <section style="width: 100%; min-height: auto;">
+    <!-- <div class="pt-2 pb-4 text-center">
+      <h5 class="mr-auto ml-auto"></h5>
+    </div> -->
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 110%;"></h5>
+              <!-- <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 110%;"></h5>
+              <!-- <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 110%;"></h5>
+              <!-- <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card ">
+            <img class="card-img-top"  alt=" ">
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+              <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </section>
+</ng-template>
