@@ -144,6 +144,10 @@ export class StationComponent implements OnInit {
       this.messageModal = true;
       this.updateMember = false;
       this.message = 'Tài khoản chủ website không thay đổi được quyền!';
+    } else if (user.role === 'Quản trị' && this.cookies.get('role') === '1') {
+      this.messageModal = true;
+      this.updateMember = false;
+      this.message = 'Bạn không có quyền khóa tài khoản của quản trị viên !';
     }
     const radio: HTMLElement = document.getElementById('modal-button222');
     radio.click();
