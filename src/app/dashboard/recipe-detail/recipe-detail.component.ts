@@ -67,7 +67,7 @@ export class RecipeDetailComponent implements OnInit {
   lstComment: Comment[];
   loadingRest = false;
   loading = false;
-  loadingSuccess = false;
+  loadingSuccess1 = false;
   constructor(
     private cloudinary: Cloudinary,
     private route: ActivatedRoute,
@@ -167,7 +167,7 @@ export class RecipeDetailComponent implements OnInit {
           }
         }
         this.cookSteps = this.recipe.cockStep;
-        this.loadingSuccess = true;
+        this.loadingSuccess1 = true;
         this.getRecipes();
       }
     });
