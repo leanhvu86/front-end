@@ -17,7 +17,8 @@
         <h5 class="text-left">Bộ sưu tập cá nhân</h5>
         {{message}}
         <div class="row mt-30">
-          <div class="col-md-4 col-sm-6" *ngFor="let gallery of personalGallery" style="margin-bottom: 30px;">
+          <div class="col-md-4 col-sm-6" *ngFor="let gallery of personalGallery"
+            style="margin-bottom: 30px;cursor: pointer;">
             <div class="box3" (click)="addRecipeBookMark(gallery)">
               <cl-image public-id="{{gallery.image}}">
                 <cl-transformation height="171" width="235" crop="scale">
