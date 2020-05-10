@@ -107,10 +107,11 @@
             </div>
             <br>
             <a class="register-button" title="Thêm công thức vào bộ sưu tập" (click)="registerGallery(gallery)"><i
-                class="fa fa-edit" style="padding: 2px 8px;" aria-hidden="true">&#160;Chỉnh sửa bộ sưu tập</i></a>
+                class="fa fa-edit" style="cursor: pointer;padding: 2px 8px;" aria-hidden="true">&#160;Chỉnh sửa bộ sưu
+                tập</i></a>
             <!-- <app-app-recipe-gallery [childMessage]="gallery" id="gallery{{i}}"></app-app-recipe-gallery> -->
             <a class="eraser" title="Xóa bộ sưu tập cá nhân" (click)="openModal(gallery._id)"><i class="fa fa-trash-o"
-                style="padding: 0 8px;color: #fd4e4e;" aria-hidden="true"></i></a>
+                style="padding: 0 8px;color: #fd4e4e;cursor: pointer;" aria-hidden="true"></i></a>
             <hr>
           </div>
         </div>
@@ -393,7 +394,7 @@
         </div>
         <!--        <div class=".col-md-8" id="gallery" style="position: relative; float: left; padding-left: 5px;"></div>-->
 
-        <p class="text-danger" style="text-align:center;padding-left: 100px;" *ngIf="errorMessage">
+        <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
           {{ errorMessage }}
         </p>
         <a style="padding-left: 100px;"> {{message}}</a>
@@ -458,13 +459,9 @@
                               aria-hidden="true"></i></a>
                         </div>
                         <div class="col-6">
-                          <a style="font-size: 16px;text-overflow: ellipsis;
-                          overflow: hidden;
-                          white-space:nowrap;">{{recipe.recipeName}}</a>
+                          <a style="font-size: 16px;">{{recipe.recipeName}}</a>
                           <br>
-                          <a style="font-size: 10px;text-overflow: ellipsis;
-                          overflow: hidden;
-                          white-space:nowrap;">{{recipe.content}}</a>
+                          <a style="font-size: 10px;">{{recipe.content}}</a>
                         </div>
                         <div class="col">
                           <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">

@@ -194,7 +194,7 @@ export class IndexComponent implements OnInit {
           this._router.navigate(['/addRecipe']);
           this.addPassenger = false;
         } else if (this.href === '/index') {
-          //  window.location.reload();
+          window.location.reload();
         } else {
           console.log('reload')
 
@@ -213,17 +213,7 @@ export class IndexComponent implements OnInit {
       }
     })
   }
-  change(index: any) {
-    console.log(index);
-    for (let i = 0; i < 5; i++) {
 
-      const radio: HTMLElement = document.getElementById('menu' + i);
-      radio.style.color = 'grey';
-
-    }
-    const radio: HTMLElement = document.getElementById('menu' + index);
-    radio.style.color = 'rgb(6, 180, 33)';
-  }
   onChange(value: any) {
     if (this.isAuthenicate === false) {
       console.log('false');
