@@ -15,10 +15,13 @@
       <div class="row">
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">
-            <li><span>{{summary.recipeCount}}</span><a class="text-muted" routerLink="/recipe"> Công thức món chay</a>
+            <li><span>{{summary.recipeCount}}</span><a class="text-muted" routerLink="/recipe" (click)="clickMenu()">
+                Công thức món chay</a>
             </li>
-            <li><span>{{summary.galleryCount}}</span><a class="text-muted" routerLink="/gallery"> Bộ sưu tập</a></li>
-            <li><span>{{summary.userCount}}</span><a class="text-muted" routerLink="/about"> Thành viên</a></li>
+            <li><span>{{summary.galleryCount}}</span><a class="text-muted" routerLink="/gallery" (click)="clickMenu()">
+                Bộ sưu tập</a></li>
+            <li><span>{{summary.userCount}}</span><a class="text-muted" routerLink="/about" (click)="clickMenu()"> Thành
+                viên</a></li>
           </ul>
         </div>
         <div class="col -6 col-md">
@@ -35,14 +38,14 @@
       <div class="row">
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">
-            <li><a class="text-muted" routerLink="/gioithieu">Giới thiệu</a></li>
-            <li><a class="text-muted" routerLink="/quydinh">Quy định</a></li>
+            <li><a class="text-muted" routerLink="/gioithieu" (click)="clickMenu()">Giới thiệu</a></li>
+            <li><a class="text-muted" routerLink="/quydinh" (click)="clickMenu()">Quy định</a></li>
           </ul>
         </div>
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">
-            <li><a class="text-muted" routerLink="/chinhsachbaomat">Chính sách</a></li>
-            <li><a class="text-muted" routerLink="/chinhsachdiem">Chính sách điểm</a></li>
+            <li><a class="text-muted" routerLink="/chinhsachbaomat" (click)="clickMenu()">Chính sách</a></li>
+            <li><a class="text-muted" routerLink="/chinhsachdiem" (click)="clickMenu()">Chính sách điểm</a></li>
           </ul>
         </div>
       </div>

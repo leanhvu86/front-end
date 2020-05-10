@@ -303,16 +303,17 @@
             </a>
           </div>
         </a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " id="index-home-link"
-          title="Trang chủ ẩm thực chay" routerLink="/index"><span
-            style="background: rgb(9, 255, 0);padding: 5px 5px;border-radius: 5px;">{{ "index.home" | translate }}</span></a>
+        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " id="menu0" style="color:rgb(7, 150, 28);"
+          title="Trang chủ ẩm thực chay" routerLink="/index" (click)="change(0)">{{ "index.home" | translate }}</a>
         <a class="py-4 d-none d-md-inline-block blinker text-uppercase" routerLink="/recipe"
-          title="Trang danh sách các công thức">{{ "index.routing" | translate }}</a>
+          title="Trang danh sách các công thức" id="menu1" (click)="change(1)">{{ "index.routing" | translate }}</a>
         <a class="py-4 d-none d-md-inline-block blinker text-uppercase " routerLink="/gallery"
-          title="Trang danh sách các bộ sưu tập nổi bát">{{ "index.servie" | translate }}</a>
+          title="Trang danh sách các bộ sưu tập nổi bật" id="menu2"
+          (click)="change(2)">{{ "index.servie" | translate }}</a>
         <a class="py-4 d-none d-md-inline-block blinker text-uppercase " routerLink="/about"
-          title="Trang giới thiệu về ẩm thực chay">{{ "index.about" | translate }}</a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " routerLink="/gioithieu">Về
+          title="Trang giới thiệu về ẩm thực chay" id="menu3" (click)="change(3)">{{ "index.about" | translate }}</a>
+        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " id="menu4" (click)="change(4)"
+          routerLink="/gioithieu">Về
           chúng tôi</a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>

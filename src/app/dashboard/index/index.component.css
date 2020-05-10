@@ -254,6 +254,9 @@ a:active {
 .link{
   color: #66CC75;
 }
+.menu:focus{
+  color: rgb(6, 180, 33);
+}
 .link:hover{
   color: rgb(7, 150, 28);
 }
