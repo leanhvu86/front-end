@@ -377,6 +377,7 @@ ul.social-list li a:hover i {
   border-radius: 5px;
   top: 10%;
   right: 5%;
+  width: auto;
   position: absolute;
   color: rgb(77, 75, 75);
   border: 1px solid rgb(24, 231, 24);

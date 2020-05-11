@@ -58,6 +58,7 @@ export class RegisterPassengerComponent implements OnInit {
   hardLevelCheck: false;
   timeCheck: false;
   successMessage = '';
+  navHide = false;
   constructor(private cloudinary: Cloudinary,
     private zone: NgZone, private http: HttpClient,
     private formbuilder: FormBuilder, private countryService: CountryService, private cookStepService: CookStepService,
@@ -809,7 +810,15 @@ export class RegisterPassengerComponent implements OnInit {
     }
 
   }
+  clickNav() {
+    if (this.navHide === false) {
 
+      this.navHide = true;
+    } else {
+
+      this.navHide = false;
+    }
+  }
   onChangeofingredient(value: any) {
     if (this.showIngredient === false) {
       this.showIngredient = true;

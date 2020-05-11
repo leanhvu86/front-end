@@ -77,7 +77,7 @@
         <div class="item-photo" style="    position: relative;">
           <a [routerLink]="['/detail/', recipe.nameSpace]" class="photo">
             <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: -4px;">
-              <cl-transformation width="216" height="226" radius="20" crop="scale" quality="auto">
+              <cl-transformation width="247" height="256" radius="20" crop="scale" quality="auto">
               </cl-transformation>
             </cl-image>
 
@@ -108,7 +108,7 @@
           <div class="item-title">
             <h3>
               <a [routerLink]="['/detail/', recipe.nameSpace]" class="namenamename"
-                title="{{recipe.recipeName}}">{{recipe.recipeName}}</a>
+                style="color: black;font-weight: 300;" title="{{recipe.recipeName}}">{{recipe.recipeName}}</a>
             </h3>
           </div>
           <div class="desc ng-binding">
@@ -121,50 +121,15 @@
         </div>
         <div class="item-footer">
           <div class="recipe-acts">
-            <a style="top: 340px;
-              opacity: 0.8;
-              float: left; font-size: 15px;
-              margin-right: -17px;
-              padding: 10px 0;
-           " title="Thời gian thực hiện món ăn">
-              &#160;
-              <i class="fa fa-clock-o stats-ico" aria-hidden="true" style="text-overflow: ellipsis;
-              overflow: hidden;
-              white-space:nowrap; width: 60px;"> {{recipe.time}}</i>
-            </a>
-            <a style="    top: 340px;
-              left: 43px;
-              font-size: 14px;
-              opacity: 0.8;
-              float: left;
-              margin-right: 9px;
-              padding: 10px 0;
-
-
-            " title="Lượt xem món ăn">
-              &#160;
-              <i class="fa fa-bar-chart stats-ico" aria-hidden="true"> {{recipe.viewCount}}</i>
-            </a>
-            <a style="
-            opacity: 0.8; font-size: 14px;
-            float: left;
-            padding: 10px 0;
-          " title="Độ khó món ăn">
-              <i class="fa fa-bolt stats-ico" aria-hidden="true" style="text-overflow: ellipsis;
-              overflow: hidden;
-              white-space:nowrap;width: 80px;">&#160;{{recipe.hardLevel}}&#160; </i>
-            </a>
+            <a style="font-size: 10px;margin-top: -30px;">Đăng bởi: {{recipe.user.name}}</a>
             <div style="float: left;
             margin-top: -50px; margin-left: 132px;">
               <!-- <i class="fa fa-bookmark"></i> -->
               <a class="button_slidehr slide_downhr"
-                style="margin-left: 50px; width: 50px;background: none;margin-top: 10px;" id="bookmark"
+                style="margin-left: 50px; width: 50px;background: none;margin-top: 20px;" id="bookmark"
                 title="Thêm công thức vào bộ sưu tập" (click)="addBookmark(recipe)"></a>
             </div>
-
           </div>
-          <br>
-          <a style="font-size: 10px;margin-top: -30px;">Đăng bởi: {{recipe.user.name}}</a>
         </div>
       </div>
     </div>
