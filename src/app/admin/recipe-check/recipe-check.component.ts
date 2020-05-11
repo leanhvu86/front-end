@@ -40,7 +40,8 @@ export class RecipeCheckComponent implements OnInit {
     objectId: "",
     message: ""
   }
-
+  typeOFRecipe = ''
+  typeRecipe = false;
   constructor(
     private route: ActivatedRoute,
     private _router: Router,
@@ -101,6 +102,13 @@ export class RecipeCheckComponent implements OnInit {
         this.cookSteps = this.recipe.cockStep;
       }
 
+      if (this.recipe.status === 1) {
+        this.typeOFRecipe = ' (đã duyệt)'
+        this.typeRecipe = true;
+      } else {
+        this.typeOFRecipe = ' (chưa duyệt)'
+        this.typeRecipe = false;
+      }
       this.loadingSuccess2 = true;
       this.getRecipes();
     });
@@ -167,6 +175,7 @@ export class RecipeCheckComponent implements OnInit {
           recipe.hardLevel = 'Rất khó';
         }
       }
+      console.log(this.typeOFRecipe)
       this.cookStepsView = recipe.cockStep;
     }
     this.recipeView = recipe;

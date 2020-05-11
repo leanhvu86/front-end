@@ -23,5 +23,6 @@ export class ChatService {
     }
     identifyUser() {
         this.socket = io(AppSetting.BASE_SERVER_URL);
+        console.log('connect')
     }
 }

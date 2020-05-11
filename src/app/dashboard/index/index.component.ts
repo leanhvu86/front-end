@@ -203,10 +203,7 @@ export class IndexComponent implements OnInit {
         this.isAuthenicate = true;
         this.getMessage();
         this.href = this._router.url;
-        // this.data.name = this.id;
-        // this.data.userId = this.socket['id'];
-        // console.log(this.socket);
-        // this.socket.emit('setSocketId', this.data);
+
         this.message = '';
         if (this.addPassenger == true) {
           console.log('true');
@@ -214,13 +211,18 @@ export class IndexComponent implements OnInit {
           this.addPassenger = false;
         } else if (this.href === '/index') {
           window.location.reload();
+
         } else {
           console.log('reload')
 
           this._router.navigate(['/index']);
           // this._router.navigate(['/index']);
         }
-        this.chatService.identifyUser();
+        this.socket = io(AppSetting.BASE_SERVER_URL);
+        // this.data.name = this.cookie.get('ObjectId');
+        // this.data.userId = this.socket['id'];
+        // console.log(this.socket);
+        // this.socket.emit('setSocketId', this.data);
       }
       if (userData.body['status'] === 206) {
         this.tfaFlag = true;

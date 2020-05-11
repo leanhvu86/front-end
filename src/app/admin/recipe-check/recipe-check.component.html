@@ -6,8 +6,9 @@
         <cl-transformation width="650" height="350" crop="scale" quality="auto" radius="20">
         </cl-transformation>
       </cl-image>
-      <h4 style=" text-transform: uppercase;margin-top: 25px; margin-bottom: 15px;"> {{recipe.recipeName}}</h4>
-      <button title="Duyệt" (click)="openModal(true)" class="button1">
+      <h4 style=" text-transform: uppercase;margin-top: 25px; margin-bottom: 15px;"> {{recipe.recipeName}}
+        <a style="font-size: 12px;">{{typeOFRecipe}}</a></h4>
+      <button title="Duyệt" (click)="openModal(true)" class="button1" *ngIf="!typeRecipe">
         <!-- ngIf: status != 1 --><span class="ng-scope">Duyệt </span>
         <!-- end ngIf: status != 1 -->
       </button>
@@ -506,7 +507,7 @@
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background: rgb(3, 179, 3); color: white;">
         <h5 class="modal-title" id="staticBackdropLabel">Thông báo hệ thống</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
