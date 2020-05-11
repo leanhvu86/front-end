@@ -179,15 +179,17 @@
         </cl-image>
         <div class="box-content">
           <ul class="icon">
-            <li><a [routerLink]="['/galleryDetail/', gallery._id]"><i class="fa fa-search"></i></a></li>
-            <li><a><i class="fa fa-heart  " id="heartGallery{{i}}" (click)="likeGallerry(gallery,i)"
-                  *ngIf="!gallery.like;else other_content"></i>
+            <li style="cursor: pointer;"><a [routerLink]="['/galleryDetail/', gallery._id]"><i
+                  class="fa fa-search"></i></a></li>
+            <li style="cursor: pointer;"><a><i class="fa fa-heart  " id="heartGallery{{i}}"
+                  (click)="likeGallerry(gallery,i)" *ngIf="!gallery.like;else other_content"></i>
                 <ng-template #other_content><i id="heartGallery{{i}}" (click)="nolikeGallery(gallery,i)"
                     class="fa fa-heart  check" aria-hidden="true"></i>
                 </ng-template>
               </a></li>
           </ul>
-          <h6 class="title" [routerLink]="['/galleryDetail/', gallery._id]">{{gallery.name}}</h6>
+          <h6 class="title" [routerLink]="['/galleryDetail/', gallery._id]" style="cursor: pointer;">{{gallery.name}}
+          </h6>
         </div>
       </div>
     </div>
