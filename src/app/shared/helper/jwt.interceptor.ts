@@ -29,15 +29,15 @@ export class JwtInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${token}`
       }
     });
-    const objectId = this.cookie.get('ObjectId');
-    if (objectId !== '') {
+    // const objectId = this.cookie.get('ObjectId');
+    // if (objectId !== '') {
 
-      request = request.clone({ headers: request.headers.set('x-access-user', objectId) });
+    //   request = request.clone({ headers: request.headers.set('x-access-user', objectId) });
 
-    } else {
-      request = request.clone({ headers: request.headers.set('x-access-user', '5ea33fbb5d26160714313a74') });
+    // } else {
+    //   request = request.clone({ headers: request.headers.set('x-access-user', '5ea33fbb5d26160714313a74') });
 
-    }
+    // }
     if (!request.headers.has('Content-Type')) {
       request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
     }
