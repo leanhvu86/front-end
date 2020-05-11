@@ -111,7 +111,9 @@ export class RecipeComponent implements OnInit {
     window.open(url, 'MsgWindow', 'width=600,height=400');
   }
 
+
   loadFilter() {
+    this.searchText = ''
     this.empty.length = 0;
     this.recipes = this.empty;
     let tempArr = this.empty;

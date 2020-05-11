@@ -68,7 +68,7 @@
 </div>
 <div class="container" *ngIf="loadingSuccess; else skeleton">
   <br><a style="color: red;font-size: 10px;">{{stringFilter}}</a><br>
-  <h6>Tổng số <a style="color: red;">{{countRecipe}}</a> công thức</h6>
+  <h6>Tổng số <a style="color: red;" *ngIf="!searchText">{{countRecipe}}</a> công thức</h6>
   <div class="recipe-list-wrapper" style="float: left;width: 100%;">
     <!-- 1 anh -->
     <div class="ng-scope member-recipe-item"

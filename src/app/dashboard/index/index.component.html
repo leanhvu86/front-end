@@ -385,8 +385,8 @@
                 <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                   style=" min-height: 200px; margin-right: 80px;" aria-labelledby="navbarDropdownMenuLink-55">
                   <a class="dropdown-item hover">Xin chào bạn {{user}}</a>
+                  <a class="dropdown-item hover" (click)="redirect()" *ngIf="isModeration">Trang quản trị</a>
                   <a class="dropdown-item hover" [routerLink]="['/user/info/', id]">Quản lý tài khoản</a>
-                  <a class="dropdown-item hover" (click)="redirect()">Trang quản trị</a>
                   <a class="dropdown-item hover" [routerLink]="['/personal/recipe/',id]">Công thức của tôi</a>
                   <a class="dropdown-item hover" routerLink="/myGallery">Bộ sưu tập của tôi</a>
                   <a class="dropdown-item hover" (click)="logout()">Đăng xuất</a>
