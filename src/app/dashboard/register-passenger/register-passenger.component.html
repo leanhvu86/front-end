@@ -25,31 +25,34 @@
                   <div id="direct_upload" ng2FileDrop [uploader]="uploader" (fileOver)="fileOverBase($event)"
                     [ngClass]="{'nv-file-over': hasBaseDropZoneOver}">
                     <div class="image-preview mb-3" *ngIf="previewUrl;else other_content"
-                      style="margin-top: 5%; margin-left: 13%;">
-                      <cl-image public-id="{{previewUrl}}">
+                      style="margin-top: 5%; margin-left: 8%;cursor: pointer;">
+                      <!-- <cl-image public-id="{{previewUrl}}">
                         <cl-transformation width="620" height="320" crop="scale" quality="auto">
                         </cl-transformation>
-                      </cl-image>
+                      </cl-image> -->
+                      <img [src]="previewUrl" width="92%" height="10%" *ngIf="previewUrl">
                     </div>
                     <ng-template #other_content>
                       <img id="profile-img" style="width:90%;height: 20%; margin-left: 5%;cursor: pointer;"
                         src="../../../assets/images/unnamed.png" />
                     </ng-template>
 
-                    <form>
-                      <!-- onChange hanlder resets the input value to get the change event when uploading the same file consecutively -->
+                    <!-- <form>
+                      onChange hanlder resets the input value to get the change event when uploading the same file consecutively
                       <input type="file" accept="image/x-png,image/jpeg,image/jpg" id="example" #fileInput ng2FileSelect
                         [uploader]="uploader" multiple (change)="fileInput.value=''"
                         style="border-radius: 10px; top: 7%; border: 1px solid gray;display: block; bottom: 0px; left: 5%; right: 0px; opacity: 0;  position: absolute;"
                         class="upload-button" formControlName='profilePhoto' />
-                    </form>
+                    </form> -->
+                    <input id='profilePhoto' style="width: 2px;height: 2px;opacity: 0;" />
                   </div>
-                  <!-- <input id="example" type="file" name="image" (change)="fileProgress($event)"
-                  style="border-radius: 10px; top: 7%; border: 1px solid gray;display: block; bottom: 0px; left: 5%; right: 0px; opacity: 0;  position: absolute;"
-                  class="upload-button" /> -->
+                  <input id="example" type="file" name="image" (change)="fileProgress($event)"
+                    style="border-radius: 10px; top: 7%;cursor: pointer; border: 1px solid gray;display: block; bottom: 0px; left: 5%; right: 0px; opacity: 0;  position: absolute;"
+                    class="upload-button" />
                   <div
                     style=" border-radius: 5px;background: rgb(218, 212, 212); width: 85%;height: 10%; margin-left: 8%; opacity: 0.7; text-align: center;">
-                    <a style="width: 90%; margin-left: 5%; margin-top: -15%; text-align: center;"> Click để tải ảnh đại
+                    <a style="width: 90%; margin-left: 5%; margin-top: -15%; text-align: center;cursor: pointer;"> Click
+                      để tải ảnh đại
                       diện
                       <i class="fa fa-camera" aria-hidden="true"></i></a></div>
 

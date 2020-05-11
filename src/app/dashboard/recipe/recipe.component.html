@@ -2,7 +2,7 @@
   <form class="form" style="width: 750px; margin: 20px 350px;">
     <input title="Search" value="" type="submit" class="button">
     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-      placeholder="Tìm kiêm công thức" style="width: 90%;
+      placeholder="Tìm kiêm công thức" (input)="keyUp()" style="width: 90%; 
         cursor: pointer;">
   </form>
 
@@ -72,7 +72,7 @@
   <div class="recipe-list-wrapper" style="float: left;width: 100%;">
     <!-- 1 anh -->
     <div class="ng-scope member-recipe-item"
-      *ngFor="let recipe of recipes|filter:searchText|paginate:{itemsPerPage: 20, currentPage:p};let i = index">
+      *ngFor="let recipe of recipes|filter:searchText|paginate:{itemsPerPage: pageSize, currentPage:p};let i = index">
       <div class="item-inner ng-scope" style="background: white;">
         <div class="item-photo" style="    position: relative;">
           <a [routerLink]="['/detail/', recipe.nameSpace]" class="photo">
@@ -121,9 +121,18 @@
         </div>
         <div class="item-footer">
           <div class="recipe-acts">
-            <a style="font-size: 10px;margin-top: -30px;">Đăng bởi: {{recipe.user.name}}</a>
+            <a style="font-size: 10px;margin-top: -30px;text-overflow: ellipsis;
+            overflow: hidden;
+            white-space:nowrap;">
+              <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;display: inline-block;">
+                <cl-transformation width="60" height="60" gravity="face" radius="max" crop="fill" background="#e9ebee">
+                </cl-transformation>
+                <cl-transformation width="45" crop="scale">
+                </cl-transformation>
+              </cl-image> {{recipe.user.name}}
+            </a>
             <div style="float: left;
-            margin-top: -50px; margin-left: 132px;">
+            margin-top: -60px; margin-left: 132px;">
               <!-- <i class="fa fa-bookmark"></i> -->
               <a class="button_slidehr slide_downhr"
                 style="margin-left: 50px; width: 50px;background: none;margin-top: 20px;" id="bookmark"
@@ -149,13 +158,38 @@
   <div class="modal-dialog modal-lg" role="document" style="height: auto;min-height: 600px;">
     <div class="modal-content" style="height: auto; margin-bottom: 50px;min-height: 600px;background: white;">
       <div class="modal-header">
-        <ha class="modal-title" id="exampleModalLongTitle">Danh sách bộ sưu tập</ha>
+        <h6 class="modal-title" id="exampleModalLongTitle">Danh sách bộ sưu tập
+
+        </h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="container mt-40">
         <br>
+        <div *ngIf="loading">
+
+          <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
         <br>
         <h5 class="text-left">Bộ sưu tập cá nhân</h5>
         <br>
