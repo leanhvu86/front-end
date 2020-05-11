@@ -13,6 +13,7 @@ import { LoginServiceService } from 'src/app/shared/service/login-service.servic
 import { Gallery } from 'src/app/shared/model/gallery';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Comment } from 'src/app/shared/model/comment';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -77,7 +78,8 @@ export class RecipeDetailComponent implements OnInit {
     private _loginService: LoginServiceService,
     private formBuilder: FormBuilder,
     private _router: Router,
-    private galleryService: GalleryService
+    private galleryService: GalleryService,
+    private chatService: ChatService
   ) {
 
   }
@@ -379,6 +381,7 @@ export class RecipeDetailComponent implements OnInit {
   loadPage() {
     console.log('load');
     window.location.reload();
+    this.chatService.identifyUser();
   }
 
   fullImage() {
@@ -553,6 +556,7 @@ export class RecipeDetailComponent implements OnInit {
         console.log('success');
         setTimeout(() => {
           window.location.reload();
+          this.chatService.identifyUser();
         }, 3000);
         this.loading = false;
       } else {

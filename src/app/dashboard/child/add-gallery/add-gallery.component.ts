@@ -4,6 +4,7 @@ import { Gallery } from 'src/app/shared/model/gallery';
 import { CookieService } from 'ngx-cookie-service';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { UserService } from 'src/app/shared/service/user.service.';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-add-gallery',
@@ -29,7 +30,8 @@ export class AddGalleryComponent implements OnInit {
     private cookie: CookieService,
     private formBuilder: FormBuilder,
     private galleryService: GalleryService,
-    private userService: UserService
+    private userService: UserService,
+    private chatService: ChatService
   ) {
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     console.log(this.isAuthenicate)
@@ -81,6 +83,7 @@ export class AddGalleryComponent implements OnInit {
           this.messageCheck = false;
           this.message = ''
           window.location.reload();
+          this.chatService.identifyUser();
         }, 3000);
 
       }

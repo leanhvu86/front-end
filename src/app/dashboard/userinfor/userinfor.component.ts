@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Cloudinary } from '@cloudinary/angular-5.x';
 import { MustMatch } from 'src/app/shared/helper/must-match-validator';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-userinfor',
@@ -55,7 +56,8 @@ export class UserinforComponent implements OnInit {
     private cookie: CookieService,
     private _loginService: LoginServiceService,
     private formBuilder: FormBuilder,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private chatService: ChatService
   ) {
     this.isAuthenicate = this.cookie.get("email") !== "" ? true : false;
   }
@@ -191,6 +193,7 @@ export class UserinforComponent implements OnInit {
           setTimeout(() => {
             this.loading = false;
             window.location.reload()
+            this.chatService.identifyUser();
           }, 3000);
         } else {
           this.loading = false;
@@ -360,6 +363,7 @@ export class UserinforComponent implements OnInit {
         setTimeout(() => {
 
           window.location.reload();
+          this.chatService.identifyUser();
         }, 4000);
       } else {
         this.loading = false;

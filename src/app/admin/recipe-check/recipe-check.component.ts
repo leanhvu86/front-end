@@ -258,7 +258,7 @@ export class RecipeCheckComponent implements OnInit {
         this.chatService.sendMessage(this.messageObject)
         setTimeout(() => {
           window.location.reload();
-
+          this.chatService.identifyUser();
         }, 3000);
         this.recipe.status = 1;
       } else if (result['status'] !== 200) {
@@ -294,6 +294,7 @@ export class RecipeCheckComponent implements OnInit {
         this.chatService.sendMessage(this.messageObject)
         setTimeout(() => {
           window.location.reload();
+          this.chatService.identifyUser();
         }, 3000);
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];

@@ -13,6 +13,7 @@ import { Cloudinary } from '@cloudinary/angular-5.x';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { CookStepService } from '../../shared/service/cook-step.service';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-register-passenger',
@@ -60,7 +61,7 @@ export class RegisterPassengerComponent implements OnInit {
   constructor(private cloudinary: Cloudinary,
     private zone: NgZone, private http: HttpClient,
     private formbuilder: FormBuilder, private countryService: CountryService, private cookStepService: CookStepService,
-    private recipeService: RecipeService, private _router: Router, private cookie: CookieService
+    private recipeService: RecipeService, private _router: Router, private cookie: CookieService, private chatService: ChatService
   ) {
     this.responses = [];
     this.title = '';
@@ -517,6 +518,7 @@ export class RegisterPassengerComponent implements OnInit {
               window.location.reload()
             }, 3000);
             this.saving = false;
+            this.chatService.identifyUser();
           } else {
             this.message = result['message'];
             const radio: HTMLElement = document.getElementById('modal-button');

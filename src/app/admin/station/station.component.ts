@@ -3,6 +3,7 @@ import { UserService } from 'src/app/shared/service/user.service.';
 import { User } from 'src/app/shared/model/user';
 import { OrderPipe } from 'ngx-order-pipe';
 import { CookieService } from 'ngx-cookie-service';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-station',
@@ -30,7 +31,8 @@ export class StationComponent implements OnInit {
   constructor(
     private userService: UserService,
     private orderPipe: OrderPipe,
-    private cookies: CookieService
+    private cookies: CookieService,
+    private chatService: ChatService
   ) {
     this.collection = orderPipe.transform(this.collection, 'info.totalPoint');
 
@@ -314,6 +316,7 @@ export class StationComponent implements OnInit {
         const radio: HTMLElement = document.getElementById('close-button');
         radio.click();
         window.location.reload()
+        this.chatService.identifyUser();
       }, 3000);
 
     });

@@ -71,6 +71,7 @@ export class LoginServiceService {
     this.cookie.set('isAuthenicate', '');
     sessionStorage.setItem('token', '');
     this.cookie.set('email', '');
+    this.cookie.set('objectId', '');
     this.cookie.set('role', '');
     let token = this.cookie.get('token');
     console.log('xóa token nè' + token);

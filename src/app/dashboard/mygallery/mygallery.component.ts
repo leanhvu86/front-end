@@ -12,6 +12,7 @@ import { Recipe } from 'src/app/shared/model/recipe';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/shared/service/user.service.';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 
 @Component({
@@ -70,7 +71,8 @@ export class MygalleryComponent implements OnInit {
     private recipeService: RecipeService,
     private _route: ActivatedRoute,
     private _loginService: LoginServiceService,
-    private gallerrService: GalleryService
+    private gallerrService: GalleryService,
+    private chatService: ChatService
   ) {
   }
 
@@ -150,7 +152,7 @@ export class MygalleryComponent implements OnInit {
           //this.registerForm.reset();
           window.location.reload();
         }, 5000);
-
+        this.chatService.identifyUser();
       }
     });
   }
