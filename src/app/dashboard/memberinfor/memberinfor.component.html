@@ -59,7 +59,7 @@
 
 <br>
 
-<div class="container">
+<div class="container" *ngIf="infoCheck ">
   <div>
     <h6>CÔNG THỨC CÁ NHÂN <span style="color: red; font-size: 12px;">{{recipeCount}}</span></h6>
   </div>
@@ -139,7 +139,7 @@
 
   </div>
 </div>
-<div class="container">
+<div class="container" *ngIf="infoCheck ">
   <h6 class="text-left">Bộ sưu tập cá nhân <span style="color: red; font-size: 12px;">{{galleryCount}}</span></h6>
   <div class="row mt-30">
     <div class="col-md-4 col-sm-6" *ngFor="let gallery of memberGallery; let i=index;" style="margin-bottom: 20px;">
@@ -226,42 +226,7 @@
       <br>
       <div class="row">
         <h6>CÔNG THỨC CÁ NHÂN <span style="color: red; font-size: 12px;">{{recipeCount}}</span></h6>
-        <div class="col">
-          <div class="card ">
-            <!-- <img class="card-img-top"  alt=" "> -->
-            <div class="card-body text-center">
-              <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 115%;"></h5>
-              <!-- <p class="card-text"></p>
-              <div class="form-inline">
-                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
-              </div> -->
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card ">
-            <!-- <img class="card-img-top"  alt=" "> -->
-            <div class="card-body text-center">
-              <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 115%;"></h5>
-              <!-- <p class="card-text"></p>
-              <div class="form-inline">
-                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
-              </div> -->
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card ">
-            <!-- <img class="card-img-top"  alt=" "> -->
-            <div class="card-body text-center">
-              <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 115%;"></h5>
-              <!-- <p class="card-text"></p>
-              <div class="form-inline">
-                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
-              </div> -->
-            </div>
-          </div>
-        </div>
+
         <!-- <div class="col-lg-3 col-md-4 mb-4">
         <div class="card ">
           <img class="card-img-top"  alt=" ">
@@ -274,6 +239,61 @@
           </div>
         </div>
       </div> -->
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;margin-top: -10px;"></h5>
+              <p class="card-text" style="width: 180px;"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;margin-top: -10px;"></h5>
+              <p class="card-text" style="width: 180px;"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;margin-top: -10px;"></h5>
+              <p class="card-text" style="width: 180px;"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card " style="border-radius: 10px;">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px;margin-top: -10px;"></h5>
+              <p class="card-text" style="width: 180px;"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h6>BỘ SƯU TẬP CÁ NHÂN <span style="color: red; font-size: 12px;">{{recipeCount}}</span></h6>
+
+
       </div>
       <div class="row">
         <div class="col">
