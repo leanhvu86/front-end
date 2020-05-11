@@ -6,6 +6,7 @@ import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { UserService } from 'src/app/shared/service/user.service.';
 import { Comment } from 'src/app/shared/model/comment';
 import { CookStep } from '../../shared/model/cookStep';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-recipe-check',
@@ -35,11 +36,17 @@ export class RecipeCheckComponent implements OnInit {
   accept = false;
   totalRecipe = 0;
 
+  messageObject = {
+    objectId: "",
+    message: ""
+  }
+
   constructor(
     private route: ActivatedRoute,
     private _router: Router,
     private cookie: CookieService,
     private recipeService: RecipeService,
+    private chatService: ChatService,
     private userService: UserService) {
   }
 
@@ -93,6 +100,7 @@ export class RecipeCheckComponent implements OnInit {
         }
         this.cookSteps = this.recipe.cockStep;
       }
+
       this.loadingSuccess2 = true;
       this.getRecipes();
     });
@@ -118,7 +126,7 @@ export class RecipeCheckComponent implements OnInit {
         return arr.indexOf(item) == pos;
       });
       this.getComent();
-      console.log(this.recipes);
+
     });
   }
 
@@ -168,9 +176,7 @@ export class RecipeCheckComponent implements OnInit {
     this.recipeService.getComments().subscribe(data => {
       if (data !== undefined) {
         this.lstComment = data['comments'];
-        console.log(this.lstComment);
         for (const comment of this.lstComment) {
-          console.log(comment.recipe.recipeName);
           if (comment.recipe.recipeName === this.recipe.recipeName) {
             if (comment.type === 1) {
               comment.type = 'Đã thực hiện';
@@ -246,8 +252,13 @@ export class RecipeCheckComponent implements OnInit {
       if (result['status'] === 200) {
         this.message = result['message'];
         this.messageModal = true;
+        this.messageObject.objectId = this.recipe.user._id;
+        this.messageObject.message = 'Chúc mừng bạn đã được duyệt công thức ' + this.recipe.recipeName;
+        console.log(JSON.stringify(this.messageObject))
+        this.chatService.sendMessage(this.messageObject)
         setTimeout(() => {
           window.location.reload();
+
         }, 3000);
         this.recipe.status = 1;
       } else if (result['status'] !== 200) {
@@ -276,6 +287,11 @@ export class RecipeCheckComponent implements OnInit {
         this.message = result['message'];
         this.messageModal = true;
         this.recipe.status = -1;
+        this.messageObject.objectId = this.recipe.user._id;
+        this.messageObject.message = 'Công thức ' + this.recipe.recipeName + ' đã bị từ chối';
+
+        console.log(JSON.stringify(this.messageObject))
+        this.chatService.sendMessage(this.messageObject)
         setTimeout(() => {
           window.location.reload();
         }, 3000);

@@ -40,7 +40,7 @@ export class IndexComponent implements OnInit {
   id: string = '1'
   imageUrl: string = 'jbiajl3qqdzshdw0z749'
   message = '';
-  url = 'http://localhost:4200'
+  url = 'http://amthuc.anchay.poly.vn:4200/'
   text = 'Chào mừng bạn đến với website Ẩm thực Ăn chay'
   isModeration: boolean = false;
   showModal: boolean = false;
@@ -70,6 +70,7 @@ export class IndexComponent implements OnInit {
   ) {
     translate.setDefaultLang('vi');
     sessionStorage.setItem('currentLang', 'vi');
+    this.mailBox();
   }
 
   ngOnInit() {
@@ -85,6 +86,20 @@ export class IndexComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+  }
+  mailBox() {
+    this.chatService.getMessages().subscribe(mail => {
+      console.log(mail)
+      if (mail !== undefined) {
+        this.newMessage = true;
+        let mess = new Message;
+        mess.content = mail;
+        mess.news = true;
+        console.log(mess)
+        this.userMessage.push(mess)
+        console.log(this.userMessage)
+      }
+    })
   }
   getImage() {
     let email = this.cookie.get('email');
@@ -157,7 +172,8 @@ export class IndexComponent implements OnInit {
           }
           if (key === 'user') {
             let users = user[key];
-            this.id = users._id
+            this.id = users._id;
+            this.user = users.name;
             this.cookie.set('token', '');
             this.cookie.set('token', users.token);
             this.cookie.set('isAuthenicate', '');
@@ -172,6 +188,11 @@ export class IndexComponent implements OnInit {
               console.log(role)
             }
           }
+          if (key === 'objectId') {
+            let ObjectId = user[key];
+            this.cookie.set('ObjectId', ObjectId);
+            console.log(ObjectId)
+          }
         }
         this.showModal = false;
         const radio: HTMLElement = document.getElementById('close-modal');
@@ -182,12 +203,10 @@ export class IndexComponent implements OnInit {
         this.isAuthenicate = true;
         this.getMessage();
         this.href = this._router.url;
-
-        this.socket = io(this.BASE_URL);
-        this.data.name = this.id;
-        this.data.userId = this.socket.id;
-        console.log(this.socket);
-        this.socket.emit('setSocketId', this.data);
+        // this.data.name = this.id;
+        // this.data.userId = this.socket['id'];
+        // console.log(this.socket);
+        // this.socket.emit('setSocketId', this.data);
         this.message = '';
         if (this.addPassenger == true) {
           console.log('true');
@@ -201,6 +220,7 @@ export class IndexComponent implements OnInit {
           this._router.navigate(['/index']);
           // this._router.navigate(['/index']);
         }
+        this.chatService.identifyUser();
       }
       if (userData.body['status'] === 206) {
         this.tfaFlag = true;
