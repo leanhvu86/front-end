@@ -76,6 +76,7 @@ export class GalleryComponent implements OnInit {
           gallery.image = 'fvt7rkr59r9d7wk8ndbd'
         }
       }
+      this.loadingSuccess = true;
       this.galleryTop = galleries
       if (this.isAuthenicate == true) {
         this.userObject.email = this.cookie.get('email')
@@ -191,7 +192,7 @@ export class GalleryComponent implements OnInit {
               this.gallerys.push(gallery)
             }
           }
-          this.loadingSuccess = true;
+
         }
       })
     }
