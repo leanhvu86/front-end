@@ -28,6 +28,7 @@ export class StationComponent implements OnInit {
   messageModal = false;
   disableAdmin = true;
   pageSize = 10;
+  loading = false;
   constructor(
     private userService: UserService,
     private orderPipe: OrderPipe,
@@ -110,7 +111,7 @@ export class StationComponent implements OnInit {
         let user = this.users[i];
         user.id = i + 1;
       }
-
+      this.loading = true
       console.log(this.users)
     });
   }
