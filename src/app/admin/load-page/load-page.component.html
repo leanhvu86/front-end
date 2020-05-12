@@ -1,4 +1,4 @@
-<div class="container" style="min-height: 960px;" *ngIf="summary">
+<div class="container" style="min-height: 960px;" *ngIf="!loadingSuccess3; else skeleton3;summary ">
   <div class="row">
     <div class="col" style="text-align: center;">
       <h6>DANH SÁCH CÔNG THỨC MỚI</h6>
@@ -151,3 +151,118 @@
   </div>
 </div>
 <app-scroll-top></app-scroll-top>
+
+<ng-template #skeleton3>
+  <!-- <main class="container mt-2">
+    <div class="row">
+      <div class="col-4 col-lg-2 p-2">
+        <div class="user-img m-2 mr-auto ml-auto">
+          <img src="/assets/img/user.svg" class="img-fluid rounded-circle">
+        </div>
+      </div>
+      <div class="col-8 col-lg-10 pt-3 sm-text-center">
+        <h2 class="display-5 text-capitalize sm-mr-auto sm-ml-auto"></h2>
+        <p class="lead sm-mr-auto sm-ml-auto"></p>
+        <a href="#" class="btn btn-secondary mr-1"></a><a href="#" class="btn btn-secondary"></a>
+      </div>
+    </div>
+  </main> -->
+  <section style="width: 100%; min-height: auto;">
+    <!-- <div class="pt-2 pb-4 text-center">
+      <h5 class="mr-auto ml-auto"></h5>
+    </div> -->
+    <div class="container">
+      <div class="row">
+        <div class="col-8">
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 100%;"></h5>
+              <!-- <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div> -->
+            </div>
+          </div>
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 100%;"></h5>
+              <!-- <p class="card-text"></p>
+                  <div class="form-inline">
+                    <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                  </div> -->
+            </div>
+          </div>
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 50px;margin-left: -15px; width: 100%;"></h5>
+              <!-- <p class="card-text"></p>
+                  <div class="form-inline">
+                    <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                  </div> -->
+            </div>
+          </div>
+
+          <div class="card ">
+
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px; width: 100%;"></h5>
+
+            </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-center">
+              <div>
+
+                <div>
+                  <h5 class="card-title" style="height: 200px;margin-left: 190px; width: 30%;float: left;">
+                  </h5>
+                  <h5 class="card-title" style="height: 200px;margin-left: 190px; width: 30%;float: left;">
+                  </h5>
+                  <h5 class="card-title" style="height: 200px;margin-left: -15px; width: 30%;">
+                  </h5>
+                  <h5 class="card-title" style="height: 200px;margin-left: -15px; width: 30%;">
+                  </h5>
+
+                </div>
+              </div>
+              <div style="margin-top: 100px;">
+                <h5 class="card-title" style="height: 200px;margin-left: 190px; width: 30%;float: left;">
+                </h5>
+                <h5 class="card-title" style="height: 200px;margin-left: 190px; width: 30%;float: left;">
+                </h5>
+                <h5 class="card-title" style="height: 200px;margin-left: -15px; width: 30%;">
+                </h5>
+                <h5 class="card-title" style="height: 200px;margin-left: -15px; width: 30%;">
+                </h5>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row-4">
+            <div class="col">
+              <div class="card ">
+
+                <div class="card-body text-center">
+                  <h5 class="card-title" style="height: 1000px;margin-left: -15px; width: 100%;"></h5>
+
+                </div>
+              </div>
+            </div>
+            <div class="col">
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </section>
+</ng-template>
