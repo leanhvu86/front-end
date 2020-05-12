@@ -574,6 +574,7 @@ p:empty.card-text{
 }
 }
 .a-title{
-  font-size: 14px;
-  margin-left: 5%;
+  
+  margin-left: 50px 50px;
+  padding-left: 20px;
 }

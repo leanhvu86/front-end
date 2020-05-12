@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {User} from '../../shared/model/user';
-import {UserService} from '../../shared/service/user.service.';
-import {Summary} from '../../shared/model/summary';
-import {Recipe} from '../../shared/model/recipe';
-import {RecipeService} from '../../shared/service/recipe-service.service';
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../shared/model/user';
+import { UserService } from '../../shared/service/user.service.';
+import { Summary } from '../../shared/model/summary';
+import { Recipe } from '../../shared/model/recipe';
+import { RecipeService } from '../../shared/service/recipe-service.service';
 
 @Component({
   selector: 'app-load-page',
@@ -11,6 +11,7 @@ import {RecipeService} from '../../shared/service/recipe-service.service';
   styleUrls: ['./load-page.component.css']
 })
 export class LoadPageComponent implements OnInit {
+  loadingSuccess3 = false;
   numbers: number[] = [];
   imageUrl: string = 'jbiajl3qqdzshdw0z749';
   topUsers: User[] = [];
@@ -110,6 +111,7 @@ export class LoadPageComponent implements OnInit {
           recipe.user.name = 'Đợi duyệt'
         }
       }
+      this.loadingSuccess3 = true;
       console.log(this.recipes);
     });
   }
