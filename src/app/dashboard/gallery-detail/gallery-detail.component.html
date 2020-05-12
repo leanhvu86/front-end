@@ -59,11 +59,11 @@
           </figure>
 
         </div>
-        <a class="link-name"
-          style="bottom:20px;left: 80px; -webkit-line-clamp: 3; position: absolute; min-width:200px; max-width: 200px;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                display: -webkit-box;text-decoration: none; font-style: inherit;font-size: 16px;font-family: 'Roboto slab',  serif; color: rgb(0, 0, 0);"
+        <a class="link-name" style="top: 310px;bottom:20px; position: absolute; min-width:150px; width: 200px;
+          left: 60px; text-align: left;            text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+            display: block; font-size: 16px;color: rgb(0, 0, 0);"
           [routerLink]="['/detail/', recipe.nameSpace]">{{recipe.recipeName}}</a>
 
         <div style="top:340px;left:  2px; position: absolute; font-size: 12px; opacity: 0.8; ">&#160;
@@ -94,7 +94,7 @@
             <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
               <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill" background="#e9ebee">
               </cl-transformation>
-              <cl-transformation width="55" crop="scale">
+              <cl-transformation width="40" crop="scale">
               </cl-transformation>
             </cl-image>&#160;{{recipe.user.name}}
           </a>

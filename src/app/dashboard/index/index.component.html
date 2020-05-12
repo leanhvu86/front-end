@@ -232,7 +232,7 @@
         <!-- Start Contact Info -->
         <ul class="contact-details">
           <li>
-            <a class="text-white"><i class="fa fa-phone"></i> +84 245 678 000</a>
+            <a class="text-white"><i class="fa fa-phone"></i> +945109262</a>
           </li>
 
         </ul>
@@ -294,25 +294,25 @@
 <nav class="site-header sticky-top py-1" style="background: white; ">
   <div class="row w-100">
     <div class="col-lg-12 col-md-12 col-xl-12">
-      <div class="container d-flex flex-column flex-md-row justify-content-between" style="color:#615f5f">
-        <a class="py-4" href="#" aria-label="Product" style="width: 20%;">
+      <div class="container d-flex flex-column flex-md-row justify-content-between"
+        style="color:#353333;font-size: 14px;">
+        <a class="py-2" href="#" aria-label="Product" style="width: 20%;">
           <div class="jm-logo ml-5 pl-4">
             <a href="#">
-              <i><img style="height: 45px;width:60px;margin-left: -20px;margin-top: -5px;"
+              <i><img style="height: 30px;width:45ppx;margin-left: -20px;margin-top: -5px;"
                   src="../../../assets/images/logo.png" /></i>
             </a>
           </div>
         </a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " id="menu0" title="Trang chủ ẩm thực chay"
+        <a class="py-2 d-none d-md-inline-block blinker text-uppercase " id="menu0" title="Trang chủ ẩm thực chay"
           routerLink="/index">{{ "index.home" | translate }}</a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase" routerLink="/recipe"
+        <a class="py-2 d-none d-md-inline-block blinker text-uppercase" routerLink="/recipe"
           title="Trang danh sách các công thức" id="menu1">{{ "index.routing" | translate }}</a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " routerLink="/gallery"
-          title="Trang danh sách các bộ sưu tập nổi bật" id="menu2"
-          (click)="change(2)">{{ "index.servie" | translate }}</a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " routerLink="/about"
+        <a class="py-2 d-none d-md-inline-block blinker text-uppercase " routerLink="/gallery"
+          title="Trang danh sách các bộ sưu tập nổi bật" id="menu2">{{ "index.servie" | translate }}</a>
+        <a class="py-2 d-none d-md-inline-block blinker text-uppercase " routerLink="/about"
           title="Trang giới thiệu về ẩm thực chay" id="menu3">{{ "index.about" | translate }}</a>
-        <a class="py-4 d-none d-md-inline-block blinker text-uppercase " id="menu4" routerLink="/gioithieu">Về
+        <a class="py-2 d-none d-md-inline-block blinker text-uppercase " id="menu4" routerLink="/gioithieu">Về
           chúng tôi</a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>
@@ -324,7 +324,7 @@
       </div>
     </div>
   </div>
-  <div class="row w-100 mx-0" style="position: relative; background: #f4f9f0;">
+  <div class="row w-100 mx-0" style="position: relative; background: #f0f9f1d3;">
     <div class="col-md-12 col-lg-12 col-xl-12">
       <div class="container">
         <div class="row py-3">
@@ -332,16 +332,17 @@
             <div class="rotate">
               <div class="rotate-inner">
                 <form id="demo-2">
-                  <img style="height: 40px;width:185px;margin-left: 0px;" routerLink="/index"
+                  <img style="height: 40px;width:185px;margin-left: -70px;" routerLink="/index"
                     src="../../../assets/images/logo1.png" />
                 </form>
               </div>
             </div>
           </div>
           <div class="col-2">
-            <button class="py-2 d-none d-md-inline-block register-button pl" style="right: 18%;padding: 2px 8px; "
-              title="Đăng công thức mới" (click)="onChange($event)"><i class="fa fa-pencil-square-o"
-                style="padding: 2px 8px;" aria-hidden="true"></i>{{ "register.recipe" | translate }}</button>
+            <button class="py-2 d-none d-md-inline-block register-button pl"
+              style="right: 18%;padding: 2px 5px;width: auto; " title="Đăng công thức mới" (click)="onChange($event)"><i
+                class="fa fa-pencil-square-o" style="padding: 2px 2px; "
+                aria-hidden="true"></i>{{ "register.recipe" | translate }}</button>
           </div>
           <div class="col-1">
             <div class="nav-item avatar dropdown" *ngIf="isAuthenicate">
@@ -350,7 +351,7 @@
                 style=" position: absolute; right: 12%; top:0px; width: 70px; padding: 0 auto; height: 30px;">
                 <ng-template #other_content1>
                   <img id="profile-img" class="profile-img-card" src="../../../assets/images/noti-icon.darkgray.png"
-                    style="width: 25px;height: 25px; display: inline-block;" />
+                    style="width: 20px;height: 20px; display: inline-block;" />
                 </ng-template>
                 <span class="bell fa fa-bell" *ngIf="newMessage; else other_content1"></span>
                 <!-- <img id="profile-img" class="profile-img-card" *ngIf="newMessage; else other_content1"
@@ -367,7 +368,8 @@
           </div>
           <div class="col-1">
             <a class="py-2 d-none d-md-inline-block register-button hover" *ngIf="!isAuthenicate; else other_content"
-              style=" padding: 2px 8px;" (click)="onChangecheck($event)">{{ "index.register" | translate }}</a>
+              style=" padding: 2px 5px;width: auto;"
+              (click)="onChangecheck($event)">{{ "index.register" | translate }}</a>
             <ng-template #other_content>
               <div class="nav-item avatar dropdown">
                 <a class="nav-link dropdown-toggle hover" id="navbarDropdownMenuLink-44" data-toggle="dropdown"
@@ -383,8 +385,8 @@
                 <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                   style=" min-height: 200px; margin-right: 80px;" aria-labelledby="navbarDropdownMenuLink-55">
                   <a class="dropdown-item hover">Xin chào bạn {{user}}</a>
+                  <a class="dropdown-item hover" (click)="redirect()" *ngIf="isModeration">Trang quản trị</a>
                   <a class="dropdown-item hover" [routerLink]="['/user/info/', id]">Quản lý tài khoản</a>
-                  <a class="dropdown-item hover" (click)="redirect()">Trang quản trị</a>
                   <a class="dropdown-item hover" [routerLink]="['/personal/recipe/',id]">Công thức của tôi</a>
                   <a class="dropdown-item hover" routerLink="/myGallery">Bộ sưu tập của tôi</a>
                   <a class="dropdown-item hover" (click)="logout()">Đăng xuất</a>

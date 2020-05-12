@@ -7,9 +7,11 @@ nav > .nav.nav-tabs{
   }
   #nav-home-tab{
     border-radius:10px 0 0 0px;
+    border: 1px solid lightgreen;
   }
   #nav-profile-tab{
     border-radius:0 10px  0px 0;
+    border: 1px solid lightgreen;
   }
   nav > div a.nav-item.nav-link{
     color:rgb(8, 8, 8);
@@ -22,8 +24,8 @@ nav > .nav.nav-tabs{
     padding: 4px;
 
     background: #fff;
-    border: 2px solid #666;
-    color: #666;
+    border: 2px solid rgb(2, 175, 10);
+    color: rgb(2, 175, 10);
     text-align: center;
 
     font: 16px Arial, sans-serif;
@@ -80,18 +82,24 @@ nav > .nav.nav-tabs{
     -webkit-tap-highlight-color: transparent;
   }
   .nguyenlieu:hover .buttonhover{
+    color: rgb(2, 179, 2);
+  }
+  .nguyenlieu:hover .buttonhover:hover{
     color: red;
   }
   .buttonhover:hover{
     color: red;
   }
   .buttoncheck{
-    color: darkcyan;
+    color: rgb(2, 179, 2);
+  }
+  .buttoncheck:hover{
+    color:red;
   }
   .spancheck{
     padding: 2px;
 border-radius: 5px 5px 5px;
-border: 1px dotted red;
+border: 0.5px dotted rgb(2, 179, 2);
   }
   .spanGroup-ingredient{
     padding: 2px;

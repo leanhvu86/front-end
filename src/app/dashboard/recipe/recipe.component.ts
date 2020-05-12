@@ -55,7 +55,8 @@ export class RecipeComponent implements OnInit {
   };
   message = ''
   addRecipe: any;
-
+  loading = false;
+  pageSize = 20;
   personalGallery: Gallery[] = []
   public interests: Interest[] = [];
   constructor(
@@ -111,7 +112,20 @@ export class RecipeComponent implements OnInit {
     window.open(url, 'MsgWindow', 'width=600,height=400');
   }
 
+  keyUp() {
+    console.log(this.pageSize)
+    if (this.searchText.length > 2) {
+      this.pageSize = this.recipes.length;
+      this.pageChanged(1);
+    } else {
+      this.pageSize = 20;
+    }
+  }
+  pageChanged(event) {
+    this.p = event;
+  }
   loadFilter() {
+    this.searchText = ''
     this.empty.length = 0;
     this.recipes = this.empty;
     let tempArr = this.empty;
@@ -568,10 +582,18 @@ export class RecipeComponent implements OnInit {
       for (let recipe of gallery.recipe) {
         if (recipe.recipeName === this.addRecipe.recipeName) {
           this.message = 'Công thức đã có trong bộ sưu tập'
+          setTimeout(() => {
+            this.message = ''
+            this.loading = false;
+          }, 2000);
           return
         }
       }
     }
+    if (this.loading === true) {
+      return;
+    }
+    this.loading = true;
     this.galleryObject._id = gallery._id;
     this.galleryObject.recipe = this.addRecipe;
     this.galleryService.addGallery(this.galleryObject).subscribe(data => {
@@ -581,8 +603,11 @@ export class RecipeComponent implements OnInit {
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
+          this.loading = false;
         }, 4000);
 
+      } else {
+        this.loading = false
       }
     })
   }

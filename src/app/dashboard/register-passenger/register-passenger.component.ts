@@ -58,6 +58,7 @@ export class RegisterPassengerComponent implements OnInit {
   hardLevelCheck: false;
   timeCheck: false;
   successMessage = '';
+  navHide = false;
   constructor(private cloudinary: Cloudinary,
     private zone: NgZone, private http: HttpClient,
     private formbuilder: FormBuilder, private countryService: CountryService, private cookStepService: CookStepService,
@@ -298,6 +299,57 @@ export class RegisterPassengerComponent implements OnInit {
     this.imageIndex++;
   }
 
+  uploadFileMainImage(file: any) {
+    let inputValue;
+    console.log(file);
+    const url = `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/image/upload`;
+    const xhr = new XMLHttpRequest();
+    const fd = new FormData();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+
+    // Update progress (can be used to show progress indicator)
+    xhr.upload.addEventListener('progress', function (e) {
+      const progress = Math.round((e.loaded * 100.0) / e.total);
+      // document.getElementById('progress').style.width = progress + "%";
+
+      console.log(`fileuploadprogress data.loaded: ${e.loaded},
+    data.total: ${e.total}`);
+    });
+    const imageIndex1 = this.imageIndex;
+    xhr.onreadystatechange = function (e) {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        // File uploaded successfully
+        const response = JSON.parse(xhr.responseText);
+        const url = response.secure_url;
+        // Create a thumbnail of the uploaded image, with 150px width
+        const tokens = url.split('/');
+        tokens.splice(-2, 0, 'w_90,h_90,c_scale');
+        const img = new Image(); // HTML5 Constructor
+        img.src = tokens.join('/');
+        img.alt = response.public_id;
+
+
+        // this.nowUrl = response.public_id ;
+        inputValue = response.public_id;
+        console.log(inputValue);
+        const radio = (document.getElementById('profilePhoto') as HTMLInputElement);
+        radio.value = inputValue;
+
+        // console.log(radio.value);
+        //document.getElementById(galleryID).appendChild(img);
+      }
+
+    };
+    const tags = 'myphotoalbum';
+    fd.append('upload_preset', this.cloudinary.config().upload_preset);
+    fd.append('tags', tags); // Optional - add tag for image admin in Cloudinary
+    fd.append('file', file);
+    file.withCredentials = false;
+    xhr.send(fd);
+    this.imageIndex++;
+  }
   handleFiles(event: any, index: any) {
 
 
@@ -346,7 +398,7 @@ export class RegisterPassengerComponent implements OnInit {
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
-
+    this.uploadFileMainImage(this.fileData);
     const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
@@ -371,8 +423,9 @@ export class RegisterPassengerComponent implements OnInit {
     this.submitted = true;
     console.log('submit');
     console.log(this.nowUrl);
-    if (this.nowUrl === null || this.nowUrl === '') {
-      console.log(this.nowUrl);
+    let profilePhoto = (document.getElementById('profilePhoto') as HTMLInputElement).value;
+    if (profilePhoto === undefined || profilePhoto === '') {
+      console.log(profilePhoto);
       this.message = 'Vui lòng up ảnh hiển thị cho công thức';
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
@@ -489,7 +542,7 @@ export class RegisterPassengerComponent implements OnInit {
         recipe.country = this.countryArray;
         recipe.foodType = this.foodTypesArray;
         recipe.cookWay = this.cookWayArray;
-        recipe.imageUrl = this.nowUrl;
+        recipe.imageUrl = profilePhoto;
         if (recipe.imageUrl === undefined || recipe.imageUrl === '') {
           console.log(recipe.imageUrl);
           this.message = 'Vui lòng up ảnh hiển thị cho công thức';
@@ -809,7 +862,15 @@ export class RegisterPassengerComponent implements OnInit {
     }
 
   }
+  clickNav() {
+    if (this.navHide === false) {
 
+      this.navHide = true;
+    } else {
+
+      this.navHide = false;
+    }
+  }
   onChangeofingredient(value: any) {
     if (this.showIngredient === false) {
       this.showIngredient = true;

@@ -4,9 +4,9 @@
       <app-nav></app-nav>
       <div style="position: relative; margin: -470px 320px;background-color: rgba(62, 60, 61, 0.5);">
         <!--    <div style="margin-top: 2%;height: 2px;width: 90%;margin-left: 5%;"></div>-->
-        <div class="d-flex justify-content-center mb-5">
+        <div class="d-flex justify-content-center mb-7">
           <p class="mb-5"
-            style="font-size: 2.7rem;color: white; top: 15%;position: absolute;height: 50px;text-shadow: -3px 0px 20px #f1fff0;">
+            style="font-size: 2rem;color: white; top: 15%;position: absolute;height: 50px;text-shadow: -3px 0px 20px #f1fff0;left: 15%;">
             Ẩm thực
             món chay
             truyền
@@ -211,11 +211,12 @@
 
 
           </div>
-          <a class="link-name" title="xem chi tiết công thức"
-            style="top: 300px;bottom:20px;text-align: center; -webkit-line-clamp: 3; position: absolute; min-width:150px; width: 250px;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    display: -webkit-box;text-decoration: none; font-style: inherit;font-size: 16px;color: rgb(0, 0, 0);"
+          <a class="link-name" title="xem chi tiết công thức" style="top: 300px;bottom:20px; position: absolute; min-width:150px; width: 200px;
+                  left: 10px;
+                    text-overflow: ellipsis;
+            overflow: hidden;
+            white-space:nowrap;
+                    display: block; font-size: 16px;color: rgb(0, 0, 0);"
             [routerLink]="['/detail/', recipe.nameSpace]">{{recipe.recipeName}}</a>
 
           <div style="top:340px;left: -60px; position: absolute; font-size: 12px; opacity: 0.8; height: 100px;">&#160;
