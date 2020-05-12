@@ -112,7 +112,6 @@ export class StationComponent implements OnInit {
         user.id = i + 1;
       }
       this.loading = true
-      console.log(this.users)
     });
   }
 
@@ -286,41 +285,40 @@ export class StationComponent implements OnInit {
 
   activeMember(user: any) {
     console.log('active user');
-    let userTemp = user;
-    this.userService.activeMember(user._id).subscribe(data => {
-      this.users = this.users.filter(user => user._id !== userTemp._id);
-      user.warningReport = 1
-      //user = data;
-      user.block = false;
-      // if (user.imageUrl === undefined) {
-      //   user.imageUrl = 'jbiajl3qqdzshdw0z749';
-      // }
-      user.isAdmin = false;
-      // if (user.role === -1) {
-      //   user.role = 'Chưa xác thực';
-      // } else if (user.role === 0) {
-      //user.role = 'Thành viên';
-      // } else if (user.role === 1) {
-      //   user.isAdmin = true;
-      //   user.role = 'Quản trị';
-      // } else if (user.role > 1) {
-      //   user.role = 'Admin';
-      //   user.isAdmin = true;
-      // } else {
-      //   user.role = 'Khóa';
-      // }
-      user.status = 1
-      this.users.push(user);
-      this.messageModal = true;
-      this.message = 'Mở khóa thành viên thành công';
-      setTimeout(() => {
-        this.message = '';
-        const radio: HTMLElement = document.getElementById('close-button');
-        radio.click();
-        //window.location.reload();
-        this.chatService.identifyUser();
-      }, 3000);
-
+    this.userObject.id = user._id;
+    this.userService.openUser(this.userObject).subscribe(data => {
+      if (data.body['status'] === 200) {
+        user = data.body['user'];
+        for (let userAccess of this.users) {
+          if (userAccess.email === user.email) {
+            userAccess = user;
+            this.users = this.users.filter(user => user._id !== userAccess._id);
+            if (user.imageUrl === undefined) {
+              user.imageUrl = 'jbiajl3qqdzshdw0z749';
+            }
+            if (user.role === -1) {
+              user.role = 'Chưa xác thực';
+            } else if (user.role === 0) {
+              user.role = 'Thành viên';
+            } else if (user.role === 1) {
+              user.role = 'Quản trị';
+            } else if (user.role > 1) {
+              user.role = 'Admin';
+            } else {
+              user.role = 'Khóa';
+            }
+            this.users.push(user);
+            this.messageModal = true;
+            this.message = 'Mở khóa thành viên thành công';
+            setTimeout(() => {
+              this.message = '';
+              const radio: HTMLElement = document.getElementById('close-button');
+              radio.click();
+            }, 3000);
+          }
+        }
+      }
+      console.log(data.body['status'])
     });
   }
 
