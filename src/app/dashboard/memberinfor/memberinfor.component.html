@@ -61,7 +61,8 @@
 
 <div class="container" *ngIf="infoCheck ">
   <div>
-    <h6>CÔNG THỨC CÁ NHÂN <span style="color: red; font-size: 12px;">{{recipeCount}}</span></h6>
+    <a class="a-title">CÔNG THỨC CÁ NHÂN <span style="color: red; font-size: 12px;">{{recipeCount}}</span></a>
+
   </div>
   <div class="recipe-list-wrapper" style="float: left; width: 100%;">
     <!-- 1 anh -->
@@ -140,7 +141,8 @@
   </div>
 </div>
 <div class="container" *ngIf="infoCheck ">
-  <h6 class="text-left">Bộ sưu tập cá nhân <span style="color: red; font-size: 12px;">{{galleryCount}}</span></h6>
+  <a class="a-title">BỘ SƯU TẬP CÁ NHÂN <span style="color: red; font-size: 12px;">{{galleryCount}}</span></a>
+
   <div class="row mt-30">
     <div class="col-md-4 col-sm-6" *ngFor="let gallery of memberGallery; let i=index;" style="margin-bottom: 20px;">
       <div class="box19">

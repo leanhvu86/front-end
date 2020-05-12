@@ -16,6 +16,7 @@ export class GalleryAccessComponent implements OnInit {
   collection = { count: 60, data: [] };
   key: any;
   pageSize = 10;
+  loading = false;
   constructor(
     private galleryService: GalleryService,
     private orderPipe: OrderPipe
@@ -71,7 +72,7 @@ export class GalleryAccessComponent implements OnInit {
           gallery.image = 'fvt7rkr59r9d7wk8ndbd';
         }
       }
-      console.log(this.gallerys)
+      this.loading = true
     });
 
   }

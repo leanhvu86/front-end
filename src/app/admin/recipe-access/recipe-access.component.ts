@@ -16,6 +16,7 @@ export class RecipeAccessComponent implements AfterViewInit {
   collection = { count: 60, data: [] };
   key: any;
   pageSize = 10;
+  loading = false;
   constructor(private recipeservice: RecipeService, private orderPipe: OrderPipe) {
     this.collection = orderPipe.transform(this.collection, 'info.name');
     console.log(this.collection);
@@ -89,7 +90,7 @@ export class RecipeAccessComponent implements AfterViewInit {
         let recipe = this.recipes[i];
         recipe.seq = i + 1;
       }
-      console.log(this.recipes);
+      this.loading = true;
     });
   }
   keyUp() {
