@@ -123,17 +123,17 @@ export class StationComponent implements OnInit {
     this.order = value;
   }
 
-  openModal(user: any, openMember: any, updateMember: any) {
+  openModal(user: any, openMemberValue: any, updateMember: any) {
     this.user = user;
 
     this.messageModal = false;
     if (updateMember === 0) {
       this.updateMember = false;
     }
-    if (openMember === true) {
+    if (openMemberValue === true) {
       this.openMember = true;
       this.message = 'Bạn muốn mở khóa tài khoản này ?';
-    } else if (openMember === false) {
+    } else if (openMemberValue === false) {
       this.openMember = false;
       this.message = 'Bạn muốn khóa tài khoản này ?';
     }
@@ -151,6 +151,9 @@ export class StationComponent implements OnInit {
       this.updateMember = false;
       this.message = 'Bạn không có quyền khóa tài khoản của quản trị viên !';
     }
+    // if (this.message === '') {
+    //   this.message = 'Bạn muốn cập nhật tài khoản này?'
+    // }
     const radio: HTMLElement = document.getElementById('modal-button222');
     radio.click();
   }
@@ -190,6 +193,7 @@ export class StationComponent implements OnInit {
             } else {
               user.role = 'Khóa';
             }
+            user.id = this.users.length + 1;
             if (user.imageUrl === undefined) {
               user.imageUrl = 'jbiajl3qqdzshdw0z749';
             }
@@ -205,7 +209,7 @@ export class StationComponent implements OnInit {
               this.message = '';
               const radio: HTMLElement = document.getElementById('close-button');
               radio.click();
-            }, 5000);
+            }, 2000);
           }
         }
       }
@@ -269,14 +273,14 @@ export class StationComponent implements OnInit {
             } else {
               user.role = 'Khóa';
             }
+            user.id = this.users.length + 1;
             this.users.push(user);
             this.messageModal = true;
             this.message = 'Khóa thành viên thành công';
             setTimeout(() => {
-              this.message = '';
               const radio: HTMLElement = document.getElementById('close-button');
               radio.click();
-            }, 3000);
+            }, 2000);
           }
         }
       }
@@ -307,6 +311,7 @@ export class StationComponent implements OnInit {
             } else {
               user.role = 'Khóa';
             }
+            user.id = this.users.length + 1;
             this.users.push(user);
             this.messageModal = true;
             this.message = 'Mở khóa thành viên thành công';
@@ -314,7 +319,7 @@ export class StationComponent implements OnInit {
               this.message = '';
               const radio: HTMLElement = document.getElementById('close-button');
               radio.click();
-            }, 3000);
+            }, 2000);
           }
         }
       }

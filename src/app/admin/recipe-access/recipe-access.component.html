@@ -25,6 +25,7 @@
         <th [class.active]="order === 'info.status'" (click)="setOrder('info.status')"
           class="mdl-data-table__cell--non-numeric">Trạng thái <span [hidden]="reverse"
             style="cursor: pointer;">▼</span><span [hidden]="!reverse">▲</span></th>
+        <th>Ngày tạo</th>
         <th>Duyệt bởi</th>
       </tr>
     </thead>
@@ -49,6 +50,7 @@
         <td style="max-width: 60px;">{{recipe.totalPoint}}&#160;&#160;lượt</td>
         <td style="max-width: 60px;">{{recipe.viewCount}}&#160;&#160;lượt</td>
         <td style="max-width: 60px;">{{recipe.status}}</td>
+        <td style="max-width: 60px;">{{recipe.createdAt|date:'dd.MM.yy HH:mm'}}</td>
         <td style="max-width: 60px;" *ngIf="recipe.updateUser; else othercontent">{{recipe.updateUser.name}}</td>
         <ng-template #othercontent>
           <td style="max-width: 60px;"></td>

@@ -228,6 +228,9 @@
                       </cl-image>
                       <br>
                       <a style="font-size: 12px;">Đăng bởi: {{comment.user.name}}</a>
+                      <br>
+                      <a (click)="deleteComment(comment)" style="color: red;font-size: 10px;cursor: pointer;">Xóa bình
+                        luận</a>
                     </div>
                     <div class="col-8">
                       <a style="font-size: 12px;color: green;">{{comment.type}}</a>

@@ -35,7 +35,10 @@ export class RecipeCheckComponent implements OnInit {
   messageModal = false;
   accept = false;
   totalRecipe = 0;
-
+  commentObject = {
+    id: "",
+    message: ""
+  }
   messageObject = {
     objectId: "",
     message: ""
@@ -268,14 +271,26 @@ export class RecipeCheckComponent implements OnInit {
         setTimeout(() => {
           window.location.reload();
           this.chatService.identifyUser();
-        }, 3000);
+        }, 2000);
         this.recipe.status = 1;
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
       }
     });
   }
-
+  deleteComment(comment: any) {
+    this.commentObject.id = comment._id;
+    console.log(comment)
+    this.recipeService.deleteComment(this.commentObject).subscribe(data => {
+      if (data.body['status'] === 200) {
+        this.message = data.body['message'];
+        this.messageModal = true;
+        const radio: HTMLElement = document.getElementById('modal-button');
+        radio.click();
+        this.recipeComment = this.recipeComment.filter(i => i._id !== comment._id);
+      }
+    })
+  }
   declineRecipe(event: any) {
     if (this.recipe.status === -1) {
       this.errorMessage = 'Công thức này đã bị từ chối';
@@ -304,7 +319,7 @@ export class RecipeCheckComponent implements OnInit {
         setTimeout(() => {
           window.location.reload();
           this.chatService.identifyUser();
-        }, 3000);
+        }, 2000);
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
       }

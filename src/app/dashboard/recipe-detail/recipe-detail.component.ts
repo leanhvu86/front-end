@@ -92,7 +92,7 @@ export class RecipeDetailComponent implements OnInit {
     this.getPersonalGallery();
     this.registerForm = this.formBuilder.group({
 
-      content: ['', Validators.required],
+      content: [''],
       image: [''],
       imageUrl: ['']
     });
@@ -214,7 +214,16 @@ export class RecipeDetailComponent implements OnInit {
       this.getComent();
     });
   }
+  deleteChild() {
+    var e = document.getElementById('gallery');
 
+    //e.firstElementChild can be used. 
+    var child = e.lastElementChild;
+    while (child) {
+      e.removeChild(child);
+      child = e.lastElementChild;
+    }
+  }
   fileOverBase1(e: any): void {
     console.log(e);
     this.hasBaseDropZoneOver1 = e;
@@ -578,7 +587,10 @@ export class RecipeDetailComponent implements OnInit {
       radio.click();
       return;
     }
-    if (this.registerForm.invalid) {
+    if (this.registerForm.value.content === '') {
+      this.message = 'Không được để trống nội dung bình luận';
+      const radio: HTMLElement = document.getElementById('modal-button10');
+      radio.click();
       return;
     }
     this.userObject = this.registerForm.value;
@@ -630,6 +642,8 @@ export class RecipeDetailComponent implements OnInit {
           }
         });
         this.loading = false;
+        this.deleteChild();
+        this.registerForm.reset();
         // this.message = data.body['message'];
         // const radio: HTMLElement = document.getElementById('modal-button10');
         // radio.click();

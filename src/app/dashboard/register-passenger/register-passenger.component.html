@@ -304,8 +304,9 @@
                     *ngFor="let address of cookStep.controls; let i = index;"
                     style=" font-size: 10px;width:90%; position: relative; border-radius:10px; margin:0 5% ;margin-bottom: 5%; min-height: 350px; padding: 20px 0 50px 0; border: 2px gray;">
                     <label>
-                      <input formControlName="index" disabled
-                        style="color: white; background: rgb(33,194,3); width: 5%;left: 2%; top: 5%; position: absolute; border-radius: 7px; text-align: center; border: 1px solid white;" />
+                      <a disabled
+                        style="color: white; background: rgb(33,194,3); width: 5%;left: 2%; top: 5%; position: absolute; border-radius: 7px; text-align: center; border: 1px solid white;">
+                        {{i+1}}</a>
                       <input type="text" formControlName="name" class="form-control"
                         style="left: 12%; top: 7%;width: 50%; position: absolute; "
                         placeholder="Tên bước thực hiện nếu có">
@@ -398,9 +399,6 @@
                   </div>
                 </div>
                 <br>
-                <a style="font-size: 15px;width: 100%; padding-left: 5%; padding-top: 150px;">Vui lòng phân loại cho
-                  công
-                  thức</a>
               </div>
             </div>
           </div>

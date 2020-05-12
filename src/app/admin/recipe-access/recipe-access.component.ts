@@ -75,6 +75,7 @@ export class RecipeAccessComponent implements AfterViewInit {
         }
         if (recipe.user == null) {
           recipe.user.name = 'Đợi duyệt';
+
         }
       }
       this.recipes.sort((a, b) => {

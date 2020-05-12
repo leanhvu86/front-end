@@ -472,7 +472,6 @@ export class RegisterPassengerComponent implements OnInit {
       return;
     }
     // chưa validate
-    console.log("time" + this.profileForm.value.time)
     if (parseInt(this.profileForm.value.time) < 0 || this.profileForm.value.time === '') {
       this.message = 'Vui lòng nhập lại thời gian chế biến hợp lệ';
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -511,7 +510,6 @@ export class RegisterPassengerComponent implements OnInit {
     this.message === '';
     const recipe: Recipe = this.profileForm.value;
     // recipe.ingredientArray = this.getingredientArray(recipe.ingredients);
-    console.log(this.profileForm.value.cookStep);
     if (parseInt(recipe.time) < 0) {
       this.message = 'Thời gian thực hiện phải lớn hơn 0';
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -519,7 +517,6 @@ export class RegisterPassengerComponent implements OnInit {
       return;
     }
     let cookSteps = this.profileForm.value.cookStep;
-    console.log(cookSteps)
     for (let i = 0; i < cookSteps.length; i++) {
       const id = 'imageArray' + i;
       const inputValue = (document.getElementById(id) as HTMLInputElement).value;
@@ -534,8 +531,6 @@ export class RegisterPassengerComponent implements OnInit {
       const result = data.body;
       let steps = data.body;
       recipe.cockStep = steps;
-      console.log(recipe.cockStep);
-      console.log(steps);
       if (steps !== undefined) {
 
         recipe.user = this.cookie.get('email');
@@ -554,7 +549,6 @@ export class RegisterPassengerComponent implements OnInit {
 
         this.message = '';
         recipe.ingredients = this.ingredientArrays;
-        console.log(this.ingredientArrays);
         let nameSpace = recipe.recipeName;
         nameSpace = nameSpace.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         nameSpace = nameSpace.toLowerCase();
@@ -621,9 +615,7 @@ export class RegisterPassengerComponent implements OnInit {
     const id = this.index;
     console.log(this.index);
 
-    console.log(this.imageArrays);
     return this.formbuilder.group({
-      index: this.formbuilder.control(id, RxwebValidators.unique()),
       name: this.formbuilder.control('', RxwebValidators.unique()),
       time: this.formbuilder.control(''),
       psnote: this.formbuilder.control('', RxwebValidators.unique()),
@@ -870,6 +862,8 @@ export class RegisterPassengerComponent implements OnInit {
 
       this.navHide = false;
     }
+    const radio: HTMLElement = document.getElementById('scroll-to-top');
+    radio.click();
   }
   onChangeofingredient(value: any) {
     if (this.showIngredient === false) {

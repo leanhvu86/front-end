@@ -73,6 +73,9 @@ export class RecipeService {
   addComment(comment: any) {
     return this._http.post(`${this.baseUrl}/addComment`, { comment: comment }, { observe: "response" });
   }
+  deleteComment(comment: any) {
+    return this._http.post(`${this.baseUrl}/deleteComment`, { comment: comment }, { observe: "response" });
+  }
   dislikeRecipe(interest: any) {
     return this._http.post(`${this.baseUrl}/dislikeRecipe`, { object: interest }, { observe: "response" });
   }

@@ -342,11 +342,9 @@
                   <textarea formControlName="content"
                     [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.content.errors }" id="content"
                     class="form-control" name="content" autocomplete="off" formControlName="content"
-                    placeholder="Bình luận công thức " title="Please enter the content" required autofocus cols="8"
-                    style="width: 90%;margin:10px 30px;"></textarea>
-                  <div *ngIf="submitted &amp;&amp; registerForm.controls.content.errors" class="text-danger">
-                    <div *ngIf="registerForm.controls.content.errors.required">Không để trống nội dung bình luận</div>
-                  </div>
+                    placeholder="Bình luận công thức " title="Please enter the content" autofocus cols="8"
+                    style="width: 90%;margin:10px 30px;resize: none;"></textarea>
+
                   <!-- <input
                   type="file"
                   id="image"
