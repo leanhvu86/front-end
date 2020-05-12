@@ -289,26 +289,27 @@ export class StationComponent implements OnInit {
     let userTemp = user;
     this.userService.activeMember(user._id).subscribe(data => {
       this.users = this.users.filter(user => user._id !== userTemp._id);
-
-      user = data;
+      user.warningReport = 1
+      //user = data;
       user.block = false;
-      if (user.imageUrl === undefined) {
-        user.imageUrl = 'jbiajl3qqdzshdw0z749';
-      }
+      // if (user.imageUrl === undefined) {
+      //   user.imageUrl = 'jbiajl3qqdzshdw0z749';
+      // }
       user.isAdmin = false;
-      if (user.role === -1) {
-        user.role = 'Chưa xác thực';
-      } else if (user.role === 0) {
-        user.role = 'Thành viên';
-      } else if (user.role === 1) {
-        user.isAdmin = true;
-        user.role = 'Quản trị';
-      } else if (user.role > 1) {
-        user.role = 'Admin';
-        user.isAdmin = true;
-      } else {
-        user.role = 'Khóa';
-      }
+      // if (user.role === -1) {
+      //   user.role = 'Chưa xác thực';
+      // } else if (user.role === 0) {
+      //user.role = 'Thành viên';
+      // } else if (user.role === 1) {
+      //   user.isAdmin = true;
+      //   user.role = 'Quản trị';
+      // } else if (user.role > 1) {
+      //   user.role = 'Admin';
+      //   user.isAdmin = true;
+      // } else {
+      //   user.role = 'Khóa';
+      // }
+      user.status = 1
       this.users.push(user);
       this.messageModal = true;
       this.message = 'Mở khóa thành viên thành công';
@@ -316,7 +317,7 @@ export class StationComponent implements OnInit {
         this.message = '';
         const radio: HTMLElement = document.getElementById('close-button');
         radio.click();
-        window.location.reload()
+        //window.location.reload();
         this.chatService.identifyUser();
       }, 3000);
 
