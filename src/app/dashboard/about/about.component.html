@@ -1,7 +1,7 @@
 <!------------------ Hover Effect Style : Demo - 21 --------------->
 <br>
 <div class="container" style="min-height: 500px;">
-  <h4 class="text-left">TOP THÀNH VIÊN NỔI BẬT</h4>
+  <a class="text-left">TOP THÀNH VIÊN NỔI BẬT</a>
   <hr>
   <ng-template #skeleton>
     <!-- <main class="container mt-2">
@@ -224,7 +224,7 @@
   </div>
 </section>
 <div class="container" style="min-height: 200px; width: 100%;">
-  <h4 class="text-left">DANH SÁCH THÀNH VIÊN MỚI</h4>
+  <a class="text-left">DANH SÁCH THÀNH VIÊN MỚI</a>
   <hr>
   <div class="member-list-left">
     <div class="member-list-container tab-content">
@@ -272,6 +272,7 @@
     </div>
   </div>
 </div>
-<pagination-controls (pageChange)="p = $event" style="width: 1300px;float: left;"></pagination-controls>
-<div class="clearfix"></div>
+<pagination-controls (pageChange)="p = $event" style="width: 1300px;float: left; margin-left: 50px;">
+</pagination-controls>
+<div class="clearfix"></div><br>
 <app-scroll-top></app-scroll-top>
