@@ -21,15 +21,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="F:/front-end/teamsupport/material-dashboard-angular2-master" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.tslint" value="$PROJECT_DIR$/../../../nodeJs/angular7-google-authenication/angular-node-mfauth/front-end/node_modules/tslint" />
+    <property name="node.js.selected.package.tslint" value="$USER_HOME$/nodeJs/angular7-google-authenication/angular-node-mfauth/front-end/node_modules/tslint" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
-    <property name="ts.external.directory.path" value="F:\dự án 2\front end\front-end\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Users\Win\dự án 2\front end\front-end\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -90,6 +90,10 @@
       <workItem from="1588002561061" duration="2414000" />
       <workItem from="1588231890725" duration="1769000" />
       <workItem from="1588322306175" duration="14000" />
+      <workItem from="1588728048597" duration="45000" />
+      <workItem from="1591426163766" duration="713000" />
+      <workItem from="1591548576034" duration="4617000" />
+      <workItem from="1591716221254" duration="696000" />
     </task>
     <servers />
   </component>
@@ -101,10 +105,26 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="309" y="47" key="#Inspections/0.0.1366.738@0.0.1366.738" timestamp="1587222983738" />
-    <state x="463" y="127" key="FileChooserDialogImpl" timestamp="1587172970568">
+    <state x="463" y="127" key="FileChooserDialogImpl" timestamp="1591718660915">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="463" y="127" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1587172970568" />
+    <state x="463" y="127" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1591718660915" />
+    <state width="1345" height="182" key="GridCell.Tab.0.bottom" timestamp="1591718663105">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1345" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1591718663105" />
+    <state width="1345" height="182" key="GridCell.Tab.0.center" timestamp="1591718663105">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1345" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1591718663105" />
+    <state width="1345" height="182" key="GridCell.Tab.0.left" timestamp="1591718663105">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1345" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1591718663105" />
+    <state width="1345" height="182" key="GridCell.Tab.0.right" timestamp="1591718663105">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1345" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1591718663105" />
     <state x="186" y="15" key="SettingsEditor" timestamp="1587293533458">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

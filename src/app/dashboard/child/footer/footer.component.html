@@ -1,48 +1,51 @@
 <div class="clearfix"></div>
-<footer class="footer" *ngIf="summary" style="background: white; padding-top: 10px;margin-top: 50px;">
-  <div class="row" style="background: white;">
-    <div class="col-12 col-md" style="margin-left:5%;">
+<footer class="footer row w-100 pt-5" *ngIf="summary" style="padding-top: 5px;">
+  <div class="row w-100" style="background: #08a736cf;padding-top: 5px; color: white;">
+    <div class="col-4 text-center">
       <div class="jm-logo">
-        <a>
-          <i><img style="height: 80px;width:auto;margin-left: -10%;" src="../../../assets/images/logo.png" /></i>
+        <a class="text-center">
+          <i><img style="height: 80px;width:auto;" src="../../../assets/images/logo.png" /></i>
         </a>
       </div>
-
-      <small class="d-block mb-3 text-muted">© 2020-2030</small>
+      <small class="d-block mb-3 text-center " style="color: white;">© 2020-2030</small>
     </div>
-    <div class="col-4 col-md">
-      <h5 style="color:rgb(48, 194, 11)">Thống kê</h5>
+    <div class="col-4">
+      <h5>THỐNG KÊ </h5>
       <div class="row">
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">
-            <li><span>{{summary.recipeCount}}</span><a class="text-muted" routerLink="/recipe"> Công thức món chay</a>
+            <li><span>{{summary.recipeCount}}</span><a class="text-muted1" routerLink="/recipe" (click)="clickMenu()">
+                CÔNG THỨC MÓN CHAY</a>
             </li>
-            <li><span>{{summary.galleryCount}}</span><a class="text-muted" routerLink="/gallery"> Bộ sưu tập</a></li>
-            <li><span>{{summary.userCount}}</span><a class="text-muted" routerLink="/about"> Thành viên</a></li>
+            <li><span>{{summary.galleryCount}}</span><a class="text-muted1" routerLink="/gallery" (click)="clickMenu()">
+                BỘ SƯU TẬP</a></li>
+            <li><span>{{summary.userCount}}</span><a class="text-muted1" routerLink="/about" (click)="clickMenu()">
+                THÀNH
+                VIÊN</a></li>
           </ul>
         </div>
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">
-            <li><span>{{summary.loginCount}}</span><a class="text-muted"> Lượt đăng nhập</a></li>
-            <li><span>{{summary.connectCount}}</span><a class="text-muted"> Lượt truy cập</a></li>
-            <!-- <li><a class="text-muted" href="#"> Team feature</a></li> -->
+            <li><span>{{summary.loginCount}}</span><a class="text-muted1"> LƯỢT ĐĂNG NHẬP</a></li>
+            <li><span>{{summary.connectCount}}</span><a class="text-muted1"> LƯỢT TRUY CẬP</a></li>
+            <!-- <li><a class="text-muted1" href="#"> Team feature</a></li> -->
           </ul>
         </div>
       </div>
     </div>
-    <div class="col-4 col-md">
-      <h5 style="color:rgb(48, 194, 11)">Về chúng tôi</h5>
+    <div class="col-4">
+      <h5>VỀ CHÚNG TÔI</h5>
       <div class="row">
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">
-            <li><a class="text-muted" routerLink="/gioithieu">Giới thiệu</a></li>
-            <li><a class="text-muted" routerLink="/quydinh">Quy định</a></li>
+            <li><a class="text-muted1" routerLink="/gioithieu" (click)="clickMenu()">GIỚI THIỆU</a></li>
+            <li><a class="text-muted1" routerLink="/quydinh" (click)="clickMenu()">QUY ĐỊNH</a></li>
           </ul>
         </div>
         <div class="col -6 col-md">
           <ul class="list-unstyled text-small" style="font-size: 12px;">
-            <li><a class="text-muted" routerLink="/chinhsachbaomat">Chính sách</a></li>
-            <li><a class="text-muted" routerLink="/chinhsachdiem">Chính sách điểm</a></li>
+            <li><a class="text-muted1" routerLink="/chinhsachbaomat" (click)="clickMenu()">CHÍNH SÁCH</a></li>
+            <li><a class="text-muted1" routerLink="/chinhsachdiem" (click)="clickMenu()">CHÍNH SÁCH ĐIỂM</a></li>
           </ul>
         </div>
       </div>

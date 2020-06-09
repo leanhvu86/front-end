@@ -4,6 +4,7 @@ import { Gallery } from 'src/app/shared/model/gallery';
 import { CookieService } from 'ngx-cookie-service';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { UserService } from 'src/app/shared/service/user.service.';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-add-gallery',
@@ -29,7 +30,8 @@ export class AddGalleryComponent implements OnInit {
     private cookie: CookieService,
     private formBuilder: FormBuilder,
     private galleryService: GalleryService,
-    private userService: UserService
+    private userService: UserService,
+    private chatService: ChatService
   ) {
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     console.log(this.isAuthenicate)
@@ -62,6 +64,7 @@ export class AddGalleryComponent implements OnInit {
     this.galleryObject = this.registerForm.value
     let email = this.cookie.get('email')
     this.galleryObject.user = email
+    this.galleryObject.image = 'fvt7rkr59r9d7wk8ndbd';
     console.log(this.galleryObject)
     this.galleryService.createGallery(this.galleryObject).subscribe(gallery => {
       console.log(gallery)
@@ -70,9 +73,7 @@ export class AddGalleryComponent implements OnInit {
         this.message = 'Chúc mừng bạn thêm bộ sưu tập thành công'
         let tem = new Gallery
         tem = gallery.body['gallery']
-        if (tem.image == '') {
-          tem.image = 'fvt7rkr59r9d7wk8ndbd'
-        }
+        console.log(tem)
         this.registerForm.reset();
         this.saving = false;
         this.gallerys.push(tem)
@@ -82,6 +83,7 @@ export class AddGalleryComponent implements OnInit {
           this.messageCheck = false;
           this.message = ''
           window.location.reload();
+          this.chatService.identifyUser();
         }, 3000);
 
       }

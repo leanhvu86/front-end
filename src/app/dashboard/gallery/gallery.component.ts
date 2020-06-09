@@ -5,14 +5,20 @@ import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Gallery } from 'src/app/shared/model/gallery';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { UserService } from 'src/app/shared/service/user.service.';
+import { trigger } from '@angular/animations';
+import { fadeIn } from '../../shared/animation/fadeIn';
+
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.css']
+  styleUrls: ['./gallery.component.css'],
+  animations: [
+    trigger('fadeIn', fadeIn())
+  ]
 })
 export class GalleryComponent implements OnInit {
-
+  loadingSuccess = false;
   submitted: boolean = false;
   registerForm: FormGroup;
   isAuthenicate: boolean;
@@ -39,6 +45,7 @@ export class GalleryComponent implements OnInit {
   ) {
     this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
     console.log(this.isAuthenicate)
+    if (this.isAuthenicate === false) this.loadingSuccess = true;
   }
 
   ngOnInit() {
@@ -69,6 +76,7 @@ export class GalleryComponent implements OnInit {
           gallery.image = 'fvt7rkr59r9d7wk8ndbd'
         }
       }
+      this.loadingSuccess = true;
       this.galleryTop = galleries
       if (this.isAuthenicate == true) {
         this.userObject.email = this.cookie.get('email')
@@ -184,6 +192,7 @@ export class GalleryComponent implements OnInit {
               this.gallerys.push(gallery)
             }
           }
+
         }
       })
     }

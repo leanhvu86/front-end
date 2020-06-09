@@ -13,6 +13,7 @@ import { LoginServiceService } from 'src/app/shared/service/login-service.servic
 import { Gallery } from 'src/app/shared/model/gallery';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Comment } from 'src/app/shared/model/comment';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -66,6 +67,9 @@ export class RecipeDetailComponent implements OnInit {
   recipeComment: Comment[] = [];
   lstComment: Comment[];
   loadingRest = false;
+  loading = false;
+  loadingSuccess1 = false;
+  waitingRecipe = false;
   constructor(
     private cloudinary: Cloudinary,
     private route: ActivatedRoute,
@@ -75,7 +79,8 @@ export class RecipeDetailComponent implements OnInit {
     private _loginService: LoginServiceService,
     private formBuilder: FormBuilder,
     private _router: Router,
-    private galleryService: GalleryService
+    private galleryService: GalleryService,
+    private chatService: ChatService
   ) {
 
   }
@@ -87,7 +92,7 @@ export class RecipeDetailComponent implements OnInit {
     this.getPersonalGallery();
     this.registerForm = this.formBuilder.group({
 
-      content: ['', Validators.required],
+      content: [''],
       image: [''],
       imageUrl: ['']
     });
@@ -165,7 +170,8 @@ export class RecipeDetailComponent implements OnInit {
           }
         }
         this.cookSteps = this.recipe.cockStep;
-
+        this.waitingRecipe = this.recipe.status === 1 ? false : true;
+        this.loadingSuccess1 = true;
         this.getRecipes();
       }
     });
@@ -196,7 +202,7 @@ export class RecipeDetailComponent implements OnInit {
         for (let interst of interests) {
           if (interst.objectId._id === this.recipe._id) {
             this.likeUser = true;
-            console.log(interst)
+
           }
         }
       })
@@ -208,7 +214,16 @@ export class RecipeDetailComponent implements OnInit {
       this.getComent();
     });
   }
+  deleteChild() {
+    var e = document.getElementById('gallery');
 
+    //e.firstElementChild can be used. 
+    var child = e.lastElementChild;
+    while (child) {
+      e.removeChild(child);
+      child = e.lastElementChild;
+    }
+  }
   fileOverBase1(e: any): void {
     console.log(e);
     this.hasBaseDropZoneOver1 = e;
@@ -218,11 +233,11 @@ export class RecipeDetailComponent implements OnInit {
 
   getComent() {
     this.doneCount = 0;
+    this.recipeComment.length = 0;
     this.recipeService.getComments().subscribe(data => {
       if (data !== undefined) {
         this.lstComment = data['comments'];
         for (const comment of this.lstComment) {
-          console.log(comment.recipe.recipeName);
           if (comment.recipe.recipeName === this.recipe.recipeName) {
             if (comment.type === 1) {
               this.doneCount++;
@@ -348,6 +363,11 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   countIngredient(multiplyElement: any) {
+    if (this.multiplyElement < 0) {
+      alert('Giá trị nhập vào  phải lớn hơn 0');
+      this.multiplyElement = 1;
+      return;
+    }
     if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
       for (let ingredient of this.recipe.ingredients) {
         let quantity =
@@ -372,6 +392,7 @@ export class RecipeDetailComponent implements OnInit {
   loadPage() {
     console.log('load');
     window.location.reload();
+    this.chatService.identifyUser();
   }
 
   fullImage() {
@@ -505,13 +526,15 @@ export class RecipeDetailComponent implements OnInit {
 
 
   addDoneRecipe(recipe: any) {
-    if (this.isAuthenicate == false) {
+    let user = this.cookie.get('email');
+    if (this.isAuthenicate == false && user === '') {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
+    this.loading = true;
     this.done = true;
-    let user = this.cookie.get('email');
+
     let doneObject = new Object({
       user: user,
       recipe: recipe,
@@ -544,23 +567,29 @@ export class RecipeDetailComponent implements OnInit {
         console.log('success');
         setTimeout(() => {
           window.location.reload();
+          this.chatService.identifyUser();
         }, 3000);
-
+        this.loading = false;
       } else {
         this.message = data.body['message'];
         const radio: HTMLElement = document.getElementById('modal-button10');
         radio.click();
+        this.loading = false;
       }
     });
   }
 
   addComment() {
+    let user = this.cookie.get('email');
     this.submitted = true;
-    if (this.registerForm.invalid) {
+    if (this.isAuthenicate == false && user === '') {
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
       return;
     }
-    if (this.isAuthenicate == false) {
-      const radio: HTMLElement = document.getElementById('modal-button');
+    if (this.registerForm.value.content === '') {
+      this.message = 'Không được để trống nội dung bình luận';
+      const radio: HTMLElement = document.getElementById('modal-button10');
       radio.click();
       return;
     }
@@ -572,7 +601,7 @@ export class RecipeDetailComponent implements OnInit {
     } else {
       typeDone = 0;
     }
-    let user = this.cookie.get('email');
+    this.loading = true;
     const inputValue = (document.getElementById(
       'imageArray'
     ) as HTMLInputElement).value;
@@ -603,12 +632,24 @@ export class RecipeDetailComponent implements OnInit {
         let imageArr = comment.imageUrl.split(',');
         comment.imageUrl = imageArr;
         this.recipeComment.push(comment);
-        this.message = data.body['message'];
-        const radio: HTMLElement = document.getElementById('modal-button10');
-        radio.click();
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
+        this.recipeComment.sort((a, b) => {
+          if (a.order > b.order) {
+            return -1;
+          } else if (a.order < b.order) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        this.loading = false;
+        this.deleteChild();
+        this.registerForm.reset();
+        // this.message = data.body['message'];
+        // const radio: HTMLElement = document.getElementById('modal-button10');
+        // radio.click();
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 3000);
 
       } else {
         this.message = data.body['message'];

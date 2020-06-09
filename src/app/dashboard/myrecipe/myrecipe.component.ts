@@ -5,10 +5,16 @@ import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/shared/model/user';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { Recipe } from 'src/app/shared/model/recipe';
+import { trigger } from '@angular/animations';
+import { fadeIn } from '../../shared/animation/fadeIn';
+
 @Component({
   selector: "app-myrecipe",
   templateUrl: "./myrecipe.component.html",
-  styleUrls: ["./myrecipe.component.css"]
+  styleUrls: ["./myrecipe.component.css"],
+  animations: [
+    trigger('fadeIn', fadeIn())
+  ]
 })
 export class MyrecipeComponent implements OnInit {
   id: String = '1';

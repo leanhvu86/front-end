@@ -1,10 +1,13 @@
 li:hover span{
-    color: red;
+    color: rgb(165, 253, 138);
     font-size: 14px;
     font-weight: 400;
 }
 .jm-logo a {
 	padding: 20px;
+}
+.text-muted{
+	color: white;
 }
 .jm-logo img:hover {
 	-webkit-animation-name: wobble-to-top-right;
@@ -79,4 +82,7 @@ li:hover span{
 	    -webkit-transform: translate(0, 0);
 	    transform: translate(0, 0);
   	}
+}
+.text-muted1{
+	color: white;
 }

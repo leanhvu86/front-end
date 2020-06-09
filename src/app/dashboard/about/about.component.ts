@@ -4,11 +4,17 @@ import { User } from 'src/app/shared/model/user';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Recipe } from 'src/app/shared/model/recipe';
+import { trigger } from '@angular/animations';
+import { fadeIn } from '../../shared/animation/fadeIn';
+
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+  styleUrls: ['./about.component.css'],
+  animations: [
+    trigger('fadeIn', fadeIn())
+  ]
 })
 export class AboutComponent implements OnInit {
 
@@ -17,6 +23,7 @@ export class AboutComponent implements OnInit {
   imageUrl: string = 'jbiajl3qqdzshdw0z749';
   recipes: Recipe[] = [];
   p: number;
+  loadingSuccess = false;
   constructor(
     private userService: UserService,
     private recipeService: RecipeService,
@@ -65,6 +72,10 @@ export class AboutComponent implements OnInit {
                 }
               }
             }
+
+
+
+
           })
         }
       })
@@ -80,6 +91,17 @@ export class AboutComponent implements OnInit {
             for (let user of this.topUsers) {
               user.role = 0;
               user.warningReport = 0
+              if (user.totalPoint > 600) {
+                user.level = 'Mastee';
+              } else if (user.totalPoint > 400) {
+                user.level = 'Cheffe';
+              } else if (user.totalPoint > 250) {
+                user.level = 'Cookee';
+              } else if (user.totalPoint > 100) {
+                user.level = 'Tastee';
+              } else {
+                user.level = 'Newbee';
+              }
             }
             for (let i = 0; i < recipes.length; i++) {
               let recipe = recipes[i];
@@ -103,6 +125,40 @@ export class AboutComponent implements OnInit {
                 }
               }
             }
+            this.loadingSuccess = true;
+            this.userService.getNewUsers().subscribe(users => {
+              users.forEach(user => {
+                if (user.status >= 0) {
+                  user.role = 0;
+                  user.warningReport = 0
+
+                }
+              });
+              this.allUser = users;
+
+              for (let i = 0; i < recipes.length; i++) {
+                let recipe = recipes[i];
+                for (let userIndex = 0; userIndex < this.allUser.length; userIndex++) {
+                  let user = this.allUser[userIndex];
+
+                  if (user.imageUrl === undefined) {
+                    user.imageUrl = this.imageUrl;
+                  }
+                  if (user._id === recipe.user._id) {
+                    user.role++;
+                  }
+                }
+              }
+              for (let i = 0; i < gallerys.length; i++) {
+                let gallery = gallerys[i];
+                for (let userIndex = 0; userIndex < this.allUser.length; userIndex++) {
+                  let user = this.allUser[userIndex];
+                  if (user._id === gallery.user._id) {
+                    user.warningReport++;
+                  }
+                }
+              }
+            })
           });
         }
       });

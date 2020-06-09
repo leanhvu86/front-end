@@ -1,5 +1,5 @@
-<div class="container" *ngIf="loadPage">
-  <div class="row" style="background: rgb(233, 235, 238); padding: 20px 0 20px 0;">
+<div class="container" *ngIf="loadPage; else skeleton;">
+  <div class="row" style="background: white; padding: 20px 0 20px 0;">
     <!--  -->
     <div class="col-3 account-sidebar">
       <div class="sidebar-head">
@@ -94,8 +94,7 @@
     </div>
     <!--  -->
     <div class="col-8 page-account-info" style="font-family: Arial, Helvetica, sans-serif">
-
-      <h3>Thông tin cá nhân</h3>
+      <a class="a-title">THÔNG TIN CÁ NHÂN</a>
       <ul class="nav nav-tabs" style="text-align: center;">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#home">
@@ -115,12 +114,12 @@
 
                 </td>
                 <td>
-                  <h4>Thông tin giới thiệu</h4>
+                  <a class="a-title">THÔNG TIN GIỚI THIỆU</a>
                 </td>
               </tr>
               <tbody>
                 <tr>
-                  <th scope="col" style="text-align: right;width: 200px;">
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">
 
 
                     Giới thiệu
@@ -163,11 +162,11 @@
 
                   </td>
                   <td>
-                    <h4>Thông tin tài khoản</h4>
+                    <a class="a-title">THÔNG TIN TÀI KHOẢN</a>
                   </td>
                 </tr>
                 <tr>
-                  <th scope="col" style="text-align: right;width: 200px;">Email</th>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Email</th>
                   <td>
                     <input type="text" class="form-control" formControlName="email" name="email" disabled
                       [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
@@ -178,7 +177,7 @@
                 </tr>
                 <!--  -->
                 <tr>
-                  <th scope="col" style="text-align: right;width: 200px;">Tên người dùng</th>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Tên người dùng</th>
                   <td>
                     <input type="text" class="form-control" formControlName="name"
                       [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
@@ -192,14 +191,14 @@
                 </tr>
                 <!--  -->
                 <tr>
-                  <th scope="col" style="text-align: right;width: 200px;">Họ</th>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Họ</th>
                   <td>
                     <input type="text" class="form-control" formControlName="lastName" />
                   </td>
                 </tr>
                 <!--  -->
                 <tr>
-                  <th scope="col" style="text-align: right;width: 200px;">Năm sinh</th>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Năm sinh</th>
                   <td>
 
                     <select type="text" formControlName="birthday" style="width:25%; border-radius:10px; "
@@ -210,7 +209,7 @@
                 </tr>
                 <!--  -->
                 <tr>
-                  <th scope="col" style="text-align: right;width: 200px;">Giới tính</th>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Giới tính</th>
                   <td>
                     <div class="dropdown">
                       <select type="text" formControlName="gender"
@@ -225,7 +224,7 @@
                 </tr>
                 <!--  -->
                 <tr>
-                  <th scope="col" style="text-align: right;width: 200px;">
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">
                     Tình trạng hôn nhân
                   </th>
                   <td>
@@ -245,7 +244,7 @@
                 </tr>
                 <!--  -->
                 <tr>
-                  <th scope="col" style="text-align: right;width: 200px;">Chữ kí</th>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Chữ kí</th>
                   <td>
                     <textarea class="form-control" formControlName="signature" rows="3"></textarea>
                     <span style="color: red;font-size: 12px;">{{errorMessage}}</span>
@@ -385,3 +384,179 @@
   </div>
 </div>
 <app-scroll-top></app-scroll-top>
+<ng-template #skeleton>
+  <!-- <main class="container mt-2">
+    <div class="row">
+      <div class="col-4 col-lg-2 p-2">
+        <div class="user-img m-2 mr-auto ml-auto">
+          <img src="/assets/img/user.svg" class="img-fluid rounded-circle">
+        </div>
+      </div>
+      <div class="col-8 col-lg-10 pt-3 sm-text-center">
+        <h2 class="display-5 text-capitalize sm-mr-auto sm-ml-auto"></h2>
+        <p class="lead sm-mr-auto sm-ml-auto"></p>
+        <a href="#" class="btn btn-secondary mr-1"></a><a href="#" class="btn btn-secondary"></a>
+      </div>
+    </div>
+  </main> -->
+  <section style="width: 100%; min-height: auto;">
+    <!-- <div class="pt-2 pb-4 text-center">
+      <h5 class="mr-auto ml-auto"></h5>
+    </div> -->
+    <div class="container">
+
+      <div class="row">
+        <div class="col-3 account-sidebar">
+
+          <h5 class="card-title"
+            style="height: 180px;border-radius: 90px; width: 190px;margin-top: 10px;margin-left: 30px;">
+          </h5>
+          <p class="card-text" style="width: 250px;"></p>
+          <div class="form-inline">
+            <a href="#" class="btn btn-outline-primary mr-auto ml-auto"
+              style="height: 20px;width: 100px;margin-left: 50px;"></a>
+          </div>
+          <br>
+          <br>
+          <div class="form-inline">
+            <a href="#" class="btn btn-outline-primary mr-auto ml-auto" style="height: 10px;width: 250px;"></a>
+          </div>
+          <br>
+          <br>
+          <div class="form-inline">
+            <a href="#" class="btn btn-outline-primary mr-auto ml-auto" style="height: 20px;width: 200px;"></a>
+          </div>
+        </div>
+        <div class="col-8 page-account-info">
+          <a class="a-title">THÔNG TIN CÁ NHÂN</a>
+          <div class="row">
+            <table class="table table-borderless table-condensed ">
+              <tr>
+                <td style="width: 200px;">
+
+                </td>
+                <td>
+                  <a class="a-title">THÔNG TIN GIỚI THIỆU</a>
+                </td>
+              </tr>
+              <tbody>
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">
+
+
+                    Giới thiệu
+                  </th>
+                  <td>
+                    <p class="card-text" style="width: 100%; height: 100px;"></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 200px;">
+
+                  </td>
+                  <td>
+                    <p class="card-text" style="width: 250px; height: 30px;"></p>
+
+                    <ng-template #other_content10>
+                      <div *ngIf="loading">
+
+                        <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    </ng-template>
+
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <td style="width: 200px;">
+
+                  </td>
+                  <td>
+                    <a class="a-title">THÔNG TIN TÀI KHOẢN</a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Email</th>
+                  <td>
+                    <p class="card-text" style="width: 100%;"></p>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Tên người dùng</th>
+                  <td>
+                    <p class="card-text" style="width: 100%;"></p>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Họ</th>
+                  <td>
+                    <p class="card-text" style="width: 100%;"></p>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Năm sinh</th>
+                  <td>
+
+                    <p class="card-text" style="width: 250px;"></p>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Giới tính</th>
+                  <td>
+                    <div class="dropdown">
+                      <p class="card-text" style="width: 250px;"></p>
+                    </div>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">
+                    Tình trạng hôn nhân
+                  </th>
+                  <td>
+                    <div class="dropdown">
+                      <p class="card-text" style="width: 40%;"></p>
+
+                    </div>
+                  </td>
+                </tr>
+                <!--  -->
+                <tr>
+                  <th scope="col" style="text-align: right;width: 200px;font-weight: 300;">Chữ kí</th>
+                  <td>
+                    <p class="card-text" style="width: 100%;height: 100px;"></p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="width: 200px;"></td>
+                  <td>
+
+                    <p class="card-text" style="width: 250px;"></p>
+                    <!-- <button type="button" class="btn btn-light" (click)="onClear()">Xóa thông tin</button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</ng-template>

@@ -116,6 +116,9 @@ export class UserService {
   bannedUser(user: any) {
     return this._http.post(`${this.baseUrl}/bannedUser`, { user: user }, { observe: "response" });
   }
+  openUser(user: any) {
+    return this._http.post(`${this.baseUrl}/openUser`, { user: user }, { observe: "response" });
+  }
   dislikeremovePoint(user: any) {
     return this._http.post(
       `${this.baseUrl}/removePoint`,

@@ -1,38 +1,41 @@
 <h5 style="margin-left: 3%;">DANH SÁCH BỘ SƯU TẬP</h5>
 <div class="search-hero">
-  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" (input)="keyUp()"
     placeholder="&#61442;  Từ khóa tìm kiếm">
 </div>
-<div *ngFor="let gallery of gallerys | filter:searchText| orderBy: key : reverse| paginate: config; let i=index">
+<div *ngFor="let gallery of gallerys | LockFilter:searchText | orderBy: key : reverse| paginate: config; let i=index">
 
 </div>
-<div class="table-responsive">
+<div class="table-responsive" *ngIf="loading;else skeleton3">
   <table class="table table-striped table-sm">
     <thead>
       <tr>
-        <th>STT</th>
-        <th>
+        <th style="text-align: center;">STT</th>
+        <th style="text-align: center;">
           Tên bộ sưu tập
         </th>
-        <th>
+        <th style="text-align: center;">
           Người tạo
         </th>
-        <th>Nội dung</th>
-        <th>Tổng điểm</th>
-        <th>Ảnh</th>
+        <th style="text-align: center;">Nội dung</th>
+        <th style="text-align: center;">Tổng điểm</th>
+        <th style="text-align: center;">Ảnh</th>
       </tr>
     </thead>
     <tbody *ngFor="let gallery of gallerys | filter:searchText| paginate: config; let i=index">
 
       <tr class="texthover">
-        <td>{{i + 1}}</td>
-        <td style="max-width: 50px;" [routerLink]="['/galleryDetail/', gallery._id]">
+        <td style="max-width: 50px;background: white; padding-top: 20px; text-align: center;">{{gallery.seq}}</td>
+        <td style="max-width: 50px;background: white; padding-top: 20px; text-align: center;"
+          [routerLink]="['/galleryDetail/', gallery._id]">
           {{gallery.name}}</td>
-        <td style="max-width: 80px;">{{gallery.user.name}}</td>
-        <td style="max-width: 60px;">{{gallery.content}}</td>
-        <td style="max-width: 60px;">{{gallery.totalPoint}}</td>
-        <td [routerLink]="['/galleryDetail/', gallery._id]" class="ahover">
-          <a title="{{gallery.image}}">
+        <td style="max-width: 80px;background: white; padding-top: 20px; text-align: center;">{{gallery.user.name}}</td>
+        <td style="max-width: 60px;background: white; padding-top: 20px; text-align: center;">{{gallery.content}}</td>
+        <td style="max-width: 60px;background: white; padding-top: 20px; text-align: center;">{{gallery.totalPoint}}
+        </td>
+        <td [routerLink]="['/galleryDetail/', gallery._id]"
+          style="max-width: 60px;background: white; padding-top: 20px; text-align: center;">
+          <a title="{{gallery.image}}" class="ahover">
             <cl-image public-id="{{gallery.image}}">
               <cl-transformation aspect-ratio="1:1" gravity="auto" width="100" height="100" crop="fill">
               </cl-transformation>
@@ -46,3 +49,249 @@
   <pagination-controls (pageChange)="pageChanged($event)" style="margin-left: 25%;"></pagination-controls>
 </div>
 <app-scroll-top></app-scroll-top>
+
+<ng-template #skeleton3>
+  <section style="width: 100%; min-height: auto;">
+    <div class="row" style="text-align: center;">
+      <h6>DANH SÁCH QUẢN TRỊ VIÊN</h6>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th style="text-align: center;">STT</th>
+            <th style="text-align: center;">
+              Tên bộ sưu tập
+            </th>
+            <th style="text-align: center;">
+              Người tạo
+            </th>
+            <th style="text-align: center;">Nội dung</th>
+            <th style="text-align: center;">Tổng điểm</th>
+            <th style="text-align: center;">Ảnh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+
+
+          </tr>
+          <tr>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+          </tr>
+          <tr>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+          </tr>
+          <tr>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+          </tr>
+          <tr>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+          </tr>
+          <tr>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+          </tr>
+          <tr>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+          </tr>
+          <tr>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+          </tr>
+          <tr>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+          </tr>
+          <tr>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+            <th scope="row">
+              <h5 class="card-title" style="height: 100px;margin-left: -15px; width: 100%;"></h5>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</ng-template>

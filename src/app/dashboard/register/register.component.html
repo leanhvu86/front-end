@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card card-container">
-    <h3 style="color: darkblue;">ĐĂNG KÍ TÀI KHOẢN</h3>
+    <h3 style="font-size: 24px;text-align: center;">ĐĂNG KÝ TÀI KHOẢN</h3>
     <img id="profile-img" class="profile-img-card" src="assets/images/avatar_2x.png" />
 
     <form class="form-signin" (ngSubmit)="registerUser()" [formGroup]="registerForm">
@@ -9,7 +9,7 @@
         placeholder="Tên tài khoản" title="Tên tài khoản" autocomplete="off" required autofocus />
       <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
         <div *ngIf="f.user.errors.required">
-          Vui lòng nhập không để trống tên đăng nhập.
+          Vui lòng không để trống tên đăng nhập.
         </div>
       </div>
 
@@ -46,8 +46,8 @@
         </div>
       </div>
 
-      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
-        Đăng kí
+      <button class="btn btn-lg btn-success btn-block btn-signin" type="submit" style="font-size: 20px;height: 50px;">
+        Đăng ký
       </button>
 
 

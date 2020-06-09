@@ -1,4 +1,4 @@
-<h3 style="margin:2% 35% ; width: 100%;">Tạo và chia sẻ công thức món chay</h3>
+<h3 style="margin:2% 35% ; width: 100%;color: #28a745;">Tạo và chia sẻ công thức món chay</h3>
 <div class="container" style="width:100%; border-radius:40px ; ">
   <div class="card " style=" width: 80%;background: white;">
     <br>
@@ -10,9 +10,11 @@
             <nav>
               <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-                  aria-controls="nav-home" aria-selected="true"><a id="number">01</a> {{ 'cong.thuc' | translate }}</a>
+                  aria-controls="nav-home" aria-selected="true" (click)="clickNav()"><a id="number">01</a>
+                  {{ 'cong.thuc' | translate }}</a>
                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                  aria-controls="nav-profile" aria-selected="false"> <a id="number">02</a>{{ 'phan.loai' | translate }}
+                  aria-controls="nav-profile" aria-selected="false" (click)="clickNav()"> <a id="number">02</a>
+                  {{ 'phan.loai' | translate }}
                 </a>
               </div>
             </nav>
@@ -23,31 +25,34 @@
                   <div id="direct_upload" ng2FileDrop [uploader]="uploader" (fileOver)="fileOverBase($event)"
                     [ngClass]="{'nv-file-over': hasBaseDropZoneOver}">
                     <div class="image-preview mb-3" *ngIf="previewUrl;else other_content"
-                      style="margin-top: 5%; margin-left: 13%;">
-                      <cl-image public-id="{{previewUrl}}">
+                      style="margin-top: 5%; margin-left: 8%;cursor: pointer;">
+                      <!-- <cl-image public-id="{{previewUrl}}">
                         <cl-transformation width="620" height="320" crop="scale" quality="auto">
                         </cl-transformation>
-                      </cl-image>
+                      </cl-image> -->
+                      <img [src]="previewUrl" width="92%" height="10%" *ngIf="previewUrl">
                     </div>
                     <ng-template #other_content>
                       <img id="profile-img" style="width:90%;height: 20%; margin-left: 5%;cursor: pointer;"
                         src="../../../assets/images/unnamed.png" />
                     </ng-template>
 
-                    <form>
-                      <!-- onChange hanlder resets the input value to get the change event when uploading the same file consecutively -->
+                    <!-- <form>
+                      onChange hanlder resets the input value to get the change event when uploading the same file consecutively
                       <input type="file" accept="image/x-png,image/jpeg,image/jpg" id="example" #fileInput ng2FileSelect
                         [uploader]="uploader" multiple (change)="fileInput.value=''"
                         style="border-radius: 10px; top: 7%; border: 1px solid gray;display: block; bottom: 0px; left: 5%; right: 0px; opacity: 0;  position: absolute;"
                         class="upload-button" formControlName='profilePhoto' />
-                    </form>
+                    </form> -->
+                    <input id='profilePhoto' style="width: 2px;height: 2px;opacity: 0;" />
                   </div>
-                  <!-- <input id="example" type="file" name="image" (change)="fileProgress($event)"
-                  style="border-radius: 10px; top: 7%; border: 1px solid gray;display: block; bottom: 0px; left: 5%; right: 0px; opacity: 0;  position: absolute;"
-                  class="upload-button" /> -->
+                  <input id="example" type="file" name="image" (change)="fileProgress($event)"
+                    style="border-radius: 10px; top: 7%;cursor: pointer; border: 1px solid gray;display: block; bottom: 0px; left: 5%; right: 0px; opacity: 0;  position: absolute;"
+                    class="upload-button" />
                   <div
                     style=" border-radius: 5px;background: rgb(218, 212, 212); width: 85%;height: 10%; margin-left: 8%; opacity: 0.7; text-align: center;">
-                    <a style="width: 90%; margin-left: 5%; margin-top: -15%; text-align: center;"> Click để tải ảnh đại
+                    <a style="width: 90%; margin-left: 5%; margin-top: -15%; text-align: center;cursor: pointer;"> Click
+                      để tải ảnh đại
                       diện
                       <i class="fa fa-camera" aria-hidden="true"></i></a></div>
 
@@ -86,9 +91,10 @@
                 <br />
 
                 <div class="row" style="width: 90%; margin: 0 5%;">
-                  <input type="text" formControlName="videoLink" class="col" style="width:40%; border-radius:10px;"
+                  <input type="text" formControlName="videoLink" class="col"
+                    style="width:40%; border-radius:10px;border: 0.8px solid rgb(197, 197, 197);"
                     placeholder="BXhdkehdfd" /><a class="col" style="float: left;"><strong>Video</strong>(Youtube
-                    code/link)</a><a *ngIf="!showVideoTutorial" style="cursor: pointer;"
+                    code/link)</a><a *ngIf="!showVideoTutorial" style="cursor: pointer;color: #32a103;"
                     (click)="onChangeofvideo($event)"><i class="fa fa-question-circle buttonhover"
                       aria-hidden="true"></i>
 
@@ -111,18 +117,19 @@
                 <br />
                 <a style="margin-left: 5%;">{{'dokho.thoigian' | translate }}<span style="color: red;">*</span></a>
                 <br />
+                <br>
                 <div class="row" style="width: 90%; margin: 0 5%;">
                   <select type="text" formControlName="hardLevel"
                     [ngClass]="{ 'is-invalid': submitted && f.hardLevel.errors }"
-                    style="width:15%; border-radius:10px; margin:0 5% ; " id="dokhocheck">
-                    <option></option>
-                    <option [value]="1" selected>{{'dokho.de' | translate }}</option>
+                    style="width:20%; border-radius:10px; " id="dokhocheck">
+                    <option [value]="1">{{'dokho.de' | translate }}</option>
                     <option [value]="2">{{'dokho.trungbinh' | translate }}</option>
                     <option [value]="3">{{'dokho.kho' | translate }}</option>
                     <option [value]="4">{{'dokho.ratkho' | translate }}</option>
                   </select>
-                  <input type="number" formControlName="time" style="width:10%; border-radius:10px; margin:0 5% ;"
-                    min="0" required pattern="[0-9]+">Phút
+                  <input type="number" formControlName="time"
+                    style="border: 0.8px solid rgb(197, 197, 197);width:20%; border-radius:10px; margin:0 10% ;" min="0"
+                    required pattern="[0-9]+">Phút
                 </div>
                 <div style="margin-left: 5%;" *ngIf="submitted && f.hardLevel.errors" class="invalid-feedback">
                   <div *ngIf="f.hardLevel.errors.required">Bạn phải độ khó của công thức</div>
@@ -164,7 +171,7 @@
                   style="width:90%; position: relative; padding-left: 5%;border-radius:10px; margin:0 5% ; height: 20%; padding: 2px 0 50px 0; border: 2px gray;"
                   class="nguyenlieu">
                   <input type="text" formControlName="ingredientArray" class="form-control" minlength="5"
-                    style="width:96%; border-radius:10px; margin:0 2% ;"
+                    style="width:96%; border-radius:10px; margin:0 2% ; font-size: 15px;"
                     placeholder="{{ 'nhap.nguyen.lieu' | translate }}" (keyup.enter)="runScript($event)"
                     id="ingredientArraye" />
 
@@ -297,20 +304,22 @@
                     *ngFor="let address of cookStep.controls; let i = index;"
                     style=" font-size: 10px;width:90%; position: relative; border-radius:10px; margin:0 5% ;margin-bottom: 5%; min-height: 350px; padding: 20px 0 50px 0; border: 2px gray;">
                     <label>
-                      <input formControlName="index" disabled
-                        style="color: white; background: rgb(33,194,3); width: 5%;left: 2%; top: 5%; position: absolute; border-radius: 7px; text-align: center; border: 1px solid white;" />
+                      <a disabled
+                        style="color: white; background: rgb(33,194,3); width: 5%;left: 2%; top: 5%; position: absolute; border-radius: 7px; text-align: center; border: 1px solid white;">
+                        {{i+1}}</a>
                       <input type="text" formControlName="name" class="form-control"
                         style="left: 12%; top: 7%;width: 50%; position: absolute; "
-                        placeholder="tên bước thực hiện nếu có">
+                        placeholder="Tên bước thực hiện nếu có">
                       <input type="number" formControlName="time" class="form-control" placeholder="thời gian"
                         style="left: 72%; top: 7%;width: 20%; position: absolute; " min="0">
 
                       <textarea type="text" formControlName="psnote" class="form-control"
                         placeholder="Bạn phải hướng dẫn cách làm cho bước {{i+1}}"
-                        style="left: 12%; top: 30%;width: 80%; height: 100px; position: absolute; " cols="8"></textarea>
+                        style="left: 12%; top: 30%;width: 80%; height: 100px; position: absolute; resize: none;"
+                        cols="8"></textarea>
                       <input type="checkbox" formControlName="check"
                         style="position: absolute;right: 10%; bottom: 35%; width: 5%;">
-                      <a style="position: absolute;right: 15%; bottom: 33%; width: 12%;">là bước chuẩn bị</a>
+                      <a style="position: absolute;right: 15%; bottom: 33%; width: auto;">là bước chuẩn bị</a>
                       <span (click)="deleteAlias(i)"><i class="fa fa-trash-o fa-2x buttonhover" aria-hidden="true"
                           style="position: absolute;right: 2%; bottom:32%; width: 30px !important; cursor: pointer;
                         height: 30px !important;"></i></span>
@@ -339,7 +348,7 @@
                       placeholder="tên bước thực hiện nếu có">
 
                   </div>
-                  <div style="width: 20%;height: auto;  border-radius: 5px; padding: 3px; margin: 2% 5%;">
+                  <div style="width: auto;height: auto;  border-radius: 5px; padding: 3px; margin: 2% 5%;">
                     <a [disabled]="!profileForm.controls.cookStep.valid" class="btn btn-outline-success"
                       (click)="addInputs('cookStep')">Thêm bước </a>
                   </div>
@@ -350,29 +359,29 @@
                 style="height: 600px;">
 
                 <!-- Default switch -->
-                <div style="width: 100%; padding-left: 5%;"><a>Phân loại
-                  </a></div>
-                <a style="font-size: 12px;width: 100%; padding-left: 5%;">Bước phân loại này sẽ giúp cho người dùng tìm
+
+                <a style="font-size: 15px;width: 100%; font-weight: 600;padding-left: 5%;">Bước phân loại này sẽ giúp
+                  cho người dùng tìm
                   thấy công thức của bạn dễ dàng
                   hơn</a>
                 <div style="width: 100%; padding:2% 5%; "><a>Công thức</a></div>
                 <div class="pretty p-switch p-switch p-primary" *ngFor="let foodType of foodTypes"
-                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 13px;">
                   <div>
                     <input type="checkbox" value={{foodType}} (change)="getCheckboxValuesFoodType($event,foodType) " />
                     <div class=" state">
-                      <label>{{foodType.foodTypeName}}</label>
+                      <label style="font-size: 13px;">{{foodType.foodTypeName}}</label>
                     </div>
                   </div>
                 </div>
                 <br>
                 <div style="width: 100%; padding:5% 5%; "><a>Ẩm thực</a></div>
                 <div class="pretty p-switch p-switch p-primary" *ngFor="let country of countrys"
-                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 13px;">
                   <div>
                     <input type="checkbox" value={{country}} (change)="getCheckboxValues($event,country) " />
                     <div class=" state">
-                      <label>{{country.countryName}}</label>
+                      <label style="font-size: 13px;">{{country.countryName}}</label>
                     </div>
                   </div>
                 </div>
@@ -381,11 +390,11 @@
                 <br>
                 <div style="width: 100%; padding:2% 5%; "><a>Cách chế biến, nguyên liệu</a></div>
                 <div class="pretty p-switch p-switch p-primary" *ngFor="let cookWay of cookWays"
-                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 12px;">
+                  style="width: 30%; float: left; padding:0.5% 5%; height: auto;font-size: 13px;">
                   <div>
                     <input type="checkbox" value={{cookWay}} (change)="getCheckboxValuesCookWay($event,cookWay) " />
                     <div class=" state">
-                      <label>{{cookWay.cookWayName}}</label>
+                      <label style="font-size: 13px;">{{cookWay.cookWayName}}</label>
                     </div>
                   </div>
                 </div>
@@ -435,12 +444,13 @@
       <nav style="width: 100%; background: white; border-radius:0 0 10px 10px; height: 60px; padding: 5px 0;">
         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
           <a class="button_change" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-            style="font-size: 14px;margin-left: 35px; color: black;" aria-controls="nav-home" aria-selected="true">
+            style="font-size: 14px;margin-left: 35px; color: black;border: none;" aria-controls="nav-home"
+            aria-selected="true" (click)="clickNav()" *ngIf="navHide">
             <i class="fa fa-angle-double-left" aria-hidden="true"></i>
             {{ "cong.thuc" | translate }}</a>
           <a class="button_change" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-            style=" font-size: 14px; margin-left: 600px; color: black;" aria-controls="nav-profile"
-            aria-selected="false">Phân loại
+            style=" font-size: 14px; margin-left: 80%; color: black;border: none;" aria-controls="nav-profile"
+            aria-selected="false" (click)="clickNav()" *ngIf="!navHide">Phân loại
             <i class="fa fa-angle-double-right" aria-hidden="true"></i>
           </a>
         </div>

@@ -1,20 +1,95 @@
 <!------------------ Hover Effect Style : Demo - 21 --------------->
 <br>
 <div class="container" style="min-height: 460px;">
-  <h4 class="text-left">BỘ SƯU TẬP NỔI BẬT</h4>
+  <a class="a-tilet" style="margin-left: 5%;">BỘ SƯU TẬP NỔI BẬT</a>
   <hr>
-  <div class="row">
+  <ng-template #skeleton>
+    <!-- <main class="container mt-2">
+      <div class="row">
+        <div class="col-4 col-lg-2 p-2">
+          <div class="user-img m-2 mr-auto ml-auto">
+            <img src="/assets/img/user.svg" class="img-fluid rounded-circle">
+          </div>
+        </div>
+        <div class="col-8 col-lg-10 pt-3 sm-text-center">
+          <h2 class="display-5 text-capitalize sm-mr-auto sm-ml-auto"></h2>
+          <p class="lead sm-mr-auto sm-ml-auto"></p>
+          <a href="#" class="btn btn-secondary mr-1"></a><a href="#" class="btn btn-secondary"></a>
+        </div>
+      </div>
+    </main> -->
+    <section style="width: 100%; min-height: auto;">
+      <!-- <div class="pt-2 pb-4 text-center">
+        <h5 class="mr-auto ml-auto"></h5>
+      </div> -->
+      <div class="row">
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 250px;margin-left: -15px; width: 115%;"></h5>
+              <!-- <p class="card-text"></p>
+                <div class="form-inline">
+                  <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 250px;margin-left: -15px; width: 115%;"></h5>
+              <!-- <p class="card-text"></p>
+                <div class="form-inline">
+                  <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 250px;margin-left: -15px; width: 115%;"></h5>
+              <!-- <p class="card-text"></p>
+                <div class="form-inline">
+                  <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 250px;margin-left: -15px; width: 115%;"></h5>
+              <!-- <p class="card-text"></p>
+                <div class="form-inline">
+                  <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-template>
+  <div class="row" *ngIf="loadingSuccess; else skeleton">
     <div class="col" style="padding-right: 0px;" *ngFor="let gallery of galleryTop;let i= index">
       <div class="box21" style="height: 360px; width: 250px; margin: 5px 5px; padding-right: 0px; border-radius: 10px;">
         <cl-image public-id="{{gallery.image}}">
-          <cl-transformation height="360" radius="0" width="250" crop="scale">
+          <cl-transformation height="360" radius="0" width="300" crop="scale">
           </cl-transformation>
           <cl-transformation angle="0">
           </cl-transformation>
         </cl-image>
         <div class="box-content">
-          <h4 class="title">{{gallery.name}}</h4>
-          <p class="description">{{gallery.content}}</p>
+          <h4 class="title" style="text-overflow: ellipsis;
+          overflow: hidden;
+          white-space:nowrap;">{{gallery.name}}</h4>
+          <p class="description" style="text-overflow: ellipsis;
+          overflow: hidden;
+          white-space:nowrap;">{{gallery.content}}</p>
           <a class="read-more" [routerLink]="['/galleryDetail/', gallery._id]">xem chi tiết</a>
           <a class="iconhover"><i class="fa fa-heart fa-2x " id="heartGallery{{i}}" style="margin-top: 15px;"
               (click)="likeGallerry(gallery,i)" *ngIf="!gallery.like;else other_content"></i>
@@ -31,12 +106,84 @@
 <div class="container mt-40 mb-30" *ngIf="isAuthenicate">
   <hr>
   <div>
-    <h4 class="text-left" style="width: 85%; float: left;">BỘ SƯU TẬP CỦA TÔI</h4>
+    <a class=" a-title">BỘ SƯU TẬP CỦA TÔI</a>
     <app-add-gallery></app-add-gallery>
   </div>
   <hr>
-
-  <div class="row mt-30">
+  <ng-template #skeleton1>
+    <!-- <main class="container mt-2">
+      <div class="row">
+        <div class="col-4 col-lg-2 p-2">
+          <div class="user-img m-2 mr-auto ml-auto">
+            <img src="/assets/img/user.svg" class="img-fluid rounded-circle">
+          </div>
+        </div>
+        <div class="col-8 col-lg-10 pt-3 sm-text-center">
+          <h2 class="display-5 text-capitalize sm-mr-auto sm-ml-auto"></h2>
+          <p class="lead sm-mr-auto sm-ml-auto"></p>
+          <a href="#" class="btn btn-secondary mr-1"></a><a href="#" class="btn btn-secondary"></a>
+        </div>
+      </div>
+    </main> -->
+    <section style="width: 100%; min-height: auto;">
+      <!-- <div class="pt-2 pb-4 text-center">
+        <h5 class="mr-auto ml-auto"></h5>
+      </div> -->
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="card ">
+              <!-- <img class="card-img-top"  alt=" "> -->
+              <div class="card-body text-center">
+                <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 110%;"></h5>
+                <!-- <p class="card-text"></p>
+                <div class="form-inline">
+                  <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card ">
+              <!-- <img class="card-img-top"  alt=" "> -->
+              <div class="card-body text-center">
+                <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 110%;"></h5>
+                <!-- <p class="card-text"></p>
+                <div class="form-inline">
+                  <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card ">
+              <!-- <img class="card-img-top"  alt=" "> -->
+              <div class="card-body text-center">
+                <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 110%;"></h5>
+                <!-- <p class="card-text"></p>
+                <div class="form-inline">
+                  <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-lg-3 col-md-4 mb-4">
+            <div class="card ">
+              <img class="card-img-top"  alt=" ">
+              <div class="card-body text-center">
+                <h5 class="card-title" style="height: 200px;margin-left: -15px;"></h5>
+                <p class="card-text"></p>
+                <div class="form-inline">
+                  <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </section>
+  </ng-template>
+  <div class="row mt-30" *ngIf="loadingSuccess; else skeleton1">
     <div class="col-md-4 col-sm-6"
       *ngFor="let gallery of gallerys |paginate:{itemsPerPage: 12, currentPage:p}; let i = index"
       style="margin-bottom: 30px;">
@@ -48,8 +195,12 @@
           </cl-transformation>
         </cl-image>
         <div class="box-content">
-          <h4 class="title">{{gallery.name}}</h4>
-          <p class="description">{{gallery.content}}</p>
+          <h4 class="title" style="text-overflow: ellipsis;
+          overflow: hidden;
+          white-space:nowrap;">{{gallery.name}}</h4>
+          <p class="description" style="text-overflow: ellipsis;
+          overflow: hidden;
+          white-space:nowrap;">{{gallery.content}}</p>
           <a class="read-more" [routerLink]="['/galleryDetail/', gallery._id]">xem chi tiết</a>
         </div>
       </div>

@@ -8,12 +8,18 @@ import { User } from 'src/app/shared/model/user';
 import { GalleryService } from 'src/app/shared/service/gallery.service';
 import { Gallery } from 'src/app/shared/model/gallery';
 import { Router } from '@angular/router';
+import { trigger } from '@angular/animations';
+import { fadeIn } from '../../shared/animation/fadeIn';
+
 
 declare var $: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  animations: [
+    trigger('fadeIn', fadeIn())
+  ]
 })
 export class Home2Component implements OnInit {
   public recipes: Recipe[] = [];
@@ -24,6 +30,7 @@ export class Home2Component implements OnInit {
     password: ""
   }
 
+  loadingSuccess = false;
   imageUrl: string = 'jbiajl3qqdzshdw0z749'
   topUsers: User[] = []
   tfaFlag: boolean = false
@@ -96,6 +103,7 @@ export class Home2Component implements OnInit {
         }
       }
       this.galleryTop = galleries;
+      this.loadingSuccess = true;
     })
   }
   getPersonalGallery() {
@@ -157,15 +165,32 @@ export class Home2Component implements OnInit {
   getRecipes() {
     this.recipeService.getRecipes().subscribe(recipes => {
       if (recipes !== undefined) {
+        this.recipes = recipes;
         if (this.isAuthenicate == true) {
           this.userObject.email = this.cookie.get('email');
-          if (this.userObject.email !== undefined || this.userObject.email !== '') {
-            this.recipeService.findInterest(this.userObject).subscribe(data => {
+
+          // if (this.userObject.email !== undefined || this.userObject.email !== '') {
+
+          this.recipeService.findInterest(this.userObject).subscribe(data => {
+            this.galleryService.getTopGalleryies().subscribe(galleries => {
               let interests = data.body['interests']
               this.interests = interests
-              this.getTopGalleries()
-              recipes.forEach(function (recipe) {
+              //this.getTopGalleries()
+              this.recipes.forEach(function (recipe) {
                 recipe.like = false
+                if (recipe.hardLevel !== undefined) {
+                  if (recipe.hardLevel === '') {
+                    recipe.hardLevel = 'Ko XĐ';
+                  } else if (recipe.hardLevel === '1') {
+                    recipe.hardLevel = 'Dễ';
+                  } else if (recipe.hardLevel === '2') {
+                    recipe.hardLevel = 'TB';
+                  } else if (recipe.hardLevel === '3') {
+                    recipe.hardLevel = 'Khó';
+                  } else if (recipe.hardLevel === '4') {
+                    recipe.hardLevel = 'R khó';
+                  }
+                }
                 if (interests !== undefined) {
                   for (let interest of interests) {
                     if (interest.objectId._id === recipe._id && interest.objectType === '2') {
@@ -178,36 +203,51 @@ export class Home2Component implements OnInit {
                   recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
                 }
               });
-            })
-          } else {
-            recipes.forEach(function (recipe) {
-              recipe.like = false
-              if (recipe.user.imageUrl === undefined) {
-                recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+
+              this.loadingSuccess = true;
+              for (let gallery of galleries) {
+                gallery.like = false
+                if (this.interests.length > 0) {
+                  for (let inter of this.interests) {
+                    if (gallery._id === inter.objectId._id) {
+                      gallery.like = true;
+                    }
+                  }
+                }
+                if (gallery.recipe.length > 0) {
+                  gallery.image = gallery.recipe[0].imageUrl
+                } else {
+                  gallery.image = 'fvt7rkr59r9d7wk8ndbd';
+                }
               }
+              this.galleryTop = galleries;
             });
-          }
+          });
+          // } else {
+
+          // }
 
         } else {
-          this.getTopGalleries()
-        }
-
-
-        this.recipes = recipes;
-        for (let recipe of this.recipes) {
-          if (recipe.hardLevel !== undefined) {
-            if (recipe.hardLevel === '') {
-              recipe.hardLevel = 'Ko XĐ';
-            } else if (recipe.hardLevel === '1') {
-              recipe.hardLevel = 'Dễ';
-            } else if (recipe.hardLevel === '2') {
-              recipe.hardLevel = 'TB';
-            } else if (recipe.hardLevel === '3') {
-              recipe.hardLevel = 'Khó';
-            } else if (recipe.hardLevel === '4') {
-              recipe.hardLevel = 'R khó';
+          this.recipes.forEach(function (recipe) {
+            recipe.like = false
+            if (recipe.hardLevel !== undefined) {
+              if (recipe.hardLevel === '') {
+                recipe.hardLevel = 'Ko XĐ';
+              } else if (recipe.hardLevel === '1') {
+                recipe.hardLevel = 'Dễ';
+              } else if (recipe.hardLevel === '2') {
+                recipe.hardLevel = 'TB';
+              } else if (recipe.hardLevel === '3') {
+                recipe.hardLevel = 'Khó';
+              } else if (recipe.hardLevel === '4') {
+                recipe.hardLevel = 'R khó';
+              }
             }
-          }
+            if (recipe.user.imageUrl === undefined) {
+              recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+            }
+          });
+          this.getTopGalleries()
         }
       }
     });

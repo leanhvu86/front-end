@@ -25,6 +25,9 @@ export class Recipe {
     user: any;
     updateUser: any;
     description: string;
-    createAt: any;
+    createdAt: any;
     updateAt: any;
+    seq: any;
+    ord: any;
+    nameSpace: any;
 }

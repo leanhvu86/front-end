@@ -1,15 +1,9 @@
-<div class="row" style="margin-left: 100px;">
-  <ul *ngIf="recipe" class="breadcrumb nomargin">
-    <li><a class="atitle" routerLink="/recipe" target="_self">Công thức /</a></li>
-    <!-- <li><a class="atitle" routerLink="/about" target="_self">#Tag /</a></li> -->
-    <li class="active">
-      <a class="atitle">{{ recipe.recipeName }}</a>
-    </li>
-  </ul>
-</div>
-<div class="row" *ngIf="recipe" style="width: 90%;margin-left: 5%;padding: 0 15px; ">
+<br>
+<br>
+<div class="row" *ngIf="loadingSuccess1; else skeleton1"
+  style="width: 90%;margin-left: 5%;padding: 0 15px; margin-top: -100px;">
   <div class="col-8" style="position: relative; font-size: 13px; text-align: center; ">
-    <div class="image-preview mb-3" style="margin-top: 5%;border-radius: 20px;background: white;">
+    <div class="image-preview mb-3" style="margin-top: 1%;border-radius: 20px;background: white;">
       <cl-image public-id="{{ recipe.imageUrl }}" style="margin-top: 60px;">
         <cl-transformation width="650" height="350" crop="scale" quality="auto" radius="20">
         </cl-transformation>
@@ -61,7 +55,8 @@
         </div>
         <div class="col"></div>
       </div>
-      <div style="background: #f4f4f4; height: 150px; border-radius: 0 0 20px 20px; margin: 30px 0; padding: 30px;">
+      <div style="background: #f4f4f4; height: 150px; border-radius: 0 0 20px 20px; margin: 30px 0; padding: 30px;"
+        *ngIf="!waitingRecipe">
         <div class="row row-cols-2" style="padding:5px 80px;">
           <div class="col">
             <div class="row row-cols-2">
@@ -76,20 +71,21 @@
                 <a class=" btn-act btn-add-favourite ng-isolate-scope" title="Yêu thích món ăn"
                   style="margin-left: 50px;">
                   <span (click)="likeRecipe(recipe,i)" *ngIf="!likeUser;else other_content100"><i id="heart{{i}}"
-                      class="fa fa-heart fa-3x heart" aria-hidden="true" style="margin-left: 55px;"></i></span>
+                      class="fa fa-heart fa-3x heart" aria-hidden="true"
+                      style="margin-left: 55px;cursor: pointer;"></i></span>
                   <ng-template #other_content100>
                     <span (click)="dislikeRecipe(recipe,i)"><i class="fa fa-heart fa-3x dislikeheart "
-                        style="margin-left: 55px;" id="heart{{i}}" aria-hidden="true"></i></span>
+                        style="margin-left: 55px;cursor: pointer;" id="heart{{i}}" aria-hidden="true"></i></span>
                   </ng-template>{{recipe.totalPoint}}
                 </a>
               </div>
               <div class="col">
                 <a (click)="addDoneRecipe(recipe)"><img src="../../../assets/images/check-o.gray.png"
                     *ngIf="!recipe.like; else other_content11111"
-                    style="width: 30px;height: 30px; margin-left: 2px;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
+                    style="width: 30px;height: 30px; margin-left: 2px; background: none;cursor: pointer;" />&#160;&#160;&#160;&#160;{{doneCount}}</a>
                 <ng-template #other_content11111>
                   <img src="../../../assets/images/check-o.red.png"
-                    style="width: 30px;height: 30px; margin-left: 2px;" />
+                    style="width: 30px;height: 30px; margin-left: 2px;background: none;cursor: pointer;" />
                 </ng-template>
               </div>
               <div class="col">
@@ -109,7 +105,7 @@
     </div>
     <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><img
         src="../../../assets/images/cooky-video-play-fill-2.png"
-        style="top:250px;left:360px;width: 50px;height: 50px; position: absolute;" /></span>
+        style="top:250px;left:360px;width: 50px;height: 50px; position: absolute;background: none;" /></span>
     <div style="background: white; border-radius: 10px;margin-top: 5px; padding-top: 30px;">
       <div class="row">
         <div class="col col-lg-2">
@@ -166,6 +162,8 @@
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
               <div style="background: white; border-radius: 10px; padding: 30px 0;display: block;
                 overflow: hidden;padding:0px 15px;">
+
+                <br>
                 <div class="row">
                   <div class="col-sm-6 col-md-8" style="text-align:start;">
                     <a
@@ -206,6 +204,7 @@
                       style="font-size: 20px;font-weight: 500; font-family: Arial,'Open Sans',Helvetica,Arial,sans-serif; ">Cách
                       làm &#160;{{ recipe.recipeName }}</a>
                     <br />
+                    <br>
                     <a class="atitle" (click)="fullImage()">
                       <span class="active-button" *ngIf="viewFull;else other_content"><i class="fa fa-list fa-lg "
                           aria-hidden="true"></i>&#160;&#160;Xem đầy đủ&#160;</span>
@@ -232,48 +231,51 @@
                 <a class="atitle" style="margin-left:5%; font-size: 25px; color: #c5c5c5;">
                   Thực hiện</a>
                 <!-- tìm hiểu để hiển thị bình luận -->
-                <div *ngFor="let cookStep of cookSteps; let i = index" style="min-height: 400px;" class="bigContent">
-                  <div style="position: relative; height: auto;min-height: 400px;" class="noImage">
-                    <div
-                      style="border-radius: 5px;position: absolute;text-align: center; top:60px; left: 50px;
-                      padding-top: 5px; width: 70px;color: rgb(179, 179, 179);; background: #f8f8f8; border: 1px solid #c5c5c5;">
-                      <a>Bước </a>
-                      <br />
-                      <a>{{ i + 1 }}</a>
-                      <br />
-                      <a>___</a><br />
-                      <i class="fa fa-check-circle fa-lg" id="icon{{ i }}" aria-hidden="true"
-                        (click)="changeIcon($event, i)"></i>
-                    </div>
-                    <div
-                      style=" position: absolute; top:60px; right: 50px; width: 560px;text-align: left;padding-bottom: 5px;">
-                      <div class="row"><a style="color: olivedrab;display: block;overflow: hidden;">
-                          {{cookStep.check}}</a> <a *ngIf="cookStep.time"> {{cookStep.time}}
-                          phút</a>
-                      </div>
-                      <div class="row">
-                        <a> {{ cookStep.psnote }}</a>
-                      </div>
-                      <div class="container" *ngIf="!showImageStep">
+                <br>
+                <div class="container" *ngFor="let cookStep of cookSteps; let i = index">
+                  <div class="row" style="margin-top: 10px;">
+                    <div class="col-9" style="text-align: right;"><a style="color: olivedrab;">
+                        {{cookStep.check}}</a> <a *ngIf="cookStep.time"> {{cookStep.time}}
+                        phút</a></div>
+                    <div class="col-2">
 
-                        <div class="row" id="image{{ i }}" *ngFor="let imageUrl of cookStep.image; let i = index"
-                          style="margin: 10px 10px; float: left; display: block; overflow: hidden;">
-                          <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
+                    </div>
+                    <div class="col-2 ">
+                      <div
+                        style="border-radius: 5px;text-align: center; margin-left: 30%;
+                      padding-top: 5px; width: 70px;color: rgb(179, 179, 179);; background: #f8f8f8; border: 1px solid #c5c5c5;">
+                        <a>Bước </a>
+                        <br />
+                        <a>{{ i + 1 }}</a>
+                        <br />
+                        <a>___</a><br />
+                        <i class="fa fa-check-circle fa-lg" id="icon{{ i }}" aria-hidden="true"
+                          (click)="changeIcon($event, i)"></i>
+                      </div>
+                    </div>
+                    <div class="col-9"> <a> {{ cookStep.psnote }}</a></div>
+                  </div>
+                  <div class="container" *ngIf="!showImageStep"
+                    style="margin: 10px 10px; float: left; display: block; overflow: hidden;">
+
+                    <div class="row" id="image{{ i }}" *ngFor="let imageUrl of cookStep.image; let i = index"
+                      style="margin: 10px 10px; float: left; display: block; overflow: hidden;">
+                      <!-- <cl-image public-id="{{imageUrl}}" *ngIf="imageUrl">
                           <cl-transformation height="100" width="100" crop="scale">
                           </cl-transformation>
                         </cl-image> -->
-                          <div>
-                            <cl-image public-id="{{ imageUrl }}" *ngIf="imageUrl">
-                              <cl-transformation height="150" radius="20" width="150" crop="scale">
-                              </cl-transformation>
-                              <cl-transformation angle="0"> </cl-transformation>
-                            </cl-image>
-                          </div>
-                        </div>
+                      <div>
+                        <cl-image public-id="{{ imageUrl }}" *ngIf="imageUrl">
+                          <cl-transformation height="220" radius="20" width="220" crop="scale">
+                          </cl-transformation>
+                          <cl-transformation angle="0"> </cl-transformation>
+                        </cl-image>
                       </div>
                     </div>
                   </div>
                 </div>
+
+
                 <br>
                 <br>
               </div>
@@ -285,10 +287,12 @@
               <div style="width: 100%;font-size: 16px;">
                 <br>
                 <a style="margin-left: 10%;">Danh sách bình luận công thức </a>
+
                 <div class="container" style="margin-top: 10px;"
                   *ngFor="let comment of recipeComment|paginate:{itemsPerPage: 6, currentPage:p};">
                   <div class="row">
-                    <div class="col-4">
+                    <hr>
+                    <div class="col-4" style="padding-left: 20px;">
                       <cl-image public-id="{{ comment.user.imageUrl }}" style="border-radius: 50px;">
                         <cl-transformation width="100" height="100" gravity="face" radius="max" crop="fill"
                           background="#e9ebee">
@@ -320,16 +324,17 @@
                     </div>
                   </div>
                 </div>
+                <br>
                 <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
               <hr>
               <div class="container">
                 <div class="row">
                   <div class="col-8">
-                    <a style="font-size: 15px;">Thêm bình luận</a>
+                    <a style="font-size: 16px;">Thêm bình luận</a>
                   </div>
                   <div class="col">
-                    <a style="font-size: 15px;">Đã thực hiện</a><input type="checkbox" [checked]="checkDone"
+                    <a style="font-size: 10px;">Đã thực hiện</a><input type="checkbox" [checked]="checkDone"
                       (change)="checkDone = !checkDone" style="margin-left: 60px;" />
                   </div>
                 </div>
@@ -337,11 +342,9 @@
                   <textarea formControlName="content"
                     [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.content.errors }" id="content"
                     class="form-control" name="content" autocomplete="off" formControlName="content"
-                    placeholder="Bình luận công thức " title="Please enter the content" required autofocus cols="8"
-                    style="width: 80%;margin:10px 30px;"></textarea>
-                  <div *ngIf="submitted &amp;&amp; registerForm.controls.content.errors" class="text-danger">
-                    <div *ngIf="registerForm.controls.content.errors.required">Không để trống nội dung bình luận</div>
-                  </div>
+                    placeholder="Bình luận công thức " title="Please enter the content" autofocus cols="8"
+                    style="width: 90%;margin:10px 30px;resize: none;"></textarea>
+
                   <!-- <input
                   type="file"
                   id="image"
@@ -354,7 +357,7 @@
                   title="Please enter the image"
                   required
                 /> -->
-                  <a>Thêm ảnh bình luận:</a>
+                  <a>Thêm ảnh thực hiện:</a>
                   <br />
                   <div class="container" style="width: 80%; margin-left: 5px;">
                     <div class="row">
@@ -375,10 +378,20 @@
                   <div class="clearfix"></div>
                   <div class="clearfix"></div>
                   <br>
-                  <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
-                    style="width: 300px; margin-left: 30%;">
+                  <button class="btn btn-lg btn-success btn-block btn-signin" type="submit"
+                    *ngIf="!loading; else other_content101" style="width: 300px; margin-left: 30%;">
                     Đăng bình luận
                   </button>
+                  <ng-template #other_content101>
+                    <button class="btn btn-lg btn-outline-success" disabled="disabled"
+                      style="width: 300px; margin-left: 30%; position: relative;">
+                      <div class="spinner-border text-success" role="status"
+                        style="height: 20px; width: 20px; position: absolute; top: 7px; left:10px">
+                        <span class="sr-only"></span>
+                      </div>
+
+                    </button>
+                  </ng-template>
                   <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
                     {{ errorMessage }}
                   </p>
@@ -408,19 +421,19 @@
     </div>
   </div>
 
-  <div class="col" style="background: white; height: 800px; margin-top: 40px; border-radius: 20px;display: block;
+  <div class="col" style="background: white;  margin-top: 40px; border-radius: 20px;display: block;
                 overflow: hidden;">
     <br>
     <a style="margin-top: 50px;">CÔNG THỨC LIÊN QUAN</a>
     <hr />
     <div class="row">
       <div class="col" *ngFor="let recipe of recipes; let i = index">
-        <cl-image public-id="{{ recipe.imageUrl }}" (click)="getRecipeDetail(recipe._id)">
+        <cl-image public-id="{{ recipe.imageUrl }}" (click)="getRecipeDetail(recipe.nameSpace)">
           <cl-transformation width="150" height="150" crop="scale" quality="auto" radius="20">
           </cl-transformation>
         </cl-image>
         <br />
-        <a (click)="getRecipeDetail(recipe._id)" style="color: black;">{{ recipe.recipeName }}</a>
+        <a (click)="getRecipeDetail(recipe.nameSpace)" style="color: black;">{{ recipe.recipeName }}</a>
         <br /><a>{{ recipe.viewCount }} <a style="color: #c5c5c5;">lượt xem</a>
           {{ recipe.time }} phút</a>
       </div>
@@ -488,3 +501,118 @@
   </div>
   <app-scroll-top></app-scroll-top>
 </div>
+
+<ng-template #skeleton1>
+  <!-- <main class="container mt-2">
+    <div class="row">
+      <div class="col-4 col-lg-2 p-2">
+        <div class="user-img m-2 mr-auto ml-auto">
+          <img src="/assets/img/user.svg" class="img-fluid rounded-circle">
+        </div>
+      </div>
+      <div class="col-8 col-lg-10 pt-3 sm-text-center">
+        <h2 class="display-5 text-capitalize sm-mr-auto sm-ml-auto"></h2>
+        <p class="lead sm-mr-auto sm-ml-auto"></p>
+        <a href="#" class="btn btn-secondary mr-1"></a><a href="#" class="btn btn-secondary"></a>
+      </div>
+    </div>
+  </main> -->
+  <section style="width: 100%; min-height: auto;">
+    <!-- <div class="pt-2 pb-4 text-center">
+      <h5 class="mr-auto ml-auto"></h5>
+    </div> -->
+    <div class="container">
+      <div class="row">
+        <div class="col-8">
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 100%;"></h5>
+              <!-- <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div> -->
+            </div>
+          </div>
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 100%;"></h5>
+              <!-- <p class="card-text"></p>
+                  <div class="form-inline">
+                    <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                  </div> -->
+            </div>
+          </div>
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 50px;margin-left: -15px; width: 100%;"></h5>
+              <!-- <p class="card-text"></p>
+                  <div class="form-inline">
+                    <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+                  </div> -->
+            </div>
+          </div>
+
+          <div class="card ">
+
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 200px;margin-left: -15px; width: 100%;"></h5>
+
+            </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-center">
+              <div>
+
+                <div>
+                  <h5 class="card-title" style="height: 200px;margin-left: 190px; width: 30%;float: left;">
+                  </h5>
+                  <h5 class="card-title" style="height: 200px;margin-left: 190px; width: 30%;float: left;">
+                  </h5>
+                  <h5 class="card-title" style="height: 200px;margin-left: -15px; width: 30%;">
+                  </h5>
+                  <h5 class="card-title" style="height: 200px;margin-left: -15px; width: 30%;">
+                  </h5>
+
+                </div>
+              </div>
+              <div style="margin-top: 100px;">
+                <h5 class="card-title" style="height: 200px;margin-left: 190px; width: 30%;float: left;">
+                </h5>
+                <h5 class="card-title" style="height: 200px;margin-left: 190px; width: 30%;float: left;">
+                </h5>
+                <h5 class="card-title" style="height: 200px;margin-left: -15px; width: 30%;">
+                </h5>
+                <h5 class="card-title" style="height: 200px;margin-left: -15px; width: 30%;">
+                </h5>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row-4">
+            <div class="col">
+              <div class="card ">
+
+                <div class="card-body text-center">
+                  <h5 class="card-title" style="height: 1000px;margin-left: -15px; width: 100%;"></h5>
+
+                </div>
+              </div>
+            </div>
+            <div class="col">
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </section>
+</ng-template>

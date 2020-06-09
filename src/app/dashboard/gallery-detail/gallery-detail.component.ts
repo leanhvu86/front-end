@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserService } from 'src/app/shared/service/user.service.';
 import { LoginServiceService } from 'src/app/shared/service/login-service.service';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-gallery-detail',
@@ -47,6 +48,7 @@ export class GalleryDetailComponent implements OnInit {
     private _loginService: LoginServiceService,
     private userService: UserService,
     private _router: Router,
+    private chatService: ChatService
   ) {
     this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
     this.id = this.route.snapshot.params.id;
@@ -260,8 +262,10 @@ export class GalleryDetailComponent implements OnInit {
   }
   addRecipeBookMark(gallery: any) {
     if (gallery.recipe !== undefined) {
+      console.log(gallery.recipe)
+      console.log(this.addRecipe)
       for (let recipe of gallery.recipe) {
-        if (recipe.name === this.addRecipe.name) {
+        if (recipe.recipeName === this.addRecipe.recipeName) {
           this.errormessage = 'Công thức đã có trong bộ sưu tập';
           return;
         }
@@ -277,6 +281,7 @@ export class GalleryDetailComponent implements OnInit {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
           window.location.reload()
+          this.chatService.identifyUser();
         }, 4000);
 
       }

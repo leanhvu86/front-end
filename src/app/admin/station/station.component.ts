@@ -3,6 +3,7 @@ import { UserService } from 'src/app/shared/service/user.service.';
 import { User } from 'src/app/shared/model/user';
 import { OrderPipe } from 'ngx-order-pipe';
 import { CookieService } from 'ngx-cookie-service';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-station',
@@ -26,10 +27,13 @@ export class StationComponent implements OnInit {
   updateMember = false;
   messageModal = false;
   disableAdmin = true;
+  pageSize = 10;
+  loading = false;
   constructor(
     private userService: UserService,
     private orderPipe: OrderPipe,
-    private cookies: CookieService
+    private cookies: CookieService,
+    private chatService: ChatService
   ) {
     this.collection = orderPipe.transform(this.collection, 'info.totalPoint');
 
@@ -43,7 +47,7 @@ export class StationComponent implements OnInit {
     }
 
     this.config = {
-      itemsPerPage: 10,
+      itemsPerPage: this.pageSize,
       currentPage: 1,
       totalItems: this.users.length
     };
@@ -102,6 +106,12 @@ export class StationComponent implements OnInit {
           return 0;
         }
       });
+
+      for (let i = 0; i < this.users.length; i++) {
+        let user = this.users[i];
+        user.id = i + 1;
+      }
+      this.loading = true
     });
   }
 
@@ -113,17 +123,17 @@ export class StationComponent implements OnInit {
     this.order = value;
   }
 
-  openModal(user: any, openMember: any, updateMember: any) {
+  openModal(user: any, openMemberValue: any, updateMember: any) {
     this.user = user;
 
     this.messageModal = false;
     if (updateMember === 0) {
       this.updateMember = false;
     }
-    if (openMember === true) {
+    if (openMemberValue === true) {
       this.openMember = true;
       this.message = 'Bạn muốn mở khóa tài khoản này ?';
-    } else if (openMember === false) {
+    } else if (openMemberValue === false) {
       this.openMember = false;
       this.message = 'Bạn muốn khóa tài khoản này ?';
     }
@@ -136,11 +146,26 @@ export class StationComponent implements OnInit {
       this.messageModal = true;
       this.updateMember = false;
       this.message = 'Tài khoản chủ website không thay đổi được quyền!';
+    } else if (user.role === 'Quản trị' && this.cookies.get('role') === '1') {
+      this.messageModal = true;
+      this.updateMember = false;
+      this.message = 'Bạn không có quyền khóa tài khoản của quản trị viên !';
     }
+    // if (this.message === '') {
+    //   this.message = 'Bạn muốn cập nhật tài khoản này?'
+    // }
     const radio: HTMLElement = document.getElementById('modal-button222');
     radio.click();
   }
-
+  keyUp() {
+    console.log(this.pageSize)
+    if (this.searchText.length > 2) {
+      this.pageSize = this.users.length;
+      this.pageChanged(1);
+    } else {
+      this.pageSize = 10;
+    }
+  }
   updateRole(user: any) {
     if (user.warningReport === 0) {
       this.userObject.role = 1;
@@ -168,6 +193,7 @@ export class StationComponent implements OnInit {
             } else {
               user.role = 'Khóa';
             }
+            user.id = this.users.length + 1;
             if (user.imageUrl === undefined) {
               user.imageUrl = 'jbiajl3qqdzshdw0z749';
             }
@@ -183,7 +209,7 @@ export class StationComponent implements OnInit {
               this.message = '';
               const radio: HTMLElement = document.getElementById('close-button');
               radio.click();
-            }, 5000);
+            }, 2000);
           }
         }
       }
@@ -247,14 +273,14 @@ export class StationComponent implements OnInit {
             } else {
               user.role = 'Khóa';
             }
+            user.id = this.users.length + 1;
             this.users.push(user);
             this.messageModal = true;
             this.message = 'Khóa thành viên thành công';
             setTimeout(() => {
-              this.message = '';
               const radio: HTMLElement = document.getElementById('close-button');
               radio.click();
-            }, 3000);
+            }, 2000);
           }
         }
       }
@@ -263,39 +289,41 @@ export class StationComponent implements OnInit {
 
   activeMember(user: any) {
     console.log('active user');
-    let userTemp = user;
-    this.userService.activeMember(user._id).subscribe(data => {
-      this.users = this.users.filter(user => user._id !== userTemp._id);
-
-      user = data;
-      user.block = false;
-      if (user.imageUrl === undefined) {
-        user.imageUrl = 'jbiajl3qqdzshdw0z749';
+    this.userObject.id = user._id;
+    this.userService.openUser(this.userObject).subscribe(data => {
+      if (data.body['status'] === 200) {
+        user = data.body['user'];
+        for (let userAccess of this.users) {
+          if (userAccess.email === user.email) {
+            userAccess = user;
+            this.users = this.users.filter(user => user._id !== userAccess._id);
+            if (user.imageUrl === undefined) {
+              user.imageUrl = 'jbiajl3qqdzshdw0z749';
+            }
+            if (user.role === -1) {
+              user.role = 'Chưa xác thực';
+            } else if (user.role === 0) {
+              user.role = 'Thành viên';
+            } else if (user.role === 1) {
+              user.role = 'Quản trị';
+            } else if (user.role > 1) {
+              user.role = 'Admin';
+            } else {
+              user.role = 'Khóa';
+            }
+            user.id = this.users.length + 1;
+            this.users.push(user);
+            this.messageModal = true;
+            this.message = 'Mở khóa thành viên thành công';
+            setTimeout(() => {
+              this.message = '';
+              const radio: HTMLElement = document.getElementById('close-button');
+              radio.click();
+            }, 2000);
+          }
+        }
       }
-      user.isAdmin = false;
-      if (user.role === -1) {
-        user.role = 'Chưa xác thực';
-      } else if (user.role === 0) {
-        user.role = 'Thành viên';
-      } else if (user.role === 1) {
-        user.isAdmin = true;
-        user.role = 'Quản trị';
-      } else if (user.role > 1) {
-        user.role = 'Admin';
-        user.isAdmin = true;
-      } else {
-        user.role = 'Khóa';
-      }
-      this.users.push(user);
-      this.messageModal = true;
-      this.message = 'Mở khóa thành viên thành công';
-      setTimeout(() => {
-        this.message = '';
-        const radio: HTMLElement = document.getElementById('close-button');
-        radio.click();
-        window.location.reload()
-      }, 3000);
-
+      console.log(data.body['status'])
     });
   }
 

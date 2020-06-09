@@ -7,6 +7,7 @@ import { UserService } from '../../../shared/service/user.service.';
 import { Recipe } from '../../../shared/model/recipe';
 import { RecipeService } from 'src/app/shared/service/recipe-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-app-recipe-gallery',
@@ -39,7 +40,8 @@ export class AppRecipeGalleryComponent implements OnInit {
     private galleryService: GalleryService,
     private userService: UserService,
     private recipeService: RecipeService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private chatService: ChatService
   ) {
     this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
     console.log(this.isAuthenicate);
@@ -47,7 +49,10 @@ export class AppRecipeGalleryComponent implements OnInit {
 
   ngOnInit() {
     this.oldRecipes = this.childMessage.recipe;
-    this.newRecipe = this.oldRecipes;
+    this.oldRecipes.forEach(recipe => {
+      this.newRecipe.push(recipe)
+    })
+    // this.newRecipe = this.oldRecipes;
     this.registerForm = this.formBuilder.group({
       name: [this.childMessage.name, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
       content: [this.childMessage.content, [Validators.required, Validators.minLength(20), Validators.maxLength(500)]]
@@ -111,6 +116,7 @@ export class AppRecipeGalleryComponent implements OnInit {
           this.message = '';
           //this.registerForm.reset();
           window.location.reload();
+          this.chatService.identifyUser();
         }, 5000);
 
       }

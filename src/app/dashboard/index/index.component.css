@@ -251,7 +251,15 @@ a:active {
   line-height: 32px;
   border-left: 1px solid #f2f2f2;
 }
-
+.link{
+  color: #66CC75;
+}
+.menu:focus{
+  color: rgb(6, 180, 33);
+}
+.link:hover{
+  color: rgb(7, 150, 28);
+}
 .dropdown-item:active {
   background: white;
 }
@@ -369,6 +377,7 @@ ul.social-list li a:hover i {
   border-radius: 5px;
   top: 10%;
   right: 5%;
+  width: auto;
   position: absolute;
   color: rgb(77, 75, 75);
   border: 1px solid rgb(24, 231, 24);

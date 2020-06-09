@@ -34,7 +34,6 @@ export class AddBookmarkComponent implements OnInit {
   ngOnInit() {
     this.getPersonalGallery();
     this.galleryObject.recipe = this.childMessage;
-    console.log(this.galleryObject)
   }
 
   addBookmark() {
@@ -76,6 +75,16 @@ export class AddBookmarkComponent implements OnInit {
     //     }
     //   });
     // }
+    if (gallery.recipe !== undefined) {
+      console.log(gallery.recipe)
+      console.log(this.childMessage)
+      for (let recipe of gallery.recipe) {
+        if (recipe.recipeName === this.childMessage.recipeName) {
+          this.message = 'Công thức đã có trong bộ sưu tập';
+          return;
+        }
+      }
+    }
     console.log('ra đây')
     this.galleryObject._id = gallery._id;
     console.log(this.childMessage);

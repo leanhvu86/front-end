@@ -1,4 +1,4 @@
-<div class="container" style="min-height: 960px;" *ngIf="summary">
+<div class="container" style="min-height: 960px;" *ngIf="loadingSuccess3; else skeleton3; ">
   <div class="row">
     <div class="col" style="text-align: center;">
       <h6>DANH SÁCH CÔNG THỨC MỚI</h6>
@@ -6,17 +6,17 @@
         <cdk-virtual-scroll-viewport style="height: 600px" itemSize="50">
           <ng-container *cdkVirtualFor="let recipe of recipes; let i = index;">
             <li>
-              <div class="container" [routerLink]="['/detailRecipe/', recipe._id]" style="cursor: pointer;">
+              <div class="container" [routerLink]="['/detailRecipe/', recipe.nameSpace]" style="cursor: pointer;">
                 <div class="row">
-                  <div class="col">
+                  <div class="col-1">
                     <a style="font-size: 16px;">{{i+1}}</a>
                   </div>
-                  <div class="col-6">
+                  <div class="col-8">
                     <a style="font-size: 16px;">{{recipe.recipeName}}</a>
                     <br>
                     <a style="font-size: 10px;">{{recipe.content}}</a>
                   </div>
-                  <div class="col">
+                  <div class="col-1">
                     <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;" class="hover">
                       <cl-transformation width="100" height="100" crop="scale" quality="auto">
                       </cl-transformation>
@@ -105,7 +105,7 @@
   <div style="width: 100%;min-height: auto;" data-aos="fade-in" data-aos-duration="4000">
     <h6>DANH SÁCH TOP THÀNH VIÊN</h6>
     <div *ngFor="let user of topUsers"
-      style=" float: left;border-radius: 50%; background: none; width: 110px; position: relative;">
+      style=" float: left;border-radius: 50%; background: none; width: 10%; position: relative;">
       <div class="memberfunny" [routerLink]="['/memberAccess']">
         <!-- <div>
             <figure style="padding: 15% 10%;"> -->
@@ -151,3 +151,205 @@
   </div>
 </div>
 <app-scroll-top></app-scroll-top>
+
+<ng-template #skeleton3>
+  <!-- <main class="container mt-2">
+    <div class="row">
+      <div class="col-4 col-lg-2 p-2">
+        <div class="user-img m-2 mr-auto ml-auto">
+          <img src="/assets/img/user.svg" class="img-fluid rounded-circle">
+        </div>
+      </div>
+      <div class="col-8 col-lg-10 pt-3 sm-text-center">
+        <h2 class="display-5 text-capitalize sm-mr-auto sm-ml-auto"></h2>
+        <p class="lead sm-mr-auto sm-ml-auto"></p>
+        <a href="#" class="btn btn-secondary mr-1"></a><a href="#" class="btn btn-secondary"></a>
+      </div>
+    </div>
+  </main> -->
+  <section style="width: 100%; min-height: auto;">
+    <!-- <div class="pt-2 pb-4 text-center">
+      <h5 class="mr-auto ml-auto"></h5>
+    </div> -->
+    <div class="container">
+      <h6>DANH SÁCH CÔNG THỨC MỚI</h6>
+      <div class="row">
+        <div class="col-6">
+          <div class="card ">
+            <!-- <img class="card-img-top"  alt=" "> -->
+            <div class="card-body text-center">
+              <h5 class="card-title" style="height: 580px;margin-left: -15px; width: 100%;"></h5>
+              <!-- <p class="card-text"></p>
+              <div class="form-inline">
+                <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-4">
+              <div class="card ">
+                <div class="card-body text-center">
+                  <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 150%;"></h5>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="card ">
+                <div class="card-body text-center">
+                  <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 150%;"></h5>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="card ">
+                <div class="card-body text-center">
+                  <h5 class="card-title" style="height: 150px;margin-left: -15px; width: 150%;"></h5>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="text-align: center;">
+            <h6>DANH SÁCH QUẢN TRỊ VIÊN</h6>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">STT</th>
+                  <th scope="col">Tên</th>
+                  <th scope="col">email</th>
+                  <th scope="col">Chức vụ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                  <th scope="row">
+                    <h5 class="card-title" style="height: 20px;margin-left: -15px; width: 100%;"></h5>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+      <h5 class="card-title"
+        style="height: 80px;float: left;border-radius: 50px; width: 80px;margin-top: -10px;margin-left: 10px;">
+      </h5>
+    </div>
+  </section>
+</ng-template>

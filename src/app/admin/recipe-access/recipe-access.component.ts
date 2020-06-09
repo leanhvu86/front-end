@@ -1,7 +1,7 @@
-import {AfterViewInit, Component} from '@angular/core';
-import {OrderPipe} from 'ngx-order-pipe';
-import {RecipeService} from 'src/app/shared/service/recipe-service.service';
-import {Recipe} from 'src/app/shared/model/recipe';
+import { AfterViewInit, Component } from '@angular/core';
+import { OrderPipe } from 'ngx-order-pipe';
+import { RecipeService } from 'src/app/shared/service/recipe-service.service';
+import { Recipe } from 'src/app/shared/model/recipe';
 
 @Component({
   selector: 'app-recipe-access',
@@ -14,7 +14,9 @@ export class RecipeAccessComponent implements AfterViewInit {
   config: any;
   searchText;
   collection = { count: 60, data: [] };
-key:any;
+  key: any;
+  pageSize = 10;
+  loading = false;
   constructor(private recipeservice: RecipeService, private orderPipe: OrderPipe) {
     this.collection = orderPipe.transform(this.collection, 'info.name');
     console.log(this.collection);
@@ -28,7 +30,7 @@ key:any;
     }
 
     this.config = {
-      itemsPerPage: 10,
+      itemsPerPage: this.pageSize,
       currentPage: 1,
       totalItems: this.recipes.length
     };
@@ -63,19 +65,44 @@ key:any;
         }
         if (recipe.status === 1) {
           recipe.status = 'Đã duyệt';
+          recipe.ord = 2;
         } else if (recipe.status === 0) {
           recipe.status = 'Chưa duyệt';
+          recipe.ord = 3;
         } else {
           recipe.status = 'Từ chối';
+          recipe.ord = 1;
         }
         if (recipe.user == null) {
           recipe.user.name = 'Đợi duyệt';
+
         }
       }
-      console.log(this.recipes);
+      this.recipes.sort((a, b) => {
+        if (a.ord > b.ord) {
+          return -1;
+        } else if (a.ord < b.ord) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+      for (let i = 0; i < this.recipes.length; i++) {
+        let recipe = this.recipes[i];
+        recipe.seq = i + 1;
+      }
+      this.loading = true;
     });
   }
-
+  keyUp() {
+    console.log(this.pageSize)
+    if (this.searchText.length > 2) {
+      this.pageSize = this.recipes.length;
+      this.pageChanged(1);
+    } else {
+      this.pageSize = 10;
+    }
+  }
   setOrder(value: string) {
     if (this.order === value) {
       this.reverse = !this.reverse;
