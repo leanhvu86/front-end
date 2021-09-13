@@ -227,7 +227,7 @@
                   <cl-transformation height="100" width="100" crop="scale">
                   </cl-transformation>
                 </cl-image> -->
-              <div>
+              <div *ngIf="imageUrl">
                 <img style="height: 150px;width:150px;" src="{{baseImageUrl+ imageUrl }}" alt=""/>
               </div>
             </div>
@@ -363,13 +363,13 @@
             <br>
             <div class="row">
               <br>
-              <a>{{comment.content}}</a>
+              <a>{{comment.content}}&#160;</a>
               <br>
             </div>
             <div class="row" id="image{{ i }}" *ngFor="let imageUrl of comment.imageUrl; let i = index"
                  style="margin: 10px 0; float: left;">
-              <div *ngIf="!showImageStep" class="col">
-                <img *ngIf="imageUrl" style="height: 100px;width:100px;"
+              <div *ngIf="imageUrl" class="col">
+                <img style="height: 100px;width:100px;"
                      src="{{baseImageUrl+imageUrl }}"/>
               </div>
             </div>
