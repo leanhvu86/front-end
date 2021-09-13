@@ -13,7 +13,7 @@ import {GalleryService} from 'src/app/shared/service/gallery.service';
 import {Comment} from 'src/app/shared/model/comment';
 import {ChatService} from 'src/app/shared/service/chat.service';
 import {AppSetting} from '../../appsetting';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {DomSanitizer, SafeResourceUrl, Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -78,6 +78,7 @@ export class RecipeDetailComponent implements OnInit {
   showVideo: boolean = false;
   imageAddDone: boolean = false;
   registerComment: boolean = false;
+  resetAll: boolean = false;
 
   constructor(
     private cloudinary: Cloudinary,
@@ -90,7 +91,8 @@ export class RecipeDetailComponent implements OnInit {
     private _router: Router,
     private galleryService: GalleryService,
     private chatService: ChatService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private titleMain: Title,
   ) {
 
   }
@@ -114,12 +116,39 @@ export class RecipeDetailComponent implements OnInit {
     this.getRecipeDetail(this.id);
   }
 
+  getImageSrcTypeRoom(event: any) {
+    const id = 'imageArray';
+    const pshArrayImage = new Set();
+    const str = '[' + event.toString().replace(/}\n?{/g, '},{') + ']';
+    JSON.parse(str).forEach((obj) => {
+      pshArrayImage.add(obj.filePath);
+    });
+    if (pshArrayImage.size > 5) {
+      this.message = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước!';
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+    }
+    const newImage = Array.from(pshArrayImage).join(',');
+    console.log('đây là mảng ảnh mới:' + newImage);
+    const radio = (document.getElementById(id) as HTMLInputElement);
+    radio.value = newImage;
+  }
+
+  getIndexDelete(event: any) {
+    const id = 'imageArray';
+    const value = (document.getElementById(id) as HTMLInputElement).value;
+    const radio = (document.getElementById(id) as HTMLInputElement);
+    radio.value = '';
+  }
+
   allowAddImage(event) {
     this.imageAddDone = !this.imageAddDone;
   }
-  registerCommentUpload(){
-    this.registerComment=true;
+
+  registerCommentUpload() {
+    this.registerComment = true;
   }
+
   getPersonalGallery() {
     let email = localStorage.getItem('email');
 
@@ -178,13 +207,13 @@ export class RecipeDetailComponent implements OnInit {
             this.recipe.hardLevel = 'Rất khó';
           }
         }
-        this.recipe.imageUrl = AppSetting.BASE_IMAGE_URL + this.recipe.imageUrl;
         this.cookSteps = this.recipe.cockStep;
         this.waitingRecipe = this.recipe.status !== 1;
         this.loadingSuccess1 = true;
-        this.displayURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + 'ZEDTGC-8iIg');
-        console.log(this.displayURL);
+        this.displayURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.recipe.videoLink);
         this.getRecipes();
+        this.showVideo = false;
+        this.titleMain.setTitle(this.recipe.recipeName);
       }
     });
   }
@@ -227,20 +256,6 @@ export class RecipeDetailComponent implements OnInit {
     });
   }
 
-  deleteChild() {
-    let e = document.getElementById('gallery');
-
-    // e.firstElementChild can be used.
-    let child = e.lastElementChild;
-    while (child) {
-      e.removeChild(child);
-      child = e.lastElementChild;
-    }
-  }
-
-  fileOverBase1(e: any): void {
-    console.log(e);
-  }
 
   getComent() {
     this.doneCount = 0;
@@ -267,109 +282,6 @@ export class RecipeDetailComponent implements OnInit {
         }
       }
     });
-  }
-
-  handleFiles(event: any, index: any) {
-    const files = event.target.files;
-    for (let i = 0; i < files.length; i++) {
-      if (files.length > 5) {
-        this.errorMessage = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước!';
-        const radio: HTMLElement = document.getElementById('modal-button');
-        radio.click();
-        return;
-      }
-
-      const id = 'imageArray';
-      const inputValue = (document.getElementById(id) as HTMLInputElement)
-        .value;
-      const arr = inputValue.split(',');
-      if (arr.length > 5) {
-        this.errorMessage = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước !';
-        const radio: HTMLElement = document.getElementById('modal-button');
-        radio.click();
-        return;
-      }
-      if (files[i].size > 600000) {
-        alert('Kích thước file ảnh phải bé hơn 600 kB');
-        return;
-      } else {
-        this.uploadFile(files[i]); // call the function to upload the file
-      }
-    }
-  }
-
-  uploadFile(file: any) {
-    if (this.isAuthenicate === false) {
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
-      return;
-    }
-    let inputValue;
-    const url = `https://api.cloudinary.com/v1_1/${
-      this.cloudinary.config().cloud_name
-    }/image/upload`;
-    const xhr = new XMLHttpRequest();
-    const fd = new FormData();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-    // Update progress (can be used to show progress indicator)
-    xhr.upload.addEventListener('progress', function(e) {
-      const progress = Math.round((e.loaded * 100.0) / e.total);
-      // document.getElementById('progress').style.width = progress + "%";
-
-      console.log(`fileuploadprogress data.loaded: ${e.loaded},
-    data.total: ${e.total}`);
-    });
-    xhr.onreadystatechange = function(e) {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        // File uploaded successfully
-        const response = JSON.parse(xhr.responseText);
-        const url = response.secure_url;
-        // Create a thumbnail of the uploaded image, with 150px width
-        const tokens = url.split('/');
-        tokens.splice(-2, 0, 'w_90,h_90,c_scale');
-        const img = new Image(); // HTML5 Constructor
-        img.src = tokens.join('/');
-        img.alt = response.public_id;
-
-        const id = 'imageArray';
-        inputValue = (document.getElementById(id) as HTMLInputElement).value;
-        img.id = id + '_';
-        img.onclick = function() {
-          // xử lí xóa ảnh khi click thì  phải xóa ở trong imageArray( xóa public_id của ảnh trên cloud)
-          document.getElementById(galleryID).removeChild(img);
-
-          const id = 'imageArray';
-          const inputValue = (document.getElementById(id) as HTMLInputElement)
-            .value;
-          const arr = inputValue.split(',');
-          const id_tag = img.alt;
-          const position = arr.indexOf(id_tag);
-
-          if (~position) {
-            arr.splice(position, 1);
-          }
-
-          // array = [2, 9]
-          console.log(arr.toString());
-          const radio = document.getElementById(id) as HTMLInputElement;
-          radio.value = arr.toString();
-        };
-        inputValue = inputValue + response.public_id + ',';
-        inputValue = inputValue.trim();
-        const radio = document.getElementById(id) as HTMLInputElement;
-        radio.value = inputValue;
-        const galleryID = 'gallery';
-        document.getElementById(galleryID).appendChild(img);
-      }
-    };
-    const tags = 'myphotoalbum';
-    fd.append('upload_preset', this.cloudinary.config().upload_preset);
-    fd.append('tags', tags); // Optional - add tag for image admin in Cloudinary
-    fd.append('file', file);
-    file.withCredentials = false;
-    xhr.send(fd);
   }
 
   countIngredient(multiplyElement: any) {
@@ -448,7 +360,7 @@ export class RecipeDetailComponent implements OnInit {
     this.showImageStep = true;
   }
 
-  likeRecipe(recipe: any) {
+  likeRecipe(recipe: any, i: any) {
     if (this.isAuthenicate === false) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
@@ -494,7 +406,7 @@ export class RecipeDetailComponent implements OnInit {
     });
   }
 
-  dislikeRecipe(recipe: any) {
+  dislikeRecipe(recipe: any, i: any) {
     if (this.isAuthenicate === false) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
@@ -605,9 +517,12 @@ export class RecipeDetailComponent implements OnInit {
       typeDone = 0;
     }
     this.loading = true;
-    const inputValue = (document.getElementById(
-      'imageArray'
-    ) as HTMLInputElement).value;
+    let inputValue = '';
+    const input = document.getElementById('imageArray');
+    if (input !== undefined || true) {
+      inputValue = (document.getElementById('imageArray') as HTMLInputElement).value;
+    }
+
     const doneObject = new Object({
       user: user,
       recipe: this.recipe,
@@ -631,7 +546,6 @@ export class RecipeDetailComponent implements OnInit {
         } else {
           comment.type = '';
         }
-        ;
         comment.imageUrl = comment.imageUrl.split(',');
         this.recipeComment.push(comment);
         this.recipeComment.sort((a, b) => {
@@ -643,16 +557,19 @@ export class RecipeDetailComponent implements OnInit {
             return 0;
           }
         });
-        this.loading = false;
-        this.deleteChild();
-        this.registerForm.reset();
-        // this.message = data.body['message'];
-        // const radio: HTMLElement = document.getElementById('modal-button10');
-        // radio.click();
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 3000);
 
+        // reset form
+        this.loading = false;
+        this.registerForm.reset();
+        const textArea = (document.getElementById('content') as HTMLInputElement);
+        textArea.value = '';
+        this.imageAddDone = false;
+        this.resetAll = true;
+        this.checkDone = false;
+        this.registerComment = false;
+        this.message = data.body['message'];
+        const radio: HTMLElement = document.getElementById('modal-button10');
+        radio.click();
       } else {
         this.message = data.body['message'];
         const radio: HTMLElement = document.getElementById('modal-button10');

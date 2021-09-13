@@ -75,17 +75,12 @@
       *ngFor="let recipe of recipes|filter:searchText|paginate:{itemsPerPage: pageSize, currentPage:p};let i = index">
       <div class="item-inner ng-scope" style="background: white;">
         <div class="item-photo" style="    position: relative;">
-          <a [routerLink]="['/detail/', recipe.nameSpace]" class="photo">
-            <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: -4px;">
-              <cl-transformation width="247" height="256" radius="20" crop="scale" quality="auto">
-              </cl-transformation>
-            </cl-image>
-
+          <a [routerLink]="['/detail/', recipe.nameSpace]" class="photo" style="position: relative;">
+            <img style="width: 100%;height: 230px;image-rendering:crisp-edges;"
+                 src="{{baseImageUrl+ recipe.imageUrl }}"/>
           </a>
           <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
-              aria-hidden="true" style="    position: absolute;
-            left: 88px;
-            top: 100px; color: gray; opacity: 0.8;"></i></span>
+              aria-hidden="true"></i></span>
 
           <a class=" btn-act btn-add-favourite ng-isolate-scope" title="Yêu thích món ăn">
             <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content" style="position: absolute;
@@ -102,7 +97,6 @@
                   aria-hidden="true"></i></span>
             </ng-template>
           </a>
-
         </div>
         <div class="item-info">
           <div class="item-title">
@@ -124,12 +118,9 @@
             <a style="font-size: 10px;margin-top: -30px;text-overflow: ellipsis;
             overflow: hidden;
             white-space:nowrap;">
-              <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;display: inline-block;">
-                <cl-transformation width="60" height="60" gravity="face" radius="max" crop="fill" background="#e9ebee">
-                </cl-transformation>
-                <cl-transformation width="45" crop="scale">
-                </cl-transformation>
-              </cl-image> {{recipe.user.name}}
+              <img style="width: 50px;height: 50px;border-radius: 50px;display: inline-block;"
+                   src="{{baseImageUrl+ recipe.user.imageUrl }}"/>
+               {{recipe.user.name}}
             </a>
             <div style="float: left;
             margin-top: -60px; margin-left: 132px;">

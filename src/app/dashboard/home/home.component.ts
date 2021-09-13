@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Recipe } from 'src/app/shared/model/recipe';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { CookieService } from 'ngx-cookie-service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { Interest } from 'src/app/shared/model/interest';
-import { User } from 'src/app/shared/model/user';
-import { GalleryService } from 'src/app/shared/service/gallery.service';
-import { Gallery } from 'src/app/shared/model/gallery';
-import { Router } from '@angular/router';
-import { trigger } from '@angular/animations';
-import { fadeIn } from '../../shared/animation/fadeIn';
-import { AppSetting } from 'src/app/appsetting';
+import {Component, OnInit} from '@angular/core';
+import {Recipe} from 'src/app/shared/model/recipe';
+import {RecipeService} from 'src/app/shared/service/recipe-service.service';
+import {CookieService} from 'ngx-cookie-service';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {Interest} from 'src/app/shared/model/interest';
+import {User} from 'src/app/shared/model/user';
+import {GalleryService} from 'src/app/shared/service/gallery.service';
+import {Gallery} from 'src/app/shared/model/gallery';
+import {Router} from '@angular/router';
+import {trigger} from '@angular/animations';
+import {fadeIn} from '../../shared/animation/fadeIn';
+import {AppSetting} from 'src/app/appsetting';
 
 
 declare var $: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,28 +28,29 @@ export class Home2Component implements OnInit {
   public interests: Interest[] = [];
   config: any;
   userObject = {
-    email: "",
-    password: ""
-  }
+    email: '',
+    password: ''
+  };
 
   loadingSuccess = false;
-  avatar: string = AppSetting.BASE_IMAGE_URL+'avatar.png';
-  IMAGE_URL:string= AppSetting.BASE_IMAGE_URL;
-  topUsers: User[] = []
-  tfaFlag: boolean = false
-  errorMessage: string = null
-  message: string = null
+  avatar: string = AppSetting.BASE_IMAGE_URL + 'avatar.png';
+  IMAGE_URL: string = AppSetting.BASE_IMAGE_URL;
+  topUsers: User[] = [];
+  tfaFlag: boolean = false;
+  errorMessage: string = null;
+  message: string = null;
   showModal: boolean = false;
   isAuthenicate: boolean = false;
   search;
-  collection = { count: 60, data: [] };
-  galleryTop: Gallery[] = []
-  personalGallery: Gallery[] = []
+  collection = {count: 60, data: []};
+  galleryTop: Gallery[] = [];
+  personalGallery: Gallery[] = [];
   addRecipe: any;
   galleryObject = {
-    _id: "",
+    _id: '',
     recipe: Recipe
   };
+  baseImageUrl = AppSetting.BASE_IMAGE_URL;
 
   constructor(
     private cookie: CookieService,
@@ -60,7 +62,7 @@ export class Home2Component implements OnInit {
       this.collection.data.push(
         {
           id: i + 1,
-          value: "items number " + (i + 1)
+          value: 'items number ' + (i + 1)
         }
       );
     }
@@ -70,27 +72,31 @@ export class Home2Component implements OnInit {
       currentPage: 1,
       totalItems: this.recipes.length
     };
-    this.isAuthenicate = localStorage.getItem('email') !== "";
+    this.isAuthenicate = localStorage.getItem('email') !== '';
     console.log(localStorage.getItem('email') + 'email nè');
   }
+
   ngOnInit() {
     this.getRecipes();
-    this.getTopUser()
+    this.getTopUser();
     //this.getTopGalleries()
-    this.getPersonalGallery()
+    this.getPersonalGallery();
   }
+
   pageChanged(event) {
     this.config.currentPage = event;
   }
+
   findRecipe() {
     localStorage.setItem('searchText', this.search);
-    this.router.navigateByUrl('/recipe')
+    this.router.navigateByUrl('/recipe');
     this.search = '';
   }
+
   getTopGalleries() {
     this.galleryService.getTopGalleryies().subscribe(galleries => {
       for (let gallery of galleries) {
-        gallery.like = false
+        gallery.like = false;
         if (this.interests.length > 0) {
           for (let inter of this.interests) {
             if (gallery._id === inter.objectId._id) {
@@ -99,53 +105,56 @@ export class Home2Component implements OnInit {
           }
         }
         if (gallery.recipe.length > 0) {
-          gallery.image = gallery.recipe[0].imageUrl
+          gallery.image = gallery.recipe[0].imageUrl;
         } else {
           gallery.image = 'fvt7rkr59r9d7wk8ndbd';
         }
       }
       this.galleryTop = galleries;
       this.loadingSuccess = true;
-    })
+    });
   }
+
   getPersonalGallery() {
-    let email = localStorage.getItem('email')
+    let email = localStorage.getItem('email');
     if (email !== '') {
       this.galleryService.getGalleryies().subscribe(data => {
         if (data != null) {
           for (let gallery of data) {
             if (gallery.user.email === email) {
               if (gallery.recipe.length > 0) {
-                gallery.image = gallery.recipe[0].imageUrl
+                gallery.image = gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+                gallery.image = 'fvt7rkr59r9d7wk8ndbd';
               }
-              this.personalGallery.push(gallery)
+              this.personalGallery.push(gallery);
             }
           }
         }
-      })
+      });
     }
   }
+
   addBookmark(recipe: Recipe) {
-    this.message = ''
+    this.message = '';
     if (this.isAuthenicate !== true) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
-    this.addRecipe = recipe
-    console.log(recipe.recipeName)
+    this.addRecipe = recipe;
+    console.log(recipe.recipeName);
     const radio: HTMLElement = document.getElementById('modal-button1');
     radio.click();
   }
+
   addRecipeBookMark(gallery: any) {
     if (gallery.recipe !== undefined) {
       for (let recipe of gallery.recipe) {
         if (recipe.recipeName === this.addRecipe.recipeName) {
-          console.log(recipe.recipeName + "   " + this.addRecipe.recipeName)
-          this.message = 'Công thức đã có trong bộ sưu tập'
-          return
+          console.log(recipe.recipeName + '   ' + this.addRecipe.recipeName);
+          this.message = 'Công thức đã có trong bộ sưu tập';
+          return;
         }
       }
     }
@@ -161,7 +170,7 @@ export class Home2Component implements OnInit {
         }, 4000);
 
       }
-    })
+    });
   }
 
   getRecipes() {
@@ -175,11 +184,11 @@ export class Home2Component implements OnInit {
 
           this.recipeService.findInterest(this.userObject).subscribe(data => {
             this.galleryService.getTopGalleryies().subscribe(galleries => {
-              let interests = data.body['interests']
-              this.interests = interests
+              let interests = data.body['interests'];
+              this.interests = interests;
               //this.getTopGalleries()
-              this.recipes.forEach(function (recipe) {
-                recipe.like = false
+              this.recipes.forEach(function(recipe) {
+                recipe.like = false;
                 if (recipe.hardLevel !== undefined) {
                   if (recipe.hardLevel === '') {
                     recipe.hardLevel = 'Ko XĐ';
@@ -196,21 +205,15 @@ export class Home2Component implements OnInit {
                 if (interests !== undefined) {
                   for (let interest of interests) {
                     if (interest.objectId._id === recipe._id && interest.objectType === '2') {
-                      recipe.like = true
+                      recipe.like = true;
                     }
                   }
-                }
-
-                if (recipe.user.imageUrl === undefined) {
-                  recipe.user.imageUrl = this.avatar;
-                }else{
-                  recipe.user.imageUrl=this.IMAGE_URL+ recipe.user.imageUrl;
                 }
               });
 
               this.loadingSuccess = true;
               for (let gallery of galleries) {
-                gallery.like = false
+                gallery.like = false;
                 if (this.interests.length > 0) {
                   for (let inter of this.interests) {
                     if (gallery._id === inter.objectId._id) {
@@ -219,7 +222,7 @@ export class Home2Component implements OnInit {
                   }
                 }
                 if (gallery.recipe.length > 0) {
-                  gallery.image = gallery.recipe[0].imageUrl
+                  gallery.image = gallery.recipe[0].imageUrl;
                 } else {
                   gallery.image = 'fvt7rkr59r9d7wk8ndbd';
                 }
@@ -232,8 +235,8 @@ export class Home2Component implements OnInit {
           // }
 
         } else {
-          this.recipes.forEach(function (recipe) {
-            recipe.like = false
+          this.recipes.forEach(function(recipe) {
+            recipe.like = false;
             if (recipe.hardLevel !== undefined) {
               if (recipe.hardLevel === '') {
                 recipe.hardLevel = 'Ko XĐ';
@@ -251,13 +254,14 @@ export class Home2Component implements OnInit {
               recipe.user.imageUrl = this.imageUrl;
             }
           });
-          this.getTopGalleries()
+          this.getTopGalleries();
         }
       }
     });
   }
+
   video(link: any) {
-    var url
+    var url;
     if (link.includes('https:')) {
       url = link;
     } else {
@@ -265,8 +269,9 @@ export class Home2Component implements OnInit {
     }
     window.open(url, 'MsgWindow', 'width=600,height=400');
   }
+
   likeGallerry(gallery: any, index: any) {
-    this.isAuthenicate = localStorage.getItem('email') !== "" ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== '' ? true : false;
     if (this.isAuthenicate === false) {
       console.log('false');
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -279,7 +284,7 @@ export class Home2Component implements OnInit {
       user: user,
       objectId: gallery,
       objectType: '1'
-    })
+    });
     let id = 'heartGallery' + index;
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'red';
@@ -288,7 +293,7 @@ export class Home2Component implements OnInit {
       if (data !== undefined) {
         let userObject = new Object({
           email: gallery.user.email
-        })
+        });
         // this.userService.likeAddPoint(userObject).subscribe((data) => {
         //   if (data.body['status'] === 200) {
         //     console.log('success')
@@ -298,6 +303,7 @@ export class Home2Component implements OnInit {
       }
     });
   }
+
   nolikeGallery(gallery: any, index: any) {
     gallery.like = false;
     if (this.isAuthenicate !== true) {
@@ -311,7 +317,7 @@ export class Home2Component implements OnInit {
       user: user,
       objectId: gallery,
       objectType: '1'
-    })
+    });
     let id = 'heartGallery' + index;
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'grey';
@@ -320,7 +326,7 @@ export class Home2Component implements OnInit {
       if (data !== undefined) {
         let userObject = new Object({
           email: gallery.user.email
-        })
+        });
         // this.userService.dislikeremovePoint(userObject).subscribe((data) => {
         //   if (data.body['status'] === 200) {
         //     console.log('success')
@@ -330,10 +336,11 @@ export class Home2Component implements OnInit {
       }
 
 
-    })
+    });
   }
+
   likeRecipe(recipe: any, index: any) {
-    this.isAuthenicate = localStorage.getItem('email') !== "" ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== '' ? true : false;
     if (this.isAuthenicate === false) {
       console.log('false');
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -346,17 +353,17 @@ export class Home2Component implements OnInit {
       user: user,
       objectId: recipe,
       objectType: '2'
-    })
+    });
     let id = 'heart' + index;
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'red';
     radio.style.opacity = '0.8';
     this.recipeService.likeRecipe(interestObject).subscribe((data) => {
       if (data !== undefined) {
-        console.log('success')
+        console.log('success');
         let userObject = new Object({
           email: recipe.user.email
-        })
+        });
         // this.userService.likeAddPoint(userObject).subscribe((data) => {
         //   if (data.body['status'] === 200) {
         //     console.log('success')
@@ -366,6 +373,7 @@ export class Home2Component implements OnInit {
       }
     });
   }
+
   dislikeRecipe(recipe: any, index: any) {
     if (this.isAuthenicate !== true) {
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -378,7 +386,7 @@ export class Home2Component implements OnInit {
       user: user,
       objectId: recipe,
       objectType: '2'
-    })
+    });
     let id = 'heart' + index;
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'white';
@@ -387,7 +395,7 @@ export class Home2Component implements OnInit {
       if (data !== undefined) {
         let userObject = new Object({
           email: recipe.user.email
-        })
+        });
         // this.userService.dislikeremovePoint(userObject).subscribe((data) => {
         //   if (data.body['status'] === 200) {
         //     console.log('success')
@@ -397,20 +405,21 @@ export class Home2Component implements OnInit {
       }
     });
   }
+
   getTopUser() {
     this.userService.getTopUsers().subscribe(users => {
       this.topUsers = users;
-      console.log(this.topUsers)
+      console.log(this.topUsers);
       for (let user of this.topUsers) {
         if (user.imageUrl === undefined) {
           user.imageUrl = this.avatar;
-        }else{
-          user.imageUrl=AppSetting.BASE_IMAGE_URL+ user.imageUrl;
-          console.log('user.imageUrl',user.imageUrl)
+        } else {
+          user.imageUrl = AppSetting.BASE_IMAGE_URL + user.imageUrl;
+          console.log('user.imageUrl', user.imageUrl);
         }
       }
-      console.log(this.topUsers)
-    })
+      console.log(this.topUsers);
+    });
   }
 }
 

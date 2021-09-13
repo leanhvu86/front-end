@@ -24,6 +24,16 @@ export class ImageuploadComponent implements OnInit {
   @Input('listRoomImgCurrent') listRoomImgCurrent: any;
   // tslint:disable-next-line:no-input-rename
   @Input('indexRoom') index: number;
+  @Input('resetAll') resetAll: any;
+  ngOnChanges() {
+    if(this.resetAll===true){
+      this.isShown = true;
+      this.legalUploadCheck = false;
+      this.listImgPreview = [];
+      this.listRoomImgCurrent= [];
+      this.uploader.clearQueue();
+    }
+  }
   @Output() imageSrcUrl = new EventEmitter();
   // @Output() indexRoomDelete = new EventEmitter();
   @Output() indexDelete = new EventEmitter<string>();

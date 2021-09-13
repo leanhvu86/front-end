@@ -13,6 +13,7 @@ import {GalleryService} from 'src/app/shared/service/gallery.service';
 import {Gallery} from 'src/app/shared/model/gallery';
 import {trigger} from '@angular/animations';
 import {fadeIn} from '../../shared/animation/fadeIn';
+import {AppSetting} from '../../appsetting';
 
 @Component({
   selector: 'app-recipe',
@@ -59,6 +60,7 @@ export class RecipeComponent implements OnInit {
   pageSize = 20;
   personalGallery: Gallery[] = [];
   public interests: Interest[] = [];
+  baseImageUrl = AppSetting.BASE_IMAGE_URL;
 
   constructor(
     private service: RecipeService,
@@ -73,7 +75,7 @@ export class RecipeComponent implements OnInit {
       this.searchText = localStorage.getItem('searchText');
       localStorage.setItem('searchText', '');
     }
-    this.isAuthenicate = localStorage.getItem('email') !== '' ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== '';
   }
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 import {Component, Input, NgZone, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from 'ng2-file-upload';
+import {FileUploader} from 'ng2-file-upload';
 import {RxwebValidators} from '@rxweb/reactive-form-validators';
 import {Country} from 'src/app/shared/model/country';
 import {CountryService} from 'src/app/shared/service/country.service';
@@ -14,7 +14,6 @@ import {HttpClient} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {CookStepService} from '../../shared/service/cook-step.service';
 import {ChatService} from 'src/app/shared/service/chat.service';
-import {AppSetting} from '../../appsetting';
 import {Title} from '@angular/platform-browser';
 
 @Component({
@@ -27,8 +26,6 @@ export class RegisterPassengerComponent implements OnInit {
   profileForm: FormGroup;
   cookStep: FormArray;
   ingredientsGroup: FormArray;
-  fileData: File = null;
-  previewUrl: any = null;
   public index = 0;
   public imageIndex = 0;
   public showVideoTutorial = false;
@@ -45,17 +42,12 @@ export class RegisterPassengerComponent implements OnInit {
   submitted = false;
   @Input()
   responses: Array<any>;
-  oldUrl: string = null;
   nowUrl: string = null;
   // tslint:disable-next-line:ban-types
   ingredientArrays: Object[] = [];
-  hasBaseDropZoneOver = false;
-  hasBaseDropZoneOver1 = false;
   uploader: FileUploader;
   title: string;
-  arrayImage = '';
   successMessage = '';
-  listImgCurrent = [];
   listRoomImgCurrent = [] = [];
   navHide = false;
   // url = AppSetting.BASE_SERVER_URL + '/api/upload';
@@ -97,113 +89,6 @@ export class RegisterPassengerComponent implements OnInit {
     this.getFoodTypes();
     this.getCookWays();
     this.cookStep = this.profileForm.get('cookStep') as FormArray;
-    // this.ingredientsGroup = this.profileForm.get('ingredientsGroup') as FormArray;
-    // Create the file uploader, wire it to upload to your account
-    const uploaderOptions: FileUploaderOptions = {
-      url: `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/image/upload`,
-      // Upload files automatically upon addition to upload queue
-      autoUpload: true,
-      // Use xhrTransport in favor of iframeTransport
-      isHTML5: true,
-      // Calculate progress independently for each uploaded file
-      removeAfterUpload: true,
-      // XHR request headers
-      headers: [
-        {
-          name: 'X-Requested-With',
-          value: 'XMLHttpRequest'
-        }
-      ]
-    };
-    this.uploader = new FileUploader(uploaderOptions);
-
-    this.uploader.onBuildItemForm = (fileItem: any, form: FormData): any => {
-      if (fileItem.size > 600000) {
-        alert('Kích thước file ảnh phải bé hơn 600 kB');
-        return;
-      }
-      // Add Cloudinary's unsigned upload preset to the upload form
-      form.append('upload_preset', this.cloudinary.config().upload_preset);
-      // Add built-in and custom tags for displaying the uploaded photo in the list
-      let tags = 'myphotoalbum';
-      if (this.title) {
-        form.append('context', `photo=${this.title}`);
-        tags = `myphotoalbum,${this.title}`;
-      }
-      // Upload to a custom folder
-      // Note that by default, when uploading via the API, folders are not automatically created in your Media Library.
-      // In order to automatically create the folders based on the API requests,
-      // please go to your account upload settings and set the 'Auto-create folders' option to enabled.
-
-
-      // form.append('folder', 'angular_sample');
-      // Add custom tags
-      form.append('tags', tags);
-      // Add file to upload
-      form.append('file', fileItem);
-
-      // Use default "withCredentials" value for CORS requests
-      fileItem.withCredentials = false;
-      return {fileItem, form};
-    };
-
-    // Insert or update an entry in the responses array
-    const upsertResponse = fileItem => {
-      // Run the update in a custom zone since for some reason change detection isn't performed
-      // as part of the XHR request to upload the files.
-      // Running in a custom zone forces change detection
-      this.zone.run(() => {
-        // Update an existing entry if it's upload hasn't completed yet
-
-        // Find the id of an existing item
-        const existingId = this.responses.reduce((prev, current, index) => {
-          if (current.file.name === fileItem.file.name && !current.status) {
-            return index;
-          }
-          return prev;
-        }, -1);
-        if (existingId > -1) {
-          // Update existing item with new data
-          this.responses[existingId] = Object.assign(this.responses[existingId], fileItem);
-          if (this.responses[0].data.url != undefined && this.responses[0].data.url !== '') {
-
-            this.oldUrl = this.nowUrl;
-            this.nowUrl = this.responses[0].data.public_id;
-            console.log(this.responses[0].data.public_id);
-            if (this.oldUrl != null && this.oldUrl != '') {
-              console.log(this.oldUrl);
-              console.log(this.nowUrl);
-
-            }
-          }
-          this.previewUrl = this.responses[0].data.public_id;
-        } else {
-          // Create new response
-          this.responses.push(fileItem);
-          this.previewUrl = this.responses[0].data.public_id;
-        }
-      });
-    };
-
-    // Update model on completion of uploading a file
-    this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) =>
-      upsertResponse(
-        {
-          file: item.file,
-          status,
-          data: JSON.parse(response)
-        }
-      );
-
-    // Update model on upload progress event
-    this.uploader.onProgressItem = (fileItem: any, progress: any) =>
-      upsertResponse(
-        {
-          file: fileItem.file,
-          progress,
-          data: {}
-        }
-      );
   }
 
   getImageSrc(event: any) {
@@ -237,139 +122,6 @@ export class RegisterPassengerComponent implements OnInit {
     const value = (document.getElementById(id) as HTMLInputElement).value;
     const radio = (document.getElementById(id) as HTMLInputElement);
     radio.value = '';
-  }
-
-  uploadFile(file: any, index: any) {
-    let inputValue;
-    console.log(file);
-    console.log(index);
-    const url = `http://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/image/upload`;
-    const xhr = new XMLHttpRequest();
-    const fd = new FormData();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-
-    // Update progress (can be used to show progress indicator)
-    xhr.upload.addEventListener('progress', function(e) {
-      const progress = Math.round((e.loaded * 100.0) / e.total);
-      // document.getElementById('progress').style.width = progress + "%";
-
-      console.log(`fileuploadprogress data.loaded: ${e.loaded},
-    data.total: ${e.total}`);
-    });
-    const imageIndex1 = this.imageIndex;
-    xhr.onreadystatechange = function(e) {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        // File uploaded successfully
-        const response = JSON.parse(xhr.responseText);
-        const url = response.secure_url;
-        // Create a thumbnail of the uploaded image, with 150px width
-        const tokens = url.split('/');
-        tokens.splice(-2, 0, 'w_90,h_90,c_scale');
-        const img = new Image(); // HTML5 Constructor
-        img.src = tokens.join('/');
-        img.alt = response.public_id;
-
-
-        const id = 'imageArray' + index;
-        inputValue = (document.getElementById(id) as HTMLInputElement).value;
-        img.id = id + '_' + imageIndex1;
-        img.onclick = () => {
-          document.getElementById(galleryID).removeChild(img);
-          const id = 'imageArray' + index;
-          const inputValue = (document.getElementById(id) as HTMLInputElement).value;
-          console.log(inputValue);
-          const arr = inputValue.split(',');
-          console.log(arr);
-          const id_tag = img.alt;
-          const position = arr.indexOf(id_tag);
-
-          if (position) {
-            arr.splice(position, 1);
-          }
-
-          // array = [2, 9]
-          console.log(arr.toString());
-          const radio = (document.getElementById(id) as HTMLInputElement);
-          radio.value = arr.toString();
-        };
-        inputValue = inputValue + response.public_id + ',';
-        inputValue = inputValue.trim();
-        console.log(inputValue);
-        const radio = (document.getElementById(id) as HTMLInputElement);
-        radio.value = inputValue;
-
-        console.log(radio.value);
-        const galleryID = 'gallery' + index;
-        document.getElementById(galleryID).appendChild(img);
-      }
-
-    };
-    const tags = 'myphotoalbum';
-    fd.append('upload_preset', this.cloudinary.config().upload_preset);
-    fd.append('tags', tags); // Optional - add tag for image admin in Cloudinary
-    fd.append('file', file);
-    file.withCredentials = false;
-    xhr.send(fd);
-    this.imageIndex++;
-  }
-
-  handleFiles(event: any, index: any) {
-
-
-    const files = event.target.files;
-    console.log(files);
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < files.length; i++) {
-      if (files.length > 5) {
-        this.message = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước!';
-        const radio: HTMLElement = document.getElementById('modal-button');
-        radio.click();
-        return;
-      }
-      const id = 'imageArray' + index;
-      const inputValue = (document.getElementById(id) as HTMLInputElement).value;
-      const arr = inputValue.split(',');
-      console.log(' imageArray nè' + inputValue);
-      if (arr.length > 5) {
-        this.message = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước !';
-        const radio: HTMLElement = document.getElementById('modal-button');
-        radio.click();
-        return;
-      }
-      this.uploadFile(files[i], index); // call the function to upload the file
-    }
-  }
-
-  fileOverBase(e: any): void {
-    console.log(e);
-    this.hasBaseDropZoneOver = e;
-  }
-
-  fileOverBase1(e: any): void {
-    console.log(e);
-    this.hasBaseDropZoneOver1 = e;
-  }
-
-  fileProgress(fileInput: any) {
-    this.fileData = fileInput.target.files[0] as File;
-    console.log(this.fileData);
-    this.preview();
-  }
-
-  preview() {
-    // Show preview
-    const mimeType = this.fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
-      return;
-    }
-    // this.uploadFileMainImage(this.fileData);
-    const reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
-    reader.onload = (_event) => {
-      this.previewUrl = reader.result;
-    };
   }
 
   onSubmit() {

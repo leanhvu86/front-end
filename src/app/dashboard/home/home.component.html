@@ -194,19 +194,15 @@
       <!-- </div> -->
       <!-- </section> -->
     </ng-template>
-    <div class="row" data-aos="fade-in" data-aos-duration="4000" *ngIf="loadingSuccess; else skeleton">
+    <div class="row" data-aos="fade-in" data-aos-duration="4000" *ngIf="loadingSuccess; else skeleton" >
 
       <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 px-0"
         *ngFor="let recipe of recipes| paginate: config; let i=index" style="position: relative;">
-        <div class="hover15 column" style="float: left;position: relative; text-align: center;">
+        <div class=" column" style="float: left;position: relative; text-align: center;">
           <div [routerLink]="['/detail/', recipe.nameSpace]">
             <div class="w-100">
-              <figure>
-                <cl-image public-id="{{recipe.imageUrl}}" class="img-fluid" style="margin-top: 15px;">
-                  <cl-transformation height="280" crop="scale" width="220" quality="auto">
-                  </cl-transformation>
-                </cl-image>
-              </figure>
+              <img style="width: 100%;height: 280px;image-rendering:crisp-edges;"
+                   src="{{baseImageUrl+ recipe.imageUrl }}"/>
             </div>
 
 
@@ -244,13 +240,8 @@
               style="font-size: 12px;color: black;width: 270px;text-align: left;">
               <div class="row">
                 <div class="col" [routerLink]="['/member/info/', recipe.user._id]">
-                  <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;display: inline-block;">
-                    <cl-transformation width="50" height="50" gravity="face" radius="max" crop="fill"
-                      background="#e9ebee">
-                    </cl-transformation>
-                    <cl-transformation width="35" crop="scale">
-                    </cl-transformation>
-                  </cl-image>
+                  <img style="width: 50px;height: 50px;border-radius: 50px;display: inline-block;"
+                       src="{{baseImageUrl+ recipe.user.imageUrl }}"/>
                   <input type="text" value="{{recipe.user.name}}"
                     style="width: 60%; text-overflow: ellipsis;display: inline-block;padding-left: 10px; border: none; cursor: pointer; background: none;"
                     disabled>

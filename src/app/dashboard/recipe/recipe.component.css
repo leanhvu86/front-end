@@ -535,8 +535,8 @@ figure:hover + span {
   display: block;
   color: white;
   position: absolute;
-  bottom: 20%;
-  right: 5%;
+  bottom: 40%;
+  right: 40%;
   opacity: 0.8;
   cursor: pointer;
   background: none;
