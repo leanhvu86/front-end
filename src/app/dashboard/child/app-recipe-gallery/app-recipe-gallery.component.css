@@ -477,12 +477,13 @@ body{background-color:#f1f1f2}
 .register-button{
   border-radius: 5px;
   color: gray;
-  border: 1px solid rgb(202, 201, 201);
+  border: 1px solid #c0f072;
   font-size: 12px;
   padding: 10px 10px;
 }
 .register-button:hover{
-  color: #10e502;
+  color: white !important;
+  background-color: #c0f072;
   z-index: 1000;
 }
 .recipeLst{

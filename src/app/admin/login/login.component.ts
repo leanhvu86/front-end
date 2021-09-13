@@ -67,11 +67,11 @@ export class LoginComponent implements OnInit {
           this.errorMessage = 'Bạn không có thẩm quyền truy cập';
           return;
         } else {
-          this.cookie.set('token', token);
-          this.cookie.set('role', role);
+          localStorage.setItem('token', token);
+          localStorage.setItem('role', role);
           sessionStorage.setItem('token', token);
-          this.cookie.set('isAuthenicate', 'true');
-          this.cookie.set('email', this.userObject.email);
+          localStorage.setItem('isAuthenicate', 'true');
+          localStorage.setItem('email', this.userObject.email);
           sessionStorage.setItem('user', this.userObject.email);
           this._loginService.updateAuthStatus(true);
           this._router.navigateByUrl('/loadPage');

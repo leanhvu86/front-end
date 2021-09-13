@@ -3,17 +3,19 @@
     <!--  -->
     <div class="col-3 account-sidebar" style="font-family: Arial, Helvetica, sans-serif">
       <div class="sidebar-head">
-        <div class="profile-avatar">
-          <a class="a-image" [routerLink]="['/user/info/', id]">
-            <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">
-              <cl-transformation width="360" height="360" gravity="face" radius="max" crop="fill" background="#e9ebee">
-              </cl-transformation>
-              <cl-transformation width="180" crop="scale">
-              </cl-transformation>
-            </cl-image>
+        <!--        <div class="profile-avatar">-->
+        <!--          <a class="a-image" [routerLink]="['/user/info/', id]">-->
+        <!--            <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">-->
+        <!--              <cl-transformation width="360" height="360" gravity="face" radius="max" crop="fill" background="#e9ebee">-->
+        <!--              </cl-transformation>-->
+        <!--              <cl-transformation width="180" crop="scale">-->
+        <!--              </cl-transformation>-->
+        <!--            </cl-image>-->
 
-          </a>
-        </div>
+        <!--          </a>-->
+        <!--        </div>-->
+        <app-imageupload [imageProp]="imageProp" [url]="url" [block]="'true'"
+        ></app-imageupload>
         <h3 class="title" style="text-align: center;">
           <a title="Trang cá nhân">
             <span style="color: black;">{{user.name}}</span>
@@ -28,19 +30,19 @@
 
           <div class="text">
             <a class="user-lv1 " title="0 - 100 điểm. Bạn là người quan tâm đến những món ăn ngon và đẹp"
-              style="float: left; width: 20%; color: #00bcd4; font-size: 12px; font-weight: bold;">
+               style="float: left; width: 20%; color: #00bcd4; font-size: 12px; font-weight: bold;">
               Newbee</a>
             <a class="user-lv1 " title="101 - 250 điểm. Bạn là chuyên gia nêm nếm thưởng thức món ăn"
-              style="float: left; width: 20%; color: #ffc107;  font-size: 12px; font-weight: bold;">Tastee
+               style="float: left; width: 20%; color: #ffc107;  font-size: 12px; font-weight: bold;">Tastee
             </a>
             <a class="user-lv1 " title="251 - 400 điểm. Bạn là người nấu ăn ngon"
-              style="float: left;  width: 20%; color: #ff4f4f;  font-size: 12px; font-weight: bold;">Cookee
+               style="float: left;  width: 20%; color: #ff4f4f;  font-size: 12px; font-weight: bold;">Cookee
             </a>
             <a class="user-lv1 " title="401 - 600 điểm. Bạn là đầu bếp chuyên ngiệp"
-              style="float: left; width: 20%; color: #a930ca;  font-size: 12px; font-weight: bold;">Chefee
+               style="float: left; width: 20%; color: #a930ca;  font-size: 12px; font-weight: bold;">Chefee
             </a>
             <a class="user-lv1 " title="600 điểm trở lên. Vua đầu bếp"
-              style="float: left; width: 20%; color: #ff0834;  font-size: 12px; font-weight: bold;">
+               style="float: left; width: 20%; color: #ff0834;  font-size: 12px; font-weight: bold;">
               Mastee</a>
           </div>
         </div>
@@ -50,21 +52,21 @@
         <ul class="list-unstyled">
           <li class="menu-list-a">
             <a class="hover-a" [routerLink]="['/personal/recipe/', id]"
-              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
+               style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
               <span class="fa fa-align-center" style="margin-right: 5px;"></span>CÔNG THỨC CỦA TÔI
             </a>
           </li>
 
           <li class="menu-list-a">
             <a class="hover-a" routerLink="/gallery"
-              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
+               style="color: #c0f072;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
               <span class="fa fa-bookmark" style="margin-right: 5px;"></span>BỘ
               SƯU TẬP CỦA TÔI
             </a>
           </li>
           <li class="menu-list-a">
             <a class="hover-a" [routerLink]="['/user/info/', id]"
-              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
+               style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
               <span class="fa fa-user" style="margin-right: 5px;"></span>THÔNG
               TIN TÀI KHOẢN
             </a>
@@ -80,19 +82,23 @@
           <a class="a-title">BỘ SƯU TẬP CỦA TÔI</a>
         </div>
         <div class="col-4">
-          <app-add-gallery></app-add-gallery>
+          <app-add-gallery (galleryOutput)="getGalleryOutput($event)"></app-add-gallery>
         </div>
       </div>
       <div class="container mt-40">
         <div class="row mt-30">
           <div class="col-md-4 col-sm-6" style="margin-bottom: 10px;"
-            *ngFor="let gallery of myGallery|paginate:{itemsPerPage: 6, currentPage:p};let i = index">
+               *ngFor="let gallery of myGallery|paginate:{itemsPerPage: 6, currentPage:p};let i = index">
             <div class="box13">
 
-              <cl-image public-id="{{gallery.image}}" style="margin-top: 10px;">
-                <cl-transformation width="203" height="203" crop="scale" quality="auto">
-                </cl-transformation>
-              </cl-image>
+              <!--              <cl-image public-id="{{gallery.image}}" style="margin-top: 10px;">-->
+              <!--                <cl-transformation width="203" height="203" crop="scale" quality="auto">-->
+              <!--                </cl-transformation>-->
+              <!--              </cl-image>-->
+              <div class="gallery-wrap">
+                <img src="{{gallery.image}}"/>
+              </div>
+
               <div class="box-content">
                 <a class="title" [routerLink]="['/galleryDetail/', gallery._id]" style="color: white; font-size: 15px;">
                   {{gallery.name}}</a>
@@ -107,11 +113,13 @@
             </div>
             <br>
             <a class="register-button" title="Thêm công thức vào bộ sưu tập" (click)="registerGallery(gallery)"><i
-                class="fa fa-edit" style="cursor: pointer;padding: 2px 8px;" aria-hidden="true">&#160;Chỉnh sửa bộ sưu
-                tập</i></a>
-            <!-- <app-app-recipe-gallery [childMessage]="gallery" id="gallery{{i}}"></app-app-recipe-gallery> -->
-            <a class="eraser" title="Xóa bộ sưu tập cá nhân" (click)="openModal(gallery._id)"><i class="fa fa-trash-o"
-                style="padding: 0 8px;color: #fd4e4e;cursor: pointer;" aria-hidden="true"></i></a>
+              class="fa fa-edit" style="cursor: pointer;padding: 2px 8px;" aria-hidden="true">&#160;Chỉnh sửa bộ sưu
+              tập</i></a>
+            <!--            <app-app-recipe-gallery [childMessage]="gallery._id" id="gallery{{i}}"></app-app-recipe-gallery>-->
+            <a class="eraser" title="Xóa bộ sưu tập cá nhân" (click)="openModal(gallery._id,gallery.name)"><i
+              class="fa fa-trash-o"
+              style="padding: 0 8px;color: #fd4e4e;cursor: pointer;"
+              aria-hidden="true"></i></a>
             <hr>
           </div>
         </div>
@@ -122,13 +130,13 @@
   </div>
 </div>
 <button type="button" class="btn btn-primary" data-toggle="modal" hidden data-target="#staticBackdrop"
-  id="modal-button28">
+        id="modal-button28">
   Launch static backdrop modal
 </button>
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -183,12 +191,12 @@
         <div class="col-3 account-sidebar">
 
           <h5 class="card-title"
-            style="height: 180px;border-radius: 90px; width: 190px;margin-top: 10px;margin-left: 30px;">
+              style="height: 180px;border-radius: 90px; width: 190px;margin-top: 10px;margin-left: 30px;">
           </h5>
           <p class="card-text" style="width: 250px;"></p>
           <div class="form-inline">
             <a href="#" class="btn btn-outline-primary mr-auto ml-auto"
-              style="height: 20px;width: 100px;margin-left: 50px;"></a>
+               style="height: 20px;width: 100px;margin-left: 50px;"></a>
           </div>
           <br>
           <br>
@@ -310,13 +318,14 @@
   </section>
 </ng-template>
 <button type="button" id="add-recipe-gallery" class="btn btn-primary" style="display: none;" data-toggle="modal"
-  data-target=".bd-example-modal-xl">Extra large modal</button>
+        data-target=".bd-example-modal-xl">Extra large modal
+</button>
 
 <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-  aria-hidden="true">
+     aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content" style="height: 1000px;">
-      <div class="modal-header" style="background: #00a02e;">
+      <div class="modal-header" style="background: #c0f072;">
         <a style="color: white;">Chỉnh sửa thông tin bộ sưu tập</a>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
           <span aria-hidden="true" style="color: white;">&times;</span>
@@ -330,9 +339,9 @@
                 maxlength="200" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" autocomplete="off"
                 style="height:62px;" formControlName="name" /> -->
               <textarea id="content" class="form-control" name="name" autocomplete="off" formControlName="name"
-                [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Nội dung bộ sưu tập "
-                minlength="5" maxlength="200" title="Tên bộ sưu tập" required autofocus cols="12"
-                style="width: 100%;"></textarea>
+                        [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Nội dung bộ sưu tập "
+                        minlength="5" maxlength="200" title="Tên bộ sưu tập" required autofocus cols="12"
+                        style="resize:none;width: 100%;"></textarea>
               <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                 <div *ngIf="f.name.errors.required">Bạn phải điền tên bộ sưu tập</div>
                 <div *ngIf="f.name.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
@@ -344,10 +353,10 @@
               </div>
             </div>
             <div class="col-6">
-              <textarea id="content" class="form-control" name="content" autocomplete="off" formControlName="content"
-                [ngClass]="{ 'is-invalid': submitted && f.content.errors }" placeholder="Nội dung bộ sưu tập "
-                minlength="20" maxlength="500" title="Nội dung bộ sưu tập" required autofocus cols="12"
-                style="width: 100%;"></textarea>
+              <textarea id="content1" class="form-control" name="content" autocomplete="off" formControlName="content"
+                        [ngClass]="{ 'is-invalid': submitted && f.content.errors }" placeholder="Nội dung bộ sưu tập "
+                        minlength="20" maxlength="500" title="Nội dung bộ sưu tập" required autofocus cols="12"
+                        style="resize:none;width: 100%;"></textarea>
               <div *ngIf="submitted && f.content.errors" class="invalid-feedback">
                 <div *ngIf="f.content.errors.required">Bạn phải mô tả nội dung bộ sưu tập</div>
                 <div *ngIf="f.content.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
@@ -360,8 +369,8 @@
             </div>
             <div class="col">
               <button class="btn btn-lg btn-success btn-block btn-signin" type="submit"
-                *ngIf="!saving;else other_content10;"
-                style="width: 50%;margin-left: 30%;padding: 5px 5px;margin-top: 10px;">
+                      *ngIf="!saving;else other_content10;"
+                      style="width: 50%;margin-left: 30%;padding: 5px 5px;margin-top: 10px;background-color: #c0f072;">
                 Lưu bộ sưu tập
               </button>
               <ng-template #other_content10>
@@ -408,14 +417,14 @@
             <ul class="list">
               <cdk-virtual-scroll-viewport style="height: 600px" itemSize="40">
                 <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-                  placeholder="Tìm kiêm công thức" style="width: 100%; display: block;
+                       placeholder="Tìm kiêm công thức" style="width: 100%; display: block;
         cursor: pointer;">
                 <ng-container *cdkVirtualFor="let recipe of recipes |filter:searchText; let j = index;">
                   <li>
                     <div class="container">
                       <div class="row">
                         <div class="col">
-                          <a style="font-size: 16px;">{{j+1}}</a>
+                          <a style="font-size: 16px;">{{j + 1}}</a>
                         </div>
                         <div class="col-6">
                           <a style="font-size: 16px;">{{recipe.recipeName}}</a>
@@ -429,12 +438,12 @@
                           </cl-image>
 
                           <a *ngIf="!recipe.like;else other_content" title="Thêm công thức vào bộ sưu tập"> <i
-                              class="fa fa-check-circle fa-lg" id="icon{{ j }}" aria-hidden="true"
-                              (click)="addRecipe(recipe, j)"></i></a>
+                            class="fa fa-check-circle fa-lg" id="icon{{ j }}" aria-hidden="true"
+                            (click)="addRecipe(recipe, j)"></i></a>
                           <ng-template #other_content>
                             <a title="Loại công thức ra khỏi bộ sưu tập">
                               <i class="fa fa-check-circle fa-lg checkIcon" aria-hidden="true"
-                                (click)="removeRecipe(recipe, j)"></i></a>
+                                 (click)="removeRecipe(recipe, j)"></i></a>
                           </ng-template>
                         </div>
                       </div>
@@ -455,8 +464,8 @@
                       <div class="row" id="old{{i}}">
                         <div class="col">
                           <a (click)="removeRecipe(recipe,i)" style="width: 7px; height: auto; margin-top: 20px;"
-                            title="Xóa công thức ra khỏi bộ sưu tập"><i class="fa fa-trash-o buttonhover"
-                              aria-hidden="true"></i></a>
+                             title="Xóa công thức ra khỏi bộ sưu tập"><i class="fa fa-trash-o buttonhover"
+                                                                         aria-hidden="true"></i></a>
                         </div>
                         <div class="col-6">
                           <a style="font-size: 16px;">{{recipe.recipeName}}</a>

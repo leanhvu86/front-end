@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Gallery } from '../../../shared/model/gallery';
-import { CookieService } from 'ngx-cookie-service';
-import { GalleryService } from '../../../shared/service/gallery.service';
-import { UserService } from '../../../shared/service/user.service.';
-import { Recipe } from '../../../shared/model/recipe';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { ActivatedRoute } from '@angular/router';
-import { ChatService } from 'src/app/shared/service/chat.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Gallery} from '../../../shared/model/gallery';
+import {CookieService} from 'ngx-cookie-service';
+import {GalleryService} from '../../../shared/service/gallery.service';
+import {UserService} from '../../../shared/service/user.service.';
+import {Recipe} from '../../../shared/model/recipe';
+import {RecipeService} from 'src/app/shared/service/recipe-service.service';
+import {ActivatedRoute} from '@angular/router';
+import {ChatService} from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-app-recipe-gallery',
@@ -17,7 +17,7 @@ import { ChatService } from 'src/app/shared/service/chat.service';
 export class AppRecipeGalleryComponent implements OnInit {
   submitted: boolean = false;
   registerForm: FormGroup;
-  isAuthenicate: boolean;
+  isAuthenticate: boolean;
   @Input() childMessage: Gallery;
   galleryObject = {
     content: '',
@@ -27,13 +27,14 @@ export class AppRecipeGalleryComponent implements OnInit {
     recipes: []
   };
   searchText: string = '';
-  message: String = '';
+  message: string = '';
   gallerys: Gallery[] = [];
   oldRecipes: Recipe[] = [];
   newRecipe: Recipe[] = [];
-  errorMessage: String = '';
-  recipes: Recipe[] = []
+  errorMessage: string = '';
+  recipes: Recipe[] = [];
   saving = false;
+
   constructor(
     private cookie: CookieService,
     private formBuilder: FormBuilder,
@@ -43,15 +44,15 @@ export class AppRecipeGalleryComponent implements OnInit {
     private _route: ActivatedRoute,
     private chatService: ChatService
   ) {
-    this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
-    console.log(this.isAuthenicate);
+    this.isAuthenticate = localStorage.getItem('email') !== '';
+    console.log(this.isAuthenticate);
   }
 
   ngOnInit() {
     this.oldRecipes = this.childMessage.recipe;
     this.oldRecipes.forEach(recipe => {
-      this.newRecipe.push(recipe)
-    })
+      this.newRecipe.push(recipe);
+    });
     // this.newRecipe = this.oldRecipes;
     this.registerForm = this.formBuilder.group({
       name: [this.childMessage.name, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
@@ -73,12 +74,13 @@ export class AppRecipeGalleryComponent implements OnInit {
     recipe.like = false;
     this.newRecipe = this.newRecipe.filter(obj => obj.recipeName !== recipe.recipeName);
     this.oldRecipes = this.oldRecipes.filter(obj => obj.recipeName !== recipe.recipeName);
-    console.log(this.newRecipe.length)
+    console.log(this.newRecipe.length);
   }
+
   addRecipe(recipe: any, i: any) {
-    recipe.like = true
+    recipe.like = true;
     this.newRecipe.push(recipe);
-    console.log(this.newRecipe.length)
+    console.log(this.newRecipe.length);
   }
 
   registerGallery() {
@@ -96,9 +98,8 @@ export class AppRecipeGalleryComponent implements OnInit {
     this.galleryObject = this.registerForm.value;
 
     console.log(this.galleryObject);
-    console.log(this.newRecipe)
-    let email = this.cookie.get('email');
-    this.galleryObject.user = email;
+    console.log(this.newRecipe);
+    this.galleryObject.user = localStorage.getItem('email');
     this.galleryObject.recipes = this.newRecipe;
     let id = JSON.stringify(this.childMessage._id);
     id = id.substring(1);
@@ -122,6 +123,7 @@ export class AppRecipeGalleryComponent implements OnInit {
       }
     });
   }
+
   getRecipes() {
     this.recipeService.getRecipes().subscribe(recipes => {
       if (recipes !== undefined) {
@@ -130,9 +132,9 @@ export class AppRecipeGalleryComponent implements OnInit {
           recipe.like = false;
           for (let recipe of this.oldRecipes) {
             this.recipes = this.recipes.filter(temp =>
-              temp.recipeName !== recipe.recipeName)
+              temp.recipeName !== recipe.recipeName);
           }
-        })
+        });
       }
       console.log(this.recipes.length + 'công thức của website');
     });

@@ -1,13 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ImageuploadComponent } from './animation/imageupload/imageupload.component';
+import {FileUploadModule} from 'ng2-file-upload';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [ImageuploadComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    FileUploadModule
   ],
-  exports: []
+  exports: [
+    ImageuploadComponent
+  ]
 })
 export class SharedModule { }

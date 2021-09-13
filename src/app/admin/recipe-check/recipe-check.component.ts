@@ -253,7 +253,7 @@ export class RecipeCheckComponent implements OnInit {
       this.messageModal = true;
       return;
     }
-    let token = this.cookie.get('email');
+    let token = localStorage.getItem('email');
     let recipeObject = {
       recipe: this.recipe,
       email: token
@@ -299,7 +299,7 @@ export class RecipeCheckComponent implements OnInit {
       return;
     }
 
-    let token = this.cookie.get('email');
+    let token = localStorage.getItem('email');
     let recipeObject = {
       recipe: this.recipe,
       email: token

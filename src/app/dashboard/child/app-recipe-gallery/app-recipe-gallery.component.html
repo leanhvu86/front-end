@@ -8,7 +8,7 @@
   aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content" style="height: 1000px;">
-      <div class="modal-header" style="background: #00a02e;">
+      <div class="modal-header" style="background: #c0f072;">
         <a style="color: white;">Chỉnh sửa thông tin bộ sưu tập</a>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
           <span aria-hidden="true" style="color: white;">&times;</span>
@@ -24,7 +24,7 @@
               <textarea id="content" class="form-control" name="name" autocomplete="off" formControlName="name"
                 [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Nội dung bộ sưu tập "
                 minlength="5" maxlength="200" title="Tên bộ sưu tập" required autofocus cols="12"
-                style="width: 100%;"></textarea>
+                style="width: 100%;resize: none;"></textarea>
               <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                 <div *ngIf="f.name.errors.required">Bạn phải điền tên bộ sưu tập</div>
                 <div *ngIf="f.name.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
@@ -39,7 +39,7 @@
               <textarea id="content" class="form-control" name="content" autocomplete="off" formControlName="content"
                 [ngClass]="{ 'is-invalid': submitted && f.content.errors }" placeholder="Nội dung bộ sưu tập "
                 minlength="20" maxlength="500" title="Nội dung bộ sưu tập" required autofocus cols="12"
-                style="width: 100%;"></textarea>
+                style="resize:none;width: 100%;"></textarea>
               <div *ngIf="submitted && f.content.errors" class="invalid-feedback">
                 <div *ngIf="f.content.errors.required">Bạn phải mô tả nội dung bộ sưu tập</div>
                 <div *ngIf="f.content.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
@@ -53,7 +53,7 @@
             <div class="col">
               <button class="btn btn-lg btn-success btn-block btn-signin" type="submit"
                 *ngIf="!saving;else other_content10;"
-                style="width: 50%;margin-left: 30%;padding: 5px 5px;margin-top: 10px;">
+                style="width: 50%;margin-left: 30%;padding: 5px 5px;margin-top: 10px;background-color: #c0f072;">
                 Lưu bộ sưu tập
               </button>
               <ng-template #other_content10>

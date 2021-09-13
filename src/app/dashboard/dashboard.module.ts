@@ -50,6 +50,7 @@ import { AppRecipeGalleryComponent } from './child/app-recipe-gallery/app-recipe
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LoadingBarModule } from "ngx-loading-bar";
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -85,27 +86,28 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     AddGalleryComponent,
     AppRecipeGalleryComponent,
   ],
-  imports: [
-    CommonModule,
-    FileUploadModule,
-    Ng5SliderModule,
-    JwSocialButtonsModule,
-    RouterModule.forChild(DashBoardRoutes),
-    ScrollingModule,
-    ReactiveFormsModule,
-    LoadingBarModule,
-    Ng2SearchPipeModule,
-    FormsModule,
-    NgxPaginationModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
-  ],
+    imports: [
+        CommonModule,
+        FileUploadModule,
+        Ng5SliderModule,
+        JwSocialButtonsModule,
+        RouterModule.forChild(DashBoardRoutes),
+        ScrollingModule,
+        ReactiveFormsModule,
+        LoadingBarModule,
+        Ng2SearchPipeModule,
+        FormsModule,
+        NgxPaginationModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
+        SharedModule,
+    ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA

@@ -1,15 +1,16 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Options } from "ng5-slider";
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { CookieService } from 'ngx-cookie-service';
-import { LoginServiceService } from 'src/app/shared/service/login-service.service';
-import { User } from 'src/app/shared/model/user';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common';
-import { Cloudinary } from '@cloudinary/angular-5.x';
-import { MustMatch } from 'src/app/shared/helper/must-match-validator';
-import { ChatService } from 'src/app/shared/service/chat.service';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Options} from 'ng5-slider';
+import {ActivatedRoute} from '@angular/router';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {CookieService} from 'ngx-cookie-service';
+import {LoginServiceService} from 'src/app/shared/service/login-service.service';
+import {User} from 'src/app/shared/model/user';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {DatePipe} from '@angular/common';
+import {Cloudinary} from '@cloudinary/angular-5.x';
+import {MustMatch} from 'src/app/shared/helper/must-match-validator';
+import {ChatService} from 'src/app/shared/service/chat.service';
+import {AppSetting} from '../../appsetting';
 
 @Component({
   selector: 'app-userinfor',
@@ -17,21 +18,22 @@ import { ChatService } from 'src/app/shared/service/chat.service';
   styleUrls: ['./userinfor.component.css']
 })
 export class UserinforComponent implements OnInit {
-  id: String = '1'
-  user: User
-  loadPage: boolean = false
+  id: String = '1';
+  user: User;
+  loadPage: boolean = false;
   errorMessage: string = null;
-  registerForm: FormGroup
-  changePassForm: FormGroup
+  registerForm: FormGroup;
+  changePassForm: FormGroup;
   submitted = false;
   passSubmitted = false;
-  errorPassMessage: string = ''
+  errorPassMessage: string = '';
   message: string = '';
+  BASE_IMAGE_URL = AppSetting.BASE_IMAGE_URL;
   userPassObject = {
-    user: "",
-    password: "",
-    newPassword: ""
-  }
+    user: '',
+    password: '',
+    newPassword: ''
+  };
   userObject = {
     id: '',
     email: '',
@@ -43,12 +45,24 @@ export class UserinforComponent implements OnInit {
     signature: '',
     introduction: '',
     imageUrl: '',
-  }
-  loading = false
-  isAuthenicate: boolean = false
-  years: number[] = []
-  imageUrl: string = 'jbiajl3qqdzshdw0z749'
+  };
+  loading = false;
+  isAuthenicate: boolean = false;
+  years: number[] = [];
+  imageUrl: string = this.BASE_IMAGE_URL + 'avatar.png';
+  imageProp = 'profile';
+  originUrl: any;
   private hasBaseDropZoneOver1 = false;
+
+  value: number = 0;
+  options: Options = {
+    floor: 0,
+    ceil: 1000,
+    showTicksValues: false,
+    disabled: true,
+    hideLimitLabels: true,
+  };
+
   constructor(
     private cloudinary: Cloudinary,
     private route: ActivatedRoute,
@@ -59,19 +73,22 @@ export class UserinforComponent implements OnInit {
     private datePipe: DatePipe,
     private chatService: ChatService
   ) {
-    this.isAuthenicate = this.cookie.get("email") !== "" ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== '';
   }
+
   fileOverBase1(e: any): void {
     console.log(e);
     this.hasBaseDropZoneOver1 = e;
   }
+
   choosefile() {
 
-    const radio: HTMLElement = document.getElementById("fileChoose");
+    const radio: HTMLElement = document.getElementById('fileChoose');
     radio.click();
   }
 
   ngOnInit() {
+    this.chatService.scrollToTop();
     this.changePassForm = this.formBuilder.group({
       oldPassword: ['', [Validators.required, Validators.minLength(6)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -81,64 +98,65 @@ export class UserinforComponent implements OnInit {
     });
 
     this.getAllYear();
-    let email = this.cookie.get('email');
+    const email = localStorage.getItem('email');
     if (email !== '') {
       this._loginService.testEmail(email).subscribe(data => {
         let user = data.body['user'];
         if (user !== undefined) {
-          this.user = user
-          this.id = user._id
-          console.log(this.id)
-          this.loadPage = true
+          this.user = user;
+          this.id = user._id;
+          console.log(this.id);
+          this.loadPage = true;
           if (user.totalPoint > 600) {
-            this.value = user.totalPoint
-            user.level = 'Mastee'
+            this.value = user.totalPoint;
+            user.level = 'Mastee';
           } else if (user.totalPoint > 400) {
-            this.value = user.totalPoint
-            user.level = 'Cheffe'
+            this.value = user.totalPoint;
+            user.level = 'Cheffe';
           } else if (user.totalPoint > 250) {
-            this.value = user.totalPoint
-            user.level = 'Cookee'
+            this.value = user.totalPoint;
+            user.level = 'Cookee';
           } else if (user.totalPoint > 100) {
-            this.value = user.totalPoint
-            user.level = 'Tastee'
+            this.value = user.totalPoint;
+            user.level = 'Tastee';
           } else {
-            this.value = user.totalPoint
-            user.level = 'Newbee'
+            this.value = user.totalPoint;
+            user.level = 'Newbee';
           }
-          this.loadPage = true
-          let name = this.user.name
+          this.loadPage = true;
+          let name = this.user.name;
           if (name === undefined) {
-            name = ''
+            name = '';
           }
-          let lastName = this.user.lastName
+          let lastName = this.user.lastName;
           if (lastName === undefined) {
-            lastName = ''
+            lastName = '';
           }
-          let birthday = this.user.birthday
+          let birthday = this.user.birthday;
           if (this.user.birthday === undefined) {
-            birthday = 1900
+            birthday = 1900;
           }
-          let gender = this.user.gender
+          let gender = this.user.gender;
           if (gender === undefined) {
-            gender = '1'
+            gender = '1';
           }
-          let materialStatus = this.user.materialStatus
+          let materialStatus = this.user.materialStatus;
           if (materialStatus === undefined) {
-            materialStatus = '1'
+            materialStatus = '1';
           }
-          let signature = this.user.signature
+          let signature = this.user.signature;
           if (signature === undefined) {
-            signature = ''
+            signature = '';
           } else {
-            signature = atob(signature)
+            signature = atob(signature);
           }
-          let introduction = this.user.introduction
+          let introduction = this.user.introduction;
           if (introduction === undefined) {
-            introduction = ''
+            introduction = '';
           }
           if (this.user.imageUrl !== undefined) {
-            this.imageUrl = this.user.imageUrl
+            this.imageUrl = this.BASE_IMAGE_URL + this.user.imageUrl;
+            this.originUrl = this.user.imageUrl;
           }
           this.registerForm = this.formBuilder.group({
             id: [this.user._id],
@@ -151,25 +169,27 @@ export class UserinforComponent implements OnInit {
             signature: [signature],
             introduction: [introduction],
           });
-          console.log(this.registerForm.value)
+          console.log(this.registerForm.value);
         }
-      })
+      });
 
     }
 
   }
+  getImageSrc(event: any) {
+    const imageRes = JSON.parse(event);
+    console.log(imageRes.filePath);
+    this.originUrl = imageRes.filePath;
+  }
 
-  get f() { return this.registerForm.controls; }
-  get f1() { return this.changePassForm.controls; }
+  get f() {
+    return this.registerForm.controls;
+  }
 
-  value: number = 0;
-  options: Options = {
-    floor: 0,
-    ceil: 1000,
-    showTicksValues: false,
-    disabled: true,
-    hideLimitLabels: true,
-  };
+  get f1() {
+    return this.changePassForm.controls;
+  }
+
   changePass() {
     this.passSubmitted = true;
     if (this.changePassForm.invalid) {
@@ -179,34 +199,35 @@ export class UserinforComponent implements OnInit {
       return;
     }
     this.loading = true;
-    let email = this.cookie.get('email')
-    this.userPassObject = this.changePassForm.value
-    this.userPassObject.user = email
+    let email = localStorage.getItem('email');
+    this.userPassObject = this.changePassForm.value;
+    this.userPassObject.user = email;
     this.userService.changePassword(this.userPassObject)
       .subscribe(data => {
-        console.log(data)
-        const status = data.body['status']
+        console.log(data);
+        const status = data.body['status'];
         if (status === 200) {
-          this.message = data.body['message']
+          this.message = data.body['message'];
           const radio: HTMLElement = document.getElementById('modal-button2');
           radio.click();
           setTimeout(() => {
             this.loading = false;
-            window.location.reload()
+            window.location.reload();
             this.chatService.identifyUser();
           }, 3000);
         } else {
           this.loading = false;
-          this.errorPassMessage = data.body['message']
+          this.errorPassMessage = data.body['message'];
         }
-      })
+      });
   }
-  handleFiles(event: any, index: any) {
+
+  handleFiles(event: any) {
     const files = event.target.files;
     this.loading = true;
     console.log(files);
     if (files.length > 0) {
-      let file: File
+      let file: File;
       file = files[0];
       if (file.size > 600000) {
         this.message = 'Kích thước file ảnh phải bé hơn 600 kB';
@@ -220,10 +241,11 @@ export class UserinforComponent implements OnInit {
       }
     }
   }
+
   uploadFile(file: any) {
 
     if (this.isAuthenicate == false) {
-      const radio: HTMLElement = document.getElementById("modal-button");
+      const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
@@ -231,28 +253,28 @@ export class UserinforComponent implements OnInit {
     console.log(file);
     const url = `https://api.cloudinary.com/v1_1/${
       this.cloudinary.config().cloud_name
-      }/image/upload`;
+    }/image/upload`;
     const xhr = new XMLHttpRequest();
     const fd = new FormData();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     // Update progress (can be used to show progress indicator)
-    xhr.upload.addEventListener("progress", function (e) {
+    xhr.upload.addEventListener('progress', function(e) {
       const progress = Math.round((e.loaded * 100.0) / e.total);
       // document.getElementById('progress').style.width = progress + "%";
 
       console.log(`fileuploadprogress data.loaded: ${e.loaded},
     data.total: ${e.total}`);
     });
-    xhr.onreadystatechange = function (e) {
+    xhr.onreadystatechange = function(e) {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // File uploaded successfully
         const response = JSON.parse(xhr.responseText);
         const url = response.secure_url;
         // Create a thumbnail of the uploaded image, with 150px width
-        const tokens = url.split("/");
-        tokens.splice(-2, 0, "w_90,h_90,c_scale");
+        const tokens = url.split('/');
+        tokens.splice(-2, 0, 'w_90,h_90,c_scale');
         inputValue = response.public_id;
 
         // const img = new Image(); // HTML5 Constructor
@@ -266,12 +288,12 @@ export class UserinforComponent implements OnInit {
         //   // xử lí xóa ảnh khi click thì  phải xóa ở trong imageArray( xóa public_id của ảnh trên cloud)
         //   document.getElementById(galleryID).removeChild(img);
 
-        const id = "imageArray";
+        const id = 'imageArray';
 
         const radio = document.getElementById(id) as HTMLInputElement;
         radio.value = inputValue;
 
-        console.log(inputValue)
+        console.log(inputValue);
         //   console.log(inputValue);
         //   const arr = inputValue.split(",");
         //   console.log(arr);
@@ -297,23 +319,23 @@ export class UserinforComponent implements OnInit {
         // document.getElementById(galleryID).appendChild(img);
       }
     };
-    const tags = "myphotoalbum";
-    fd.append("upload_preset", this.cloudinary.config().upload_preset);
-    fd.append("tags", tags); // Optional - add tag for image admin in Cloudinary
-    fd.append("file", file);
+    const tags = 'myphotoalbum';
+    fd.append('upload_preset', this.cloudinary.config().upload_preset);
+    fd.append('tags', tags); // Optional - add tag for image admin in Cloudinary
+    fd.append('file', file);
     file.withCredentials = false;
     xhr.send(fd);
 
     setTimeout(() => {
-      const id = "imageArray";
+      const id = 'imageArray';
       const value = (document.getElementById(id) as HTMLInputElement)
         .value;
       if (value !== undefined && value !== '') {
-        this.imageUrl = value
-        console.log(this.imageUrl)
+        this.imageUrl = value;
+        console.log(this.imageUrl);
         this.onSubmit();
       } else {
-        this.message = 'Lỗi mạng vui lòng thử lại với file dung lượng thấp hơn'
+        this.message = 'Lỗi mạng vui lòng thử lại với file dung lượng thấp hơn';
         const radio: HTMLElement = document.getElementById('modal-button2');
         radio.click();
       }
@@ -321,42 +343,43 @@ export class UserinforComponent implements OnInit {
     }, 16000);
 
   }
+
   onSubmit() {
     if (this.registerForm.invalid) {
-      this.errorMessage = 'Bạn phải kiểm tra lại thông tin!'
+      this.errorMessage = 'Bạn phải kiểm tra lại thông tin!';
       return;
     }
 
-    this.userObject = this.registerForm.value
-    this.userObject.imageUrl = this.imageUrl
+    this.userObject = this.registerForm.value;
+    this.userObject.imageUrl = this.originUrl;
 
     if (this.userObject !== undefined || this.userObject.signature !== '') {
 
-      const pattern = new RegExp("^[a-zA-Z0-9 ]*$");
+      const pattern = new RegExp('^[a-zA-Z0-9 ]*$');
       if (!pattern.test(this.userObject.signature)) {
-        this.errorMessage = 'Chữ ký chỉ chứa kí tự chữ số! Không chứa ký tự đặc biệt và UTF-8'
+        this.errorMessage = 'Chữ ký chỉ chứa kí tự chữ số! Không chứa ký tự đặc biệt và UTF-8';
         return;
       }
       this.userObject.signature = btoa(this.userObject.signature);
     } else {
-      this.userObject.signature = ''
+      this.userObject.signature = '';
     }
 
     this.submitted = true;
     this.loading = true;
-    this.registerForm.value.id = this.user._id
-    console.log(this.registerForm.value)
+    this.registerForm.value.id = this.user._id;
+    console.log(this.registerForm.value);
     this.userService.updateUser(this.userObject).subscribe(user => {
 
-      const status = user.body['status']
-      console.log(status)
+      const status = user.body['status'];
+      console.log(status);
       if (status === 200) {
-        console.log(user)
+        console.log(user);
         if (this.user.signature !== undefined) {
-          this.user.signature = atob(this.user.signature)
+          this.user.signature = atob(this.user.signature);
         }
         this.loading = false;
-        this.message = user.body['message']
+        this.message = user.body['message'];
         const radio: HTMLElement = document.getElementById('modal-button2');
         radio.click();
         this.loading = false;
@@ -367,28 +390,30 @@ export class UserinforComponent implements OnInit {
         }, 4000);
       } else {
         this.loading = false;
-        this.errorMessage = user.body['message']
+        this.errorMessage = user.body['message'];
       }
-    })
+    });
 
   }
+
   onClear() {
     this.submitted = false;
-    this.registerForm.value.email = ''
-    this.registerForm.value.name = ''
-    this.registerForm.value.lastName = ''
-    this.registerForm.value.birthday = ''
-    this.registerForm.value.gender = 3
-    this.registerForm.value.materialStatus = 5
-    this.registerForm.value.signature = ''
-    this.registerForm.value.introduction = ''
+    this.registerForm.value.email = '';
+    this.registerForm.value.name = '';
+    this.registerForm.value.lastName = '';
+    this.registerForm.value.birthday = '';
+    this.registerForm.value.gender = 3;
+    this.registerForm.value.materialStatus = 5;
+    this.registerForm.value.signature = '';
+    this.registerForm.value.introduction = '';
   }
+
   getAllYear() {
     let temp = parseInt(new Date().getFullYear().toString()) - 4;
 
     for (let i = 0; i < 100; i++) {
       let year = (temp - i);
-      this.years.push(year)
+      this.years.push(year);
     }
 
   }

@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/shared/model/user';
-import { LoginServiceService } from 'src/app/shared/service/login-service.service';
-import { CookieService } from 'ngx-cookie-service';
-import { Options } from 'ng5-slider';
-import { GalleryService } from 'src/app/shared/service/gallery.service';
-import { Gallery } from 'src/app/shared/model/gallery';
-import { trigger } from '@angular/animations';
-import { fadeIn } from '../../shared/animation/fadeIn';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Recipe } from 'src/app/shared/model/recipe';
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { ChatService } from 'src/app/shared/service/chat.service';
+import {Component, OnInit} from '@angular/core';
+import {User} from 'src/app/shared/model/user';
+import {LoginServiceService} from 'src/app/shared/service/login-service.service';
+import {CookieService} from 'ngx-cookie-service';
+import {Options} from 'ng5-slider';
+import {GalleryService} from 'src/app/shared/service/gallery.service';
+import {Gallery} from 'src/app/shared/model/gallery';
+import {trigger} from '@angular/animations';
+import {fadeIn} from '../../shared/animation/fadeIn';
+import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
+import {Recipe} from 'src/app/shared/model/recipe';
+import {ActivatedRoute} from '@angular/router';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {RecipeService} from 'src/app/shared/service/recipe-service.service';
+import {ChatService} from 'src/app/shared/service/chat.service';
+import {AppSetting} from '../../appsetting';
 
 
 @Component({
@@ -47,7 +48,8 @@ export class MygalleryComponent implements OnInit {
   submitted: boolean = false;
   registerForm: FormGroup;
   isAuthenicate: boolean;
-  childMessage: Gallery;
+  imageProp: string = 'profile';
+  url: string = '';
   galleryObject = {
     content: '',
     _id: '',
@@ -59,10 +61,11 @@ export class MygalleryComponent implements OnInit {
   gallerys: Gallery[] = [];
   oldRecipes: Recipe[] = [];
   newRecipe: Recipe[] = [];
-  errorMessage: String = '';
-  recipes: Recipe[] = []
+  errorMessage: string = '';
+  recipes: Recipe[] = [];
   saving = false;
   chooseGallery: Gallery;
+
   constructor(
     private cookie: CookieService,
     private formBuilder: FormBuilder,
@@ -78,7 +81,7 @@ export class MygalleryComponent implements OnInit {
 
   ngOnInit() {
     this.getUserInfo();
-
+    this.chatService.scrollToTop();
     this.getRecipes();
     this.registerForm = this.formBuilder.group({
       name: new FormControl(['', [Validators.required, Validators.minLength(5), Validators.maxLength(200)]]),
@@ -97,12 +100,13 @@ export class MygalleryComponent implements OnInit {
     recipe.like = false;
     this.newRecipe = this.newRecipe.filter(obj => obj.recipeName !== recipe.recipeName);
     this.oldRecipes = this.oldRecipes.filter(obj => obj.recipeName !== recipe.recipeName);
-    console.log(this.newRecipe.length)
+    console.log(this.newRecipe.length);
   }
+
   addRecipe(recipe: any, i: any) {
-    recipe.like = true
+    recipe.like = true;
     this.newRecipe.push(recipe);
-    console.log(this.newRecipe.length)
+    console.log(this.newRecipe.length);
   }
 
   registerGallery(gallery: any) {
@@ -119,7 +123,7 @@ export class MygalleryComponent implements OnInit {
 
     const radio: HTMLElement = document.getElementById('add-recipe-gallery');
     radio.click();
-    console.log(this.registerForm.value)
+    console.log(this.registerForm.value);
   }
 
   updateGallery() {
@@ -131,8 +135,8 @@ export class MygalleryComponent implements OnInit {
     this.galleryObject = this.registerForm.value;
 
     console.log(this.galleryObject);
-    console.log(this.newRecipe)
-    let email = this.cookie.get('email');
+    console.log(this.newRecipe);
+    const email = localStorage.getItem('email');
     this.galleryObject.user = email;
     this.galleryObject.recipes = this.newRecipe;
     let id = JSON.stringify(this.chooseGallery._id);
@@ -156,6 +160,7 @@ export class MygalleryComponent implements OnInit {
       }
     });
   }
+
   getRecipes() {
     this.recipeService.getRecipes().subscribe(recipes => {
       if (recipes !== undefined) {
@@ -164,34 +169,40 @@ export class MygalleryComponent implements OnInit {
           recipe.like = false;
           for (let recipe of this.oldRecipes) {
             this.recipes = this.recipes.filter(temp =>
-              temp.recipeName !== recipe.recipeName)
+              temp.recipeName !== recipe.recipeName);
           }
-        })
+        });
       }
       console.log(this.recipes.length + 'công thức của website');
     });
   }
 
-
-
-
+  getGalleryOutput(event: any) {
+    // const gallery = JSON.parse(event);
+    console.log(event);
+    let gallery = event;
+    gallery.image = AppSetting.BASE_IMAGE_URL + 'default-gallery.png';
+    this.myGallery.push(event);
+  }
   getUserInfo() {
-    let email = this.cookie.get('email');
+    const email = localStorage.getItem('email');
     if (email !== '') {
       this._loginService.testEmail(email).subscribe(data => {
 
 
         let user = data.body['user'];
+        this.url = AppSetting.BASE_IMAGE_URL + user.imageUrl;
         if (user !== undefined) {
           this.userObject.email = user.email;
+          // tslint:disable-next-line:no-shadowed-variable
           this.gallerrService.findGallery(this.userObject).subscribe(data => {
             this.myGallery = data.body['gallerys'];
             for (let gallery of this.myGallery) {
               if (gallery.recipe.length > 0) {
-                gallery.image = gallery.recipe[0].imageUrl;
+                gallery.image = AppSetting.BASE_IMAGE_URL + gallery.recipe[0].imageUrl;
               } else {
                 console.log(gallery.recipe.length);
-                gallery.image = 'fvt7rkr59r9d7wk8ndbd';
+                gallery.image = AppSetting.BASE_IMAGE_URL + 'default-gallery.png';
               }
             }
             this.user = user;
@@ -219,10 +230,10 @@ export class MygalleryComponent implements OnInit {
     }
   }
 
-  openModal(id: any) {
+  openModal(id: any, name: any) {
     this.deleteId = id;
     this.deleteCheck = true;
-    this.message = 'Bạn muốn xóa bộ sưu tập này ?';
+    this.message = 'Bạn muốn xóa bộ sưu tập "' + name + '" ?';
     const radio: HTMLElement = document.getElementById('modal-button28');
     radio.click();
   }
@@ -232,7 +243,7 @@ export class MygalleryComponent implements OnInit {
       this.message = 'Bạn chưa chọn bộ sưu tập. Vui lòng thao tác lại';
       return;
     }
-    console.log(id)
+    console.log(id);
     this.galleryObject._id = id;
     this.gallerrService.deleteGallery(this.galleryObject).subscribe(data => {
       console.log(data);

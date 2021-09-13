@@ -68,12 +68,12 @@ export class LoginServiceService {
     this._isLoggedIn = false;
     this.authSub.next(this._isLoggedIn);
     localStorage.setItem('isLoggedIn', "false");
-    this.cookie.set('isAuthenicate', '');
-    sessionStorage.setItem('token', '');
-    this.cookie.set('email', '');
-    this.cookie.set('objectId', '');
-    this.cookie.set('role', '');
-    let token = this.cookie.get('token');
+    localStorage.setItem('isAuthenicate', '');
+    localStorage.setItem('email', '');
+    localStorage.setItem('user', '');
+    localStorage.setItem('ObjectId', '');
+    localStorage.setItem('role', '');
+    let token = localStorage.getItem('token');
     console.log('xóa token nè' + token);
     this.cookie.deleteAll();
     this.deleteAuth(token).subscribe((data) => {
@@ -84,13 +84,11 @@ export class LoginServiceService {
           console.log(result);
         } else {
           console.log(result);
-
-          this.cookie.set('token', result[0]);
+          localStorage.setItem('token',  result[0]);
         }
       }
     });
-    this.cookie.set('token', '');
-
+    localStorage.setItem('token',  '');
   }
 
   // getAuth() {
@@ -108,7 +106,7 @@ export class LoginServiceService {
     });
     return this._http.post(`${this.baseUrl}/deleteToken`, { token: token }, { observe: 'response' })
   }
-  // Error handling 
+  // Error handling
   handleError(error) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

@@ -3,17 +3,19 @@
     <!--  -->
     <div class="col-3 account-sidebar" style="font-family: Arial, Helvetica, sans-serif">
       <div class="sidebar-head">
-        <div class="profile-avatar">
-          <a class="a-image" [routerLink]="['/user/info/', id]">
-            <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">
-              <cl-transformation width="360" height="360" gravity="face" radius="max" crop="fill" background="#e9ebee">
-              </cl-transformation>
-              <cl-transformation width="180" crop="scale">
-              </cl-transformation>
-            </cl-image>
+<!--        <div class="profile-avatar">-->
+<!--          <a class="a-image" [routerLink]="['/user/info/', id]">-->
+<!--            <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">-->
+<!--              <cl-transformation width="360" height="360" gravity="face" radius="max" crop="fill" background="#e9ebee">-->
+<!--              </cl-transformation>-->
+<!--              <cl-transformation width="180" crop="scale">-->
+<!--              </cl-transformation>-->
+<!--            </cl-image>-->
 
-          </a>
-        </div>
+<!--          </a>-->
+<!--        </div>-->
+        <app-imageupload [imageProp]="imageProp" [url]="url" [block]="'true'"
+                         ></app-imageupload>
         <h3 class="title" style="text-align: center;">
           <a title="Trang cá nhân">
             <span style="color: black;">{{user.name}}</span>
@@ -50,7 +52,7 @@
         <ul class="list-unstyled">
           <li class="menu-list-a">
             <a class="hover-a" [routerLink]="['/personal/recipe/', id]"
-              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
+              style="color: #c0f072;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
               <span class="fa fa-align-center" style="margin-right: 5px;"></span>CÔNG THỨC CỦA TÔI
             </a>
           </li>
@@ -96,10 +98,9 @@
               <div class="col-md-4 col-sm-6"
                 *ngFor="let recipe of acceptRecipe|paginate:{itemsPerPage: 6, currentPage:p};let i = index">
                 <div class="box13">
-                  <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
-                    <cl-transformation width="203" height="203" crop="scale" quality="auto">
-                    </cl-transformation>
-                  </cl-image>
+                  <div class="gallery-wrap">
+                    <img src="{{recipe.imageUrl}}"/>
+                  </div>
                   <div class="box-content">
                     <a class="title" [routerLink]="['/detail/', recipe.nameSpace]"
                       style="color: white; font-size: 15px;">
@@ -134,10 +135,9 @@
             <div class="row mt-30">
               <div class="col-md-4 col-sm-6" *ngFor="let recipe of waitingRecipe;let i = index">
                 <div class="box13">
-                  <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
-                    <cl-transformation width="203" height="203" crop="scale" quality="auto">
-                    </cl-transformation>
-                  </cl-image>
+                  <div class="gallery-wrap">
+                    <img src="{{recipe.imageUrl}}"/>
+                  </div>
                   <div class="box-content">
                     <a class="title" [routerLink]="['/detail/', recipe.nameSpace]"
                       style="color: white; font-size: 15px;">
@@ -172,15 +172,13 @@
             <div class="row mt-30">
               <div class="col-md-4 col-sm-6" *ngFor="let recipe of decilineRecipe;let i = index">
                 <div class="box13">
-                  <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
-                    <cl-transformation width="203" height="203" crop="scale" quality="auto">
-                    </cl-transformation>
-                  </cl-image>
+                  <div class="gallery-wrap">
+                  <img src="{{recipe.imageUrl}}"/>
+                  </div>
                   <div class="box-content">
                     <a class="title" [routerLink]="['/detail/', recipe.nameSpace]"
                       style="color: white; font-size: 15px;">
                       {{recipe.recipeName}}</a>
-
                     <a style="color: white;">
 
                       &#160;

@@ -34,12 +34,12 @@ export class LoginComponent implements OnInit {
           if (key === 'user') {
             let users = user[key];
             console.log(users.token);
-            this.cookie.set('token', users.token);
+            localStorage.setItem('token', users.token);
           }
 
         }
         sessionStorage.setItem('user', this.userObject.email);
-        this.cookie.set('email', this.userObject.email);
+        localStorage.setItem('email', this.userObject.email);
       }
       if (data.body['status'] === 206) {
         this.tfaFlag = true;

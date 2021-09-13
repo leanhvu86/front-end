@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GalleryService } from 'src/app/shared/service/gallery.service';
-import { Gallery } from 'src/app/shared/model/gallery';
-import { Recipe } from 'src/app/shared/model/recipe';
-import { CookieService } from 'ngx-cookie-service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { LoginServiceService } from 'src/app/shared/service/login-service.service';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { ChatService } from 'src/app/shared/service/chat.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {GalleryService} from 'src/app/shared/service/gallery.service';
+import {Gallery} from 'src/app/shared/model/gallery';
+import {Recipe} from 'src/app/shared/model/recipe';
+import {CookieService} from 'ngx-cookie-service';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {LoginServiceService} from 'src/app/shared/service/login-service.service';
+import {RecipeService} from 'src/app/shared/service/recipe-service.service';
+import {ChatService} from 'src/app/shared/service/chat.service';
+import {AppSetting} from '../../appsetting';
 
 @Component({
   selector: 'app-gallery-detail',
@@ -27,19 +28,20 @@ export class GalleryDetailComponent implements OnInit {
     password: ''
   };
   addRecipe: any;
-  message: String = '';
+  message: string = '';
   errormessage = '';
   personalCheck: boolean = false;
-  imageUrl: String = 'jbiajl3qqdzshdw0z749';
+  imageUrl: string = 'jbiajl3qqdzshdw0z749';
   isAuthenicate: boolean = false;
   personalGallery: Gallery[] = [];
   gallerys: Gallery[] = [];
   mine: boolean = false;
   p: number;
   galleryObject = {
-    _id: "",
+    _id: '',
     recipe: Recipe
   };
+
   constructor(
     private route: ActivatedRoute,
     private galleryService: GalleryService,
@@ -50,20 +52,18 @@ export class GalleryDetailComponent implements OnInit {
     private _router: Router,
     private chatService: ChatService
   ) {
-    this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== '';
     this.id = this.route.snapshot.params.id;
   }
 
   ngOnInit() {
-
     this.personalCheck = false;
     this.galleryCheck = false;
     this.getGalleryDetail(this.id, true);
   }
 
   getGalleryDetail(id: any, first: boolean) {
-    this.userObject.email = this.cookie.get('email');
-
+    this.userObject.email = localStorage.getItem('email');
     this.galleryService.galleryDetail(id).subscribe(data => {
       this.gallery = data['gallery'];
       if (this.gallery !== undefined) {
@@ -74,7 +74,7 @@ export class GalleryDetailComponent implements OnInit {
             this.recipeService.findInterest(this.userObject).subscribe(data => {
               let interests = data.body['interests'];
               console.log(data);
-              this.recipes.forEach(function (recipe) {
+              this.recipes.forEach(function(recipe) {
                 recipe.like = false;
                 if (interests !== undefined) {
                   for (let interest of interests) {
@@ -84,17 +84,16 @@ export class GalleryDetailComponent implements OnInit {
                   }
                 }
                 if (recipe.user.imageUrl === undefined) {
-                  recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749';
+                  recipe.user.imageUrl = AppSetting.BASE_IMAGE_URL + 'avatar.png';
                 }
               });
             });
-
           }
         } else {
           this.recipes = this.recipesTemp;
         }
         if (this.gallery.user.imageUrl !== '') {
-          this.imageUrl = this.gallery.user.imageUrl;
+          this.imageUrl = AppSetting.BASE_IMAGE_URL + this.gallery.user.imageUrl;
         }
         if (first === true) {
           this.getPersonalGallery();
@@ -110,7 +109,7 @@ export class GalleryDetailComponent implements OnInit {
   }
 
   getPersonalGallery() {
-    let email = this.cookie.get('email');
+    const email = localStorage.getItem('email');
 
 
     this.galleryService.getGalleryies().subscribe(data => {
@@ -123,9 +122,9 @@ export class GalleryDetailComponent implements OnInit {
           for (let gallery of data) {
             if (gallery.user.email === emailUser) {
               if (gallery.recipe.length > 0) {
-                gallery.image = gallery.recipe[0].imageUrl;
+                gallery.image = AppSetting.BASE_IMAGE_URL + gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = 'fvt7rkr59r9d7wk8ndbd';
+                gallery.image = AppSetting.BASE_IMAGE_URL + 'default-gallery.png';
               }
               this.gallerys.push(gallery);
             }
@@ -139,9 +138,9 @@ export class GalleryDetailComponent implements OnInit {
           for (let gallery of data) {
             if (gallery.user.email === email) {
               if (gallery.recipe.length > 0) {
-                gallery.image = gallery.recipe[0].imageUrl;
+                gallery.image = AppSetting.BASE_IMAGE_URL + gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = 'fvt7rkr59r9d7wk8ndbd';
+                gallery.image = AppSetting.BASE_IMAGE_URL + 'default-gallery.png';
               }
               this.personalGallery.push(gallery);
             }
@@ -156,7 +155,7 @@ export class GalleryDetailComponent implements OnInit {
   }
 
   video(link: any) {
-    var url
+    var url;
     if (link.includes('https:')) {
       url = link;
     } else {
@@ -168,7 +167,7 @@ export class GalleryDetailComponent implements OnInit {
   likeRecipe(recipe: any, index: any) {
     console.log(recipe);
     console.log(index);
-    this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== '';
     if (this.isAuthenicate === false) {
       console.log('false');
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -177,8 +176,8 @@ export class GalleryDetailComponent implements OnInit {
     }
     recipe.like = true;
     console.log(recipe.user.email);
-    let user = this.cookie.get('email');
-    let interestObject = new Object({
+    const user = localStorage.getItem('email');
+    const interestObject = new Object({
       user: user,
       objectId: recipe,
       objectType: '2'
@@ -220,13 +219,13 @@ export class GalleryDetailComponent implements OnInit {
     }
     recipe.like = false;
     console.log(recipe.user.email);
-    let user = this.cookie.get('email');
+    const user = localStorage.getItem('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,
       objectType: '2'
     });
-    let id = 'heart' + index;
+    const id = 'heart' + index;
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'white';
     radio.style.opacity = '0.4';
@@ -237,39 +236,34 @@ export class GalleryDetailComponent implements OnInit {
         let userObject = new Object({
           email: recipe.user.email
         });
-        // this.userService.dislikeremovePoint(userObject).subscribe((data) => {
-        //   if (data.body['status'] === 200) {
-        //     console.log('success');
-        //
-        //   }
-        // });
       }
-
-
     });
-    console.log(recipe.like);
   }
+
   addBookmark(recipe: Recipe) {
-    this.message = ''
+    this.message = '';
     if (this.isAuthenicate !== true) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
-    this.addRecipe = recipe
+    this.addRecipe = recipe;
     const radio: HTMLElement = document.getElementById('modal-button1');
     radio.click();
   }
+
   addRecipeBookMark(gallery: any) {
-    if (gallery.recipe !== undefined) {
-      console.log(gallery.recipe)
-      console.log(this.addRecipe)
-      for (let recipe of gallery.recipe) {
+    if (gallery.recipe !== undefined || this.addRecipe !== undefined) {
+      console.log(gallery.recipe);
+      console.log(this.addRecipe);
+      for (const recipe of gallery.recipe) {
         if (recipe.recipeName === this.addRecipe.recipeName) {
           this.errormessage = 'Công thức đã có trong bộ sưu tập';
           return;
         }
       }
+    } else {
+      return;
     }
     this.galleryObject._id = gallery._id;
     this.galleryObject.recipe = this.addRecipe;
@@ -280,11 +274,10 @@ export class GalleryDetailComponent implements OnInit {
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
-          window.location.reload()
+          window.location.reload();
           this.chatService.identifyUser();
         }, 4000);
-
       }
-    })
+    });
   }
 }

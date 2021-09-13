@@ -28,7 +28,7 @@ export class AddBookmarkComponent implements OnInit {
     private recipeService: RecipeService,
     private galleryService: GalleryService
   ) {
-    this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== '' ? true : false;
   }
 
   ngOnInit() {
@@ -110,7 +110,7 @@ export class AddBookmarkComponent implements OnInit {
   }
 
   getPersonalGallery() {
-    const email = this.cookie.get('email');
+    const email = localStorage.getItem('email');
 
     if (email !== '') {
       this.galleryService.getGalleryies().subscribe(data => {

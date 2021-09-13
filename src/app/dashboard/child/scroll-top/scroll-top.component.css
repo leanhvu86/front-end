@@ -1,12 +1,18 @@
+.scroll-to-top:hover {
+  border: 1px solid #c0f072;
+}
+
 .scroll-to-top {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-    opacity: 0;
-    transition: all .2s ease-in-out;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  opacity: 0;
+  transition: all .2s ease-in-out;
+  background-color: white;
+  border: none;
 }
 
 .show-scrollTop {
-    opacity: 1;
-    transition: all .2s ease-in-out;
+  opacity: 1;
+  transition: all .2s ease-in-out;
 }

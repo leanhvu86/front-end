@@ -37,7 +37,7 @@ export class MemberinforComponent implements OnInit {
     private galleryService: GalleryService,
     private recipeService: RecipeService,
   ) {
-    this.isAuthenicate = this.cookie.get("email") !== "" ? true : false;
+    this.isAuthenicate = localStorage.getItem("email") !== "" ? true : false;
     console.log(this.isAuthenicate)
   }
   id: string;
@@ -77,7 +77,7 @@ export class MemberinforComponent implements OnInit {
         }
         this.recipeService.getRecipes().subscribe(recipes => {
           if (recipes !== undefined) {
-            this.userObject.email = this.cookie.get('email')
+            this.userObject.email = localStorage.getItem('email')
             if (this.userObject.email !== undefined || this.userObject.email !== '') {
               this.recipeService.findInterest(this.userObject).subscribe(data => {
                 let interests = data.body['interests']
@@ -162,7 +162,7 @@ export class MemberinforComponent implements OnInit {
     }
     gallery.like = true;
     console.log(gallery.user.email)
-    let user = this.cookie.get('email');
+    let user = localStorage.getItem('email');
     let interestObject = new Object({
       user: user,
       objectId: gallery,
@@ -201,7 +201,7 @@ export class MemberinforComponent implements OnInit {
     }
     gallery.like = false;
     console.log(gallery.user.email)
-    let user = this.cookie.get('email');
+    let user = localStorage.getItem('email');
     let interestObject = new Object({
       user: user,
       objectId: gallery,
@@ -233,7 +233,7 @@ export class MemberinforComponent implements OnInit {
   likeRecipe(recipe: any, index: any) {
     console.log(recipe);
     console.log(index);
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== "" ? true : false;
     if (this.isAuthenicate === false) {
       console.log('false');
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -242,7 +242,7 @@ export class MemberinforComponent implements OnInit {
     }
     recipe.like = true;
     console.log(recipe.user.email)
-    let user = this.cookie.get('email');
+    let user = localStorage.getItem('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,
@@ -279,7 +279,7 @@ export class MemberinforComponent implements OnInit {
     }
     recipe.like = false;
     console.log(recipe.user.email)
-    let user = this.cookie.get('email');
+    let user = localStorage.getItem('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,

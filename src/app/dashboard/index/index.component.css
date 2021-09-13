@@ -1,5 +1,5 @@
 .text-muted :hover {
-  color: rgb(24, 231, 24);
+  color: #c0f072;
 
 }
 
@@ -19,6 +19,7 @@
 }
 .hover:hover{
   cursor: pointer;
+  color: #c0f072 !important;
 }
 
 
@@ -68,8 +69,8 @@ transition: all 0.5s;
   -webkit-transform: rotatex(360deg);
   transform: rotatex(360deg);
 }
-.jm-logo img:hover, 
-.jm-logo img:focus, 
+.jm-logo img:hover,
+.jm-logo img:focus,
 .jm-logo img:active {
 	-webkit-animation-name: buzz;
 	animation-name: buzz;
@@ -80,7 +81,7 @@ transition: all 0.5s;
 	-webkit-animation-iteration-count: infinite;
 	animation-iteration-count: infinite;
 }
-	
+
 @-webkit-keyframes buzz {
   	50% {
   	    -ms-transform: translateX(3px) rotate(2deg);
@@ -252,13 +253,13 @@ a:active {
   border-left: 1px solid #f2f2f2;
 }
 .link{
-  color: #66CC75;
+  color: #c0f072;
 }
 .menu:focus{
-  color: rgb(6, 180, 33);
+  color: #c0f072;
 }
 .link:hover{
-  color: rgb(7, 150, 28);
+  color: #c0f072;
 }
 .dropdown-item:active {
   background: white;
@@ -318,7 +319,16 @@ ul.social-list li a i {
   -o-transition: all 0.3s;
   transition: all 0.3s;
 }
-
+.top-menu:hover{
+  color: #c0f072 !important;
+}
+.text-top:hover{
+  color: white !important;
+}
+.text-top{
+  color: #7f7f7f !important;
+  font-size: 12px;
+}
 ul.social-list li a:hover i {
   -webkit-animation: toRightFromLeft 0.3s forwards;
   -moz-animation: toRightFromLeft 0.3s forwards;
@@ -371,7 +381,7 @@ ul.social-list li a:hover i {
   }
 }
 .navhover {
-  color: rgb(24, 231, 24);;
+  color: #c0f072;
 }
 .register-button {
   border-radius: 5px;
@@ -379,12 +389,13 @@ ul.social-list li a:hover i {
   right: 5%;
   width: auto;
   position: absolute;
-  color: rgb(77, 75, 75);
-  border: 1px solid rgb(24, 231, 24);
+  color: #7f7f7f;
+  border: 1px solid #c0f072;
   font-size: 12px;
+  background-color: white;
 }
 .register-button:hover {
-  color: rgb(24, 231, 24);
+  color: #c0f072;
   z-index: 1000;
   animation: flash 1s;
 }
@@ -405,7 +416,7 @@ ul.social-list li a:hover i {
   }
 }
 .text-muted :hover {
-  color: rgb(24, 231, 24);;
+  color: #c0f072;
 }
 
 /* .div-shadow {
@@ -466,14 +477,14 @@ ul.social-list li a:hover i {
 }
 
 .form > .button:hover {
-  background-color: rgb(24, 231, 24);
+  background-color: #c0f072;
 }
 a {
 	color: #69C;
 	text-decoration: none;
 }
 a:hover {
-	color: rgb(24, 231, 24);
+	color: #c0f072;
 }
 h1 {
 	font: 1.7em;
@@ -538,7 +549,7 @@ input::-webkit-input-placeholder {
 	margin-left: 60px;
 	color: transparent;
   cursor: pointer;
-  border: 0.5px solid rgb(142, 243, 83);
+  border: 0.5px solid #c0f072;
 }
 #demo-2 input[type=search]:hover {
 	background-color: #fff;

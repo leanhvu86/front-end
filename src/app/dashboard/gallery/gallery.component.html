@@ -77,12 +77,7 @@
   <div class="row" *ngIf="loadingSuccess; else skeleton">
     <div class="col" style="padding-right: 0px;" *ngFor="let gallery of galleryTop;let i= index">
       <div class="box21" style="height: 360px; width: 250px; margin: 5px 5px; padding-right: 0px; border-radius: 10px;">
-        <cl-image public-id="{{gallery.image}}">
-          <cl-transformation height="360" radius="0" width="300" crop="scale">
-          </cl-transformation>
-          <cl-transformation angle="0">
-          </cl-transformation>
-        </cl-image>
+        <img style="width: 350px; height: 360px;" src="{{gallery.image}}" />
         <div class="box-content">
           <h4 class="title" style="text-overflow: ellipsis;
           overflow: hidden;
@@ -188,12 +183,7 @@
       *ngFor="let gallery of gallerys |paginate:{itemsPerPage: 12, currentPage:p}; let i = index"
       style="margin-bottom: 30px;">
       <div class="box21">
-        <cl-image public-id="{{gallery.image}}">
-          <cl-transformation height="230" radius="0" width="350" crop="scale">
-          </cl-transformation>
-          <cl-transformation angle="0">
-          </cl-transformation>
-        </cl-image>
+        <img style="width: 350px; height: 230px;" src="{{gallery.image}}" />
         <div class="box-content">
           <h4 class="title" style="text-overflow: ellipsis;
           overflow: hidden;

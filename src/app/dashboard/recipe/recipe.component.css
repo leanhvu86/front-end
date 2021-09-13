@@ -15,6 +15,17 @@
   right: 0;
   left: 70px;
 }
+.search-button:hover{
+  background-color:#c0f072 !important;
+  color: white !important;
+}
+.search-button{
+  color: #c0f072 !important;
+  text-shadow: none;
+}
+.form-control:focus {
+  box-shadow:none;
+}
 .profile-info-container {
   position: absolute;
   background: #fff;
@@ -65,17 +76,17 @@
 	-moz-transition: ease-out 0.4s;
 	transition: ease-out 0.4s;
   }
-  
+
   .slide_downhr:hover {
 	color:white;
 	/* border: 1px solid transparent; */
 	/* box-shadow: inset 0 100px 0 0 #156466; */
   }
-  
+
   .button_slidehr:hover:after {
 	background-image: url(https://res.cloudinary.com/am-thuc-an-chay/image/upload/v1584789262/j103enk0iuwvb8zlwbwk.png);
   }
-  
+
   .button_slidehr:after {
 	content: "";
 	display: inline-block;
@@ -268,7 +279,7 @@
   text-align: center;
   line-height: 42px;
   border: 0;
-  color: rgb(24, 231, 24);
+  color: #c0f072;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: 16px;
   text-rendering: auto;
@@ -280,14 +291,14 @@
 }
 
 .form > .button:hover {
-  background-color: rgb(24, 231, 24);
+  background-color: #c0f072;
   color: white;
 }
 .button-filter{
   border-radius: 10px;
   background: #e7e7e7;
   font-size: 10px;
-  border: 0.5px solid rgb(94, 250, 33);
+  border: 0.5px solid #c0f072;
 }
 .button-filter:focus{
   background: #e6fad6;
@@ -3283,7 +3294,7 @@ h4:empty {
 p:empty {
   height: 18px;
   width: 200px;
-} 
+}
 p:empty.lead {
   height: 30px;
   width: 200px;
@@ -3297,7 +3308,7 @@ background-position: -100px;
 background-position: 200px;
 }
 }
-@media (max-width: 576px) { 
+@media (max-width: 576px) {
 .sm-text-center {
   text-align: center;
 }
@@ -3310,7 +3321,7 @@ p:empty.card-text{
 .sm-mr-auto{margin-right:auto!important}
 .sm-ml-auto{margin-left:auto!important}
 }
-@media (max-width: 420px) { 
+@media (max-width: 420px) {
 .col-xxs-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}
 h5:empty{
   width: 300px;

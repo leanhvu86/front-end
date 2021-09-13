@@ -16,7 +16,7 @@ This JWT token in the request header is required to access the SECURE END API PO
 export class JwtInterceptor implements HttpInterceptor {
   constructor(private cookie: CookieService, private router: Router, private loginService: LoginServiceService) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token: string = this.cookie.get('token');
+    const token: string = localStorage.getItem('token');
     if (token) {
       request = request.clone({ headers: request.headers.set('x-access-token', token) });
     } else {

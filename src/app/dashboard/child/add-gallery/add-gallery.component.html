@@ -5,11 +5,11 @@
   data-toggle="modal" data-target="#exampleModalCenter" id="modal-button555">
 </a>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" *ngIf="isAuthenicate"
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" *ngIf="isAuthenticate"
   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="background: #008325;">
+      <div class="modal-header" style="background: #c0f072;">
         <h5 style="color: white;" class="modal-title" id="exampleModalLongTitle">Thêm bộ sưu tập</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal" (click)="reset()">
           <span style="color: white;" aria-hidden="true">&times;</span>
@@ -17,8 +17,8 @@
       </div>
       <div class="modal-body">
         {{message}}
-        <div class="card card-container" style="max-width: 500px;" *ngIf="!messageCheck">
-          <img id="profile-img" class="profile-img-card" src="../../../assets/images/user-account.darkgray.png" />
+        <div class="card card-container" style="max-width: 500px; background: none;" *ngIf="!messageCheck">
+          <img id="profile-img" class="profile-img-card" src="../../../assets/images/default-gallery.png" />
           <form class="form-signin" (ngSubmit)="addGallery()" #loginForm="ngForm" [formGroup]="registerForm">
 
             <input type="text" id="name" class="form-control" placeholder="Tên bộ sưu tập" name="name" minlength="5"
@@ -33,7 +33,7 @@
                 Tên bộ sưu tập chứa nhiều nhất 500 kí tự.
               </div>
             </div>
-            <textarea id="content" class="form-control" name="content" autocomplete="off" formControlName="content"
+            <textarea id="content1" class="form-control" name="content1" autocomplete="off" formControlName="content"
               [ngClass]="{ 'is-invalid': submitted && f.content.errors }" placeholder="Nội dung bộ sưu tập "
               minlength="20" maxlength="500" title="Please enter the content" required autofocus cols="12"
               style="width: 100%;"></textarea>
@@ -61,7 +61,7 @@
 
             <div class=".col-md-8" id="gallery" style="position: relative; float: left; padding-left: 5px;"></div>
             <br>
-            <button class="btn btn-lg btn-outline-success btn-block btn-signin" type="submit"
+            <button class="btn btn-lg btn-outline-success btn-block btn-signin register-button" type="submit"
               style="width: 50%;margin-left: 30%;" *ngIf="!saving;else other_content10">
               Thêm bộ sưu tập
             </button>
@@ -94,7 +94,7 @@
               {{ errorMessage }}
             </p>
           </form>
-          <hr style="border-top: 1px solid #eee;">
+<!--          <hr style="border-top: 1px solid #eee;">-->
           <!-- <div class="row">
                             <div class="col-6">
                                 <button class="loginBtn loginBtn--facebook">

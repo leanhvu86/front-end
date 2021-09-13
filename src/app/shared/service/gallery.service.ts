@@ -11,7 +11,6 @@ import { callbackify } from 'util';
   providedIn: 'root'
 })
 export class GalleryService {
-  headerOptions: any = null
   private baseUrl = AppSetting.BASE_SERVER_URL;
 
   constructor(private http: HttpClient) {

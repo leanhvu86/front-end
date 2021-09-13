@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { RecipeService } from '../.././shared/service/recipe-service.service';
-import { Recipe } from '../../shared/model/recipe';
-import { CookieService } from 'ngx-cookie-service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { ActivatedRoute } from '@angular/router';
-import { FoodType } from 'src/app/shared/model/foodType';
-import { CountryService } from 'src/app/shared/service/country.service';
-import { Country } from 'src/app/shared/model/country';
-import { CookWay } from 'src/app/shared/model/cookWay';
-import { Interest } from 'src/app/shared/model/interest';
-import { GalleryService } from 'src/app/shared/service/gallery.service';
-import { Gallery } from 'src/app/shared/model/gallery';
-import { trigger } from '@angular/animations';
-import { fadeIn } from '../../shared/animation/fadeIn';
+import {Component, OnInit} from '@angular/core';
+import {RecipeService} from '../../shared/service/recipe-service.service';
+import {Recipe} from '../../shared/model/recipe';
+import {CookieService} from 'ngx-cookie-service';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {ActivatedRoute} from '@angular/router';
+import {FoodType} from 'src/app/shared/model/foodType';
+import {CountryService} from 'src/app/shared/service/country.service';
+import {Country} from 'src/app/shared/model/country';
+import {CookWay} from 'src/app/shared/model/cookWay';
+import {Interest} from 'src/app/shared/model/interest';
+import {GalleryService} from 'src/app/shared/service/gallery.service';
+import {Gallery} from 'src/app/shared/model/gallery';
+import {trigger} from '@angular/animations';
+import {fadeIn} from '../../shared/animation/fadeIn';
 
 @Component({
   selector: 'app-recipe',
@@ -45,20 +45,21 @@ export class RecipeComponent implements OnInit {
   errormessage = '';
   p: number;
   userObject = {
-    email: "",
-    password: ""
+    email: '',
+    password: ''
   };
   loadingSuccess = false;
   galleryObject = {
-    _id: "",
+    _id: '',
     recipe: Recipe
   };
-  message = ''
+  message = '';
   addRecipe: any;
   loading = false;
   pageSize = 20;
-  personalGallery: Gallery[] = []
+  personalGallery: Gallery[] = [];
   public interests: Interest[] = [];
+
   constructor(
     private service: RecipeService,
     private cookie: CookieService,
@@ -68,11 +69,11 @@ export class RecipeComponent implements OnInit {
     private countryService: CountryService,
     private galleryService: GalleryService
   ) {
-    if (this.cookie.get('searchText') !== undefined && this.cookie.get('searchText') !== 'undefined') {
-      this.searchText = this.cookie.get('searchText');
-      this.cookie.set('searchText', '');
+    if (localStorage.getItem('searchText') !== undefined && localStorage.getItem('searchText') !== 'undefined') {
+      this.searchText = localStorage.getItem('searchText');
+      localStorage.setItem('searchText', '');
     }
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== '' ? true : false;
   }
 
   ngOnInit() {
@@ -83,27 +84,29 @@ export class RecipeComponent implements OnInit {
 
     this.getPersonalGallery();
   }
+
   getPersonalGallery() {
-    let email = this.cookie.get('email')
+    let email = localStorage.getItem('email');
     if (email !== '') {
       this.galleryService.getGalleryies().subscribe(data => {
         if (data != null) {
           for (let gallery of data) {
             if (gallery.user.email === email) {
               if (gallery.recipe.length > 0) {
-                gallery.image = gallery.recipe[0].imageUrl
+                gallery.image = gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+                gallery.image = 'fvt7rkr59r9d7wk8ndbd';
               }
-              this.personalGallery.push(gallery)
+              this.personalGallery.push(gallery);
             }
           }
         }
-      })
+      });
     }
   }
+
   video(link: any) {
-    var url
+    var url;
     if (link.includes('https:')) {
       url = link;
     } else {
@@ -113,7 +116,7 @@ export class RecipeComponent implements OnInit {
   }
 
   keyUp() {
-    console.log(this.pageSize)
+    console.log(this.pageSize);
     if (this.searchText.length > 2) {
       this.pageSize = this.recipes.length;
       this.pageChanged(1);
@@ -121,11 +124,13 @@ export class RecipeComponent implements OnInit {
       this.pageSize = 20;
     }
   }
+
   pageChanged(event) {
     this.p = event;
   }
+
   loadFilter() {
-    this.searchText = ''
+    this.searchText = '';
     this.empty.length = 0;
     this.recipes = this.empty;
     let tempArr = this.empty;
@@ -144,12 +149,12 @@ export class RecipeComponent implements OnInit {
       if (this.stringFilter.indexOf(food.foodTypeCode) === -1) {
         this.stringFilter = this.stringFilter + ' #' + food.foodTypeCode;
       }
-    })
+    });
     this.ingredientsFilter.forEach(cookWay => {
       if (this.stringFilter.indexOf(cookWay.cookWayCode) === -1) {
         this.stringFilter = this.stringFilter + ' #' + cookWay.cookWayCode;
       }
-    })
+    });
     for (let recipe of this.recipesFilter) {
       let checkFoodType = false;
       let checkCountry = false;
@@ -162,7 +167,7 @@ export class RecipeComponent implements OnInit {
               checkFoodType = true;
             }
           }
-        })
+        });
       } else {
         checkFoodType = true;
       }
@@ -173,7 +178,7 @@ export class RecipeComponent implements OnInit {
               checkCountry = true;
             }
           }
-        })
+        });
       } else {
         checkCountry = true;
       }
@@ -184,7 +189,7 @@ export class RecipeComponent implements OnInit {
               checkCookWay = true;
             }
           }
-        })
+        });
       } else {
         checkCookWay = true;
       }
@@ -195,7 +200,7 @@ export class RecipeComponent implements OnInit {
               checkIngredient = true;
             }
           }
-        })
+        });
       } else {
         checkIngredient = true;
       }
@@ -203,7 +208,8 @@ export class RecipeComponent implements OnInit {
         tempArr.push(recipe);
       }
     }
-    if (this.foodTypesFilter.length === 0 && this.cookWaysFilter.length === 0 && this.countrysFilter.length === 0 && this.ingredientsFilter.length === 0) {
+    if (this.foodTypesFilter.length === 0 && this.cookWaysFilter.length === 0
+      && this.countrysFilter.length === 0 && this.ingredientsFilter.length === 0) {
       this.recipes = this.recipesFilter;
     } else {
       this.recipes = tempArr;
@@ -224,6 +230,7 @@ export class RecipeComponent implements OnInit {
       this.foodTypes = this.foodTypes.sort((a, b) => a.foodTypeCode > b.foodTypeCode ? 1 : -1);
     });
   }
+
   getCountrys() {
     this.countryService.getCountrys().subscribe(countrys => {
       this.countrys = countrys;
@@ -233,6 +240,7 @@ export class RecipeComponent implements OnInit {
       this.countrys = this.countrys.sort((a, b) => a.countryCode > b.countryCode ? 1 : -1);
     });
   }
+
   getCookWays() {
     this.countryService.getCookWays().subscribe(cookWay => {
       cookWay.forEach(cook => {
@@ -254,6 +262,7 @@ export class RecipeComponent implements OnInit {
     });
 
   }
+
   getRecipe = () => {
     this.service.getRecipes().subscribe(recipes => {
 
@@ -276,22 +285,22 @@ export class RecipeComponent implements OnInit {
           recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749';
         }
       });
-      this.userObject.email = this.cookie.get('email');
+      this.userObject.email = localStorage.getItem('email');
       this.recipeService.findInterest(this.userObject).subscribe(data => {
-        let interests = data.body['interests']
-        this.interests = interests
-        recipes.forEach(function (recipe) {
-          recipe.like = false
+        let interests = data.body['interests'];
+        this.interests = interests;
+        recipes.forEach(function(recipe) {
+          recipe.like = false;
           if (interests !== undefined) {
             for (let interest of interests) {
               if (interest.objectId._id === recipe._id && interest.objectType === '2') {
-                recipe.like = true
+                recipe.like = true;
               }
             }
           }
 
           if (recipe.user.imageUrl === undefined) {
-            recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749'
+            recipe.user.imageUrl = 'jbiajl3qqdzshdw0z749';
           }
         });
       });
@@ -301,6 +310,7 @@ export class RecipeComponent implements OnInit {
       this.loadingSuccess = true;
     });
   };
+
   onChangedIngredient(ingredient: any) {
     if (this.showIngredient === false) {
 
@@ -312,6 +322,7 @@ export class RecipeComponent implements OnInit {
     }
     ingredient.status = true;
   }
+
   onChangedCookWay(cookWay: any) {
     if (this.showCookWays === false) {
 
@@ -323,6 +334,7 @@ export class RecipeComponent implements OnInit {
     }
     cookWay.status = true;
   }
+
   onChangedCountry(country: any) {
     if (this.showCountrys === false) {
       this.showCountrys = true;
@@ -332,6 +344,7 @@ export class RecipeComponent implements OnInit {
     }
     country.status = true;
   }
+
   onChangedFoodType(foodType: any) {
     if (this.showFoodType === false) {
       this.showFoodType = true;
@@ -345,7 +358,7 @@ export class RecipeComponent implements OnInit {
 
 
   likeRecipe(recipe: any, index: any) {
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== '' ? true : false;
     if (this.isAuthenicate === false) {
       console.log('false');
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -353,7 +366,7 @@ export class RecipeComponent implements OnInit {
       return;
     }
     recipe.like = true;
-    let user = this.cookie.get('email');
+    let user = localStorage.getItem('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,
@@ -378,6 +391,7 @@ export class RecipeComponent implements OnInit {
       }
     });
   }
+
   getFoodTypeValues(ev, data) {
     const foodType = new FoodType();
     foodType.foodTypeCode = data.foodTypeCode;
@@ -393,7 +407,7 @@ export class RecipeComponent implements OnInit {
       this.foodTypesFilter.push(foodType);
       const radio: HTMLElement = document.getElementById('food-type');
       radio.style.color = 'white';
-      radio.style.background = 'lightgreen';
+      radio.style.background = '#c0f072';
     } else {
 
       const removeIndex = this.foodTypes.findIndex(itm => itm.foodTypeCode === data.foodTypeCode);
@@ -415,7 +429,7 @@ export class RecipeComponent implements OnInit {
       radio.style.background = '#e7e7e7';
     }
     this.foodTypes = this.foodTypes.sort((a, b) => a.foodTypeCode > b.foodTypeCode ? 1 : -1);
-    this.loadFilter()
+    this.loadFilter();
   }
 
   getCountryValues(ev, data) {
@@ -433,7 +447,7 @@ export class RecipeComponent implements OnInit {
       this.countrysFilter.push(country);
       const radio: HTMLElement = document.getElementById('country');
       radio.style.color = 'white';
-      radio.style.background = 'lightgreen';
+      radio.style.background = '#c0f072';
     } else {
       const removeIndex = this.countrys.findIndex(itm => itm.countryCode === data.countryCode);
       if (removeIndex !== -1) {
@@ -444,7 +458,7 @@ export class RecipeComponent implements OnInit {
         this.countrysFilter.splice(removeIndex1, 1);
       }
       // Pushing the object into array
-      country.status = false
+      country.status = false;
       this.countrys.push(country);
     }
     if (this.countrysFilter.length === 0) {
@@ -453,8 +467,9 @@ export class RecipeComponent implements OnInit {
       radio.style.background = '#e7e7e7';
     }
     this.countrys = this.countrys.sort((a, b) => a.countryCode > b.countryCode ? 1 : -1);
-    this.loadFilter()
+    this.loadFilter();
   }
+
   getCookWayValues(ev, data) {
     const cookWay = new CookWay();
     cookWay.cookWayCode = data.cookWayCode;
@@ -471,7 +486,7 @@ export class RecipeComponent implements OnInit {
 
       const radio: HTMLElement = document.getElementById('CookWay');
       radio.style.color = 'white';
-      radio.style.background = 'lightgreen';
+      radio.style.background = '#c0f072';
     } else {
       const removeIndex = this.cookWays.findIndex(itm => itm.cookWayCode === data.cookWayCode);
       if (removeIndex !== -1) {
@@ -491,7 +506,7 @@ export class RecipeComponent implements OnInit {
       radio.style.background = '#e7e7e7';
     }
     this.cookWays = this.cookWays.sort((a, b) => a.cookWayCode > b.cookWayCode ? 1 : -1);
-    this.loadFilter()
+    this.loadFilter();
   }
 
   getIngredientValues(ev, data) {
@@ -504,12 +519,12 @@ export class RecipeComponent implements OnInit {
         this.ingredients.splice(removeIndex, 1);
       }
       // Pushing the object into array
-      cookWay.status = true
+      cookWay.status = true;
       this.ingredients.push(cookWay);
-      this.ingredientsFilter.push(cookWay)
+      this.ingredientsFilter.push(cookWay);
       const radio: HTMLElement = document.getElementById('ingredient');
       radio.style.color = 'white';
-      radio.style.background = 'lightgreen';
+      radio.style.background = '#c0f072';
     } else {
       const removeIndex = this.ingredients.findIndex(itm => itm.cookWayCode === data.cookWayCode);
       if (removeIndex !== -1) {
@@ -529,8 +544,9 @@ export class RecipeComponent implements OnInit {
       radio.style.background = '#e7e7e7';
     }
     this.ingredients = this.ingredients.sort((a, b) => a.cookWayCode > b.cookWayCode ? 1 : -1);
-    this.loadFilter()
+    this.loadFilter();
   }
+
   dislikeRecipe(recipe: any, index: any) {
     if (this.isAuthenicate !== true) {
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -538,7 +554,7 @@ export class RecipeComponent implements OnInit {
       return;
     }
     recipe.like = false;
-    let user = this.cookie.get('email');
+    let user = localStorage.getItem('email');
     let interestObject = new Object({
       user: user,
       objectId: recipe,
@@ -564,29 +580,31 @@ export class RecipeComponent implements OnInit {
 
     });
   }
+
   addBookmark(recipe: Recipe) {
-    this.message = ''
+    this.message = '';
     if (this.isAuthenicate !== true) {
-      console.log(this.isAuthenicate)
+      console.log(this.isAuthenicate);
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
-    this.addRecipe = recipe
+    this.addRecipe = recipe;
     const radio: HTMLElement = document.getElementById('button111');
-    console.log(radio)
+    console.log(radio);
     radio.click();
   }
+
   addRecipeBookMark(gallery: any) {
     if (gallery.recipe !== undefined) {
       for (let recipe of gallery.recipe) {
         if (recipe.recipeName === this.addRecipe.recipeName) {
-          this.message = 'Công thức đã có trong bộ sưu tập'
+          this.message = 'Công thức đã có trong bộ sưu tập';
           setTimeout(() => {
-            this.message = ''
+            this.message = '';
             this.loading = false;
           }, 2000);
-          return
+          return;
         }
       }
     }
@@ -607,9 +625,9 @@ export class RecipeComponent implements OnInit {
         }, 4000);
 
       } else {
-        this.loading = false
+        this.loading = false;
       }
-    })
+    });
   }
 
 }

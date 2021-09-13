@@ -225,14 +225,14 @@
 </head>
 
 <!-- <body> -->
-<div style="background-color: #08a736cf;">
+<div style="background-color: #c0f072;">
   <div class="container">
     <div class="row py-2">
       <div class="col-md-2 text-left">
         <!-- Start Contact Info -->
         <ul class="contact-details">
           <li>
-            <a class="text-white"><i class="fa fa-phone"></i> +945109262</a>
+            <a class="text-top"><i class="fa fa-phone"></i> +945109262</a>
           </li>
 
         </ul>
@@ -242,7 +242,7 @@
       <div class="col-md-6 text-left">
         <ul>
           <li>
-            <a (click)="openSendMail()" style="cursor: pointer;" class="text-white"><i class="fa fa-envelope-o"></i>
+            <a (click)="openSendMail()" style="cursor: pointer;" class="text-top"><i class="fa fa-envelope-o"></i>
               amthuc.monchay.2020@gmail.com</a>
           </li>
         </ul>
@@ -299,20 +299,20 @@
         <a class="py-2" href="#" aria-label="Product" style="width: 20%;">
           <div class="jm-logo ml-5 pl-4">
             <a href="#">
-              <i><img style="height: 30px;width:45ppx;margin-left: -20px;margin-top: -5px;"
-                  src="../../../assets/images/logo.png" /></i>
+              <i><img style="height: 40px;width:45px;margin-left: -20px;margin-top: -5px;"
+                  src="../../../assets/images/logo.ico" /></i>
             </a>
           </div>
         </a>
-        <a class="py-2 d-none d-md-inline-block blinker text-uppercase " id="menu0" title="Trang chủ ẩm thực chay"
+        <a class="py-2 d-none d-md-inline-block blinker text-uppercase top-menu" id="menu0" title="Trang chủ ẩm thực chay"
           routerLink="/index">{{ "index.home" | translate }}</a>
-        <a class="py-2 d-none d-md-inline-block blinker text-uppercase" routerLink="/recipe"
+        <a class="py-2 d-none d-md-inline-block blinker text-uppercase top-menu" routerLink="/recipe"
           title="Trang danh sách các công thức" id="menu1">{{ "index.routing" | translate }}</a>
-        <a class="py-2 d-none d-md-inline-block blinker text-uppercase " routerLink="/gallery"
+        <a class="py-2 d-none d-md-inline-block blinker text-uppercase top-menu" routerLink="/gallery"
           title="Trang danh sách các bộ sưu tập nổi bật" id="menu2">{{ "index.servie" | translate }}</a>
-        <a class="py-2 d-none d-md-inline-block blinker text-uppercase " routerLink="/about"
-          title="Trang giới thiệu về ẩm thực chay" id="menu3">{{ "index.about" | translate }}</a>
-        <a class="py-2 d-none d-md-inline-block blinker text-uppercase " id="menu4" routerLink="/gioithieu">Về
+        <a class="py-2 d-none d-md-inline-block blinker text-uppercase top-menu" routerLink="/about"
+          title="Trang danh sách top thành viên" id="menu3">{{ "index.about" | translate }}</a>
+        <a class="py-2 d-none d-md-inline-block blinker text-uppercase top-menu " title="Trang giới thiệu về ẩm thực chay" id="menu4" routerLink="/gioithieu">Về
           chúng tôi</a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>
         <a class="py-3 d-none d-md-inline-block" href="#"></a>
@@ -345,8 +345,8 @@
                 aria-hidden="true"></i>{{ "register.recipe" | translate }}</button>
           </div>
           <div class="col-1">
-            <div class="nav-item avatar dropdown" *ngIf="isAuthenicate">
-              <a class="nav-link dropdown-toggle hover" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+            <div class="nav-item avatar dropdown " *ngIf="isAuthenicate">
+              <a class="nav-link dropdown-toggle hover top-menu" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
                 title="Thông báo cá nhân" (click)="changeStatus($event)" aria-haspopup="true" aria-expanded="false"
                 style=" position: absolute; right: 12%; top:0px; width: 70px; padding: 0 auto; height: 30px;">
                 <ng-template #other_content1>
@@ -359,7 +359,7 @@
               </a>
               <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                 style="margin-top: 20%;margin-right: 200px;height: auto;" aria-labelledby="navbarDropdownMenuLink-55">
-                <a class="dropdown-item hover" *ngFor="let message of userMessage"><span *ngIf="message.news"
+                <a class="dropdown-item hover top-menu" *ngFor="let message of userMessage"><span *ngIf="message.news"
                     style="color: red;">&#9679;</span>
                   {{ message.content }}</a>
                 <a class="dropdown-item hover" *ngIf="mailBoxEmpty">Hòm thư rỗng</a>
@@ -368,19 +368,20 @@
           </div>
           <div class="col-1">
             <a class="py-2 d-none d-md-inline-block register-button hover" *ngIf="!isAuthenicate; else other_content"
-              style=" padding: 2px 5px;width: auto;"
+              style=" padding: 2px 5px;width: auto;color: #7f7f7f;"
               (click)="onChangecheck($event)">{{ "index.register" | translate }}</a>
             <ng-template #other_content>
               <div class="nav-item avatar dropdown">
                 <a class="nav-link dropdown-toggle hover" id="navbarDropdownMenuLink-44" data-toggle="dropdown"
                   aria-haspopup="true" title="Quản lý tài khoản" aria-expanded="false"
                   style=" position: absolute; right: 5%; top:-15px;">
-                  <cl-image public-id="{{ imageUrl }}" style="border-radius: 50px;">
-                    <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill"
-                      background="#e9ebee">
-                    </cl-transformation>
-                    <cl-transformation width="55" crop="scale"> </cl-transformation>
-                  </cl-image>
+<!--                  <cl-image public-id="{{ imageUrl }}" style="border-radius: 50px;">-->
+<!--                    <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill"-->
+<!--                      background="#e9ebee">-->
+<!--                    </cl-transformation>-->
+<!--                    <cl-transformation width="55" crop="scale"> </cl-transformation>-->
+<!--                  </cl-image>-->
+                  <img style="height: 55px;width:55px;border-radius:50px;" src="{{ imageUrl }}" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                   style=" min-height: 200px; margin-right: 80px;" aria-labelledby="navbarDropdownMenuLink-55">
@@ -439,7 +440,7 @@
             <input type="password" id="password" class="form-control" name="password" autocomplete="off"
               [(ngModel)]="userObject.password" placeholder="Password" title="Please enter the password"
               formControlName="password"
-              [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.password.errors }" required />
+              [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.password.errors}" required />
             <div *ngIf="submitted &amp;&amp; registerForm.controls.password.errors" class="text-danger">
               <div *ngIf="registerForm.controls.password.errors.required">
                 Yêu cầu bạn nhập password
@@ -484,6 +485,7 @@
 <router-outlet></router-outlet>
 
 <app-footer></app-footer>
+<app-scroll-top></app-scroll-top>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
   integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script>

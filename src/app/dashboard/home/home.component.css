@@ -25,7 +25,9 @@ img {
   text-align: center;
   padding: 100px 0;
 }
-
+.a-title{
+  color: #7f7f7f !important;
+}
 .call-to-action p {
   color: #fff;
   font-weight: 300;
@@ -2992,7 +2994,7 @@ h4:empty {
 p:empty {
   height: 18px;
   width: 200px;
-} 
+}
 p:empty.lead {
   height: 30px;
   width: 200px;
@@ -3006,7 +3008,7 @@ background-position: -100px;
 background-position: 200px;
 }
 }
-@media (max-width: 576px) { 
+@media (max-width: 576px) {
 .sm-text-center {
   text-align: center;
 }
@@ -3019,7 +3021,7 @@ p:empty.card-text{
 .sm-mr-auto{margin-right:auto!important}
 .sm-ml-auto{margin-left:auto!important}
 }
-@media (max-width: 420px) { 
+@media (max-width: 420px) {
 .col-xxs-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}
 h5:empty{
   width: 300px;

@@ -2,10 +2,10 @@ export class Comment {
   _id: Object;
   user: any;
   recipe: any;
-  content: String;
+  content: string;
   imageUrl: any;
-  videoUrl: String;
+  createdAt: string;
   type: any;
-  description: String;
+  description: string;
   order: number;
 }

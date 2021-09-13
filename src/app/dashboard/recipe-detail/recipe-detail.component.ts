@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { Recipe } from 'src/app/shared/model/recipe';
-import { CookieService } from 'ngx-cookie-service';
-import { UserService } from 'src/app/shared/service/user.service.';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {RecipeService} from 'src/app/shared/service/recipe-service.service';
+import {Recipe} from 'src/app/shared/model/recipe';
+import {CookieService} from 'ngx-cookie-service';
+import {UserService} from 'src/app/shared/service/user.service.';
 
-import { Cloudinary } from '@cloudinary/angular-5.x';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginServiceService } from 'src/app/shared/service/login-service.service';
-import { Gallery } from 'src/app/shared/model/gallery';
-import { GalleryService } from 'src/app/shared/service/gallery.service';
-import { Comment } from 'src/app/shared/model/comment';
-import { ChatService } from 'src/app/shared/service/chat.service';
+import {Cloudinary} from '@cloudinary/angular-5.x';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {LoginServiceService} from 'src/app/shared/service/login-service.service';
+import {Gallery} from 'src/app/shared/model/gallery';
+import {GalleryService} from 'src/app/shared/service/gallery.service';
+import {Comment} from 'src/app/shared/model/comment';
+import {ChatService} from 'src/app/shared/service/chat.service';
+import {AppSetting} from '../../appsetting';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -21,6 +21,7 @@ import { ChatService } from 'src/app/shared/service/chat.service';
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
+
   recipe: Recipe;
   cookSteps: [] = [];
   userObject = {
@@ -52,9 +53,8 @@ export class RecipeDetailComponent implements OnInit {
   isModeration: boolean = false;
   imageUrl: string = 'jbiajl3qqdzshdw0z749';
   recipes: Recipe[] = [];
-  checkDone: boolean = false;
+  checkDone = false;
   registerForm: FormGroup;
-  private hasBaseDropZoneOver1 = false;
   errorMessage: string = null;
   multiplyElement: number = 1;
   oldMultiplyElement: number;
@@ -70,6 +70,15 @@ export class RecipeDetailComponent implements OnInit {
   loading = false;
   loadingSuccess1 = false;
   waitingRecipe = false;
+  message = null;
+  baseImageUrl = AppSetting.BASE_IMAGE_URL;
+  id: string;
+  displayURL: SafeResourceUrl;
+  icon = 'highlight_off';
+  showVideo: boolean = false;
+  imageAddDone: boolean = false;
+  registerComment: boolean = false;
+
   constructor(
     private cloudinary: Cloudinary,
     private route: ActivatedRoute,
@@ -80,12 +89,15 @@ export class RecipeDetailComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _router: Router,
     private galleryService: GalleryService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private sanitizer: DomSanitizer
   ) {
 
   }
 
-  id: string;
+  get f() {
+    return this.registerForm.controls;
+  }
 
   ngOnInit() {
 
@@ -96,18 +108,20 @@ export class RecipeDetailComponent implements OnInit {
       image: [''],
       imageUrl: ['']
     });
-    this.isModeration = this.cookie.get('role') !== '' ? true : false;
-    this.isAuthenicate = this.cookie.get('email') !== '' ? true : false;
+    this.isModeration = localStorage.getItem('role') !== '';
+    this.isAuthenicate = localStorage.getItem('email') !== '';
     this.id = this.route.snapshot.params.id;
     this.getRecipeDetail(this.id);
   }
 
-  get f() {
-    return this.registerForm.controls;
+  allowAddImage(event) {
+    this.imageAddDone = !this.imageAddDone;
   }
-
+  registerCommentUpload(){
+    this.registerComment=true;
+  }
   getPersonalGallery() {
-    let email = this.cookie.get('email');
+    let email = localStorage.getItem('email');
 
     if (email !== '') {
       this.galleryService.getGalleryies().subscribe(data => {
@@ -115,9 +129,9 @@ export class RecipeDetailComponent implements OnInit {
           for (let gallery of data) {
             if (gallery.user.email === email) {
               if (gallery.recipe.length > 0) {
-                gallery.image = gallery.recipe[0].imageUrl;
+                gallery.image = AppSetting.BASE_IMAGE_URL + gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = 'fvt7rkr59r9d7wk8ndbd';
+                gallery.image = AppSetting.BASE_IMAGE_URL + 'default-gallery.png';
               }
               this.personalGallery.push(gallery);
             }
@@ -130,25 +144,20 @@ export class RecipeDetailComponent implements OnInit {
   getRecipeDetail(id: any) {
 
     this.recipeService.getRecipeDetail(id).subscribe(data => {
-      let recipeTem = data['recipe'];
-      this.recipe = recipeTem;
+      this.recipe = data['recipe'];
       if (this.recipe !== undefined && this.recipe.ingredients.length > 0) {
         for (let ingredient of this.recipe.ingredients) {
-          let quantity =
-            parseInt(ingredient.quantitative) * this.multiplyElement;
-          ingredient.quantitative = quantity;
+          ingredient.quantitative = parseInt(ingredient.quantitative) * this.multiplyElement;
           this.oldMultiplyElement = this.multiplyElement;
         }
       }
       if (this.recipe !== undefined && this.recipe.cockStep.length > 0) {
         for (let ingredient of this.recipe.ingredients) {
-          let quantity =
-            parseInt(ingredient.quantitative) * this.multiplyElement;
-          ingredient.quantitative = quantity;
+          ingredient.quantitative = parseInt(ingredient.quantitative) * this.multiplyElement;
           this.oldMultiplyElement = this.multiplyElement;
         }
         for (let cookStep of this.recipe.cockStep) {
-          let arrayTemp = cookStep.image;
+          const arrayTemp = cookStep.image;
           cookStep.image = arrayTemp.split(',');
           if (cookStep.check === 'true') {
             cookStep.check = 'là bước chuẩn bị';
@@ -169,9 +178,12 @@ export class RecipeDetailComponent implements OnInit {
             this.recipe.hardLevel = 'Rất khó';
           }
         }
+        this.recipe.imageUrl = AppSetting.BASE_IMAGE_URL + this.recipe.imageUrl;
         this.cookSteps = this.recipe.cockStep;
-        this.waitingRecipe = this.recipe.status === 1 ? false : true;
+        this.waitingRecipe = this.recipe.status !== 1;
         this.loadingSuccess1 = true;
+        this.displayURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + 'ZEDTGC-8iIg');
+        console.log(this.displayURL);
         this.getRecipes();
       }
     });
@@ -196,40 +208,39 @@ export class RecipeDetailComponent implements OnInit {
           this.totalRecipe++;
         }
       }
-      this.userLogin.email = this.cookie.get('email');
+      this.userLogin.email = localStorage.getItem('email');
       this.recipeService.findInterest(this.userLogin).subscribe(data => {
-        let interests = data.body['interests']
+        const interests = data.body['interests'];
         for (let interst of interests) {
           if (interst.objectId._id === this.recipe._id) {
             this.likeUser = true;
 
           }
         }
-      })
-      this.recipes = arr.filter(function (item, pos) {
-        return arr.indexOf(item) == pos;
+      });
+      this.recipes = arr.filter((item, pos) => {
+        return arr.indexOf(item) === pos;
       });
       this.doneCount = this.recipe.doneCount;
       this.totalPoint = this.recipe.totalPoint;
       this.getComent();
     });
   }
-  deleteChild() {
-    var e = document.getElementById('gallery');
 
-    //e.firstElementChild can be used. 
-    var child = e.lastElementChild;
+  deleteChild() {
+    let e = document.getElementById('gallery');
+
+    // e.firstElementChild can be used.
+    let child = e.lastElementChild;
     while (child) {
       e.removeChild(child);
       child = e.lastElementChild;
     }
   }
+
   fileOverBase1(e: any): void {
     console.log(e);
-    this.hasBaseDropZoneOver1 = e;
   }
-
-  message = null;
 
   getComent() {
     this.doneCount = 0;
@@ -246,10 +257,9 @@ export class RecipeDetailComponent implements OnInit {
               comment.type = '';
             }
             if (comment.imageUrl !== undefined && comment.imageUrl.length > 0) {
-              const imageArr = comment.imageUrl.split(',');
-              comment.imageUrl = imageArr;
+              comment.imageUrl = comment.imageUrl.split(',');
             }
-            if (comment.user.email == this.cookie.get('email')) {
+            if (comment.user.email === localStorage.getItem('email')) {
               this.recipe.like = true;
             }
             this.recipeComment.push(comment);
@@ -289,7 +299,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   uploadFile(file: any) {
-    if (this.isAuthenicate == false) {
+    if (this.isAuthenicate === false) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
@@ -297,21 +307,21 @@ export class RecipeDetailComponent implements OnInit {
     let inputValue;
     const url = `https://api.cloudinary.com/v1_1/${
       this.cloudinary.config().cloud_name
-      }/image/upload`;
+    }/image/upload`;
     const xhr = new XMLHttpRequest();
     const fd = new FormData();
     xhr.open('POST', url, true);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     // Update progress (can be used to show progress indicator)
-    xhr.upload.addEventListener('progress', function (e) {
+    xhr.upload.addEventListener('progress', function(e) {
       const progress = Math.round((e.loaded * 100.0) / e.total);
       // document.getElementById('progress').style.width = progress + "%";
 
       console.log(`fileuploadprogress data.loaded: ${e.loaded},
     data.total: ${e.total}`);
     });
-    xhr.onreadystatechange = function (e) {
+    xhr.onreadystatechange = function(e) {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // File uploaded successfully
         const response = JSON.parse(xhr.responseText);
@@ -326,7 +336,7 @@ export class RecipeDetailComponent implements OnInit {
         const id = 'imageArray';
         inputValue = (document.getElementById(id) as HTMLInputElement).value;
         img.id = id + '_';
-        img.onclick = function () {
+        img.onclick = function() {
           // xử lí xóa ảnh khi click thì  phải xóa ở trong imageArray( xóa public_id của ảnh trên cloud)
           document.getElementById(galleryID).removeChild(img);
 
@@ -379,14 +389,8 @@ export class RecipeDetailComponent implements OnInit {
     }
   }
 
-  video(link: any) {
-    var url
-    if (link.includes('https:')) {
-      url = link;
-    } else {
-      url = 'https://www.youtube.com/watch?v=' + link;
-    }
-    window.open(url, 'MsgWindow', 'width=600,height=400');
+  video() {
+    this.showVideo = true;
   }
 
   loadPage() {
@@ -404,17 +408,15 @@ export class RecipeDetailComponent implements OnInit {
       element.style.height = '300px';
       element.style.minHeight = '400px';
     });
-    var arrayNoimag = Array.from(
+    var arrayNoImage = Array.from(
       document.getElementsByClassName('bigContent') as HTMLCollectionOf<HTMLElement>
     );
-    arrayNoimag.forEach(element => {
+    arrayNoImage.forEach(element => {
       element.style.height = '300px';
       element.style.minHeight = '400px';
     });
     this.showImageStep = false;
   }
-
-  icon = 'highlight_off';
 
   public changeIcon(event: any, index: number) {
     const id = 'icon' + index;
@@ -436,10 +438,10 @@ export class RecipeDetailComponent implements OnInit {
       element.style.height = 'auto';
       element.style.minHeight = '150px';
     });
-    var arrayNoimag = Array.from(
+    var arrayNoImage = Array.from(
       document.getElementsByClassName('bigContent') as HTMLCollectionOf<HTMLElement>
     );
-    arrayNoimag.forEach(element => {
+    arrayNoImage.forEach(element => {
       element.style.height = 'auto';
       element.style.minHeight = '150px';
     });
@@ -447,24 +449,24 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   likeRecipe(recipe: any) {
-    if (this.isAuthenicate == false) {
+    if (this.isAuthenicate === false) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
     if (this.loadingRest === true) {
-      console.log('like vẫn thích vào đó' + this.loadingRest)
+      console.log('like vẫn thích vào đó' + this.loadingRest);
       return;
     }
-    console.log('like')
+    console.log('like');
     this.loadingRest = true;
     let user = recipe.user;
-    this.interestObject.user = this.cookie.get('email');
+    this.interestObject.user = localStorage.getItem('email');
     this.interestObject.objectId = recipe;
     this.interestObject.objectType = '2';
     this.recipeService.likeRecipe(this.interestObject).subscribe(data => {
       if (data !== undefined) {
-        console.log(data)
+        console.log(data);
         this.recipe = data.body['recipe'];
         if (this.recipe.hardLevel !== undefined) {
           if (this.recipe.hardLevel === '') {
@@ -491,19 +493,20 @@ export class RecipeDetailComponent implements OnInit {
       }
     });
   }
+
   dislikeRecipe(recipe: any) {
-    if (this.isAuthenicate == false) {
+    if (this.isAuthenicate === false) {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
     if (this.loadingRest === true) {
-      console.log('dislike vẫn thích vào đó' + this.loadingRest)
+      console.log('dislike vẫn thích vào đó' + this.loadingRest);
       return;
     }
-    console.log('dislike')
+    console.log('dislike');
     let user = recipe.user;
-    this.interestObject.user = this.cookie.get('email');
+    this.interestObject.user = localStorage.getItem('email');
     this.interestObject.objectId = recipe;
     this.interestObject.objectType = '2';
     this.recipeService.dislikeRecipe(this.interestObject).subscribe(data => {
@@ -526,8 +529,8 @@ export class RecipeDetailComponent implements OnInit {
 
 
   addDoneRecipe(recipe: any) {
-    let user = this.cookie.get('email');
-    if (this.isAuthenicate == false && user === '') {
+    let user = localStorage.getItem('email');
+    if (this.isAuthenicate === false && user === '') {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
@@ -535,8 +538,8 @@ export class RecipeDetailComponent implements OnInit {
     this.loading = true;
     this.done = true;
 
-    let doneObject = new Object({
-      user: user,
+    const doneObject = new Object({
+      user,
       recipe: recipe,
       type: 1,
       content: '',
@@ -580,9 +583,9 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   addComment() {
-    let user = this.cookie.get('email');
+    let user = localStorage.getItem('email');
     this.submitted = true;
-    if (this.isAuthenicate == false && user === '') {
+    if (this.isAuthenicate === false && user === '') {
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
@@ -605,7 +608,7 @@ export class RecipeDetailComponent implements OnInit {
     const inputValue = (document.getElementById(
       'imageArray'
     ) as HTMLInputElement).value;
-    let doneObject = new Object({
+    const doneObject = new Object({
       user: user,
       recipe: this.recipe,
       type: typeDone,
@@ -629,8 +632,7 @@ export class RecipeDetailComponent implements OnInit {
           comment.type = '';
         }
         ;
-        let imageArr = comment.imageUrl.split(',');
-        comment.imageUrl = imageArr;
+        comment.imageUrl = comment.imageUrl.split(',');
         this.recipeComment.push(comment);
         this.recipeComment.sort((a, b) => {
           if (a.order > b.order) {
@@ -666,6 +668,7 @@ export class RecipeDetailComponent implements OnInit {
 
     this.message = '';
     if (this.isAuthenicate !== true) {
+      // tslint:disable-next-line:no-shadowed-variable
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
@@ -677,7 +680,7 @@ export class RecipeDetailComponent implements OnInit {
 
   addRecipeBookMark(gallery: any) {
     if (gallery.recipe !== undefined) {
-      for (let recipe of gallery.recipe) {
+      for (const recipe of gallery.recipe) {
         if (recipe.name === this.addRecipe.name) {
           this.message = 'Công thức đã có trong bộ sưu tập';
           return;
@@ -689,13 +692,11 @@ export class RecipeDetailComponent implements OnInit {
     this.galleryService.addGallery(this.galleryObject).subscribe(data => {
       if (data.body['status'] === 200) {
         let gallery = data.body['gallery'];
-
         this.message = data.body['message'];
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
         }, 4000);
-
       }
     });
   }

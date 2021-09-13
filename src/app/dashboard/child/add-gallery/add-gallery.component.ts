@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Gallery } from 'src/app/shared/model/gallery';
-import { CookieService } from 'ngx-cookie-service';
-import { GalleryService } from 'src/app/shared/service/gallery.service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { ChatService } from 'src/app/shared/service/chat.service';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Gallery} from 'src/app/shared/model/gallery';
+import {CookieService} from 'ngx-cookie-service';
+import {GalleryService} from 'src/app/shared/service/gallery.service';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {ChatService} from 'src/app/shared/service/chat.service';
 
 @Component({
   selector: 'app-add-gallery',
@@ -14,18 +14,19 @@ import { ChatService } from 'src/app/shared/service/chat.service';
 export class AddGalleryComponent implements OnInit {
   submitted: boolean = false;
   registerForm: FormGroup;
-  isAuthenicate: boolean;
+  isAuthenticate: boolean;
   galleryObject = {
-    content: "",
-    image: "",
-    name: "",
-    user: ""
+    content: '',
+    image: '',
+    name: '',
+    user: ''
   };
   messageCheck = false;
   saving = false;
-  errorMessage: String = '';
-  message: String = ''
+  errorMessage: string = '';
+  message: string = '';
   gallerys: Gallery[] = [];
+  @Output() galleryOutput = new EventEmitter();
   constructor(
     private cookie: CookieService,
     private formBuilder: FormBuilder,
@@ -33,8 +34,7 @@ export class AddGalleryComponent implements OnInit {
     private userService: UserService,
     private chatService: ChatService
   ) {
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
-    console.log(this.isAuthenicate)
+    this.isAuthenticate = localStorage.getItem('email') !== '';
   }
 
   ngOnInit() {
@@ -61,35 +61,33 @@ export class AddGalleryComponent implements OnInit {
       return;
     }
     this.saving = true;
-    this.galleryObject = this.registerForm.value
-    let email = this.cookie.get('email')
-    this.galleryObject.user = email
-    this.galleryObject.image = 'fvt7rkr59r9d7wk8ndbd';
-    console.log(this.galleryObject)
+    this.galleryObject = this.registerForm.value;
+    this.galleryObject.user = localStorage.getItem('email');
+    this.galleryObject.image = 'default-gallery.png';
     this.galleryService.createGallery(this.galleryObject).subscribe(gallery => {
-      console.log(gallery)
+      console.log(gallery);
       if (gallery !== undefined) {
         this.messageCheck = true;
         this.message = 'Chúc mừng bạn thêm bộ sưu tập thành công'
-        let tem = new Gallery
-        tem = gallery.body['gallery']
-        console.log(tem)
+        let tem: Gallery;
+        tem = gallery.body['gallery'];
         this.registerForm.reset();
         this.saving = false;
-        this.gallerys.push(tem)
+        this.gallerys.push(tem);
+        this.galleryOutput.emit(tem);
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
           this.messageCheck = false;
           this.message = ''
-          window.location.reload();
+          // window.location.reload();
           this.chatService.identifyUser();
         }, 3000);
 
       }
-    })
+    });
   }
   reset() {
-    this.registerForm.reset()
+    this.registerForm.reset();
   }
 }

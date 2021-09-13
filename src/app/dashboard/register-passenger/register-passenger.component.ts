@@ -1,19 +1,21 @@
-import { Component, Input, NgZone, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
-import { RxwebValidators } from '@rxweb/reactive-form-validators';
-import { Country } from 'src/app/shared/model/country';
-import { CountryService } from 'src/app/shared/service/country.service';
-import { FoodType } from 'src/app/shared/model/foodType';
-import { CookWay } from 'src/app/shared/model/cookWay';
-import { Recipe } from 'src/app/shared/model/recipe';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { Router } from '@angular/router';
-import { Cloudinary } from '@cloudinary/angular-5.x';
-import { HttpClient } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
-import { CookStepService } from '../../shared/service/cook-step.service';
-import { ChatService } from 'src/app/shared/service/chat.service';
+import {Component, Input, NgZone, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from 'ng2-file-upload';
+import {RxwebValidators} from '@rxweb/reactive-form-validators';
+import {Country} from 'src/app/shared/model/country';
+import {CountryService} from 'src/app/shared/service/country.service';
+import {FoodType} from 'src/app/shared/model/foodType';
+import {CookWay} from 'src/app/shared/model/cookWay';
+import {Recipe} from 'src/app/shared/model/recipe';
+import {RecipeService} from 'src/app/shared/service/recipe-service.service';
+import {Router} from '@angular/router';
+import {Cloudinary} from '@cloudinary/angular-5.x';
+import {HttpClient} from '@angular/common/http';
+import {CookieService} from 'ngx-cookie-service';
+import {CookStepService} from '../../shared/service/cook-step.service';
+import {ChatService} from 'src/app/shared/service/chat.service';
+import {AppSetting} from '../../appsetting';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register-passenger',
@@ -27,8 +29,6 @@ export class RegisterPassengerComponent implements OnInit {
   ingredientsGroup: FormArray;
   fileData: File = null;
   previewUrl: any = null;
-  fileUploadProgress: string = null;
-  uploadedFilePath: string = null;
   public index = 0;
   public imageIndex = 0;
   public showVideoTutorial = false;
@@ -42,30 +42,34 @@ export class RegisterPassengerComponent implements OnInit {
   public cookWayArray: CookWay[] = [];
   public message = '';
   saving = false;
-  checkIngredient = false;
-  urlArray: Array<Array<String>>[] = [];
   submitted = false;
   @Input()
   responses: Array<any>;
   oldUrl: string = null;
   nowUrl: string = null;
-  imageArrays: {};
+  // tslint:disable-next-line:ban-types
   ingredientArrays: Object[] = [];
   hasBaseDropZoneOver = false;
   hasBaseDropZoneOver1 = false;
   uploader: FileUploader;
   title: string;
-  hardLevelCheck: false;
-  timeCheck: false;
+  arrayImage = '';
   successMessage = '';
+  listImgCurrent = [];
+  listRoomImgCurrent = [] = [];
   navHide = false;
-  constructor(private cloudinary: Cloudinary,
-    private zone: NgZone, private http: HttpClient,
-    private formbuilder: FormBuilder, private countryService: CountryService, private cookStepService: CookStepService,
-    private recipeService: RecipeService, private _router: Router, private cookie: CookieService, private chatService: ChatService
+  // url = AppSetting.BASE_SERVER_URL + '/api/upload';
+  imageProp = 'recipe';
+  url: any;
+
+  constructor(private cloudinary: Cloudinary, private titleMain: Title,
+              private zone: NgZone, private http: HttpClient,
+              private formbuilder: FormBuilder, private countryService: CountryService, private cookStepService: CookStepService,
+              private recipeService: RecipeService, private _router: Router, private cookie: CookieService, private chatService: ChatService
   ) {
     this.responses = [];
     this.title = '';
+    this.listRoomImgCurrent = [];
     this.profileForm = this.formbuilder.group({
       recipeName: ['', [Validators.minLength(5), Validators.maxLength(200), Validators.required]],
       content: ['', [Validators.minLength(20), Validators.maxLength(500), Validators.required]],
@@ -88,7 +92,7 @@ export class RegisterPassengerComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.titleMain.setTitle('Tạo công thức');
     this.getCountrys();
     this.getFoodTypes();
     this.getCookWays();
@@ -115,8 +119,8 @@ export class RegisterPassengerComponent implements OnInit {
 
     this.uploader.onBuildItemForm = (fileItem: any, form: FormData): any => {
       if (fileItem.size > 600000) {
-        alert('Kích thước file ảnh phải bé hơn 600 kB')
-        return
+        alert('Kích thước file ảnh phải bé hơn 600 kB');
+        return;
       }
       // Add Cloudinary's unsigned upload preset to the upload form
       form.append('upload_preset', this.cloudinary.config().upload_preset);
@@ -140,7 +144,7 @@ export class RegisterPassengerComponent implements OnInit {
 
       // Use default "withCredentials" value for CORS requests
       fileItem.withCredentials = false;
-      return { fileItem, form };
+      return {fileItem, form};
     };
 
     // Insert or update an entry in the responses array
@@ -202,32 +206,44 @@ export class RegisterPassengerComponent implements OnInit {
       );
   }
 
-  updateTitle(value: string) {
-    this.title = value;
+  getImageSrc(event: any) {
+    const imageRes = JSON.parse(event);
+    console.log(imageRes.filePath);
+    const radio = (document.getElementById('profilePhoto') as HTMLInputElement);
+    radio.value = imageRes.filePath;
   }
 
-  // Delete an uploaded image
-  // Requires setting "Return delete token" to "Yes" in your upload preset configuration
-  // See also https://support.cloudinary.com/hc/en-us/articles/202521132-How-to-delete-an-image-from-the-client-side-
-  deleteImage = function (data: any, index: number) {
-    const url = `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/delete_by_token`;
-    const headers = new Headers({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' });
-    const options = { headers };
-    const body = {
-      token: data.delete_token
-    };
-    this.http.post(url, body, options).subscribe(response => {
-      console.log(`Deleted image - ${data.public_id} ${response.result}`);
-      // Remove deleted item for responses
-      this.responses.splice(index, 1);
+  getImageSrcTypeRoom(event: any, i) {
+    const id = 'imageArray' + i;
+    const pshArrayImage = new Set();
+    const str = '[' + event.toString().replace(/}\n?{/g, '},{') + ']';
+    JSON.parse(str).forEach((obj) => {
+      pshArrayImage.add(obj.filePath);
     });
-  };
+    if (pshArrayImage.size > 5) {
+      this.message = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước!';
+      const radio: HTMLElement = document.getElementById('modal-button');
+      radio.click();
+    }
+    const newImage = Array.from(pshArrayImage).join(',');
+    console.log('đây là mảng ảnh mới:' + newImage);
+    console.log('vị trí', i);
+    const radio = (document.getElementById(id) as HTMLInputElement);
+    radio.value = newImage;
+  }
+
+  getIndexDelete(event: any, i) {
+    const id = 'imageArray' + i;
+    const value = (document.getElementById(id) as HTMLInputElement).value;
+    const radio = (document.getElementById(id) as HTMLInputElement);
+    radio.value = '';
+  }
 
   uploadFile(file: any, index: any) {
     let inputValue;
     console.log(file);
     console.log(index);
-    const url = `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/image/upload`;
+    const url = `http://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/image/upload`;
     const xhr = new XMLHttpRequest();
     const fd = new FormData();
     xhr.open('POST', url, true);
@@ -235,7 +251,7 @@ export class RegisterPassengerComponent implements OnInit {
 
 
     // Update progress (can be used to show progress indicator)
-    xhr.upload.addEventListener('progress', function (e) {
+    xhr.upload.addEventListener('progress', function(e) {
       const progress = Math.round((e.loaded * 100.0) / e.total);
       // document.getElementById('progress').style.width = progress + "%";
 
@@ -243,7 +259,7 @@ export class RegisterPassengerComponent implements OnInit {
     data.total: ${e.total}`);
     });
     const imageIndex1 = this.imageIndex;
-    xhr.onreadystatechange = function (e) {
+    xhr.onreadystatechange = function(e) {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // File uploaded successfully
         const response = JSON.parse(xhr.responseText);
@@ -259,7 +275,7 @@ export class RegisterPassengerComponent implements OnInit {
         const id = 'imageArray' + index;
         inputValue = (document.getElementById(id) as HTMLInputElement).value;
         img.id = id + '_' + imageIndex1;
-        img.onclick = function () {
+        img.onclick = () => {
           document.getElementById(galleryID).removeChild(img);
           const id = 'imageArray' + index;
           const inputValue = (document.getElementById(id) as HTMLInputElement).value;
@@ -269,7 +285,7 @@ export class RegisterPassengerComponent implements OnInit {
           const id_tag = img.alt;
           const position = arr.indexOf(id_tag);
 
-          if (~position) {
+          if (position) {
             arr.splice(position, 1);
           }
 
@@ -299,62 +315,12 @@ export class RegisterPassengerComponent implements OnInit {
     this.imageIndex++;
   }
 
-  uploadFileMainImage(file: any) {
-    let inputValue;
-    console.log(file);
-    const url = `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/image/upload`;
-    const xhr = new XMLHttpRequest();
-    const fd = new FormData();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-
-    // Update progress (can be used to show progress indicator)
-    xhr.upload.addEventListener('progress', function (e) {
-      const progress = Math.round((e.loaded * 100.0) / e.total);
-      // document.getElementById('progress').style.width = progress + "%";
-
-      console.log(`fileuploadprogress data.loaded: ${e.loaded},
-    data.total: ${e.total}`);
-    });
-    const imageIndex1 = this.imageIndex;
-    xhr.onreadystatechange = function (e) {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        // File uploaded successfully
-        const response = JSON.parse(xhr.responseText);
-        const url = response.secure_url;
-        // Create a thumbnail of the uploaded image, with 150px width
-        const tokens = url.split('/');
-        tokens.splice(-2, 0, 'w_90,h_90,c_scale');
-        const img = new Image(); // HTML5 Constructor
-        img.src = tokens.join('/');
-        img.alt = response.public_id;
-
-
-        // this.nowUrl = response.public_id ;
-        inputValue = response.public_id;
-        console.log(inputValue);
-        const radio = (document.getElementById('profilePhoto') as HTMLInputElement);
-        radio.value = inputValue;
-
-        // console.log(radio.value);
-        //document.getElementById(galleryID).appendChild(img);
-      }
-
-    };
-    const tags = 'myphotoalbum';
-    fd.append('upload_preset', this.cloudinary.config().upload_preset);
-    fd.append('tags', tags); // Optional - add tag for image admin in Cloudinary
-    fd.append('file', file);
-    file.withCredentials = false;
-    xhr.send(fd);
-    this.imageIndex++;
-  }
   handleFiles(event: any, index: any) {
 
 
     const files = event.target.files;
     console.log(files);
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < files.length; i++) {
       if (files.length > 5) {
         this.message = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước!';
@@ -398,22 +364,12 @@ export class RegisterPassengerComponent implements OnInit {
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
-    this.uploadFileMainImage(this.fileData);
+    // this.uploadFileMainImage(this.fileData);
     const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
     };
-  }
-
-  updateProfile() {
-    this.profileForm.patchValue({
-      firstName: 'affff',
-      contact: {
-        mobileNo: '99898981'
-      }
-    });
-    console.warn(this.profileForm.value);
   }
 
   onSubmit() {
@@ -435,75 +391,88 @@ export class RegisterPassengerComponent implements OnInit {
     if (this.profileForm.value.recipeName === '') {
       this.message = 'Vui lòng điền tên cho công thức';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     } else if (this.profileForm.value.recipeName.length < 5) {
       this.message = 'Tên công thức có độ dài lớn hơn 10 ký tự';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     } else if (this.profileForm.value.recipeName.length > 200) {
       this.message = 'Tên cho công thức có độ dài nhỏ hơn 500 ký tự';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     }
     if (this.profileForm.value.content === '') {
       this.message = 'Vui lòng điền Nội dung cho công thức';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     } else if (this.profileForm.value.content.length < 20) {
       this.message = 'Nội dung cho công thức có độ dài lớn hơn 20 ký tự';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     } else if (this.profileForm.value.content.length > 500) {
       this.message = 'Nội dung cho công thức có độ dài nhỏ hơn 500 ký tự';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     }
-    console.log(this.profileForm.value.hardLevel + 'độ khó')
+    console.log(this.profileForm.value.hardLevel + 'độ khó');
     if (this.profileForm.value.hardLevel === '') {
       this.message = 'Vui lòng chọn độ khó của công thức';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     }
     // chưa validate
     if (parseInt(this.profileForm.value.time) < 0 || this.profileForm.value.time === '') {
       this.message = 'Vui lòng nhập lại thời gian chế biến hợp lệ';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     }
     if (this.ingredientArrays === undefined || this.ingredientArrays.length == 0) {
       this.message = 'Bạn chưa nhập nguyên liệu của công thức';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     }
     if (this.profileForm.value.cookStep[0].psnote === '') {
       this.message = 'Vui lòng điền hướng dẫn cho bước công thức';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     } else if (this.profileForm.value.cookStep[0].psnote.length < 10) {
       this.message = 'Hướng dẫn cho công thức có độ dài lớn hơn 10 ký tự';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     } else if (this.profileForm.value.cookStep[0].psnote.length > 500) {
       this.message = 'Hướng dẫn cho công thức có độ dài nhỏ hơn 500 ký tự';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     }
     if (this.cookWayArray.length === 0 || this.countryArray.length === 0 || this.foodTypesArray.length === 0) {
       this.message = 'Vui lòng phân loại cho công thức';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     }
 
@@ -513,7 +482,8 @@ export class RegisterPassengerComponent implements OnInit {
     if (parseInt(recipe.time) < 0) {
       this.message = 'Thời gian thực hiện phải lớn hơn 0';
       const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click(); this.submitted = false;
+      radio.click();
+      this.submitted = false;
       return;
     }
     let cookSteps = this.profileForm.value.cookStep;
@@ -526,14 +496,14 @@ export class RegisterPassengerComponent implements OnInit {
     this.message = '';
     this.saving = true;
     this.cookStepService.createCookSteps(cookSteps).subscribe((data) => {
-      console.log('fdaafasf')
-      console.log(cookSteps)
+      console.log('fdaafasf');
+      console.log(cookSteps);
       const result = data.body;
-      let steps = data.body;
+      const steps = data.body;
       recipe.cockStep = steps;
       if (steps !== undefined) {
 
-        recipe.user = this.cookie.get('email');
+        recipe.user = localStorage.getItem('email');
         recipe.country = this.countryArray;
         recipe.foodType = this.foodTypesArray;
         recipe.cookWay = this.cookWayArray;
@@ -542,7 +512,8 @@ export class RegisterPassengerComponent implements OnInit {
           console.log(recipe.imageUrl);
           this.message = 'Vui lòng up ảnh hiển thị cho công thức';
           const radio: HTMLElement = document.getElementById('modal-button');
-          radio.click(); this.submitted = false;
+          radio.click();
+          this.submitted = false;
           return;
         }
         console.log(recipe);
@@ -550,7 +521,7 @@ export class RegisterPassengerComponent implements OnInit {
         this.message = '';
         recipe.ingredients = this.ingredientArrays;
         let nameSpace = recipe.recipeName;
-        nameSpace = nameSpace.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        nameSpace = nameSpace.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         nameSpace = nameSpace.toLowerCase();
         let name = nameSpace.split(' ');
         nameSpace = name.join('-');
@@ -562,14 +533,15 @@ export class RegisterPassengerComponent implements OnInit {
             const radio: HTMLElement = document.getElementById('modal-button');
             radio.click();
             setTimeout(() => {
-              window.location.reload()
+              window.location.reload();
             }, 3000);
             this.saving = false;
             this.chatService.identifyUser();
           } else {
             this.message = result['message'];
             const radio: HTMLElement = document.getElementById('modal-button');
-            radio.click(); this.submitted = false;
+            radio.click();
+            this.submitted = false;
             this.saving = false;
             return;
           }
@@ -668,7 +640,7 @@ export class RegisterPassengerComponent implements OnInit {
           console.log(arrayTest);
           console.log(arrTest);
           if (arrTest.length < 1) {
-            console.log(arrTest)
+            console.log(arrTest);
             this.message = 'Vui lòng nhập lại nguyên liệu cho công thức đúng định dạng';
             const radio: HTMLElement = document.getElementById('modal-button');
             radio.click();
@@ -689,9 +661,10 @@ export class RegisterPassengerComponent implements OnInit {
           let ingredientNam;
           if (arrTest.length > 2) {
             ingredientNam = arrTest[2];
+            // tslint:disable-next-line:no-shadowed-variable
             for (let i = 3; i < arrTest.length; i++) {
               if (arrTest.length > i) {
-                var format = /[()]/;
+                const format = /[()]/;
                 if (format.test(arrTest[i]) !== true) {
                   ingredientNam += ' ' + arrTest[i];
                 } else {
@@ -713,9 +686,9 @@ export class RegisterPassengerComponent implements OnInit {
             // }
           }
           if (arrTest.length > 3) {
-            const notePoisition = arrtemp.indexOf('(');
-            if (notePoisition !== undefined && notePoisition > 0) {
-              not = arrtemp.slice(notePoisition - 1, arrtemp.length);
+            const notePosition = arrtemp.indexOf('(');
+            if (notePosition !== undefined && notePosition > 0) {
+              not = arrtemp.slice(notePosition - 1, arrtemp.length);
             }
           }
 
@@ -741,17 +714,17 @@ export class RegisterPassengerComponent implements OnInit {
             this.recipeService.createIngredient(ingredient).subscribe((data) => {
               const result = data.body;
               console.log(data);
-              if (result != undefined) {
-                const tmessage = result['message'];
-                console.log(tmessage);
+              if (result !== undefined) {
+                const dressage = result['message'];
+                console.log(dressage);
                 this.ingredientArrays.push(result);
 
                 const radio = (document.getElementById('ingredientArraye') as HTMLInputElement);
                 radio.value = '';
                 console.log(this.ingredientArrays);
               } else {
-                const tmessage = result['message'];
-                console.log(tmessage);
+                const dressage = result['message'];
+                console.log(dressage);
               }
             });
           }
@@ -810,40 +783,7 @@ export class RegisterPassengerComponent implements OnInit {
 
   }
 
-  detectFiles(event) {
-    let url;
-    // url = this.urlArray[index];
-    const files = event.target.files;
-    if (files) {
-      for (const file of files) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          url.push(e.target.result);
-          // let id = 'imageArray' + index;
-          // let multipleUrl: string;
-          // console.log(id);
-
-          // var inputValue = (<HTMLInputElement>document.getElementById(id)).value;
-          // if (inputValue !== '') {
-
-          //   multipleUrl = inputValue + ',' + file.name;
-          // } else {
-          //   multipleUrl = file.name;
-          // }
-          // const radio = (<HTMLInputElement>document.getElementById(id));
-          // radio.value = multipleUrl;
-          // console.log(inputValue);
-          // console.log(multipleUrl);
-
-          // this.urlArray[index] = url;
-        };
-        reader.readAsDataURL(file);
-        console.log(file);
-      }
-    }
-  }
-
-  onChangeofvideo(value: any) {
+  onChangeOfVideo(value: any) {
     if (this.showVideoTutorial === false) {
       this.showVideoTutorial = true;
       console.log('add');
@@ -854,6 +794,7 @@ export class RegisterPassengerComponent implements OnInit {
     }
 
   }
+
   clickNav() {
     if (this.navHide === false) {
 
@@ -865,6 +806,7 @@ export class RegisterPassengerComponent implements OnInit {
     const radio: HTMLElement = document.getElementById('scroll-to-top');
     radio.click();
   }
+
   onChangeofingredient(value: any) {
     if (this.showIngredient === false) {
       this.showIngredient = true;
@@ -881,7 +823,7 @@ export class RegisterPassengerComponent implements OnInit {
     while (formArray.length !== 0) {
       formArray.removeAt(0);
     }
-  }
+  };
 
   getCountrys() {
     this.countryService.getCountrys().subscribe(countrys => {

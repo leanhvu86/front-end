@@ -3,24 +3,20 @@
     <!--  -->
     <div class="col-3 account-sidebar">
       <div class="sidebar-head">
-        <div class="profile-avatar" (fileOver)="fileOverBase1($event)"
-          [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver1 }">
+<!--        <div class="profile-avatar" (fileOver)="fileOverBase1($event)"-->
+<!--          [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver1 }">-->
 
-          <a alt="chọn ảnh mới" class="a-image" (click)="choosefile()">
+<!--          <a title="chọn ảnh mới" class="a-image" (click)="choosefile()">-->
 
+<!--            <img style="height: 180px;width:180px;border-radius:180px;" src="{{ imageUrl }}" />-->
 
-            <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">
-              <cl-transformation width="360" height="360" gravity="face" radius="max" crop="fill" background="#e9ebee">
-              </cl-transformation>
-              <cl-transformation width="180" crop="scale">
-              </cl-transformation>
-            </cl-image>
-
-          </a>
-          <input type="file" (change)="handleFiles($event)" id="fileChoose" accept="image/x-png,image/jpeg,image/jpg"
-            style="width: 120px;height: 5px; z-index: 10000; opacity: 0;" />
-          <input type="text" id="imageArray" style="width: 10px;height: 5px; opacity: 0;" />
-        </div>
+<!--          </a>-->
+<!--          <input type="file" (change)="handleFiles($event)" id="fileChoose" accept="image/x-png,image/jpeg,image/jpg"-->
+<!--            style="width: 120px;height: 5px; z-index: 10000; opacity: 0;" />-->
+<!--          <input type="text" id="imageArray" style="width: 10px;height: 5px; opacity: 0;" />-->
+<!--        </div>-->
+        <app-imageupload [imageProp]="imageProp" [url]="imageUrl" [block]="'false'"
+                         (imageSrcUrl)="getImageSrc($event)"></app-imageupload>
         <h3 class="title" style="text-align: center;">
           <a [routerLink]="['/member/info/', id]" title="Trang cá nhân">
             <span style="color: rgb(255, 124, 36);">{{user.name}}</span>
@@ -84,7 +80,7 @@
           </li>
           <li class="menu-list-a">
             <a class="hover-a" [routerLink]="['/user/info/', id]"
-              style="color: gray;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
+              style="color: #c0f072;font-family: Arial, Helvetica, sans-serif; text-decoration: none;">
               <span class="fa fa-user" style="margin-right: 5px;"></span>THÔNG
               TIN TÀI KHOẢN
             </a>
@@ -95,7 +91,7 @@
     <!--  -->
     <div class="col-8 page-account-info" style="font-family: Arial, Helvetica, sans-serif">
       <a class="a-title">THÔNG TIN CÁ NHÂN</a>
-      <ul class="nav nav-tabs" style="text-align: center;">
+      <ul class="nav nav-tabs" style="text-align: center;padding-top:5px !important;">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#home">
             Thông tin</a>
@@ -133,7 +129,7 @@
 
                   </td>
                   <td>
-                    <button class="btn btn-success" (click)="onSubmit()" *ngIf="!loading;else other_content10">
+                    <button class="btn btn-success button-form" (click)="onSubmit()" *ngIf="!loading;else other_content10">
                       Lưu thay đổi
                     </button>
 
@@ -163,6 +159,7 @@
                   </td>
                   <td>
                     <a class="a-title">THÔNG TIN TÀI KHOẢN</a>
+                    <br>
                   </td>
                 </tr>
                 <tr>
@@ -255,7 +252,7 @@
                   <td style="width: 200px;"></td>
                   <td>
 
-                    <button type="button" class="btn btn-success" style="margin-right: 3%;"
+                    <button type="button" class="btn btn-success button-form" style="margin-right: 3%;"
                       *ngIf="!loading;else other_content10" (click)="onSubmit()">
                       Lưu thay đổi
                     </button>
@@ -316,7 +313,7 @@
                     </div>
                   </div>
 
-                  <button class="btn btn-lg btn-success btn-block btn-signin" *ngIf="!loading;else other_content10"
+                  <button class="btn btn-lg btn-success btn-block btn-signin button-form" *ngIf="!loading;else other_content10"
                     type="submit">
                     Thay đổi mật khẩu
                   </button>

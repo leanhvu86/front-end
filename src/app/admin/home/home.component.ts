@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
       });
   }
   getImage() {
-    let email = this.cookie.get('email');
+    let email = localStorage.getItem('email');
     this._loginService.testEmail(email).subscribe(data => {
       let user = data.body['user'];
       if (user !== undefined && user.imageUrl !== '') {
@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit {
     })
   }
   getAuthDetails() {
-    let email = this.cookie.get('email');
+    let email = localStorage.getItem('email');
     console.log(email);
     this._loginService.verifyAuth(email).subscribe((data) => {
       const result = data.body;
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
         } else {
           console.log(result);
 
-          this.cookie.set('token', result[0]);
+          localStorage.setItem('token', result[0]);
         }
       }
     });

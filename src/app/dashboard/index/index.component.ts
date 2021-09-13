@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Title } from '@angular/platform-browser';
-import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LoginServiceService } from '../../shared/service/login-service.service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Message } from '../../shared/model/message';
-import { LoadingBarService } from "ngx-loading-bar";
-import { catchError } from 'rxjs/operators';
-import { AppSetting } from '../../appsetting';
+import {Component, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {Title} from '@angular/platform-browser';
+import {CookieService} from 'ngx-cookie-service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LoginServiceService} from '../../shared/service/login-service.service';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Message} from '../../shared/model/message';
+import {LoadingBarService} from 'ngx-loading-bar';
+import {catchError} from 'rxjs/operators';
+import {AppSetting} from '../../appsetting';
 import * as io from 'socket.io-client';
-import { ChatService } from 'src/app/shared/service/chat.service';
+import {ChatService} from 'src/app/shared/service/chat.service';
+
 // socket
 
 @Component({
@@ -21,27 +22,28 @@ import { ChatService } from 'src/app/shared/service/chat.service';
 })
 export class IndexComponent implements OnInit {
   socket;
-  BASE_URL = AppSetting.BASE_SERVER_URL;
+  BASE_IMAGE_URL = AppSetting.BASE_IMAGE_URL;
 
   registerForm: FormGroup;
   submitted = false;
 
-  tfaFlag: boolean = false
+  tfaFlag: boolean = false;
   userObject = {
-    email: "",
-    password: ""
-  }
+    email: '',
+    password: ''
+  };
 
   data = {
     name: '',
     userId: ''
-  }
-  public href: string = "";
-  id: string = '1'
-  imageUrl: string = 'jbiajl3qqdzshdw0z749'
+  };
+  public href: string = '';
+  id: string = '1';
+  noImage: string = 'avatar.png';
+  imageUrl: string = this.BASE_IMAGE_URL;
   message = '';
-  url = 'http://amthuc.anchay.poly.vn:4200/'
-  text = 'Chào mừng bạn đến với website Ẩm thực Ăn chay'
+  url = 'http://amthuc.anchay.poly.vn:4200/';
+  text = 'Chào mừng bạn đến với website Ẩm thực Ăn chay';
   isModeration: boolean = false;
   showModal: boolean = false;
   addPassenger: boolean = false;
@@ -54,7 +56,7 @@ export class IndexComponent implements OnInit {
   search: string = '';
   user = '';
   height = 3;
-  color = "rgb(111, 250, 123)";
+  color = 'rgb(111, 250, 123)';
   runInterval = 300;
 
   constructor(
@@ -77,8 +79,8 @@ export class IndexComponent implements OnInit {
     this.translate.get('Ẩm thực món chay').subscribe(name => {
       this.title.setTitle(name);
     });
-    this.isModeration = this.cookie.get('role') !== '' ? true : false;
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    this.isModeration = localStorage.getItem('role') !== '';
+    this.isAuthenicate = localStorage.getItem('email') !== '';
     this.getImage();
     this.getMessage();
     this.registerForm = this.formBuilder.group({
@@ -87,62 +89,67 @@ export class IndexComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
+
   mailBox() {
     this.chatService.getMessages().subscribe(mail => {
-      console.log(mail)
+      console.log(mail);
       if (mail !== undefined) {
         this.newMessage = true;
         let mess = new Message;
         mess.content = mail;
         mess.news = true;
-        console.log(mess)
-        this.userMessage.push(mess)
-        console.log(this.userMessage)
+        console.log(mess);
+        this.userMessage.push(mess);
+        console.log(this.userMessage);
       }
-    })
+    });
   }
+
   getImage() {
-    let email = this.cookie.get('email');
+    let email = localStorage.getItem('email');
     if (email !== '') {
       this._loginService.testEmail(email).subscribe(data => {
         let user = data.body['user'];
         if (user !== undefined && user.imageUrl !== '') {
-          this.imageUrl = user.imageUrl
-
+          this.imageUrl =this.BASE_IMAGE_URL+user.imageUrl;
+          console.log('this.imageUrl'+this.imageUrl)
         }
         if (user !== undefined) {
 
-          this.id = user._id
+          this.id = user._id;
           this.user = user.name;
         }
-      })
+      });
     }
   }
+
   changeStatus(event: any) {
-    this.newMessage = false
+    this.newMessage = false;
   }
+
   getMessage() {
     this.userMessage = [];
-    let email = this.cookie.get('email');
+    let email = localStorage.getItem('email');
     if (email !== '') {
-      this.userObject.email = email
+      this.userObject.email = email;
       this.userService.findMessage(this.userObject).subscribe(data => {
-        let temp = data.body['message']
+        let temp = data.body['message'];
         for (let mess of temp) {
           if (mess.news === 1) {
-            this.newMessage = true
-            mess.news = true
+            this.newMessage = true;
+            mess.news = true;
           } else {
-            mess.news = false
+            mess.news = false;
           }
-          this.userMessage.push(mess)
+          this.userMessage.push(mess);
         }
         if (this.userMessage.length === 0) {
           this.mailBoxEmpty = true;
         }
-      })
+      });
     }
   }
+
   loginUser() {
     this.submitted = true;
 
@@ -164,7 +171,7 @@ export class IndexComponent implements OnInit {
             role = user[key];
           }
           if (key === 'image') {
-            this.imageUrl = user[key];
+            this.imageUrl = this.BASE_IMAGE_URL+user[key];
           }
           if (parseInt(role) === -1) {
             this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
@@ -174,32 +181,28 @@ export class IndexComponent implements OnInit {
             let users = user[key];
             this.id = users._id;
             this.user = users.name;
-            this.cookie.set('token', '');
-            this.cookie.set('token', users.token);
-            this.cookie.set('isAuthenicate', '');
-            this.cookie.set('isAuthenicate', '1');
+            localStorage.setItem('token', users.token);
+            localStorage.setItem('isAuthenicate', '1');
           }
           if (key === 'role') {
             role = user[key];
-            this.cookie.set('role', role);
-            console.log(role)
+            localStorage.setItem('role', role);
             if (role !== undefined && role !== '') {
-              this.isModeration = true
-              console.log(role)
+              this.isModeration = true;
+              console.log(role);
             }
           }
           if (key === 'objectId') {
             let ObjectId = user[key];
-            this.cookie.set('ObjectId', ObjectId);
-            console.log(ObjectId)
+            localStorage.setItem('ObjectId', ObjectId);
+            console.log(ObjectId);
           }
         }
         this.showModal = false;
         const radio: HTMLElement = document.getElementById('close-modal');
         radio.click();
-        sessionStorage.setItem('user', this.userObject.email);
-        this.cookie.set('email', '');
-        this.cookie.set('email', this.userObject.email);
+        localStorage.setItem('user', this.userObject.email);
+        localStorage.setItem('email', this.userObject.email);
         this.isAuthenicate = true;
         this.getMessage();
         this.href = this._router.url;
@@ -213,7 +216,7 @@ export class IndexComponent implements OnInit {
           window.location.reload();
 
         } else {
-          console.log('reload')
+          console.log('reload');
 
           this._router.navigate(['/index']);
           // this._router.navigate(['/index']);
@@ -233,7 +236,7 @@ export class IndexComponent implements OnInit {
       if (userData.body['status'] === 404) {
         this.errorMessage = userData.body['message'];
       }
-    })
+    });
   }
 
   onChange(value: any) {
@@ -243,35 +246,39 @@ export class IndexComponent implements OnInit {
       radio.click();
       this.addPassenger = true;
     } else {
-      console.log('true')
+      console.log('true');
       this._router.navigate(['/addRecipe']);
     }
   }
+
   onChangecheck(value: any) {
     const radio: HTMLElement = document.getElementById('modal-button');
     radio.click();
   }
+
   redirect() {
     if (this.isModeration === false) {
-      alert('Vui lòng liên hệ với ban quản trị để được phép đăng nhập')
+      alert('Vui lòng liên hệ với ban quản trị để được phép đăng nhập');
 
     } else {
 
       this._router.navigate(['/loadPage']);
     }
   }
+
   findRecipe() {
-    console.log(this.search)
+    console.log(this.search);
     if (this.search === undefined) {
-      this.search = ''
+      this.search = '';
     }
-    this.cookie.set('searchText', this.search);
-    this._router.navigateByUrl('/recipe', { skipLocationChange: true }).then(() => {
+    localStorage.setItem('searchText', this.search);
+    this._router.navigateByUrl('/recipe', {skipLocationChange: true}).then(() => {
       this._router.navigate(['/recipe']);
     });
 
     this.search = '';
   }
+
   useLanguage(language: string) {
     this.translate.use(language);
     console.log(language);
@@ -287,21 +294,22 @@ export class IndexComponent implements OnInit {
     sessionStorage.setItem('currentLang', language);
 
   }
+
   logout() {
     console.log('logout');
     this._loginService.logoutUser();
     this.isAuthenicate = false;
     this.showModal = false;
-    let token = this.cookie.get('token');
+    let token = localStorage.getItem('token');
     if (token !== '') {
-      this.cookie.set('token', '');
+      localStorage.setItem('token', '');
     }
     this.href = this._router.url;
-    console.log(this.href)
+    console.log(this.href);
     if (this.href === '/index') {
       window.location.reload();
     } else {
-      this._router.navigate(['/'])
+      this._router.navigate(['/']);
     }
     this.cookie.deleteAll();
 
@@ -309,6 +317,6 @@ export class IndexComponent implements OnInit {
 
   openSendMail() {
     let url = 'https://mail.google.com/mail/?view=cm&fs=1&to=amthuc.anchay.2020@gmail.com&su=Thư Góp Ý&body=Xin Chào ban quản trị website Ẩm thực Ăn chay! ';
-    window.open(url, "MsgWindow", "width=800,height=600");
+    window.open(url, 'MsgWindow', 'width=800,height=600');
   }
 }

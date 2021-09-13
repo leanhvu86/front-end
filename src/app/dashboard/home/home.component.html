@@ -16,7 +16,7 @@
           <form (submit)="findRecipe()" class="form pt-5 pb-5" style="width: 770px;">
             <input class="form-control" type="text" name="search" [(ngModel)]="search" autocomplete="off"
               placeholder="Tìm kiêm công thức" style="width: 89%; height: 50px;cursor: pointer;float: left;">
-            <input title="Search" value="" type="submit" class="button" style="">
+            <input title="Search" value="" type="submit" class="button" style="background-color:#c0f072">
           </form>
         </div>
 
@@ -233,10 +233,10 @@
 
           </div>
           <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"
-            style="top: -1100px; left: 70px;position: absolute; bottom: 20%;"><i id="heart{{i}}"
+            style="top: -1100px; left: 70px;position: absolute; bottom: 20%;cursor: pointer;"><i id="heart{{i}}"
               class="fa fa-heart fa-3x heart" aria-hidden="true"></i></span>
           <ng-template #other_content>
-            <span (click)="dislikeRecipe(recipe,i)" style="top: -1100px;position: absolute; left:70px; bottom: 20%;"><i
+            <span (click)="dislikeRecipe(recipe,i)" style="top: -1100px;position: absolute; left:70px;cursor: pointer; bottom: 20%;"><i
                 class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
           </ng-template>
           <div style="top:375px; position: absolute; font-size: 12px; height: 100px; ">
@@ -371,9 +371,9 @@
               </h4>
 
               <ul class="icon" style=" bottom:15% ;">
-                <li><a><i class="fa fa-heart fa-2x " id="heartGallery{{i}}" style="margin-top: 15px;"
+                <li><a><i class="fa fa-heart fa-2x " id="heartGallery{{i}}" style="margin-top: 15px;cursor: pointer;"
                       (click)="likeGallerry(gallery,i)" *ngIf="!gallery.like;else other_content"></i>
-                    <ng-template #other_content><i style="margin-top: 15px;" id="heartGallery{{i}}"
+                    <ng-template #other_content><i style="margin-top: 15px; cursor: pointer;" id="heartGallery{{i}}"
                         (click)="nolikeGallery(gallery,i)" class="fa fa-heart fa-2x check" aria-hidden="true"></i>
                     </ng-template>
 
@@ -395,88 +395,17 @@
       <div *ngFor="let user of topUsers"
         style=" float: left;border-radius: 50%; background: none; width: 100px; position: relative; cursor: pointer;">
         <div class="memberfunny" [routerLink]="['/member/info/',user._id]">
-          <!-- <div>
-            <figure style="padding: 15% 10%;"> -->
-          <!-- <cl-image public-id="{{recipe.imageUrl}}">
-                    <cl-transformation width="200" height="280" crop="crop" quality="auto">
-                    </cl-transformation>
-                </cl-image> -->
-          <!-- </figure> -->
           <a title="{{user.name}}">
-            <cl-image public-id="{{user.imageUrl}}" style="border-radius: 50px;">
-              <cl-transformation width="120" height="120" gravity="face" radius="max" crop="fill" background="#e9ebee">
-              </cl-transformation>
-              <cl-transformation width="60" crop="scale">
-              </cl-transformation>
-            </cl-image>
+            <img style="height: 55px;width:55px;border-radius:50px;" src="{{ user.imageUrl }}" />
           </a>
 
           <!-- </div> -->
           <br><br>
         </div>
-        <!-- <a class="link-name" routerLink="/detail/{{recipe._id}}">{{user.userName}}</a> -->
-        <!-- <cl-image _ngcontent-ywn-2="" public-id="{{recipe.imageUrl}}" class="thumbnail inline" format="jpg"
-      ng-reflect-public-id="mypic">
-      <img
-          src="https://res.cloudinary.com/am-thuc-an-chay/image/upload/v1582782664/angular_sample/{{recipe.imageUrl}}">
-  </cl-image> -->
-        <!-- <cl-image public-id="{{recipe.imageUrl}}">
-              <cl-transformation width="300" height="150" radius="20" crop="pad" border="2px_solid_black" quality="auto" fetch-format="auto">
-              </cl-transformation>
-          </cl-image> -->
-        <!-- <cl-image public-id="{{recipe.imageUrl}}">
-              <cl-transformation width="200" height="300" crop="crop" radius="20" quality="auto">
-              </cl-transformation>
-          </cl-image> -->
-        <!-- <cl-image public-id="{{recipe.imageUrl}}">
-              <cl-transformation width="200" height="300" gravity="auto" background="white" crop="fill_pad"
-                  radius="20" border="1px_solid_grey">>
-              </cl-transformation>
-          </cl-image> -->
-        <!-- <a routerLink="/detail/{recipe}}">{{recipe.recipeName}}</a> -->
-
       </div>
 
     </div>
     <div class="clearfix"></div>
-    <!-- Modal -->
-    <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" *ngIf="!isAuthenicate"
-      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Đăng nhập</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <div class="modal-body">
-                  <div class="card card-container" style="max-width: 500px;">
-                      <img id="profile-img" class="profile-img-card" src="../../../assets/images/avatar_2x.png" />
-                      <form class="form-signin" (ngSubmit)="loginUser()" #loginForm="ngForm">
-                          <input type="text" id="email" class="form-control" name="email" autocomplete="off"
-                              #uname="ngModel" [(ngModel)]="userObject.email" placeholder="email"
-                              title="Please enter the email" required autofocus>
-                          <input type="password" id="password" class="form-control" name="password" autocomplete="off"
-                              #upass="ngModel" [(ngModel)]="userObject.password" placeholder="Password"
-                              title="Please enter the password" required>
-                          <input type="text" id="authcode" class="form-control" *ngIf="this.tfaFlag" name="authcode"
-                              autocomplete="off" #authcode="ngModel" [(ngModel)]="userObject.authcode"
-                              placeholder="Two-Factor Auth code" title="Please enter the code" required>
-                          <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
-                              [disabled]="email?.errors?.required || upass?.errors?.required || (this.tfaFlag && authcode?.errors?.required)">Đăng
-                              nhập</button>
-                          <p style="text-align:center;">Tài khoản mới ? <a [routerLink]="['/register']">Đăng ký</a>
-                          </p>
-                          <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">{{errorMessage}}</p>
-                      </form>
-                      <hr style="border-top: 1px solid #eee;">
-
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div> -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
       id="modal-button1" hidden>Large modal</button>
 
@@ -511,7 +440,6 @@
                     <p class="description">
                       {{gallery.content}}
                     </p>
-
                   </div>
                 </div>
               </div>
@@ -520,6 +448,5 @@
         </div>
       </div>
     </div>
-    <app-scroll-top></app-scroll-top>
   </div>
 </div>

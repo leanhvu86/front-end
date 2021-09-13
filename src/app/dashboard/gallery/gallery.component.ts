@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { GalleryService } from 'src/app/shared/service/gallery.service';
-import { Gallery } from 'src/app/shared/model/gallery';
-import { RecipeService } from 'src/app/shared/service/recipe-service.service';
-import { UserService } from 'src/app/shared/service/user.service.';
-import { trigger } from '@angular/animations';
-import { fadeIn } from '../../shared/animation/fadeIn';
+import {Component, OnInit} from '@angular/core';
+import {CookieService} from 'ngx-cookie-service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {GalleryService} from 'src/app/shared/service/gallery.service';
+import {Gallery} from 'src/app/shared/model/gallery';
+import {RecipeService} from 'src/app/shared/service/recipe-service.service';
+import {UserService} from 'src/app/shared/service/user.service.';
+import {trigger} from '@angular/animations';
+import {fadeIn} from '../../shared/animation/fadeIn';
+import {AppSetting} from '../../appsetting';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class GalleryComponent implements OnInit {
     private recipeService: RecipeService,
     private userService: UserService
   ) {
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== "";
     console.log(this.isAuthenicate)
     if (this.isAuthenicate === false) this.loadingSuccess = true;
   }
@@ -70,23 +71,22 @@ export class GalleryComponent implements OnInit {
       for (let gallery of galleries) {
 
         if (gallery.recipe.length > 0) {
-          gallery.image = gallery.recipe[0].imageUrl
+          gallery.image = AppSetting.BASE_IMAGE_URL + gallery.recipe[0].imageUrl;
         } else {
-          console.log(gallery.recipe.length)
-          gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+          gallery.image =  AppSetting.BASE_IMAGE_URL + 'default-gallery.png';
         }
       }
       this.loadingSuccess = true;
-      this.galleryTop = galleries
-      if (this.isAuthenicate == true) {
-        this.userObject.email = this.cookie.get('email')
+      this.galleryTop = galleries;
+      if (this.isAuthenicate === true) {
+        this.userObject.email = localStorage.getItem('email')
         this.recipeService.findInterestGallery(this.userObject).subscribe(data => {
           let interests = data.body['interests']
           if (interests !== undefined) {
             for (let galler of this.galleryTop) {
               for (let interest of interests) {
                 if (interest.objectId._id === galler._id && interest.objectType === '1') {
-                  galler.like = true
+                  galler.like = true;
                 }
               }
             }
@@ -99,7 +99,7 @@ export class GalleryComponent implements OnInit {
 
     console.log(gallery);
     console.log(index);
-    this.isAuthenicate = this.cookie.get('email') !== "" ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== "";
     if (this.isAuthenicate === false) {
       console.log('false');
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -108,7 +108,7 @@ export class GalleryComponent implements OnInit {
     }
     gallery.like = true;
     console.log(gallery.user.email)
-    let user = this.cookie.get('email');
+    let user = localStorage.getItem('email');
     let interestObject = new Object({
       user: user,
       objectId: gallery,
@@ -146,7 +146,7 @@ export class GalleryComponent implements OnInit {
     }
     gallery.like = false;
     console.log(gallery.user.email)
-    let user = this.cookie.get('email');
+    let user = localStorage.getItem('email');
     let interestObject = new Object({
       user: user,
       objectId: gallery,
@@ -176,7 +176,7 @@ export class GalleryComponent implements OnInit {
     console.log(gallery.like);
   }
   getPersonalGallery() {
-    let email = this.cookie.get('email')
+    let email = localStorage.getItem('email');
 
     if (email !== '') {
       this.galleryService.getGalleryies().subscribe(data => {
@@ -185,11 +185,11 @@ export class GalleryComponent implements OnInit {
           for (let gallery of data) {
             if (gallery.user.email === email) {
               if (gallery.recipe.length > 0) {
-                gallery.image = gallery.recipe[0].imageUrl
+                gallery.image = AppSetting.BASE_IMAGE_URL + gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = 'fvt7rkr59r9d7wk8ndbd'
+                gallery.image =  AppSetting.BASE_IMAGE_URL + 'default-gallery.png';
               }
-              this.gallerys.push(gallery)
+              this.gallerys.push(gallery);
             }
           }
 
@@ -203,9 +203,8 @@ export class GalleryComponent implements OnInit {
       return;
     }
 
-    this.galleryObject = this.registerForm.value
-    let email = this.cookie.get('email')
-    this.galleryObject.user = email
+    this.galleryObject = this.registerForm.value;
+    this.galleryObject.user = localStorage.getItem('email');
     console.log(this.galleryObject)
     this.galleryService.createGallery(this.galleryObject).subscribe(gallery => {
       console.log(gallery)

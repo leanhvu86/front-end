@@ -9,15 +9,11 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./routing.component.css']
 })
 export class RoutingComponent implements OnInit {
-  routeRails: RouteRail[] = [];
   constructor(
     private routeRailservice: RouteRailService, private translate: TranslateService) {
     translate.setDefaultLang('vi');
   }
-
-  ngOnInit() {
-    this.getRouteRailArray();
-  }
+  routeRails: RouteRail[] = [];
   @Input() opened = false;
 
   /**
@@ -27,32 +23,36 @@ export class RoutingComponent implements OnInit {
   public accordianData = [];
   public accordianDataVi = [];
   public accordianDataEn = [];
+
+  ngOnInit() {
+    this.getRouteRailArray();
+  }
   /**
    * Emitted when user clicks on group titlebar
    * @type {EventEmitter<any>}
    */
   // @Output() toggle: EventEmitter<any> = new EventEmitter<any>();
   getRouteRailArray() {
-    let currentLang = sessionStorage.getItem('currentLang');
+    const currentLang = sessionStorage.getItem('currentLang');
 
-    console.log(currentLang)
+    console.log(currentLang);
     this.routeRailservice.getRouteRails().subscribe(routeRails => {
       this.routeRails = routeRails;
       console.log('routeRails' + this.routeRails);
-      for (let route of this.routeRails) {
+      for (const route of this.routeRails) {
         if (route.status === 1) {
-          let data = {
+          const data = {
             id: route.routeId,
             header: route.nameRoute,
             content: route.description
-          }
+          };
           this.accordianDataVi.push(data);
         } else if (route.status === 2) {
-          let data = {
+          const data = {
             id: route.routeId,
             header: route.nameRoute,
             content: route.description
-          }
+          };
           this.accordianDataEn.push(data);
         }
 

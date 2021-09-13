@@ -1,15 +1,16 @@
 <div style="min-height: 480px; ">
   <br>
   <div style="text-align: center; " *ngIf="gallery">
-    <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">
-      <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill" background="#e9ebee">
-      </cl-transformation>
-      <cl-transformation width="75" crop="scale"> </cl-transformation>
-    </cl-image>
+<!--    <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">-->
+<!--      <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill" background="#e9ebee">-->
+<!--      </cl-transformation>-->
+<!--      <cl-transformation width="75" crop="scale"> </cl-transformation>-->
+<!--    </cl-image>-->
+    <img style="width: 100px; height: 100px; border-radius: 100px;" src="{{imageUrl}}" />
     <br>
     <a style="font-weight: lighter;color: black;"
       [routerLink]="['/member/info/', gallery.user._id]">{{gallery.user.name}}</a><br>
-    <a style="font-size: 10px; font-weight: 100;">{{gallerys.length}} Bộ sưu tập</a>
+    <a style="font-size: 10px; font-weight: 100;"><span style="color: red;">{{gallerys.length}}</span> Bộ sưu tập</a>
     <hr>
     <a style="font-weight: bold; font-size: 16px;">{{gallery.name}}</a>
     <br>
@@ -119,12 +120,7 @@
       *ngFor="let gallery of gallerys |paginate:{itemsPerPage: 12, currentPage:p}; let i = index"
       style="margin-bottom: 30px;">
       <div class="box21">
-        <cl-image public-id="{{gallery.image}}">
-          <cl-transformation height="230" radius="0" width="350" crop="scale">
-          </cl-transformation>
-          <cl-transformation angle="0">
-          </cl-transformation>
-        </cl-image>
+        <img style="width: 350px; height: 230px;" src="{{gallery.image}}" />
         <div class="box-content">
           <h4 class="title" (click)="loadGallery(gallery)">{{gallery.name}}</h4>
           <p class="description">{{gallery.content}}</p>
@@ -157,17 +153,14 @@
         <div class="row mt-30">
           <div class="col-md-4 col-sm-6" *ngFor="let gallery of personalGallery" style="margin-bottom: 30px;">
             <div class="box3" (click)="addRecipeBookMark(gallery)">
-              <cl-image public-id="{{gallery.image}}">
-                <cl-transformation height="171" width="235" crop="scale">
-                </cl-transformation>
-              </cl-image>
+              <img style="width: 235px; height: 171px;" src="{{gallery.image}}" />
+
               <div class="box-content">
                 <a class="title" style="font-size: 14px;">{{gallery.name}}</a>
                 <div style="float: left; width: 100%; height:0.5px; background: white;"></div>
                 <p class="description">
                   {{gallery.content}}
                 </p>
-
               </div>
             </div>
           </div>
