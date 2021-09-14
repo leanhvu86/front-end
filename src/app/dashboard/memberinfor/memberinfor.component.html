@@ -1,4 +1,4 @@
-<div class="container" style="background: white; margin-top: 20px; margin-left: 50px;" *ngIf="infoCheck ;else skeleton">
+<div class="container" style="margin-top: 20px; margin-left: 50px;" *ngIf="infoCheck ;else skeleton">
   <div class="page-header page-profile-header">
     <div class="profile-cover-photo" style="background-image:url('https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg'); height: 340px;    width: 900px;
       border-top-right-radius: 16px;border-bottom-right-radius: 16px;"></div>
@@ -6,12 +6,7 @@
       <div style="clear: both;width: 100%;"></div>
       <div class="profile-photo">
         <div class="avt">
-          <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">
-            <cl-transformation width="200" height="200" gravity="face" radius="max" crop="fill" background="#e9ebee">
-            </cl-transformation>
-            <cl-transformation width="120" crop="scale">
-            </cl-transformation>
-          </cl-image>
+          <img style="height: 120px;width:120px;border-radius:120px;" src="{{baseImageUrl+ imageUrl }}"/>
         </div>
       </div>
       <div class="profile-info clearfix">
@@ -67,20 +62,14 @@
   <div class="recipe-list-wrapper" style="float: left; width: 100%;">
     <!-- 1 anh -->
     <div class="ng-scope member-recipe-item"
-      *ngFor="let recipe of memberRecipes|paginate:{itemsPerPage: 4, currentPage:p};let i = index">
+         *ngFor="let recipe of memberRecipes|paginate:{itemsPerPage: 4, currentPage:p};let i = index">
       <div class="item-inner ng-scope" style="background: white;cursor: pointer;">
         <div class="item-photo" style="    position: relative;">
           <a [routerLink]="['/detail/', recipe.nameSpace]" class="photo">
-            <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: -4px;">
-              <cl-transformation width="216" height="226" radius="20" crop="scale" quality="auto">
-              </cl-transformation>
-            </cl-image>
-
+            <img style="height: 226px;width:216px;border-radius:20px;" src="{{baseImageUrl+ recipe.imageUrl }}"/>
           </a>
           <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
-              aria-hidden="true" style="    position: absolute;
-              left: 88px;
-              top: 100px; color: gray; opacity: 0.8;"></i></span>
+                                                                              aria-hidden="true"></i></span>
 
           <a class=" btn-act btn-add-favourite ng-isolate-scope">
             <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content" style="position: absolute;
@@ -93,7 +82,7 @@
                   bottom: 3px;
                   width: 30px;
                   height: 30px;"><i class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}"
-                  aria-hidden="true"></i></span>
+                                    aria-hidden="true"></i></span>
             </ng-template>
           </a>
 
@@ -114,16 +103,10 @@
         </div>
         <div class="item-footer">
           <div class="recipe-acts">
-            <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">
-              <cl-transformation width="60" height="60" gravity="face" radius="max" crop="fill" background="#e9ebee">
-              </cl-transformation>
-              <cl-transformation width="40" crop="scale">
-              </cl-transformation>
-            </cl-image>{{recipe.user.name}}
+            <img style="height: 60px;width:60px;border-radius:60px;" src="{{baseImageUrl+imageUrl }}"/>
+            {{recipe.user.name}}
             <div style="float: left;
               margin-top: -23px; margin-left: 132px;">
-              <!-- <i class="fa fa-bookmark"></i> -->
-              <!-- <app-add-bookmark [childMessage]="recipe"></app-add-bookmark> -->
             </div>
             <div>
 
@@ -146,20 +129,18 @@
   <div class="row mt-30">
     <div class="col-md-4 col-sm-6" *ngFor="let gallery of memberGallery; let i=index;" style="margin-bottom: 20px;">
       <div class="box19">
-        <cl-image public-id="{{gallery.image}}">
-          <cl-transformation width="332" height="220" crop="scale" quality="auto" radius="2">
-          </cl-transformation>
-        </cl-image>
+        <img style="height: 260px;width:350px;" src="{{baseImageUrl+ gallery.image }}"/>
         <div class="box-content">
           <ul class="icon">
             <li style="cursor: pointer;"><a [routerLink]="['/galleryDetail/', gallery._id]"><i
-                  class="fa fa-search"></i></a></li>
+              class="fa fa-search"></i></a></li>
             <li style="cursor: pointer;"><a><i class="fa fa-heart  " id="heartGallery{{i}}"
-                  (click)="likeGallerry(gallery,i)" *ngIf="!gallery.like;else other_content"></i>
-                <ng-template #other_content><i id="heartGallery{{i}}" (click)="nolikeGallery(gallery,i)"
-                    class="fa fa-heart  check" aria-hidden="true"></i>
-                </ng-template>
-              </a></li>
+                                               (click)="likeGallerry(gallery,i)"
+                                               *ngIf="!gallery.like;else other_content"></i>
+              <ng-template #other_content><i id="heartGallery{{i}}" (click)="nolikeGallery(gallery,i)"
+                                             class="fa fa-heart  check" aria-hidden="true"></i>
+              </ng-template>
+            </a></li>
           </ul>
           <h6 class="title" [routerLink]="['/galleryDetail/', gallery._id]" style="cursor: pointer;">{{gallery.name}}
           </h6>
@@ -194,12 +175,12 @@
         <div class="col-3 account-sidebar">
 
           <h5 class="card-title"
-            style="height: 180px;border-radius: 90px; width: 190px;margin-top: 10px;margin-left: 30px;">
+              style="height: 180px;border-radius: 90px; width: 190px;margin-top: 10px;margin-left: 30px;">
           </h5>
           <p class="card-text" style="width: 250px;"></p>
           <div class="form-inline">
             <a href="#" class="btn btn-outline-primary mr-auto ml-auto"
-              style="height: 20px;width: 100px;margin-left: 50px;"></a>
+               style="height: 20px;width: 100px;margin-left: 50px;"></a>
           </div>
           <br>
           <br>

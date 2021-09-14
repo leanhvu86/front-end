@@ -121,12 +121,20 @@ img {
 }
 
 .column {
-  padding: 0;
-
+  padding: 0px;
+  float: left;
+  position: relative;
+  text-align: center;
+  border-radius: 5px;
+  background-color: white;
+  display: block;
+  overflow: hidden;
+  height: 430px;
 }
 
-.mainGroupImage{
+.mainGroupImage {
   max-width: 100%;
+  border-radius:5px;
   -webkit-transition: all 1s ease; /* Safari and Chrome */
   -moz-transition: all 1s ease; /* Firefox */
   -ms-transition: all 1s ease; /* IE 9 */
@@ -134,13 +142,15 @@ img {
   transition: all 1s ease;
 }
 
-.mainGroupImage:hover{
-  -webkit-transform:scale(1.25); /* Safari and Chrome */
-  -moz-transform:scale(1.25); /* Firefox */
-  -ms-transform:scale(1.25); /* IE 9 */
-  -o-transform:scale(1.25); /* Opera */
-  transform:scale(1.25);
+.mainGroupImage:hover {
+  -webkit-transform: scale(1.11); /* Safari and Chrome */
+  -moz-transform: scale(1.11); /* Firefox */
+  -ms-transform: scale(1.11); /* IE 9 */
+  -o-transform: scale(1.11); /* Opera */
+  transform: scale(1.11);
+  border-radius:5px;
 }
+
 .column::after {
   content: "";
   clear: both;

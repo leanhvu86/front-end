@@ -115,11 +115,8 @@
                           <a style="font-size: 10px;">{{recipe.content}}</a>
                         </div>
                         <div class="col">
-                          <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
-                            <cl-transformation width="80" height="80" crop="scale" quality="auto">
-                            </cl-transformation>
-                          </cl-image>
-
+                          <img style="width: 80px;height: 80px;display: inline-block;"
+                               src="{{baseImageUrl+ recipe.imageUrl }}"/>
                           <a *ngIf="!recipe.like;else other_content" title="Thêm công thức vào bộ sưu tập"> <i
                               class="fa fa-check-circle fa-lg" id="icon{{ j }}" aria-hidden="true"
                               (click)="addRecipe(recipe, j)"></i></a>
@@ -156,10 +153,8 @@
                           <a style="font-size: 10px;">{{recipe.content}}</a>
                         </div>
                         <div class="col">
-                          <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
-                            <cl-transformation width="60" height="60" crop="scale" quality="auto">
-                            </cl-transformation>
-                          </cl-image>
+                          <img style="width: 80px;height: 80px;display: inline-block;"
+                               src="{{baseImageUrl+ recipe.imageUrl }}"/>
                         </div>
                       </div>
                     </div>

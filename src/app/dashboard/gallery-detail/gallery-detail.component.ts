@@ -31,7 +31,7 @@ export class GalleryDetailComponent implements OnInit {
   message: string = '';
   errormessage = '';
   personalCheck: boolean = false;
-  imageUrl: string = 'jbiajl3qqdzshdw0z749';
+  imageUrl: string = 'avartar.png';
   isAuthenicate: boolean = false;
   personalGallery: Gallery[] = [];
   gallerys: Gallery[] = [];
@@ -41,6 +41,7 @@ export class GalleryDetailComponent implements OnInit {
     _id: '',
     recipe: Recipe
   };
+  baseImageUrl = AppSetting.BASE_IMAGE_URL;
 
   constructor(
     private route: ActivatedRoute,
@@ -84,7 +85,7 @@ export class GalleryDetailComponent implements OnInit {
                   }
                 }
                 if (recipe.user.imageUrl === undefined) {
-                  recipe.user.imageUrl = AppSetting.BASE_IMAGE_URL + 'avatar.png';
+                  recipe.user.imageUrl = 'avatar.png';
                 }
               });
             });
@@ -93,7 +94,7 @@ export class GalleryDetailComponent implements OnInit {
           this.recipes = this.recipesTemp;
         }
         if (this.gallery.user.imageUrl !== '') {
-          this.imageUrl = AppSetting.BASE_IMAGE_URL + this.gallery.user.imageUrl;
+          this.imageUrl =  this.gallery.user.imageUrl;
         }
         if (first === true) {
           this.getPersonalGallery();
@@ -122,9 +123,9 @@ export class GalleryDetailComponent implements OnInit {
           for (let gallery of data) {
             if (gallery.user.email === emailUser) {
               if (gallery.recipe.length > 0) {
-                gallery.image = AppSetting.BASE_IMAGE_URL + gallery.recipe[0].imageUrl;
+                gallery.image =  gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = AppSetting.BASE_IMAGE_URL + 'default-gallery.png';
+                gallery.image =  'default-gallery.png';
               }
               this.gallerys.push(gallery);
             }
@@ -138,9 +139,9 @@ export class GalleryDetailComponent implements OnInit {
           for (let gallery of data) {
             if (gallery.user.email === email) {
               if (gallery.recipe.length > 0) {
-                gallery.image = AppSetting.BASE_IMAGE_URL + gallery.recipe[0].imageUrl;
+                gallery.image =  gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = AppSetting.BASE_IMAGE_URL + 'default-gallery.png';
+                gallery.image = 'default-gallery.png';
               }
               this.personalGallery.push(gallery);
             }

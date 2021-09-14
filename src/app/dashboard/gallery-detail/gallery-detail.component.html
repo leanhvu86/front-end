@@ -1,114 +1,124 @@
-<div style="min-height: 480px; ">
+<div style="min-height: 480px; " class="container">
   <br>
-  <div style="text-align: center; " *ngIf="gallery">
-<!--    <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">-->
-<!--      <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill" background="#e9ebee">-->
-<!--      </cl-transformation>-->
-<!--      <cl-transformation width="75" crop="scale"> </cl-transformation>-->
-<!--    </cl-image>-->
-    <img style="width: 100px; height: 100px; border-radius: 100px;" src="{{imageUrl}}" />
-    <br>
-    <a style="font-weight: lighter;color: black;"
-      [routerLink]="['/member/info/', gallery.user._id]">{{gallery.user.name}}</a><br>
-    <a style="font-size: 10px; font-weight: 100;"><span style="color: red;">{{gallerys.length}}</span> Bộ sưu tập</a>
-    <hr>
-    <a style="font-weight: bold; font-size: 16px;">{{gallery.name}}</a>
-    <br>
-    <a>{{gallery.content}}</a>
-    <br><br>
-    <div class="container" style="background: white;border-radius: 10px; width: 120%;height: 60px; padding: 10px 0;">
-      <div class="row" style="height: 40px;">
-        <div class="col-8">
-          <div class="row" style="height: 40px;">
-            <div class="col-8" style="margin-left: -70px;">
-              <a><i class="fa fa-clone" aria-hidden="true"><span
-                    style="color: red; padding: 0 5px;">{{gallery.recipe.length}}</span></i>Công thức </a>
-              <a><i class="fa fa-heartbeat" aria-hidden="true"><span style="color: red; padding: 0 5px;">
+  <div class="row">
+    <div style="text-align: center;width:100%; " *ngIf="gallery" >
+      <!--    <cl-image public-id="{{imageUrl}}" style="border-radius: 50px;">-->
+      <!--      <cl-transformation width="150" height="150" gravity="face" radius="max" crop="fill" background="#e9ebee">-->
+      <!--      </cl-transformation>-->
+      <!--      <cl-transformation width="75" crop="scale"> </cl-transformation>-->
+      <!--    </cl-image>-->
+      <img style="width: 100px; height: 100px; border-radius: 100px;" src="{{baseImageUrl+imageUrl}}"/>
+      <br>
+      <a style="font-weight: lighter;color: black;"
+         [routerLink]="['/member/info/', gallery.user._id]">{{gallery.user.name}}</a><br>
+      <a style="font-size: 10px; font-weight: 100;"><span style="color: red;">{{gallerys.length}}</span> Bộ sưu tập</a>
+      <hr>
+      <a style="font-weight: bold; font-size: 16px;">{{gallery.name}}</a>
+      <br>
+      <a>{{gallery.content}}</a>
+      <br><br>
+      <div class="container" style="background: white;border-radius: 10px; width: 120%; padding: 15px 0;">
+        <div class="row">
+          <div class="col-8">
+            <div class="row">
+              <div class="col-8" style="float:left; text-align:none;">
+                <a><i class="fa fa-clone" aria-hidden="true"><span
+                  style="color: red; padding: 0 5px;">{{gallery.recipe.length}}</span></i>Công thức </a>
+                <a><i class="fa fa-heartbeat" aria-hidden="true"><span style="color: red; padding: 0 5px;">
                     {{gallery.totalPoint}}</span></i>Lượt ưu thích</a>
+              </div>
+              <div class="col-4">
+
+              </div>
             </div>
-            <div class="col-4">
 
+          </div>
+          <div class="col-4" style="color: #585858;">
+
+            <div *ngIf="mine">
+              <app-app-recipe-gallery [childMessage]="gallery"></app-app-recipe-gallery>
             </div>
+
+
           </div>
-
-        </div>
-        <div class="col-4" style="color: #585858;">
-
-          <div *ngIf="mine">
-            <app-app-recipe-gallery [childMessage]="gallery"></app-app-recipe-gallery>
-          </div>
-
-
         </div>
       </div>
+      <br>
     </div>
-    <br>
+
   </div>
 
-  <div *ngIf="checkRecipe" class="row" style="background: white; margin-left: 20px;">
+  <div *ngIf="checkRecipe" class="row">
     <div class=".col-md-8"
-      *ngFor="let recipe of recipes| filter:searchText | paginate: { itemsPerPage: 20, currentPage: p }; let i=index"
-      style="position: relative;margin-bottom: 100px;">
-      <div class="hover15 column"
-        style="float: left; margin-left: 3.5%; width: 30%; position: relative; text-align: center;">
-        <div [routerLink]="['/detail/', recipe.nameSpace]">
-          <figure>
-            <cl-image public-id="{{recipe.imageUrl}}" style="margin-top: 10px;">
-              <cl-transformation width="200" height="280" crop="crop" quality="auto">
-              </cl-transformation>
-            </cl-image>
-          </figure>
-
+         *ngFor="let recipe of recipes| filter:searchText | paginate: { itemsPerPage: 20, currentPage: p }; let i=index"
+         style="position: relative;">
+      <div class=" column">
+        <div [routerLink]="['/detail/', recipe.nameSpace]"
+             style="display: block;  overflow:hidden; float: left; ">
+          <div class="w-100 mainGroupImage">
+            <img style="width: 100%;height: 280px;image-rendering:crisp-edges;border-radius:5px;"
+                 src="{{baseImageUrl+ recipe.imageUrl }}"/>
+          </div>
         </div>
-        <a class="link-name" style="top: 310px;bottom:20px; position: absolute; min-width:150px; width: 200px;
-          left: 60px; text-align: left;            text-overflow: ellipsis;
-    overflow: hidden;
-    white-space:nowrap;
-            display: block; font-size: 16px;color: rgb(0, 0, 0);"
-          [routerLink]="['/detail/', recipe.nameSpace]">{{recipe.recipeName}}</a>
+        <a class="link-name" title="xem chi tiết công thức" style="top: 300px;bottom:20px; position: absolute; min-width:150px; width: 200px;
+                  left: 10px;
+                    text-overflow: ellipsis;
+            overflow: hidden;
+            white-space:nowrap;
+                    display: block; font-size: 16px;color: rgb(0, 0, 0);"
+           [routerLink]="['/detail/', recipe.nameSpace]">{{recipe.recipeName}}</a>
 
-        <div style="top:340px;left:  2px; position: absolute; font-size: 12px; opacity: 0.8; ">&#160;
-          <i class="fa fa-clock-o stats-ico" aria-hidden="true"> {{recipe.time}}ph</i>
+        <div style="top:340px;left: -60px; position: absolute; font-size: 12px; opacity: 0.8; height: 100px;">&#160;
+          <i class="fa fa-clock-o stats-ico" aria-hidden="true"> {{recipe.time}}ph </i>
         </div>
-        <div style="top:340px;left: 43px; position: absolute; font-size: 12px;opacity: 0.8;  ">&#160;
-          <i class="fa fa-bar-chart stats-ico" aria-hidden="true">
-
-            {{recipe.viewCount}}
-          </i>
+        <div style="top:340px;left: -15px; position: absolute; font-size: 12px;opacity: 0.8; height: 100px; ">&#160;
+          <i class="fa fa-bar-chart stats-ico" aria-hidden="true">{{recipe.viewCount}}</i>
         </div>
-        <div style="top:340px;left: 78px; position: absolute; font-size: 12px;opacity: 0.8;  ">
+        <div style="top:340px;left: 35px; position: absolute; font-size: 12px;opacity: 0.8; height: 100px; ">
           <i class="fa fa-bolt stats-ico" aria-hidden="true">&#160;{{recipe.hardLevel}}</i>
         </div>
         <div
-          style="top:370px;left: 50px; position: absolute; font-size: 12px;opacity: 0.8; width: 240px; height: 1px; background: gray;  ">
+          style="top:370px; position: absolute; font-size: 12px;opacity: 0.8; width: 210px; height: 1px; background: gray;  ">
 
         </div>
+        <div style="top:375px; position: absolute; font-size: 12px; height: 100px; ">
+          <a title="Công thức đăng bởi: {{recipe.user.name}}"
+             style="font-size: 12px;color: black;width: 270px;text-align: left;">
+            <div class="row">
+              <div class="col" [routerLink]="['/member/info/', recipe.user._id]">
+                <img style="width: 50px;height: 50px;border-radius: 50px;display: inline-block;"
+                     src="{{baseImageUrl+ recipe.user.imageUrl }}"/>
+                <input type="text" value="{{recipe.user.name}}"
+                       style="width: 60%; text-overflow: ellipsis;display: inline-block;padding-left: 10px; border: none; cursor: pointer; background: none;"
+                       disabled>
+              </div>
+              <div class="col-md-3">
+                <a class="button_slidehr slide_downhr"
+                   style=" width: 50px;margin-top: 10px;margin-left: 10px;background: none;" id="bookmark"
+                   title="Thêm công thức vào bộ sưu tập" (click)="addBookmark(recipe)"></a>
+              </div>
+            </div>
+          </a>
+
+          <!-- <app-add-bookmark [childMessage]="recipe" id="i"></app-add-bookmark> -->
+        </div>
+
+        <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
+                                                                            aria-hidden="true"
+                                                                            style="top:25%;left:44%;width: 30px;height:30px;"></i></span>
         <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"
-          style="position: absolute; left:270px; bottom: 20%;"><i id="heart{{i}}" class="fa fa-heart fa-3x heart"
-            aria-hidden="true"></i></span>
+              style="bottom: 35%; right: 5%;position: absolute;cursor: pointer;"><i id="heart{{i}}"
+                                                                                    class="fa fa-heart fa-3x heart"
+                                                                                    aria-hidden="true"></i></span>
         <ng-template #other_content>
-          <span (click)="dislikeRecipe(recipe,i)" style="position: absolute; left:270px; bottom: 20%;"><i
+            <span (click)="dislikeRecipe(recipe,i)"
+                  style="bottom: 35%; right: 5%;position: absolute;cursor: pointer;"><i
               class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
         </ng-template>
-        <div style="top:375px;left: 35px; position: absolute; font-size: 12px;">
-          <a title="{{recipe.user.name}}" [routerLink]="['/member/info/', recipe.user._id]" style="color: black;">
-            <cl-image public-id="{{recipe.user.imageUrl}}" style="border-radius: 50px;">
-              <cl-transformation width="80" height="80" gravity="face" radius="max" crop="fill" background="#e9ebee">
-              </cl-transformation>
-              <cl-transformation width="40" crop="scale">
-              </cl-transformation>
-            </cl-image>&#160;{{recipe.user.name}}
-          </a>
-          <a class="button_slidehr slide_downhr" style="margin-left: 50px; width: 50px;margin-top: 10px;" id="bookmark"
-            title="Thêm công thức vào bộ sưu tập" (click)="addBookmark(recipe)"></a>
-          <!-- <app-add-bookmark [childMessage]="recipe"></app-add-bookmark> -->
-        </div>
-        <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
-            aria-hidden="true" style="top:40%;left:155px;width: 30%;"></i></span>
       </div>
     </div>
   </div>
-  <br><br>
+  <br>
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 <br>
@@ -117,10 +127,10 @@
   <hr>
   <div class="row mt-30">
     <div class="col-md-4 col-sm-6"
-      *ngFor="let gallery of gallerys |paginate:{itemsPerPage: 12, currentPage:p}; let i = index"
-      style="margin-bottom: 30px;">
+         *ngFor="let gallery of gallerys |paginate:{itemsPerPage: 12, currentPage:p}; let i = index"
+         style="margin-bottom: 30px;">
       <div class="box21">
-        <img style="width: 350px; height: 230px;" src="{{gallery.image}}" />
+        <img style="width: 350px; height: 230px;" src="{{baseImageUrl+gallery.image}}"/>
         <div class="box-content">
           <h4 class="title" (click)="loadGallery(gallery)">{{gallery.name}}</h4>
           <p class="description">{{gallery.content}}</p>
@@ -133,10 +143,11 @@
 
 <app-scroll-top></app-scroll-top>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" hidden
-  id="modal-button1">Large modal</button>
+        id="modal-button1">Large modal
+</button>
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-  aria-hidden="true" style="height: auto;min-height: 600px; width: 100%;">
+     aria-hidden="true" style="height: auto;min-height: 600px; width: 100%;">
   <div class="modal-dialog modal-lg" role="document" style="height: auto;min-height: 600px;">
     <div class="modal-content" style="height: auto; margin-bottom: 50px;min-height: 600px;background: white;">
       <div class="modal-header">
@@ -153,7 +164,7 @@
         <div class="row mt-30">
           <div class="col-md-4 col-sm-6" *ngFor="let gallery of personalGallery" style="margin-bottom: 30px;">
             <div class="box3" (click)="addRecipeBookMark(gallery)">
-              <img style="width: 235px; height: 171px;" src="{{gallery.image}}" />
+              <img style="width: 235px; height: 171px;" src="{{baseImageUrl+gallery.image}}"/>
 
               <div class="box-content">
                 <a class="title" style="font-size: 14px;">{{gallery.name}}</a>

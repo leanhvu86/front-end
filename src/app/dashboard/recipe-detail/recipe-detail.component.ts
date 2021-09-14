@@ -210,7 +210,15 @@ export class RecipeDetailComponent implements OnInit {
         this.cookSteps = this.recipe.cockStep;
         this.waitingRecipe = this.recipe.status !== 1;
         this.loadingSuccess1 = true;
-        this.displayURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.recipe.videoLink);
+        const urlString = this.recipe.videoLink;
+        let videoId = '';
+        if (urlString.includes('https:')) {
+          const urlVIdeo = new URL(urlString);
+          videoId = urlVIdeo.searchParams.get('v');
+        } else {
+          videoId = urlString;
+        }
+        this.displayURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + videoId);
         this.getRecipes();
         this.showVideo = false;
         this.titleMain.setTitle(this.recipe.recipeName);

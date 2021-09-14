@@ -8,6 +8,7 @@ import {Recipe} from '../../../shared/model/recipe';
 import {RecipeService} from 'src/app/shared/service/recipe-service.service';
 import {ActivatedRoute} from '@angular/router';
 import {ChatService} from 'src/app/shared/service/chat.service';
+import {AppSetting} from '../../../appsetting';
 
 @Component({
   selector: 'app-app-recipe-gallery',
@@ -34,6 +35,7 @@ export class AppRecipeGalleryComponent implements OnInit {
   errorMessage: string = '';
   recipes: Recipe[] = [];
   saving = false;
+  baseImageUrl = AppSetting.BASE_IMAGE_URL;
 
   constructor(
     private cookie: CookieService,

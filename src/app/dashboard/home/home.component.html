@@ -23,74 +23,10 @@
       </div>
     </div>
   </div>
-
-  <!-- <section class="container clearfix">
-    <div class="row bg-danger">
-      <div class="col-lg-12 col-md-12 col-xl-12">
-        erdsfcdsx
-      </div>
-    </div>
-  </section> -->
   <div class="container" style="width: 80% !important;margin-top: 700px;">
-    <!-- <div style="background: white;height: 2px;width: 90%;margin-left: 5%; opacity: 0; margin-top: 800px; "></div> -->
-    <!-- <div class="row" style="margin-left: 80px; width: 1300px;">
-      <div style="width: 100%; margin-top: 70px; margin-left: 5px; height:100px;">
-          <a style="width: 130px;height: 80px; text-align: center;font-size: 12px;padding: 2px 2px; float: left;margin-right: 20px; position: relative;"
-              class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
-                  src="../../../assets/images/quickeasy.png" /><span
-                  style="position: absolute; bottom: 2px; left: 45px;">Nhanh dễ</span></a>
-
-          <a style="width: 130px;height: 80px;text-align: center;font-size: 12px;padding: 2px 2px; float: left;margin-right: 20px;position: relative;"
-              class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
-                  src="../../../assets/images/cake.64.png" /><span
-                  style="position: absolute; bottom: 2px; left: 42px;">Bánh chay</span></a>
-          <a style="width: 130px;height: 80px;text-align: center;font-size: 12px;padding: 2px 2px; float: left;margin-right: 20px;position: relative;"
-              class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
-                  src="../../../assets/images/healthy.png" /><span
-                  style="position: absolute; bottom: 2px; left: 35px;">Rau
-                  củ quả</span></a>
-          <a style="width: 130px;height: 80px;text-align: center;font-size: 12px;padding: 2px 2px; float: left; margin-right: 20px;position: relative;"
-              class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
-                  src="../../../assets/images/maincourse.png" /><span
-                  style="position: absolute; bottom: 2px; left: 40px;">Món chính</span></a>
-          <a style="width: 130px;height: 80px;text-align: center;font-size: 12px;padding: 2px 2px; float: left;margin-right: 20px;position: relative;"
-              class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
-                  src="../../../assets/images/salad.64.png" /><span
-                  style="position: absolute; bottom: 2px; left: 45px;">Sallad</span></a>
-          <a style="width: 130px;height: 80px;text-align: center;font-size: 12px;padding: 2px 2px; float: left; margin-right: 20px;position: relative;"
-              class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
-                  src="../../../assets/images/sauce.png" /><span style="position: absolute; bottom: 2px; left: 40px;">Nước Sốt</span></a>
-          <a style=" width: 130px;height: 80px;text-align: center;font-size: 12px;padding: 2px 2px; float: left; margin-right: 20px; position: relative;"
-              class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
-                  src="../../../assets/images/noodle.png" /><span style="position: absolute; bottom: 2px; left: 45px;">Món</span></a>
-          <a style=" width: 130px;height: 80px;text-align: center;font-size: 12px;padding: 2px 2px; float: left; margin-right: 20px; position: relative;"
-              class="filter"><img style="width: 10%; width: 36px;height: 36px;margin-top: 5%;"
-                  src="../../../assets/images/hotspot.png" /><span
-                  style="position: absolute; bottom: 2px; left: 45px;">Món Lẩu</span></a>
-      </div>
-  </div> -->
     <br><br> <br>
-    <a class="a-title">CÔNG THỨC NỔI BẬT</a><br>
+    <a class="a-title">CÔNG THỨC NỔI BẬT</a><br><br>
     <ng-template #skeleton>
-      <!-- <main class="container mt-2">
-      <div class="row">
-        <div class="col-4 col-lg-2 p-2">
-          <div class="user-img m-2 mr-auto ml-auto">
-            <img src="/assets/img/user.svg" class="img-fluid rounded-circle">
-          </div>
-        </div>
-        <div class="col-8 col-lg-10 pt-3 sm-text-center">
-          <h2 class="display-5 text-capitalize sm-mr-auto sm-ml-auto"></h2>
-          <p class="lead sm-mr-auto sm-ml-auto"></p>
-          <a href="#" class="btn btn-secondary mr-1"></a><a href="#" class="btn btn-secondary"></a>
-        </div>
-      </div>
-    </main> -->
-      <!-- <section style="width: 90%; margin-left: 4%; min-height: auto;"> -->
-      <!-- <div class="pt-2 pb-4 text-center">
-        <h5 class="mr-auto ml-auto"></h5>
-      </div> -->
-      <!-- <div class="container"> -->
       <div class="row">
         <div class="col-lg-3 col-md-4 mb-4">
           <div class="card ">
@@ -198,15 +134,13 @@
 
       <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 px-0"
            *ngFor="let recipe of recipes| paginate: config; let i=index" style="position: relative;">
-        <div class=" column" style="float: left;position: relative; text-align: center;">
+        <div class=" column">
           <div [routerLink]="['/detail/', recipe.nameSpace]"
-               style=" margin: 5px; display: block;  overflow:hidden; float: left; ">
+               style="display: block;  overflow:hidden; float: left; ">
             <div class="w-100 mainGroupImage">
-              <img style="width: 100%;height: 280px;image-rendering:crisp-edges;"
+              <img style="width: 100%;height: 280px;image-rendering:crisp-edges;border-radius:5px;"
                    src="{{baseImageUrl+ recipe.imageUrl }}"/>
             </div>
-
-
           </div>
           <a class="link-name" title="xem chi tiết công thức" style="top: 300px;bottom:20px; position: absolute; min-width:150px; width: 200px;
                   left: 10px;
@@ -253,14 +187,14 @@
 
           <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"
                                                                               aria-hidden="true"
-                                                                              style="top:42%;left:44%;width: 30px;height:30px;"></i></span>
+                                                                              style="top:25%;left:44%;width: 30px;height:30px;"></i></span>
           <span (click)="likeRecipe(recipe,i)" *ngIf="!recipe.like;else other_content"
-                style="bottom: 5%; right: 5%;position: absolute;cursor: pointer;"><i id="heart{{i}}"
+                style="bottom: 35%; right: 5%;position: absolute;cursor: pointer;"><i id="heart{{i}}"
                                                                                      class="fa fa-heart fa-3x heart"
                                                                                      aria-hidden="true"></i></span>
           <ng-template #other_content>
             <span (click)="dislikeRecipe(recipe,i)"
-                  style="bottom: 5%; right: 5%;position: absolute;cursor: pointer;"><i
+                  style="bottom: 35%; right: 5%;position: absolute;cursor: pointer;"><i
               class="fa fa-heart fa-3x dislikeheart " id="heart{{i}}" aria-hidden="true"></i></span>
           </ng-template>
         </div>
@@ -352,12 +286,10 @@
 
       <div class="row mt-30" style="margin-left: -50px;">
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 justify-content-around "
-             *ngFor="let gallery of galleryTop;let i = index" style="margin-top: 50px;">
+             *ngFor="let gallery of galleryTop;let i = index" style="margin-top: 20px;">
           <div class="box15">
-            <cl-image public-id="{{gallery.image}}">
-              <cl-transformation width="206" height="230" crop="crop" quality="auto" radius="2">
-              </cl-transformation>
-            </cl-image>
+            <img style="width: 265px;height: 230px;image-rendering:crisp-edges;"
+                 src="{{baseImageUrl+ gallery.image }}"/>
             <div class="box-content">
               <h4 class="title" style="text-overflow: ellipsis;
               overflow: hidden;
@@ -384,10 +316,10 @@
     </div>
     <div style="background: white; margin-top: 2%;height: 2px;width: 90%;margin-left: 5%; margin-bottom: 2%;"></div>
     <div class="clearfix"></div>
-    <br>
+<!--    <br>-->
     <a class="a-title">TOP THÀNH VIÊN</a>
     <div class="clearfix" style="width: 10px;"></div>
-    <br><br><br>
+    <br>
     <div style="margin-left: 2%; min-height: auto;" data-aos="fade-in" data-aos-duration="4000">
       <div *ngFor="let user of topUsers"
            style=" float: left;border-radius: 50%; background: none; width: 100px; position: relative; cursor: pointer;">
@@ -428,10 +360,8 @@
             <div class="row mt-30">
               <div class="col-md-4 col-sm-6" *ngFor="let gallery of personalGallery" style="margin-bottom: 30px;">
                 <div class="box3" (click)="addRecipeBookMark(gallery)">
-                  <cl-image public-id="{{gallery.image}}">
-                    <cl-transformation height="171" width="235" crop="scale">
-                    </cl-transformation>
-                  </cl-image>
+                  <img style="width: 235px;height: 235px;image-rendering:crisp-edges;"
+                       src="{{baseImageUrl+ gallery.image }}"/>
                   <div class="box-content">
                     <a class="title" style="font-size: 14px;">{{gallery.name}}</a>
                     <div style="float: left; width: 100%; height:0.5px; background: white;"></div>

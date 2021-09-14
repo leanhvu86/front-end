@@ -428,7 +428,7 @@ export class RecipeComponent implements OnInit {
     if (this.foodTypesFilter.length === 0) {
       const radio: HTMLElement = document.getElementById('food-type');
       radio.style.color = 'black';
-      radio.style.background = '#e7e7e7';
+      radio.style.background = 'white';
     }
     this.foodTypes = this.foodTypes.sort((a, b) => a.foodTypeCode > b.foodTypeCode ? 1 : -1);
     this.loadFilter();
@@ -466,7 +466,7 @@ export class RecipeComponent implements OnInit {
     if (this.countrysFilter.length === 0) {
       const radio: HTMLElement = document.getElementById('country');
       radio.style.color = 'black';
-      radio.style.background = '#e7e7e7';
+      radio.style.background = 'white';
     }
     this.countrys = this.countrys.sort((a, b) => a.countryCode > b.countryCode ? 1 : -1);
     this.loadFilter();
@@ -505,7 +505,7 @@ export class RecipeComponent implements OnInit {
     if (this.cookWaysFilter.length === 0) {
       const radio: HTMLElement = document.getElementById('CookWay');
       radio.style.color = 'black';
-      radio.style.background = '#e7e7e7';
+      radio.style.background = 'white';
     }
     this.cookWays = this.cookWays.sort((a, b) => a.cookWayCode > b.cookWayCode ? 1 : -1);
     this.loadFilter();
@@ -543,7 +543,7 @@ export class RecipeComponent implements OnInit {
     if (this.ingredientsFilter.length === 0) {
       const radio: HTMLElement = document.getElementById('ingredient');
       radio.style.color = 'black';
-      radio.style.background = '#e7e7e7';
+      radio.style.background = 'white';
     }
     this.ingredients = this.ingredients.sort((a, b) => a.cookWayCode > b.cookWayCode ? 1 : -1);
     this.loadFilter();

@@ -40,3 +40,13 @@ typings
 # Generated files
 dist
 .idea/inspectionProfiles/Project_Default.xml
+*.xml
+*.xml
+*.iml
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/misc.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/front-end.iml
+.idea/encodings.xml
+.idea/codeStyles/Project.xml

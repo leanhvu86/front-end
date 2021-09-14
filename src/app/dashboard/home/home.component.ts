@@ -34,12 +34,9 @@ export class Home2Component implements OnInit {
 
   loadingSuccess = false;
   avatar: string = AppSetting.BASE_IMAGE_URL + 'avatar.png';
-  IMAGE_URL: string = AppSetting.BASE_IMAGE_URL;
   topUsers: User[] = [];
-  tfaFlag: boolean = false;
   errorMessage: string = null;
   message: string = null;
-  showModal: boolean = false;
   isAuthenicate: boolean = false;
   search;
   collection = {count: 60, data: []};
@@ -107,7 +104,7 @@ export class Home2Component implements OnInit {
         if (gallery.recipe.length > 0) {
           gallery.image = gallery.recipe[0].imageUrl;
         } else {
-          gallery.image = 'fvt7rkr59r9d7wk8ndbd';
+          gallery.image = 'default-gallery.png';
         }
       }
       this.galleryTop = galleries;
@@ -125,7 +122,7 @@ export class Home2Component implements OnInit {
               if (gallery.recipe.length > 0) {
                 gallery.image = gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = 'fvt7rkr59r9d7wk8ndbd';
+                gallery.image = 'default-gallery.png';
               }
               this.personalGallery.push(gallery);
             }
@@ -224,7 +221,7 @@ export class Home2Component implements OnInit {
                 if (gallery.recipe.length > 0) {
                   gallery.image = gallery.recipe[0].imageUrl;
                 } else {
-                  gallery.image = 'fvt7rkr59r9d7wk8ndbd';
+                  gallery.image = 'default-gallery.png';
                 }
               }
               this.galleryTop = galleries;
@@ -271,7 +268,7 @@ export class Home2Component implements OnInit {
   }
 
   likeGallerry(gallery: any, index: any) {
-    this.isAuthenicate = localStorage.getItem('email') !== '' ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== '';
     if (this.isAuthenicate === false) {
       console.log('false');
       const radio: HTMLElement = document.getElementById('modal-button');
@@ -279,13 +276,13 @@ export class Home2Component implements OnInit {
       return;
     }
     gallery.like = true;
-    let user = localStorage.getItem('email');
-    let interestObject = new Object({
+    const user = localStorage.getItem('email');
+    const interestObject = new Object({
       user: user,
       objectId: gallery,
       objectType: '1'
     });
-    let id = 'heartGallery' + index;
+    const id = 'heartGallery' + index;
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'red';
     radio.style.opacity = '0.8';
@@ -307,18 +304,19 @@ export class Home2Component implements OnInit {
   nolikeGallery(gallery: any, index: any) {
     gallery.like = false;
     if (this.isAuthenicate !== true) {
+      // tslint:disable-next-line:no-shadowed-variable
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
     }
     gallery.like = false;
-    let user = localStorage.getItem('email');
-    let interestObject = new Object({
+    const user = localStorage.getItem('email');
+    const interestObject = new Object({
       user: user,
       objectId: gallery,
       objectType: '1'
     });
-    let id = 'heartGallery' + index;
+    const id = 'heartGallery' + index;
     const radio: HTMLElement = document.getElementById(id);
     radio.style.color = 'grey';
     radio.style.opacity = '0.5';
@@ -340,9 +338,10 @@ export class Home2Component implements OnInit {
   }
 
   likeRecipe(recipe: any, index: any) {
-    this.isAuthenicate = localStorage.getItem('email') !== '' ? true : false;
+    this.isAuthenicate = localStorage.getItem('email') !== '';
     if (this.isAuthenicate === false) {
       console.log('false');
+      // tslint:disable-next-line:no-shadowed-variable
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;

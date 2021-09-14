@@ -1,14 +1,15 @@
-<div class="row">
-  <form class="form" style="width: 750px; margin: 20px auto;">
-    <input title="Search" value="" type="submit" class="button search-button">
-    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-      placeholder="Tìm kiêm công thức" (input)="keyUp()" style="width: 90%;
+<br>
+<div class="container" style="background: white; border-radius: 5px; padding: 10px 15px;">
+  <div class="row">
+    <form class="form" style="width:98%;margin-left:5%;">
+      <input title="Search" value="" type="submit" class="button search-button">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+             placeholder="Tìm kiêm công thức" (input)="keyUp()" style="width: 90%;
         cursor: pointer;">
-  </form>
+    </form>
 
-</div>
-<div class="container" style="background: white; border-radius: 5px; padding: 15px 30px;">
-  <div class="row" style="width: 100%;">
+  </div>
+  <div class="row" style="width: 78%; margin-left:25%;">
     <a style="color: #c0f072; margin:10px 10px;"><i class="fa fa-sliders fa-lg" aria-hidden="true"></i></a>
     <button (click)="onChangedFoodType($event)" class="button-filter" title="Lọc theo loại món" id="food-type"
       style=" margin: 10px  30px;">Món ăn&#160;</button>

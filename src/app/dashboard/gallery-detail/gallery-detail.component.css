@@ -2,7 +2,7 @@
     width: 450px;
     height: 350px;
     border: 3px solid #ccc;
-    background: #eee; 
+    background: #eee;
     margin: auto;
     padding: 15px 25px;
     }
@@ -108,46 +108,72 @@
     width: 40%;
     height: 30px;
 }
-
 .column {
-	margin: 15px 15px 0;
-	padding: 0;
+  padding: 0px;
+  float: left;
+  position: relative;
+  text-align: center;
+  border-radius: 5px;
+  background-color: white;
+  display: block;
+  overflow: hidden;
+  height: 430px;
 }
-.column:last-child {
-	padding-bottom: 60px;
+
+.mainGroupImage {
+  max-width: 100%;
+  border-radius:5px;
+  -webkit-transition: all 1s ease; /* Safari and Chrome */
+  -moz-transition: all 1s ease; /* Firefox */
+  -ms-transition: all 1s ease; /* IE 9 */
+  -o-transition: all 1s ease; /* Opera */
+  transition: all 1s ease;
 }
+
+.mainGroupImage:hover {
+  -webkit-transform: scale(1.11); /* Safari and Chrome */
+  -moz-transform: scale(1.11); /* Firefox */
+  -ms-transform: scale(1.11); /* IE 9 */
+  -o-transform: scale(1.11); /* Opera */
+  transform: scale(1.11);
+  border-radius:5px;
+}
+
 .column::after {
-	content: '';
-	clear: both;
-	display: block;
+  content: "";
+  clear: both;
+  display: block;
 }
+
 .column div {
-	position: relative;
-	float: left;
-	width: 270px;
-	height: 300px;
-	margin: 0 5%;
-	padding: 0;
+  position: relative;
+  float: left;
+  width: 250px;
+  /* height: 300px; */
+  margin: 0 5%;
+  padding: 0;
 }
+
 .column div:first-child {
-	margin-left: 0;
+  margin-left: 0;
 }
+
 .column div span {
-	position: absolute;
-	bottom: -20px;
-	left: 0;
-	z-index: -1;
-	display: block;
-	width: 270px;
-	margin: 0;
-	padding: 0;
-	color: #444;
-	font-size: 18px;
-	text-decoration: none;
-	text-align: center;
-	-webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
-	opacity: 0;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  z-index: -1;
+  display: block;
+  width: 270px;
+  margin: 0;
+  padding: 0;
+  color: #444;
+  font-size: 18px;
+  text-decoration: none;
+  text-align: center;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  opacity: 0;
 }
 figure {
 	width: 270px;
@@ -200,11 +226,11 @@ figure:hover+span {
 	background:none;
 	margin-right:15%;
 	margin-left:15%;
-	transition: all .2s ease-in-out; 
+	transition: all .2s ease-in-out;
 	width: 100px;
 }
 .memberfunny:hover{
-	transform: scale(1.1); 
+	transform: scale(1.1);
 }
 
 /* Zoom Out #1 */
@@ -478,7 +504,7 @@ figure:hover+span {
     padding-top: 2px ;
     padding-left: 10px;
   }
-  
+
   .form > .textbox {
     outline: 0;
     height: 42px;
@@ -492,12 +518,12 @@ figure:hover+span {
     -webkit-border-radius: 4px 0 0 4px;
     border-radius:0 4px  4px 0;
   }
-  
+
   .form > .textbox:focus {
     outline: 0;
     background-color: #FFF;
   }
-  
+
   .form > .button {
     outline: 0;
     background: none;
@@ -518,7 +544,7 @@ figure:hover+span {
     -webkit-border-radius: 0 4px 4px 0;
     border-radius:  4px 0 0 4px ;
   }
-  
+
   .form > .button:hover {
     background-color: rgba(252, 103, 5, 0.986);
   }
@@ -539,12 +565,12 @@ figure:hover+span {
   .filter:hover{
 	transition: transform .2s;
   }
-  
+
   @-webkit-keyframes glow {
 	from {
 	  text-shadow: 0 0 2px #fff, 0 0 20px #fff, 0 0 30px #a1a0a1, 0 0 40px #979797, 0 0 50px #949494, 0 0 60px #b4b4b4, 0 0 70px #afafaf;
 	}
-	
+
 	to {
 	  text-shadow: 0 0 4px #fff, 0 0 30px #afaeaf, 0 0 40px #b4b3b4, 0 0 50px #acacac, 0 0 60px #a5a4a4, 0 0 70px #afafaf, 0 0 80px #b1afb0;
 	}
@@ -1016,7 +1042,7 @@ body{background-color:#f1f1f2}
 	display: inline-block;
   }
   .link-name:hover{
-	  
+
 	border-bottom: 1px dotted black;
   }
   .bd-example-modal-lg .modal-dialog{
@@ -1025,7 +1051,7 @@ body{background-color:#f1f1f2}
     margin: 0 auto;
     top: calc(50% - 24px);
   }
-  
+
   .bd-example-modal-lg .modal-dialog .modal-content{
     background-color: transparent;
     border: none;
@@ -1049,17 +1075,17 @@ body{background-color:#f1f1f2}
 	-moz-transition: ease-out 0.4s;
 	transition: ease-out 0.4s;
   }
-  
+
   .slide_downhr:hover {
 	color:white;
 	/* border: 1px solid transparent; */
 	/* box-shadow: inset 0 100px 0 0 #156466; */
   }
-  
+
   .button_slidehr:hover:after {
 	background-image: url(https://res.cloudinary.com/am-thuc-an-chay/image/upload/v1584789262/urpz9k9gk67nitcxzwu2.png);
   }
-  
+
   .button_slidehr:after {
 	content: "";
 	display: inline-block;
