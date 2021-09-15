@@ -8,6 +8,7 @@ import {UserService} from 'src/app/shared/service/user.service.';
 import {trigger} from '@angular/animations';
 import {fadeIn} from '../../shared/animation/fadeIn';
 import {AppSetting} from '../../appsetting';
+import {ChatService} from '../../shared/service/chat.service';
 
 
 @Component({
@@ -42,7 +43,8 @@ export class GalleryComponent implements OnInit {
     private formBuilder: FormBuilder,
     private galleryService: GalleryService,
     private recipeService: RecipeService,
-    private userService: UserService
+    private userService: UserService,
+    private chatService: ChatService
   ) {
     this.isAuthenicate = localStorage.getItem('email') !== "";
     console.log(this.isAuthenicate)
@@ -55,8 +57,9 @@ export class GalleryComponent implements OnInit {
       content: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(500)]]
       // , image: ['']
     });
-    this.getPersonalGallery()
-    this.getTopGalleries()
+    this.getPersonalGallery();
+    this.getTopGalleries();
+    this.chatService.scrollToTop();
   }
 
   get f() { return this.registerForm.controls; }

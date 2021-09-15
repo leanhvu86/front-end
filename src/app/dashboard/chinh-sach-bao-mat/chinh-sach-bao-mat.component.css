@@ -1,66 +1,77 @@
 .nav-link {
   color: black;
 }
-.nav-link:hover{
+
+.nav-link:hover {
   text-decoration: underline;
 }
-.content{
+
+.content {
   width: 80%;
 }
 
 
 .container {
-width: 1170px;
+  width: 1170px;
 }
+
 .container {
-margin-right: auto;
-margin-left: auto;
+  margin-right: auto;
+  margin-left: auto;
 }
+
 .l-page-container {
-background-color: #fff;
+  background-color: #fff;
 }
+
 .l-page-container {
-min-height: 600px;
+  min-height: 600px;
 }
+
 .page-container {
-padding: 20px 0;
+  padding: 20px 0;
 }
+
 .l-page-container .container {
-position: relative;
+  position: relative;
 }
+
 .body-content {
-padding-left: 15px;
-padding-right: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .l-page-left {
-float: left;
+  float: left;
 }
+
 .page-container .page-navbar {
-border-right: 1px solid #ececec;
-margin-top: 20px;
-margin-bottom: 20px;
-margin-right: 15px;
+  border-right: 1px solid #ececec;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 15px;
 }
+
 .nomargin {
-margin: 0;
+  margin: 0;
 }
+
 .list-unstyled {
-padding-left: 0;
-list-style: none;
+  padding-left: 0;
+  list-style: none;
 }
 
 * {
-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 ul {
-display: block;
-margin-block-start: 1em;
-margin-block-end: 1em;
-margin-inline-start: 0px;
-margin-inline-end: 0px;
-padding-inline-start: 40px;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
 }
 
 .page-container .page-navbar li {
@@ -69,27 +80,29 @@ padding-inline-start: 40px;
 }
 
 body {
-  font-family: Arial,"Open Sans",Helvetica,Arial,sans-serif;
+  font-family: Arial, "Open Sans", Helvetica, Arial, sans-serif;
   color: #1d2129;
   font-size: 14px;
 }
 
 .l-page-right {
-float: left;
+  float: left;
 }
+
 .l-page-container .container {
-position: relative;
+  position: relative;
 }
+
 .contact-content {
-padding: 6px;
-max-width: 840px;
+  padding: 6px;
+  max-width: 840px;
 }
 
 element.style {
-border-bottom: 1px solid #eee;
-clear: both;
-overflow: hidden;
-padding-bottom: 15px;
-margin-bottom: 15px;
-margin-top: 30px;
+  border-bottom: 1px solid #eee;
+  clear: both;
+  overflow: hidden;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  margin-top: 30px;
 }

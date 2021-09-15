@@ -7,6 +7,7 @@ import {Recipe} from 'src/app/shared/model/recipe';
 import {trigger} from '@angular/animations';
 import {fadeIn} from '../../shared/animation/fadeIn';
 import {AppSetting} from '../../appsetting';
+import {ChatService} from '../../shared/service/chat.service';
 
 
 @Component({
@@ -25,17 +26,20 @@ export class AboutComponent implements OnInit {
   recipes: Recipe[] = [];
   p: number;
   loadingSuccess = false;
+  baseImageUrl = AppSetting.BASE_IMAGE_URL;
 
   constructor(
     private userService: UserService,
     private recipeService: RecipeService,
-    private galleryService: GalleryService
+    private galleryService: GalleryService,
+    private chatService: ChatService
   ) {
   }
 
   ngOnInit() {
     this.getTopUser();
     this.getUsers();
+    this.chatService.scrollToTop();
   }
 
   getUsers() {
@@ -48,7 +52,7 @@ export class AboutComponent implements OnInit {
               let user = this.allUser[userIndex];
 
               if (user.imageUrl === undefined) {
-                user.imageUrl = AppSetting.BASE_IMAGE_URL + this.imageUrl;
+                user.imageUrl = this.imageUrl;
               }
               if (user._id === recipe.user._id) {
                 user.role++;
@@ -90,8 +94,6 @@ export class AboutComponent implements OnInit {
               } else {
                 user.level = 'Newbee';
               }
-              user.imageUrl = AppSetting.BASE_IMAGE_URL + user.imageUrl;
-
             }
             for (let i = 0; i < recipes.length; i++) {
               let recipe = recipes[i];
@@ -102,7 +104,6 @@ export class AboutComponent implements OnInit {
                 if (user.imageUrl === undefined) {
                   user.imageUrl = this.imageUrl;
                 }
-                user.imageUrl = AppSetting.BASE_IMAGE_URL + user.imageUrl;
                 if (user._id === recipe.user._id) {
                   user.role++;
                 }
@@ -125,7 +126,6 @@ export class AboutComponent implements OnInit {
                   user.role = 0;
                   user.warningReport = 0;
                 }
-                user.imageUrl = AppSetting.BASE_IMAGE_URL + user.imageUrl;
                 this.allUser.push(user);
               });
               for (let i = 0; i < recipes.length; i++) {
@@ -136,7 +136,6 @@ export class AboutComponent implements OnInit {
                   if (user.imageUrl === undefined) {
                     user.imageUrl = this.imageUrl;
                   }
-                  user.imageUrl = AppSetting.BASE_IMAGE_URL + user.imageUrl;
                   if (user._id === recipe.user._id) {
                     user.role++;
                   }

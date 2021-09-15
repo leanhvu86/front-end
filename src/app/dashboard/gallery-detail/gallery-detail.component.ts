@@ -73,6 +73,22 @@ export class GalleryDetailComponent implements OnInit {
         if (this.gallery.recipe.length > 0) {
           this.checkRecipe = true;
           this.recipes = this.gallery.recipe;
+          this.recipes.forEach(function(recipe) {
+            recipe.like = false;
+            if (recipe.hardLevel !== undefined) {
+              if (recipe.hardLevel === '') {
+                recipe.hardLevel = 'Ko XĐ';
+              } else if (recipe.hardLevel === '1') {
+                recipe.hardLevel = 'Dễ';
+              } else if (recipe.hardLevel === '2') {
+                recipe.hardLevel = 'TB';
+              } else if (recipe.hardLevel === '3') {
+                recipe.hardLevel = 'Khó';
+              } else if (recipe.hardLevel === '4') {
+                recipe.hardLevel = 'R khó';
+              }
+            }
+          });
           if (this.userObject.email !== undefined) {
             this.recipeService.findInterest(this.userObject).subscribe(data => {
               let interests = data.body['interests'];

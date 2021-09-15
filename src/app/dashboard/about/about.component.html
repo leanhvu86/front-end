@@ -156,27 +156,31 @@
       <div class="member-item">
         <div class="member-profile nopadding">
           <div class="avatar z-effect" style="cursor: pointer;" [routerLink]="['/member/info/', user._id]">
-            <img style="width: 120px; height: 120px; border-radius: 50px;" src="{{user.imageUrl}}"/>
+            <img style="width: 120px; height: 120px; border-radius: 50px;" src="{{baseImageUrl+user.imageUrl}}"/>
           </div>
           <div class="profile">
             <a class="cooky-user-link name" data-userid="299014" [routerLink]="['/member/info/', user._id]"
                target="_self" data-hasqtip="47">{{user.name}}</a>
-            <span class="stats-text user-lvl cookee">{{user.level}}</span>
+            <span style="color:  #7cb342; font-size: 10px;" *ngIf="user.level==='Newbee'">{{user.level}}</span>
+            <span style="color:  #757575;font-size: 10px;" *ngIf="user.level==='Tastee'">{{user.level}}</span>
+            <span style="color:  #ffc107;font-size: 10px;" *ngIf="user.level==='Cookee'">{{user.level}}</span>
+            <span style="color:  #018b99;font-size: 10px;" *ngIf="user.level==='Chefee'">{{user.level}}</span>
+            <span style="color:  #361742;font-size: 10px;" *ngIf="user.level==='Mastee'">{{user.level}}</span>
             <div class="stats">
               <span class="stats-item">
-                <span class="stats-text" >Tổng điểm</span>
+                <span class="stats-text">Tổng điểm</span>
                 <span class="stats-count" style="margin: 2px;">{{user.totalPoint}}</span>
               </span>
             </div>
             <div class="stats">
               <span class="stats-item">
-                <span class="stats-text" >Công thức</span>
+                <span class="stats-text">Công thức</span>
                 <span class="stats-count" style="margin: 2px;">{{user.role}}</span>
               </span>
             </div>
             <div class="stats">
               <span class="stats-item">
-                <span class="stats-text" >Bộ sưu tập</span>
+                <span class="stats-text">Bộ sưu tập</span>
                 <span class="stats-count" style="margin: 2px;">{{user.warningReport}}</span>
               </span>
             </div>
@@ -213,7 +217,7 @@
             <div class="member-item">
               <div class="member-profile nopadding">
                 <div class="avatar z-effect">
-                  <img style="width: 60px; height: 60px; border-radius: 50px;" src="{{user.imageUrl}}"/>
+                  <img style="width: 60px; height: 60px; border-radius: 50px;" src="{{baseImageUrl +user.imageUrl}}"/>
                 </div>
                 <div class="profile">
                   <a [routerLink]="['/member/info/', user._id]" class="cooky-user-link name" data-userid="515973"
@@ -242,8 +246,10 @@
       </div>
     </div>
   </div>
+  <div class="clearfix"></div>
+  <br>
+  <pagination-controls (pageChange)="p = $event" style="width: 1300px;float: left; margin-left: 50px;">
+  </pagination-controls>
 </div>
-<pagination-controls (pageChange)="p = $event" style="width: 1300px;float: left; margin-left: 50px;">
-</pagination-controls>
-<div class="clearfix"></div><br>
+
 <app-scroll-top></app-scroll-top>
