@@ -97,7 +97,7 @@ export class RecipeComponent implements OnInit {
               if (gallery.recipe.length > 0) {
                 gallery.image = gallery.recipe[0].imageUrl;
               } else {
-                gallery.image = 'fvt7rkr59r9d7wk8ndbd';
+                gallery.image = 'default-gallery.png';
               }
               this.personalGallery.push(gallery);
             }

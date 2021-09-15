@@ -9,6 +9,7 @@ import {LoginServiceService} from 'src/app/shared/service/login-service.service'
 import {RecipeService} from 'src/app/shared/service/recipe-service.service';
 import {ChatService} from 'src/app/shared/service/chat.service';
 import {AppSetting} from '../../appsetting';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-gallery-detail',
@@ -51,7 +52,8 @@ export class GalleryDetailComponent implements OnInit {
     private _loginService: LoginServiceService,
     private userService: UserService,
     private _router: Router,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private titleMain: Title,
   ) {
     this.isAuthenicate = localStorage.getItem('email') !== '';
     this.id = this.route.snapshot.params.id;
@@ -94,8 +96,9 @@ export class GalleryDetailComponent implements OnInit {
           this.recipes = this.recipesTemp;
         }
         if (this.gallery.user.imageUrl !== '') {
-          this.imageUrl =  this.gallery.user.imageUrl;
+          this.imageUrl = this.gallery.user.imageUrl;
         }
+        this.titleMain.setTitle(this.gallery.name + '');
         if (first === true) {
           this.getPersonalGallery();
         }
@@ -123,9 +126,9 @@ export class GalleryDetailComponent implements OnInit {
           for (let gallery of data) {
             if (gallery.user.email === emailUser) {
               if (gallery.recipe.length > 0) {
-                gallery.image =  gallery.recipe[0].imageUrl;
+                gallery.image = gallery.recipe[0].imageUrl;
               } else {
-                gallery.image =  'default-gallery.png';
+                gallery.image = 'default-gallery.png';
               }
               this.gallerys.push(gallery);
             }
@@ -139,7 +142,7 @@ export class GalleryDetailComponent implements OnInit {
           for (let gallery of data) {
             if (gallery.user.email === email) {
               if (gallery.recipe.length > 0) {
-                gallery.image =  gallery.recipe[0].imageUrl;
+                gallery.image = gallery.recipe[0].imageUrl;
               } else {
                 gallery.image = 'default-gallery.png';
               }

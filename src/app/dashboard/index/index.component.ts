@@ -42,7 +42,7 @@ export class IndexComponent implements OnInit {
   noImage: string = 'avatar.png';
   imageUrl: string = this.BASE_IMAGE_URL;
   message = '';
-  url = 'http://amthuc.anchay.poly.vn:4200/';
+  url = 'http://amthuc.anchay.vn:4200/';
   text = 'Chào mừng bạn đến với website Ẩm thực Ăn chay';
   isModeration: boolean = false;
   showModal: boolean = false;

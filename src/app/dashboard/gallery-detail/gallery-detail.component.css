@@ -109,7 +109,7 @@
     height: 30px;
 }
 .column {
-  padding: 0px;
+  margin: 0 10px;
   float: left;
   position: relative;
   text-align: center;

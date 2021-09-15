@@ -212,9 +212,9 @@ export class GalleryComponent implements OnInit {
 
         this.message = 'Chúc mừng bạn thêm bộ sưu tập thành công'
         let tem = new Gallery
-        tem = gallery.body['gallery']
+        tem = gallery.body['gallery'];
         if (tem.image == '') {
-          tem.image = 'fvt7rkr59r9d7wk8ndbd'
+          tem.image = 'default-gallery.png';
         }
 
         this.gallerys.push(tem)
