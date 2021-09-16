@@ -12,7 +12,7 @@ import {ChatService} from 'src/app/shared/service/chat.service';
   styleUrls: ['./add-gallery.component.css']
 })
 export class AddGalleryComponent implements OnInit {
-  submitted: boolean = false;
+  submitted = false;
   registerForm: FormGroup;
   isAuthenticate: boolean;
   galleryObject = {
@@ -23,10 +23,12 @@ export class AddGalleryComponent implements OnInit {
   };
   messageCheck = false;
   saving = false;
-  errorMessage: string = '';
-  message: string = '';
+  errorMessage = '';
+  message = '';
   gallerys: Gallery[] = [];
+
   @Output() galleryOutput = new EventEmitter();
+
   constructor(
     private cookie: CookieService,
     private formBuilder: FormBuilder,
@@ -45,13 +47,15 @@ export class AddGalleryComponent implements OnInit {
     });
   }
 
-  get f() { return this.registerForm.controls; }
+  get f() {
+    return this.registerForm.controls;
+  }
 
   registerGallery() {
-    console.log('add')
     const radio: HTMLElement = document.getElementById('modal-button555');
     radio.click();
   }
+
   addGallery() {
     this.submitted = true;
     if (this.registerForm.invalid) {
@@ -68,7 +72,7 @@ export class AddGalleryComponent implements OnInit {
       console.log(gallery);
       if (gallery !== undefined) {
         this.messageCheck = true;
-        this.message = 'Chúc mừng bạn thêm bộ sưu tập thành công'
+        this.message = 'Chúc mừng bạn thêm bộ sưu tập thành công';
         let tem: Gallery;
         tem = gallery.body['gallery'];
         this.registerForm.reset();
@@ -79,7 +83,7 @@ export class AddGalleryComponent implements OnInit {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
           this.messageCheck = false;
-          this.message = ''
+          this.message = '';
           // window.location.reload();
           this.chatService.identifyUser();
         }, 3000);
@@ -87,6 +91,7 @@ export class AddGalleryComponent implements OnInit {
       }
     });
   }
+
   reset() {
     this.registerForm.reset();
   }

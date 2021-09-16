@@ -12,7 +12,7 @@ import { GalleryService } from 'src/app/shared/service/gallery.service';
 })
 export class AddBookmarkComponent implements OnInit {
   message: string = null;
-  isAuthenicate = false;
+  isAuthenticate = false;
   searchText;
   personalGallery: Gallery[] = [];
 
@@ -28,7 +28,7 @@ export class AddBookmarkComponent implements OnInit {
     private recipeService: RecipeService,
     private galleryService: GalleryService
   ) {
-    this.isAuthenicate = localStorage.getItem('email') !== '' ? true : false;
+    this.isAuthenticate = localStorage.getItem('email') !== '';
   }
 
   ngOnInit() {
@@ -39,7 +39,8 @@ export class AddBookmarkComponent implements OnInit {
   addBookmark() {
 
     this.message = '';
-    if (this.isAuthenicate !== true) {
+    if (this.isAuthenticate !== true) {
+      // tslint:disable-next-line:no-shadowed-variable
       const radio: HTMLElement = document.getElementById('modal-button');
       radio.click();
       return;
@@ -55,26 +56,6 @@ export class AddBookmarkComponent implements OnInit {
 
   addRecipeBookMark(gallery: any) {
     console.log(gallery);
-    let check = false;
-    //check công thức đã tồn tại trong bộ sưu tập chưa
-    // if (gallery.recipe !== undefined) {
-    //   const recipes = gallery.recipe;
-    //   console.log(gallery.recipe)
-
-    //   recipes.forEach((recipe) => {
-    //     if (recipe._id === this.childMessage._id) {
-    //       check = true;
-    //       console.log(JSON.stringify(recipe._id))
-    //       console.log(JSON.stringify(this.childMessage._id))
-    //       this.errMessage = 'Công thức của bạn đã có trong bộ sưu tâp! Vui lòng chọn công thức khác';
-    //       const radio: HTMLElement = document.getElementById('modal-button113');
-    //       radio.click();
-    //       const radio1: HTMLElement = document.getElementById('close-modal5');
-    //       radio1.click();
-    //       return;
-    //     }
-    //   });
-    // }
     if (gallery.recipe !== undefined) {
       console.log(gallery.recipe)
       console.log(this.childMessage)
@@ -85,7 +66,6 @@ export class AddBookmarkComponent implements OnInit {
         }
       }
     }
-    console.log('ra đây')
     this.galleryObject._id = gallery._id;
     console.log(this.childMessage);
     console.log(this.galleryObject);

@@ -415,21 +415,21 @@
   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="background:  #008325;">
+      <div class="modal-header" style="background:  #c0f072;">
         <h5 class="modal-title" style="color:  white;" id="exampleModalLongTitle">Đăng nhập</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
           <span style="color:  white;" aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div class="card card-container" style="max-width: 500px;">
-          <img id="profile-img" class="profile-img-card" src="../../../assets/images/avatar_2x.png" />
+        <div class="card card-container" style="max-width: 500px;background-color: white;box-shadow: none;">
+          <img id="profile-img1" class="profile-img-card" src="../../../assets/images/logo.ico" />
           <form class="form-signin" (ngSubmit)="loginUser()" #loginForm="ngForm" [formGroup]="registerForm">
             <input type="text" id="email" class="form-control" name="email" autocomplete="off"
               [(ngModel)]="userObject.email" placeholder="email" title="Please enter the email" required autofocus
               formControlName="email"
-              [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.email.errors }" />
-            <div *ngIf="submitted &amp;&amp; registerForm.controls.email.errors" class="text-danger">
+              [ngClass]="{ 'is-invalid': submitted && registerForm.controls.email.errors }" />
+            <div *ngIf="submitted && registerForm.controls.email.errors" class="text-danger">
               <div *ngIf="registerForm.controls.email.errors.required">
                 Yêu cầu bạn nhập Email
               </div>
@@ -440,8 +440,8 @@
             <input type="password" id="password" class="form-control" name="password" autocomplete="off"
               [(ngModel)]="userObject.password" placeholder="Password" title="Please enter the password"
               formControlName="password"
-              [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.password.errors}" required />
-            <div *ngIf="submitted &amp;&amp; registerForm.controls.password.errors" class="text-danger">
+              [ngClass]="{ 'is-invalid': submitted && registerForm.controls.password.errors}" required />
+            <div *ngIf="submitted && registerForm.controls.password.errors" class="text-danger">
               <div *ngIf="registerForm.controls.password.errors.required">
                 Yêu cầu bạn nhập password
               </div>
@@ -452,7 +452,7 @@
             <input type="text" id="authcode" class="form-control" *ngIf="this.tfaFlag" name="authcode"
               autocomplete="off" #authcode="ngModel" [(ngModel)]="userObject.authcode"
               placeholder="Two-Factor Auth code" title="Please enter the code" required />
-            <button class="btn btn-lg btn-success btn-block btn-signin" type="submit">
+            <button class="btn btn-lg btn-success btn-block btn-signin button-form" type="submit">
               Đăng nhập
             </button>
             <p style="text-align:center;">

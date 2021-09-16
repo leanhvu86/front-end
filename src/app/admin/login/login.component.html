@@ -8,16 +8,16 @@
 
       <input type="text" id="email" class="form-control" name="email" autocomplete="off" formControlName="email"
         [(ngModel)]="userObject.email" placeholder="Email" title="Please enter the email" required autofocus
-        [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.email.errors }" />
-      <div *ngIf="submitted &amp;&amp; registerForm.controls.email.errors" class="text-danger">
+        [ngClass]="{ 'is-invalid': submitted && registerForm.controls.email.errors }" />
+      <div *ngIf="submitted && registerForm.controls.email.errors" class="text-danger">
         <div *ngIf="registerForm.controls.email.errors.required">Vui lòng không để trống Email</div>
       </div>
       <input type="password" id="password" class="form-control" name="password" autocomplete="off"
         formControlName="password" [(ngModel)]="userObject.password" placeholder="Mật khẩu"
         title="Please enter the password" required
-        [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.password.errors }" />
+        [ngClass]="{ 'is-invalid': submitted && registerForm.controls.password.errors }" />
 
-      <div *ngIf="submitted &amp;&amp; registerForm.controls.password.errors" class="text-danger">
+      <div *ngIf="submitted && registerForm.controls.password.errors" class="text-danger">
         <div *ngIf="registerForm.controls.password.errors.required">Vui lòng không để trống Mật khẩu</div>
         <div *ngIf="registerForm.controls.password.errors.minlength">Mật khẩu phải trên 6 kí tự</div>
       </div>

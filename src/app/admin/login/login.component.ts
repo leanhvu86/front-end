@@ -1,26 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
-import { LoginServiceService } from 'src/app/shared/service/login-service.service';
-import { CookieService } from 'ngx-cookie-service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {LoginServiceService} from 'src/app/shared/service/login-service.service';
+import {CookieService} from 'ngx-cookie-service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  registerForm: FormGroup
-  tfaFlag: boolean = false
+  registerForm: FormGroup;
+  tfaFlag: boolean = false;
   userObject = {
-    email: "",
-    password: ""
-  }
-  submitted: boolean = false
-  errorMessage: string = null
+    email: '',
+    password: ''
+  };
+  submitted: boolean = false;
+  errorMessage: string = null;
+
   constructor(private cookie: CookieService,
-    private _loginService: LoginServiceService,
-    private _router: Router,
-    private formBuilder: FormBuilder) {
+              // tslint:disable-next-line:variable-name
+              private _loginService: LoginServiceService,
+              // tslint:disable-next-line:variable-name
+              private _router: Router,
+              private formBuilder: FormBuilder) {
+    // let body = document.getElementsByTagName('body')[0];
+    // body.style.backgroundImage = 'url(../../../assets/images/wallpaperflare.com_wallpaper.jpg)';
   }
 
   ngOnInit() {
@@ -36,7 +42,7 @@ export class LoginComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-    console.log(this.userObject.email + " user đăng nhập");
+    console.log(this.userObject.email + ' user đăng nhập');
     this._loginService.loginAdmin(this.userObject).subscribe((data) => {
       this.errorMessage = null;
       if (data.body['status'] === 200) {
@@ -50,7 +56,7 @@ export class LoginComponent implements OnInit {
             users = user[key];
             console.log(user);
             token = users.token;
-            console.log(users.token)
+            console.log(users.token);
           } else if (key === 'role') {
             role = user[key];
             console.log(role);
@@ -63,7 +69,7 @@ export class LoginComponent implements OnInit {
           return;
         }
         if (role < 1) {
-          console.log('member')
+          console.log('member');
           this.errorMessage = 'Bạn không có thẩm quyền truy cập';
           return;
         } else {
@@ -91,7 +97,7 @@ export class LoginComponent implements OnInit {
         this.errorMessage = data.body['message'];
       }
 
-    })
+    });
   }
 
 }

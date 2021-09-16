@@ -384,17 +384,16 @@
   <div class="col-4" style="background: white;  margin-top: 40px; border-radius: 20px;display: block;
                 overflow: hidden;">
     <br>
+    <br>
     <a style="margin-top: 50px;color: #7f7f7f;">CÔNG THỨC LIÊN QUAN</a>
     <hr/>
-    <div class="row">
-      <div class="col" *ngFor="let recipe of recipes; let i = index">
-        <img style="width: 100%;height: auto;image-rendering:crisp-edges;" (click)="getRecipeDetail(recipe.nameSpace)"
-             src="{{baseImageUrl+ recipe.imageUrl }}"/>
-        <br/>
-        <a (click)="getRecipeDetail(recipe.nameSpace)" style="color: black;">{{ recipe.recipeName }}</a>
-        <br/><a>{{ recipe.viewCount }} <a style="color: #c5c5c5;">lượt xem</a>
-        {{ recipe.time }} phút</a>
-      </div>
+    <div class="row" *ngFor="let recipe of recipes; let i = index" style="padding: 5px 5px; max-height: 250px; margin-bottom: 15px;">
+      <img style="width: 100%;max-height: 250px;image-rendering:crisp-edges;" (click)="getRecipeDetail(recipe.nameSpace)"
+           src="{{baseImageUrl+ recipe.imageUrl }}"/>
+      <br/>
+      <a (click)="getRecipeDetail(recipe.nameSpace)" style="color: black;">{{ recipe.recipeName }}</a>
+      <br/><a>{{ recipe.viewCount }} <a style="color: #c5c5c5;">lượt xem</a>
+      {{ recipe.time }} phút</a>
     </div>
   </div>
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"

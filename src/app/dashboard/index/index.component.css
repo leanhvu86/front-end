@@ -12,6 +12,16 @@
   user-select: none;
 }
 
+.button-form:hover {
+  background-color: white !important;
+  border: 1px solid #c0f072;
+  color: #c0f072;
+}
+
+.button-form {
+  background-color: #c0f072 !important;
+  border: none;
+}
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;

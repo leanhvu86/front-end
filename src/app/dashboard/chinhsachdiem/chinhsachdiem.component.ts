@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AppSetting} from '../../appsetting';
 
 @Component({
   selector: 'app-chinhsachdiem',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChinhsachdiemComponent implements OnInit {
 
-  constructor() { }
+  baseUrl = AppSetting.BASE_URL;
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

@@ -16,7 +16,7 @@ import {AppSetting} from '../../../appsetting';
   styleUrls: ['./app-recipe-gallery.component.css']
 })
 export class AppRecipeGalleryComponent implements OnInit {
-  submitted: boolean = false;
+  submitted = false;
   registerForm: FormGroup;
   isAuthenticate: boolean;
   @Input() childMessage: Gallery;
@@ -27,12 +27,12 @@ export class AppRecipeGalleryComponent implements OnInit {
     user: '',
     recipes: []
   };
-  searchText: string = '';
-  message: string = '';
+  searchText = '';
+  message = '';
   gallerys: Gallery[] = [];
   oldRecipes: Recipe[] = [];
   newRecipe: Recipe[] = [];
-  errorMessage: string = '';
+  errorMessage = '';
   recipes: Recipe[] = [];
   saving = false;
   baseImageUrl = AppSetting.BASE_IMAGE_URL;
@@ -43,6 +43,7 @@ export class AppRecipeGalleryComponent implements OnInit {
     private galleryService: GalleryService,
     private userService: UserService,
     private recipeService: RecipeService,
+    // tslint:disable-next-line:variable-name
     private _route: ActivatedRoute,
     private chatService: ChatService
   ) {
@@ -117,7 +118,7 @@ export class AppRecipeGalleryComponent implements OnInit {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
           this.message = '';
-          //this.registerForm.reset();
+          // this.registerForm.reset();
           window.location.reload();
           this.chatService.identifyUser();
         }, 5000);
@@ -132,7 +133,8 @@ export class AppRecipeGalleryComponent implements OnInit {
         this.recipes = recipes;
         this.recipes.forEach(recipe => {
           recipe.like = false;
-          for (let recipe of this.oldRecipes) {
+          // tslint:disable-next-line:no-shadowed-variable
+          for (const recipe of this.oldRecipes) {
             this.recipes = this.recipes.filter(temp =>
               temp.recipeName !== recipe.recipeName);
           }
