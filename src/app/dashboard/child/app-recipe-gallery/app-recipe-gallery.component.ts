@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Gallery} from '../../../shared/model/gallery';
 import {CookieService} from 'ngx-cookie-service';
@@ -9,6 +9,7 @@ import {RecipeService} from 'src/app/shared/service/recipe-service.service';
 import {ActivatedRoute} from '@angular/router';
 import {ChatService} from 'src/app/shared/service/chat.service';
 import {AppSetting} from '../../../appsetting';
+import {AlertService} from '../../../shared/animation/_alert';
 
 @Component({
   selector: 'app-app-recipe-gallery',
@@ -20,6 +21,12 @@ export class AppRecipeGalleryComponent implements OnInit {
   registerForm: FormGroup;
   isAuthenticate: boolean;
   @Input() childMessage: Gallery;
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.initGallery();
+    console.log(this.childMessage);
+  }
+
   galleryObject = {
     content: '',
     _id: '',
@@ -36,6 +43,10 @@ export class AppRecipeGalleryComponent implements OnInit {
   recipes: Recipe[] = [];
   saving = false;
   baseImageUrl = AppSetting.BASE_IMAGE_URL;
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: false
+  };
 
   constructor(
     private cookie: CookieService,
@@ -45,13 +56,18 @@ export class AppRecipeGalleryComponent implements OnInit {
     private recipeService: RecipeService,
     // tslint:disable-next-line:variable-name
     private _route: ActivatedRoute,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private alertService: AlertService
   ) {
     this.isAuthenticate = localStorage.getItem('email') !== '';
     console.log(this.isAuthenticate);
   }
 
   ngOnInit() {
+    this.initGallery();
+  }
+
+  initGallery() {
     this.oldRecipes = this.childMessage.recipe;
     this.oldRecipes.forEach(recipe => {
       this.newRecipe.push(recipe);
@@ -64,7 +80,6 @@ export class AppRecipeGalleryComponent implements OnInit {
     });
     console.log(this.oldRecipes.length + 'công thức của bộ sưu tập');
     this.getRecipes();
-
   }
 
   get f() {
@@ -113,15 +128,13 @@ export class AppRecipeGalleryComponent implements OnInit {
     this.galleryService.updateGallery(this.galleryObject).subscribe(gallery => {
       console.log(gallery);
       if (gallery !== undefined) {
-        this.message = '    Chúc mừng bạn lưu thông tin bộ sưu tập thành công';
+        this.alertService.success(' Chúc mừng bạn lưu thông tin bộ sưu tập thành công ! ');
+        this.registerGallery();
         setTimeout(() => {
-          const radio: HTMLElement = document.getElementById('close-modal');
-          radio.click();
           this.message = '';
-          // this.registerForm.reset();
           window.location.reload();
           this.chatService.identifyUser();
-        }, 5000);
+        }, 3000);
 
       }
     });

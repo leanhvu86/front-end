@@ -7,13 +7,14 @@ import {GalleryService} from 'src/app/shared/service/gallery.service';
 import {Gallery} from 'src/app/shared/model/gallery';
 import {trigger} from '@angular/animations';
 import {fadeIn} from '../../shared/animation/fadeIn';
-import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Recipe} from 'src/app/shared/model/recipe';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from 'src/app/shared/service/user.service.';
 import {RecipeService} from 'src/app/shared/service/recipe-service.service';
 import {ChatService} from 'src/app/shared/service/chat.service';
 import {AppSetting} from '../../appsetting';
+import {AlertService} from '../../shared/animation/_alert';
 
 
 @Component({
@@ -65,6 +66,7 @@ export class MygalleryComponent implements OnInit {
   recipes: Recipe[] = [];
   saving = false;
   chooseGallery: Gallery;
+  baseImageUrl = AppSetting.BASE_IMAGE_URL;
 
   constructor(
     private cookie: CookieService,
@@ -75,7 +77,8 @@ export class MygalleryComponent implements OnInit {
     private _route: ActivatedRoute,
     private _loginService: LoginServiceService,
     private gallerrService: GalleryService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private alertService: AlertService
   ) {
   }
 
@@ -114,7 +117,7 @@ export class MygalleryComponent implements OnInit {
     this.chooseGallery = gallery;
     this.oldRecipes = this.chooseGallery.recipe;
     this.newRecipe = this.oldRecipes;
-
+    this.getRecipes();
     console.log(this.oldRecipes.length + 'công thức của bộ sưu tập');
     this.registerForm.patchValue({
       name: this.chooseGallery.name,
@@ -136,8 +139,7 @@ export class MygalleryComponent implements OnInit {
 
     console.log(this.galleryObject);
     console.log(this.newRecipe);
-    const email = localStorage.getItem('email');
-    this.galleryObject.user = email;
+    this.galleryObject.user = localStorage.getItem('email');
     this.galleryObject.recipes = this.newRecipe;
     let id = JSON.stringify(this.chooseGallery._id);
     id = id.substring(1);
@@ -148,7 +150,7 @@ export class MygalleryComponent implements OnInit {
     this.galleryService.updateGallery(this.galleryObject).subscribe(gallery => {
       console.log(gallery);
       if (gallery !== undefined) {
-        this.message = '    Chúc mừng bạn lưu thông tin bộ sưu tập thành công';
+        this.alertService.success(' Chúc mừng bạn lưu thông tin bộ sưu tập thành công ');
         setTimeout(() => {
           const radio: HTMLElement = document.getElementById('close-modal');
           radio.click();
@@ -184,6 +186,7 @@ export class MygalleryComponent implements OnInit {
     gallery.image = AppSetting.BASE_IMAGE_URL + 'default-gallery.png';
     this.myGallery.push(event);
   }
+
   getUserInfo() {
     const email = localStorage.getItem('email');
     if (email !== '') {
@@ -246,13 +249,15 @@ export class MygalleryComponent implements OnInit {
     console.log(id);
     this.galleryObject._id = id;
     this.gallerrService.deleteGallery(this.galleryObject).subscribe(data => {
-      console.log(data);
-      this.message = data.body['message'];
+      this.alertService.success(data.body['message']);
+
       if (data.body['status'] === 200) {
         this.myGallery = this.myGallery.filter(gallery => gallery._id !== id);
       }
       this.deleteId = '';
       this.deleteCheck = false;
+      const radio: HTMLElement = document.getElementById('modal-button28');
+      radio.click();
     });
   }
 }

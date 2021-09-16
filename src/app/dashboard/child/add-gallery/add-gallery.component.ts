@@ -5,6 +5,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {GalleryService} from 'src/app/shared/service/gallery.service';
 import {UserService} from 'src/app/shared/service/user.service.';
 import {ChatService} from 'src/app/shared/service/chat.service';
+import {AlertService} from '../../../shared/animation/_alert';
 
 @Component({
   selector: 'app-add-gallery',
@@ -34,7 +35,8 @@ export class AddGalleryComponent implements OnInit {
     private formBuilder: FormBuilder,
     private galleryService: GalleryService,
     private userService: UserService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private alertService: AlertService
   ) {
     this.isAuthenticate = localStorage.getItem('email') !== '';
   }
@@ -72,7 +74,8 @@ export class AddGalleryComponent implements OnInit {
       console.log(gallery);
       if (gallery !== undefined) {
         this.messageCheck = true;
-        this.message = 'Chúc mừng bạn thêm bộ sưu tập thành công';
+        this.registerGallery();
+        this.alertService.success('Chúc mừng bạn thêm bộ sưu tập thành công');
         let tem: Gallery;
         tem = gallery.body['gallery'];
         this.registerForm.reset();
@@ -80,14 +83,11 @@ export class AddGalleryComponent implements OnInit {
         this.gallerys.push(tem);
         this.galleryOutput.emit(tem);
         setTimeout(() => {
-          const radio: HTMLElement = document.getElementById('close-modal');
-          radio.click();
           this.messageCheck = false;
           this.message = '';
-          // window.location.reload();
+          window.location.reload();
           this.chatService.identifyUser();
         }, 3000);
-
       }
     });
   }

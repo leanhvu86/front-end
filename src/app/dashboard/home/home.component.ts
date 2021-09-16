@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 import {trigger} from '@angular/animations';
 import {fadeIn} from '../../shared/animation/fadeIn';
 import {AppSetting} from 'src/app/appsetting';
+import {AlertService} from '../../shared/animation/_alert';
 
 
 declare var $: any;
@@ -54,7 +55,9 @@ export class Home2Component implements OnInit {
     private recipeService: RecipeService,
     private userService: UserService,
     private galleryService: GalleryService,
-    private router: Router) {
+    private router: Router,
+    private alertService: AlertService
+  ) {
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
         {
@@ -150,7 +153,7 @@ export class Home2Component implements OnInit {
       for (let recipe of gallery.recipe) {
         if (recipe.recipeName === this.addRecipe.recipeName) {
           console.log(recipe.recipeName + '   ' + this.addRecipe.recipeName);
-          this.message = 'Công thức đã có trong bộ sưu tập';
+          this.alertService.error('Công thức đã có trong bộ sưu tập');
           return;
         }
       }
@@ -160,12 +163,9 @@ export class Home2Component implements OnInit {
     this.galleryService.addGallery(this.galleryObject).subscribe(data => {
       if (data.body['status'] === 200) {
         let gallery = data.body['gallery'];
-        this.message = data.body['message'];
-        setTimeout(() => {
-          const radio: HTMLElement = document.getElementById('close-modal');
-          radio.click();
-        }, 4000);
-
+        this.alertService.success(data.body['message']);
+        const radio: HTMLElement = document.getElementById('close-modal');
+        radio.click();
       }
     });
   }

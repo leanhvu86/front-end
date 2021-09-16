@@ -27,6 +27,8 @@ export class LoadPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    let body = document.getElementsByTagName('body')[0];
+    body.style.backgroundImage = 'none';
     this.getMod();
     this.getTopUser();
     this.getSummary();

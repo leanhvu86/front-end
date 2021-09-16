@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {LoginServiceService} from 'src/app/shared/service/login-service.service';
 import {CookieService} from 'ngx-cookie-service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -24,12 +25,18 @@ export class LoginComponent implements OnInit {
               private _loginService: LoginServiceService,
               // tslint:disable-next-line:variable-name
               private _router: Router,
-              private formBuilder: FormBuilder) {
-    // let body = document.getElementsByTagName('body')[0];
-    // body.style.backgroundImage = 'url(../../../assets/images/wallpaperflare.com_wallpaper.jpg)';
+              private formBuilder: FormBuilder,
+              private title: Title) {
+    let body = document.getElementsByTagName('body')[0];
+    body.style.backgroundImage = 'url(../../../assets/images/wallpaperflare.com_wallpaper.png)';
+    body.style.height = '100%';
+    body.style.backgroundPosition = 'center';
+    body.style.backgroundRepeat = 'no-repeat';
+    body.style.backgroundSize = 'cover';
   }
 
   ngOnInit() {
+    this.title.setTitle('Trang quản trị Ẩm thực Món chay');
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]

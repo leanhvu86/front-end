@@ -76,6 +76,8 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
+    let body = document.getElementsByTagName('body')[0];
+    body.style.backgroundImage = 'none';
     this.translate.get('Ẩm thực món chay').subscribe(name => {
       this.title.setTitle(name);
     });

@@ -15,6 +15,7 @@ import { JwtInterceptor } from './shared/helper';
 import { CookieService } from 'ngx-cookie-service';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { AppSetting } from './appsetting';
+import { AlertModule } from './shared/animation/_alert';
 
 const config: SocketIoConfig = { url: AppSetting.BASE_SERVER_URL, options: {} };
 @NgModule({
@@ -36,7 +37,8 @@ const config: SocketIoConfig = { url: AppSetting.BASE_SERVER_URL, options: {} };
     Ng2SearchPipeModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     BrowserAnimationsModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    AlertModule
     // ɵangular_packages_forms_forms_bb
   ],
   schemas: [

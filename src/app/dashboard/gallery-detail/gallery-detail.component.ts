@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GalleryService} from 'src/app/shared/service/gallery.service';
 import {Gallery} from 'src/app/shared/model/gallery';
@@ -21,6 +21,7 @@ export class GalleryDetailComponent implements OnInit {
   id: string = '';
   galleryCheck: boolean = false;
   gallery: Gallery;
+  chooseGallery: Gallery;
   checkRecipe: boolean = false;
   public recipes: Recipe[] = [];
   public recipesTemp: Recipe[] = [];
@@ -54,6 +55,7 @@ export class GalleryDetailComponent implements OnInit {
     private _router: Router,
     private chatService: ChatService,
     private titleMain: Title,
+    private _cdr: ChangeDetectorRef,
   ) {
     this.isAuthenicate = localStorage.getItem('email') !== '';
     this.id = this.route.snapshot.params.id;
@@ -120,6 +122,9 @@ export class GalleryDetailComponent implements OnInit {
         }
 
       }
+      this.chooseGallery = this.gallery;
+      this._cdr.detectChanges();
+      console.log(this.gallery);
       if (this.userObject.email === this.gallery.user.email) {
         this.mine = true;
       }
@@ -225,6 +230,7 @@ export class GalleryDetailComponent implements OnInit {
   }
 
   loadGallery(gallery) {
+    console.log(gallery._id);
     this.getGalleryDetail(gallery._id, false);
 
   }

@@ -48,8 +48,32 @@
   background-color: #5B7BD5;
   background-image: linear-gradient(#5B7BD5, #4864B1);
 }
+.button-form:hover {
+  background-color: white !important;
+  border: 1px solid #49c212;
+  color: #49c212;
+}
 
-
+.button-form {
+  background-color: #49c212 !important;
+  border: none;
+}
+.form-control:focus, .form-control:active {
+  background: none;
+}
+.form-control:valid {
+  background-color: none;
+}
+input[type="text"]
+{
+  background: none;
+  /*border: none;*/
+}
+input[type="password"]
+{
+  background: none;
+  /*border: none;*/
+}
 /* Google */
 .loginBtn--google {
   /*font-family: "Roboto", Roboto, arial, sans-serif;*/

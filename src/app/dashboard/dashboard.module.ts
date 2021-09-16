@@ -51,6 +51,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LoadingBarModule } from "ngx-loading-bar";
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {SharedModule} from '../shared/shared.module';
+import {AlertModule} from '../shared/animation/_alert';
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import {SharedModule} from '../shared/shared.module';
         }),
         CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
         SharedModule,
+        AlertModule,
     ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
