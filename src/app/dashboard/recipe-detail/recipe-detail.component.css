@@ -38,31 +38,31 @@
   text-align: center;
   background-color: white ;
   cursor: pointer;
-  color: #c0f072 !important;
+  color: #1cc91f !important;
   height: 29px !important;
   width: 250px !important;
   margin: 0px 0px 10px;
   border-radius: 5px;
-  border: 1px solid #c0f072;
+  border: 1px solid #1cc91f;
 }
 
 .register-button:hover {
   color: white !important;
-  background-color: #c0f072;
+  background-color: #1cc91f;
 }
 
 .register-image {
   padding: 5px 20px;
-  background-color: #c0f072;
+  background-color: #1cc91f;
   color: white !important;
   border-radius: 5px;
   border: none;
 }
 
 .register-image:hover {
-  color: #c0f072 !important;
+  color: #1cc91f !important;
   background-color: white;
-  border: 1px solid #c0f072;
+  border: 1px solid #1cc91f;
 }
 
 .active-button {

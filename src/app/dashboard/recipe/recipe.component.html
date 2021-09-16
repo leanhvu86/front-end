@@ -10,7 +10,7 @@
 
   </div>
   <div class="row" style="width: 78%; margin-left:25%;">
-    <a style="color: #c0f072; margin:10px 10px;"><i class="fa fa-sliders fa-lg" aria-hidden="true"></i></a>
+    <a style="color: #1cc91f; margin:10px 10px;"><i class="fa fa-sliders fa-lg" aria-hidden="true"></i></a>
     <button (click)="onChangedFoodType($event)" class="button-filter" title="Lọc theo loại món" id="food-type"
       style=" margin: 10px  30px;">Món ăn&#160;</button>
     <button (click)="onChangedCountry($event)" class="button-filter" title="Lọc theo ẩm thực các quốc gia" id="country"
@@ -67,7 +67,7 @@
     </div>
   </div>
 </div>
-<div class="container" *ngIf="loadingSuccess; else skeleton" style="min-height: 300px !important;" >
+<div class="container" *ngIf="loadingSuccess; else skeleton" style="min-height: 400px !important;" >
   <br><a style="color: #10c9f7;font-size: 10px;">{{stringFilter}}</a><br>
   <h6 style="color: #7f7f7f;">Tổng số <a style="color: #f15b47 !important;" *ngIf="!searchText">{{countRecipe}}</a> công thức</h6>
   <div class="recipe-list-wrapper" style="float: left;width: 100%;margin-bottom:20px ;">

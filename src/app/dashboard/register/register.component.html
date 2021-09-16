@@ -1,81 +1,87 @@
 <div class="container">
-  <div class="card card-container">
-    <h3 style="font-size: 24px;text-align: center;">ĐĂNG KÝ TÀI KHOẢN</h3>
-    <img id="profile-img" class="profile-img-card" src="assets/images/avatar_2x.png" />
-
-    <form class="form-signin" (ngSubmit)="registerUser()" [formGroup]="registerForm">
-      <input type="text" id="user" class="form-control" name="user" formControlName="user"
-        [ngClass]="{ 'is-invalid': submitted && f.user.errors }" [(ngModel)]="userObject.user"
-        placeholder="Tên tài khoản" title="Tên tài khoản" autocomplete="off" required autofocus />
-      <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
-        <div *ngIf="f.user.errors.required">
-          Vui lòng không để trống tên đăng nhập.
+  <div class="row justify-content-center wrapper" id="register-box">
+    <div class="col-lg-10 my-auto myShadow">
+      <div class="row">
+        <div class="col-lg-5 d-flex flex-column justify-content-center myColor p-4">
+          <h1 class="text-center font-weight-bold text-white">Chào mừng bạn!</h1>
+          <hr class="my-4 bg-light myHr"/>
+          <p class="text-center font-weight-bolder text-light lead">Để giữ kết nối với chúng tôi, vui lòng đăng nhập
+            bằng
+            thông tin cá nhân.</p>
+          <a routerLink="/index" class=" font-weight-bolder  align-self-center" style="color: white !important;text-decoration: underline;" id="back-link">
+            Quay lại
+          </a>
         </div>
-      </div>
-
-      <input type="text" id="email" class="form-control" name="email" formControlName="email"
-        [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [(ngModel)]="userObject.email" placeholder="Email"
-        title="Please enter the email" autocomplete="off" required autofocus />
-      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-        <div *ngIf="f.email.errors.required">Vui lòng không để trống Email</div>
-        <div *ngIf="f.email.errors.email">Mail chưa hợp lệ!</div>
-      </div>
-
-      <input type="password" id="password" class="form-control" name="password"
-        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" formControlName="password" placeholder="Mật khẩu"
-        title="Please enter the password" autocomplete="off" [(ngModel)]="userObject.password" required />
-      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">
-          Vui lòng không để trống kí tự
-        </div>
-        <div *ngIf="f.password.errors.minlength">
-          Mật khẩu phải ít nhất 6 kí tự
-        </div>
-      </div>
-
-      <input type="password" id="confirmpass" class="form-control" name="confirmPassword"
-        [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" formControlName="confirmPassword"
-        placeholder="Xác nhận mật khẩu" title="Please re-enter the password" autocomplete="off"
-        [(ngModel)]="confirmPass" required />
-      <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-        <div *ngIf="f.confirmPassword.errors.required">
-          Vui lòng xác nhận mật khẩu
-        </div>
-        <div *ngIf="f.confirmPassword.errors.mustMatch">
-          Phải trùng khớp mật khẩu!
-        </div>
-      </div>
-
-      <button class="btn btn-lg btn-success btn-block btn-signin" type="submit" style="font-size: 20px;height: 50px;">
-        Đăng ký
-      </button>
-
-
-      <p style="text-align:center;color: red;" *ngIf="errorMessage">
-        {{ errorMessage }}
-      </p>
-    </form>
-  </div>
-</div>
-<a type="button" class="py-2 d-none d-md-inline-block register-button" hidden="true" data-toggle="modal"
-  data-target="#exampleModalCenter20" id="modal-button20">
-</a>
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter20" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">
-          Đăng ký thành công
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="card card-container" style="max-width: 500px;">
-          {{ message }}
+        <div class="col-lg-7 bg-white p-4">
+          <h1 class="text-center font-weight-bold text-primary" style="color: #1cc91f !important;">TẠO TÀI KHOẢN</h1>
+          <hr class="my-3"/>
+          <form class="form-signin" (ngSubmit)="registerUser()" [formGroup]="registerForm" class="px-3"
+                id="register-form">
+            <div class="input-group input-group-lg form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-0"><i class="fa fa-user fa-lg fa-fw"></i></span>
+              </div>
+              <input type="text" id="user" class="form-control rounded-0" name="user" formControlName="user"
+                     [ngClass]="{ 'is-invalid': submitted && f.user.errors }" [(ngModel)]="userObject.user"
+                     placeholder="Tên tài khoản" title="Tên tài khoản" autocomplete="off" required autofocus/>
+            </div>
+            <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
+              <div *ngIf="f.user.errors.required">
+                Vui lòng không để trống tên đăng nhập.
+              </div>
+            </div>
+            <div class="input-group input-group-lg form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-0"><i class="fa fa-envelope fa-lg fa-fw"></i></span>
+              </div>
+              <input type="text" id="email" class="form-control rounded-0" name="email" formControlName="email"
+                     [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [(ngModel)]="userObject.email"
+                     placeholder="Email"
+                     title="Please enter the email" autocomplete="off" required autofocus/>
+            </div>
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Vui lòng không để trống Email</div>
+              <div *ngIf="f.email.errors.email">Mail chưa hợp lệ!</div>
+            </div>
+            <div class="input-group input-group-lg form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-0"><i class="fa fa-key fa-lg fa-fw"></i></span>
+              </div>
+              <input type="password" id="password" class="form-control rounded-0" name="password"
+                     [ngClass]="{ 'is-invalid': submitted && f.password.errors }" formControlName="password"
+                     placeholder="Mật khẩu"
+                     title="Please enter the password" autocomplete="off" [(ngModel)]="userObject.password" required/>
+            </div>
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">
+                Vui lòng không để trống kí tự
+              </div>
+              <div *ngIf="f.password.errors.minlength">
+                Mật khẩu phải ít nhất 6 kí tự
+              </div>
+            </div>
+            <div class="input-group input-group-lg form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-0"><i class="fa fa-key fa-lg fa-fw"></i></span>
+              </div>
+              <input type="password" id="confirmpass" class="form-control rounded-0" name="confirmPassword"
+                     [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
+                     formControlName="confirmPassword"
+                     placeholder="Xác nhận mật khẩu" title="Please re-enter the password" autocomplete="off"
+                     [(ngModel)]="confirmPass" required/>
+            </div>
+            <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+              <div *ngIf="f.confirmPassword.errors.required">
+                Vui lòng xác nhận mật khẩu
+              </div>
+              <div *ngIf="f.confirmPassword.errors.mustMatch">
+                Phải trùng khớp mật khẩu!
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="submit" id="register-btn" value="ĐĂNG KÝ" class="btn btn-primary btn-lg btn-block myBtn"/>
+            </div>
+          </form>
         </div>
       </div>
     </div>

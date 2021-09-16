@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, NgForm, ReactiveFormsM
 import { LoginServiceService } from 'src/app/shared/service/login-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MustMatch } from 'src/app/shared/helper/must-match-validator';
+import {AlertService} from '../../shared/animation/_alert';
 
 
 @Component({
@@ -17,18 +18,19 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   message: string = null;
   userObject = {
-    user: "",
-    password: "",
-    email: ""
-  }
+    user: '',
+    password: '',
+    email: ''
+  };
 
-  confirmPass: string = ""
+  confirmPass = '';
 
   constructor(
-    private _loginService: LoginServiceService,
-    private _router: Router,
+    private loginService: LoginServiceService,
+    private router: Router,
     private formBuilder: FormBuilder,
-    private router: ActivatedRoute) { }
+    private alertService: AlertService
+    ) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -50,7 +52,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm.reset();
   }
   changeIndexPage() {
-    this._router.navigate(['/']);
+    this.router.navigate(['/']);
   }
   registerUser() {
     this.submitted = true;
@@ -59,20 +61,21 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-    if (this.userObject.user.trim() !== "" && this.userObject.password.trim() !== ""
-      && this.userObject.email.trim() !== "" && (this.userObject.password.trim() === this.confirmPass))
+    if (this.userObject.user.trim() !== '' && this.userObject.password.trim() !== ''
+      && this.userObject.email.trim() !== '' && (this.userObject.password.trim() === this.confirmPass))
       console.log(this.userObject);
-    this._loginService.registerUser(this.userObject).subscribe((data) => {
-      const result = data.body
+    this.loginService.registerUser(this.userObject).subscribe((data) => {
+      const result = data.body;
       if (result['status'] === 200) {
         this.message = result['message'];
-        const radio: HTMLElement = document.getElementById('modal-button20');
-        radio.click();
+        this.alertService.success(this.message);
         setTimeout(() => {
-          this._router.navigate(['/']);
-        }, 5000);
+          this.router.navigate(['/']);
+        }, 3000);
       } else if (result['status'] !== 200) {
         this.errorMessage = result['message'];
+        this.alertService.error(this.errorMessage);
+
       }
 
     });

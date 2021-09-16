@@ -8,12 +8,12 @@ nav > .nav.nav-tabs {
 
 #nav-home-tab {
   border-radius: 10px 0 0 10px;
-  border: 1px solid #c0f072;
+  border: 1px solid #1cc91f;
 }
 
 #nav-profile-tab {
   border-radius: 0 10px 10px 0;
-  border: 1px solid #c0f072;
+  border: 1px solid #1cc91f;
 }
 
 nav > div a.nav-item.nav-link {
@@ -28,8 +28,8 @@ nav > div a.nav-item.nav-link {
   padding: 4px;
 
   background: #fff;
-  border: 2px solid #c0f072;
-  color: #c0f072;
+  border: 2px solid #1cc91f;
+  color: #1cc91f;
   text-align: center;
 
   font: 16px Arial, sans-serif;
@@ -89,7 +89,7 @@ nav > div a.nav-item.nav-link:focus {
 }
 
 .nguyenlieu:hover .buttonhover {
-  color: #c0f072;
+  color: #1cc91f;
 }
 
 .nguyenlieu:hover .buttonhover:hover {
@@ -97,14 +97,14 @@ nav > div a.nav-item.nav-link:focus {
 }
 
 .buttonhover:checked {
-  color: #c0f072;
+  color: #1cc91f;
 }
 .buttonhover:hover {
   color: #10c9f7;
 }
 
 .buttoncheck {
-  color: #c0f072;
+  color: #1cc91f;
 }
 
 .buttoncheck:hover {
@@ -114,7 +114,7 @@ nav > div a.nav-item.nav-link:focus {
 .spancheck {
   padding: 2px;
   border-radius: 5px 5px 5px;
-  border: 0.5px dotted #c0f072;
+  border: 0.5px dotted #1cc91f;
 }
 
 .spanGroup-ingredient {
@@ -132,7 +132,7 @@ nav > div a.nav-item.nav-link:focus {
 }
 
 input[type=radio]:checked + label {
-  color: #c0f072;
+  color: #1cc91f;
   font-size: 10px;
   font-style: normal;
   display: block;
@@ -174,19 +174,19 @@ input[type=radio] + label {
 
 .btn-outline-success:hover {
   background-color: white;
-  color: #c0f072 !important;
-  border: 1px solid #c0f072;
+  color: #1cc91f !important;
+  border: 1px solid #1cc91f;
 }
 
 .btn-outline-success {
-  background-color: #c0f072;
+  background-color: #1cc91f;
   color: white !important;
   border: none;
 }
 
 .register-button {
-  padding: 0px 20px;
-  background-color: #c0f072;
+  padding: 0 20px !important;
+  background-color: #1cc91f;
   cursor: pointer;
   color: white !important;
   height: 80px;
@@ -196,8 +196,8 @@ input[type=radio] + label {
 }
 
 .register-button:hover {
-  color: #c0f072 !important;
+  color: #1cc91f !important;
   background-color: white;
-  border: 1px solid #c0f072;
+  border: 1px solid #1cc91f;
 }
 

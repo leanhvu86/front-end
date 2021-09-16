@@ -15,6 +15,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {CookStepService} from '../../shared/service/cook-step.service';
 import {ChatService} from 'src/app/shared/service/chat.service';
 import {Title} from '@angular/platform-browser';
+import {AlertService} from '../../shared/animation/_alert';
 
 @Component({
   selector: 'app-register-passenger',
@@ -56,8 +57,11 @@ export class RegisterPassengerComponent implements OnInit {
 
   constructor(private cloudinary: Cloudinary, private titleMain: Title,
               private zone: NgZone, private http: HttpClient,
-              private formbuilder: FormBuilder, private countryService: CountryService, private cookStepService: CookStepService,
-              private recipeService: RecipeService, private _router: Router, private cookie: CookieService, private chatService: ChatService
+              private formbuilder: FormBuilder,
+              private countryService: CountryService, private cookStepService: CookStepService,
+              private recipeService: RecipeService, private _router: Router,
+              private cookie: CookieService, private chatService: ChatService,
+              private alertService: AlertService
   ) {
     this.responses = [];
     this.title = '';
@@ -135,95 +139,81 @@ export class RegisterPassengerComponent implements OnInit {
     if (profilePhoto === undefined || profilePhoto === '') {
       console.log(profilePhoto);
       this.message = 'Vui lòng up ảnh hiển thị cho công thức';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     }
     if (this.profileForm.value.recipeName === '') {
       this.message = 'Vui lòng điền tên cho công thức';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     } else if (this.profileForm.value.recipeName.length < 5) {
       this.message = 'Tên công thức có độ dài lớn hơn 10 ký tự';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     } else if (this.profileForm.value.recipeName.length > 200) {
       this.message = 'Tên cho công thức có độ dài nhỏ hơn 500 ký tự';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     }
     if (this.profileForm.value.content === '') {
       this.message = 'Vui lòng điền Nội dung cho công thức';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     } else if (this.profileForm.value.content.length < 20) {
       this.message = 'Nội dung cho công thức có độ dài lớn hơn 20 ký tự';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     } else if (this.profileForm.value.content.length > 500) {
       this.message = 'Nội dung cho công thức có độ dài nhỏ hơn 500 ký tự';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     }
     console.log(this.profileForm.value.hardLevel + 'độ khó');
     if (this.profileForm.value.hardLevel === '') {
       this.message = 'Vui lòng chọn độ khó của công thức';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     }
     // chưa validate
     if (parseInt(this.profileForm.value.time) < 0 || this.profileForm.value.time === '') {
       this.message = 'Vui lòng nhập lại thời gian chế biến hợp lệ';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     }
     if (this.ingredientArrays === undefined || this.ingredientArrays.length == 0) {
       this.message = 'Bạn chưa nhập nguyên liệu của công thức';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     }
     if (this.profileForm.value.cookStep[0].psnote === '') {
       this.message = 'Vui lòng điền hướng dẫn cho bước công thức';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     } else if (this.profileForm.value.cookStep[0].psnote.length < 10) {
       this.message = 'Hướng dẫn cho công thức có độ dài lớn hơn 10 ký tự';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     } else if (this.profileForm.value.cookStep[0].psnote.length > 500) {
       this.message = 'Hướng dẫn cho công thức có độ dài nhỏ hơn 500 ký tự';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     }
     if (this.cookWayArray.length === 0 || this.countryArray.length === 0 || this.foodTypesArray.length === 0) {
       this.message = 'Vui lòng phân loại cho công thức';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     }
@@ -233,8 +223,7 @@ export class RegisterPassengerComponent implements OnInit {
     // recipe.ingredientArray = this.getingredientArray(recipe.ingredients);
     if (parseInt(recipe.time) < 0) {
       this.message = 'Thời gian thực hiện phải lớn hơn 0';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.error(this.message);
       this.submitted = false;
       return;
     }
@@ -263,8 +252,7 @@ export class RegisterPassengerComponent implements OnInit {
         if (recipe.imageUrl === undefined || recipe.imageUrl === '') {
           console.log(recipe.imageUrl);
           this.message = 'Vui lòng up ảnh hiển thị cho công thức';
-          const radio: HTMLElement = document.getElementById('modal-button');
-          radio.click();
+          this.alertService.error(this.message);
           this.submitted = false;
           return;
         }
@@ -282,17 +270,15 @@ export class RegisterPassengerComponent implements OnInit {
           const result = data.body;
           if (result['status'] === 200) {
             this.successMessage = result['message'];
-            const radio: HTMLElement = document.getElementById('modal-button');
-            radio.click();
+            this.alertService.success(this.message);
             setTimeout(() => {
-              window.location.reload();
+              this._router.navigate(['/index']);
             }, 3000);
             this.saving = false;
             this.chatService.identifyUser();
           } else {
             this.message = result['message'];
-            const radio: HTMLElement = document.getElementById('modal-button');
-            radio.click();
+            this.alertService.error(this.message);
             this.submitted = false;
             this.saving = false;
             return;
@@ -394,8 +380,7 @@ export class RegisterPassengerComponent implements OnInit {
           if (arrTest.length < 1) {
             console.log(arrTest);
             this.message = 'Vui lòng nhập lại nguyên liệu cho công thức đúng định dạng';
-            const radio: HTMLElement = document.getElementById('modal-button');
-            radio.click();
+            this.alertService.error(this.message);
             return;
           }
           let quantity = arrTest[0];
@@ -403,8 +388,7 @@ export class RegisterPassengerComponent implements OnInit {
           const checkQuan = this.checkQuantity(quantity);
           if (!checkQuan) {
             this.message = 'Vui lòng nhập lại số lượng cho nguyên liệu đúng định dạng';
-            const radio: HTMLElement = document.getElementById('modal-button');
-            radio.click();
+            this.alertService.error(this.message);
             return;
           }
           console.log(quantity);
@@ -459,8 +443,7 @@ export class RegisterPassengerComponent implements OnInit {
             if (removeIndex !== -1) {
               const mess = ingredient['ingredientName'];
               this.message = 'Nguyên liệu ' + mess.toUpperCase() + ' của bạn đã tồn tại.';
-              const radio: HTMLElement = document.getElementById('modal-button');
-              radio.click();
+              this.alertService.error(this.message);
               return;
             }
             this.recipeService.createIngredient(ingredient).subscribe((data) => {

@@ -157,7 +157,7 @@ export class MygalleryComponent implements OnInit {
           this.message = '';
           //this.registerForm.reset();
           window.location.reload();
-        }, 5000);
+        }, 3000);
         this.chatService.identifyUser();
       }
     });

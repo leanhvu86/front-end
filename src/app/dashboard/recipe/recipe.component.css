@@ -16,11 +16,11 @@
   left: 70px;
 }
 .search-button:hover{
-  background-color:#c0f072 !important;
+  background-color:#1cc91f !important;
   color: white !important;
 }
 .search-button{
-  color: #c0f072 !important;
+  color: #1cc91f !important;
   text-shadow: none;
 }
 .form-control:focus {
@@ -279,7 +279,7 @@
   text-align: center;
   line-height: 42px;
   border: 0;
-  color: #c0f072;
+  color: #1cc91f;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: 16px;
   text-rendering: auto;
@@ -291,14 +291,14 @@
 }
 
 .form > .button:hover {
-  background-color: #c0f072;
+  background-color: #1cc91f;
   color: white;
 }
 .button-filter{
   border-radius: 10px;
   background: white;
   font-size: 10px;
-  border: 0.5px solid #c0f072;
+  border: 0.5px solid #1cc91f;
 }
 .button-filter:focus{
   background: #e6fad6;

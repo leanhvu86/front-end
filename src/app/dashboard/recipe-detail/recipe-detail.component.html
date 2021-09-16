@@ -41,8 +41,7 @@
             <div class="col">
               <a style="color: orange;font-size: 16px;font-weight:bolder;">{{
                 recipe.time
-                }}</a>
-              &#160;<a class="atitle">ph</a>
+                }}</a>&#160;<a class="atitle">ph</a>
             </div>
           </div>
         </div>
@@ -249,7 +248,7 @@
             <span><i class="fa fa-picture-o" aria-hidden="true"></i>
             &#160; &#160;&#160; &#160;Đăng bình luận</span>
           </div>
-          <div style="width:10%;text-align: center;background-color:#c0f072;color:white;padding: 20px 20px; ">Đăng</div>
+          <div style="width:10%;text-align: center;background-color:#1cc91f;color:white;padding: 20px 20px; ">Đăng</div>
         </div>
         <div class="container" *ngIf="registerComment"
              style="border: 1px solid #bbbbbb; border-radius: 10px;padding: 20px 20px;">
@@ -375,6 +374,7 @@
             </div>
           </div>
           <div class="clearfix"></div>
+          <br>
           <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
       </div>
@@ -387,13 +387,13 @@
     <br>
     <a style="margin-top: 50px;color: #7f7f7f;">CÔNG THỨC LIÊN QUAN</a>
     <hr/>
-    <div class="row" *ngFor="let recipe of recipes; let i = index" style="padding: 5px 5px; max-height: 250px; margin-bottom: 15px;">
+    <div class="row" *ngFor="let recipe of recipes; let i = index" style="padding: 5px 5px; max-height: 280px; margin-bottom: 15px;">
       <img style="width: 100%;max-height: 250px;image-rendering:crisp-edges;" (click)="getRecipeDetail(recipe.nameSpace)"
            src="{{baseImageUrl+ recipe.imageUrl }}"/>
-      <br/>
-      <a (click)="getRecipeDetail(recipe.nameSpace)" style="color: black;">{{ recipe.recipeName }}</a>
-      <br/><a>{{ recipe.viewCount }} <a style="color: #c5c5c5;">lượt xem</a>
-      {{ recipe.time }} phút</a>
+      <br>
+      <a (click)="getRecipeDetail(recipe.nameSpace)" style="color: black;width:100%;">{{ recipe.recipeName }}</a>
+      <br>
+      <a>{{ recipe.viewCount }} <span style="color: #c5c5c5;">&#160;lượt xem&#160;</span>{{ recipe.time }} phút</a>
     </div>
   </div>
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"

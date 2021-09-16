@@ -2487,7 +2487,7 @@ body {
 .box13:after {
   content: "";
   display: block;
-  background: #c0f072;
+  background: #1cc91f;
   top: 20px;
   bottom: 20px;
   opacity: 0;
@@ -3837,15 +3837,15 @@ p:empty.lead {
 
 .register-button {
   border-radius: 5px;
-  color: #c0f072;
-  border: 1px solid #c0f072;
+  color: #1cc91f;
+  border: 1px solid #1cc91f;
   font-size: 12px;
   padding: 10px 10px;
 }
 
 .register-button:hover {
   color: white !important;
-  background-color: #c0f072;
+  background-color: #1cc91f;
   z-index: 1000;
 }
 

@@ -2550,7 +2550,7 @@ body {
 
 .register-button {
   border-radius: 5px;
-  border: 1px solid #c0f072;
+  border: 1px solid #1cc91f;
   font-size: 12px;
   padding: 10px 10px;
   background:none;
@@ -2558,6 +2558,6 @@ body {
 
 .register-button:hover {
   color: white;
-  background: #c0f072;
+  background: #1cc91f;
   z-index: 1000;
 }

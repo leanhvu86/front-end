@@ -96,7 +96,7 @@
                   <input type="text" formControlName="videoLink" class="col"
                          style="width:40%; border-radius:10px;border: 0.8px solid rgb(197, 197, 197);"
                          placeholder="BXhdkehdfd"/><a class="col" style="float: left;"><strong>Video</strong>(Youtube
-                  code/link)</a><a *ngIf="!showVideoTutorial" style="cursor: pointer;color: #c0f072;"
+                  code/link)</a><a *ngIf="!showVideoTutorial" style="cursor: pointer;color: #1cc91f;"
                                    (click)="onChangeOfVideo($event)"><i class="fa fa-question-circle buttonhover"
                                                                         aria-hidden="true"></i>
 
@@ -309,7 +309,7 @@
                        style=" font-size: 10px;width:93%; position: relative; border-radius:10px; margin:0 4% ;margin-bottom: 5%; min-height: 350px; padding: 20px 0 50px 0; border: 1px solid lightgray;">
                     <label>
                       <a disabled
-                         style="color: white; background: #c0f072; width: 5%;left: 2%; top: 5%; position: absolute; border-radius: 7px; text-align: center; border: 1px solid white;">
+                         style="color: white; background: #1cc91f; width: 5%;left: 2%; top: 5%; position: absolute; border-radius: 7px; text-align: center; border: 1px solid white;">
                         {{i + 1}}</a>
                       <input type="text" formControlName="name" class="form-control"
                              style="left: 12%; top: 7%;width: 50%; position: absolute; "
@@ -409,7 +409,7 @@
           <br>
           <br>
 
-          <a class="register-button"
+          <a class="register-button" style="padding: 10px 20px !important;"
              (click)="onSubmit()" *ngIf="!saving;else other_content10">Lưu công thức</a>
           <ng-template #other_content10>
             <div>

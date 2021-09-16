@@ -113,8 +113,8 @@ export class IndexComponent implements OnInit {
       this._loginService.testEmail(email).subscribe(data => {
         let user = data.body['user'];
         if (user !== undefined && user.imageUrl !== '') {
-          this.imageUrl =this.BASE_IMAGE_URL+user.imageUrl;
-          console.log('this.imageUrl'+this.imageUrl)
+          this.imageUrl = this.BASE_IMAGE_URL + user.imageUrl;
+          console.log('this.imageUrl' + this.imageUrl);
         }
         if (user !== undefined) {
 
@@ -173,7 +173,7 @@ export class IndexComponent implements OnInit {
             role = user[key];
           }
           if (key === 'image') {
-            this.imageUrl = this.BASE_IMAGE_URL+user[key];
+            this.imageUrl = this.BASE_IMAGE_URL + user[key];
           }
           if (parseInt(role) === -1) {
             this.errorMessage = 'Bạn chưa xác thực email đã đăng ký';
@@ -216,7 +216,6 @@ export class IndexComponent implements OnInit {
           this.addPassenger = false;
         } else if (this.href === '/index') {
           window.location.reload();
-
         } else {
           console.log('reload');
 
@@ -318,7 +317,7 @@ export class IndexComponent implements OnInit {
   }
 
   openSendMail() {
-    let url = 'https://mail.google.com/mail/?view=cm&fs=1&to=amthuc.anchay.2020@gmail.com&su=Thư Góp Ý&body=Xin Chào ban quản trị website Ẩm thực Ăn chay! ';
+    const url = 'https://mail.google.com/mail/?view=cm&fs=1&to=amthuc.anchay.2020@gmail.com&su=Thư Góp Ý&body=Xin Chào ban quản trị website Ẩm thực Ăn chay! ';
     window.open(url, 'MsgWindow', 'width=800,height=600');
   }
 }

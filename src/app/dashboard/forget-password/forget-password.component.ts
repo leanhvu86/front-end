@@ -57,11 +57,14 @@ export class ForgetPasswordComponent implements OnInit {
       const result = data.body;
       if (result['status'] === 200) {
         this.message = result['message'];
+        this.alertService.success(this.message);
         setTimeout(() => {
           this._router.navigate(['/']);
-        }, 5000);
+        }, 3000);
       } else {
         this.message = result['message'];
+        this.alertService.error(this.message);
+
       }
     });
 
