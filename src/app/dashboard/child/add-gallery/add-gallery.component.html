@@ -1,113 +1,122 @@
 <button class="register-button" (click)="registerGallery()" style="float: right; margin-right:70px; margin-top: -8px;">
   <i class="fa fa-smile-o" style="padding: 2px 8px;" aria-hidden="true"></i><a title="Thêm bộ sưu tập cá nhân mới">Thêm
-    bộ sưu tập</a></button>
+  bộ sưu tập</a></button>
 <a type="button" class="py-2 d-none d-md-inline-block register-button" hidden="true" style="opacity: 0;"
-  data-toggle="modal" data-target="#exampleModalCenter" id="modal-button555">
+   data-toggle="modal" data-target="#exampleModalCenter" id="modal-button555">
 </a>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" *ngIf="isAuthenticate"
-  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" *ngIf="isAuthenticate"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="background: #1cc91f;">
-        <h5 style="color: white;" class="modal-title" id="exampleModalLongTitle">Thêm bộ sưu tập</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal" (click)="reset()">
-          <span style="color: white;" aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {{message}}
-        <div class="card card-container" style="max-width: 500px; background: none;" *ngIf="!messageCheck">
-          <img id="profile-img" class="profile-img-card" src="../../../assets/images/default-gallery.png" />
-          <form class="form-signin" (ngSubmit)="addGallery()" #loginForm="ngForm" [formGroup]="registerForm">
+      <!--      <div class="modal-header" style="background: #1cc91f;">-->
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal" hidden
+              (click)="reset()">
+        <span style="color: white;" aria-hidden="true">&times;</span>
+      </button>
+      <!--      </div>-->
+      <div class="modal-body" style="padding: 0 !important; width: 900px !important;">
+        <div class="container">
+          <div class="row">
+            <div class="col-8" *ngIf="!messageCheck">
+              <form class="form-signin" (ngSubmit)="addGallery()" #loginForm="ngForm" [formGroup]="registerForm"
+                    style=" padding: 40px 40px;">
+                <h5 style="text-align: center;color: #1cc91f !important ;" >THÊM BỘ SƯU TẬP</h5>
+                <input type="text" id="name" class="form-control" placeholder="Tên bộ sưu tập" name="name" minlength="5"
+                       maxlength="200" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" autocomplete="off"
+                       formControlName="name"/>
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                  <div *ngIf="f.name.errors.required">Bạn phải điền tên bộ sưu tập</div>
+                  <div *ngIf="f.name.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                    Tên bộ sưu tập chứa ít nhất 5 kí tự.
+                  </div>
+                  <div *ngIf="f.name.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                    Tên bộ sưu tập chứa nhiều nhất 500 kí tự.
+                  </div>
+                </div>
+                <textarea id="content1" class="form-control" name="content1" autocomplete="off"
+                          formControlName="content"
+                          [ngClass]="{ 'is-invalid': submitted && f.content.errors }" placeholder="Nội dung bộ sưu tập "
+                          minlength="20" maxlength="500" title="Please enter the content" required autofocus cols="12"
+                          style="width: 100%;resize: none;"></textarea>
+                <div *ngIf="submitted && f.content.errors" class="invalid-feedback">
+                  <div *ngIf="f.content.errors.required">Bạn phải mô tả nội dung bộ sưu tập</div>
+                  <div *ngIf="f.content.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                    Nội dung bộ sưu tập chứa ít nhất 20 kí tự.
+                  </div>
+                  <div *ngIf="f.content.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
+                    Nội dung bộ sưu tập chứa nhiều nhất 500 kí tự.
+                  </div>
+                </div>
+                <!-- <input
+                                type="file"
+                                id="image"
+                                class="form-control"
+                                name="image"
+                                autocomplete="off"
+                                #upass="ngModel"
+                                [(ngModel)]="userObject.image"
+                                placeholder="Password"
+                                title="Please enter the image"
+                                required
+                              /> -->
 
-            <input type="text" id="name" class="form-control" placeholder="Tên bộ sưu tập" name="name" minlength="5"
-              maxlength="200" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" autocomplete="off"
-              formControlName="name" />
-            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-              <div *ngIf="f.name.errors.required">Bạn phải điền tên bộ sưu tập</div>
-              <div *ngIf="f.name.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
-                Tên bộ sưu tập chứa ít nhất 5 kí tự.
-              </div>
-              <div *ngIf="f.name.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
-                Tên bộ sưu tập chứa nhiều nhất 500 kí tự.
-              </div>
+                <div class=".col-md-8" id="gallery" style="position: relative; float: left; padding-left: 5px;"></div>
+                <br>
+                <button class="btn btn-lg btn-outline-success btn-block btn-signin register-button" type="submit"
+                        style="width: 50%;margin-left: 30%;" *ngIf="!saving;else other_content10">
+                  THÊM BỘ SƯU TẬP
+                </button>
+                <ng-template #other_content10>
+                  <div>
+
+                    <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+
+                    <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+
+                    <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </ng-template>
+                <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
+                  {{ errorMessage }}
+                </p>
+              </form>
+              <!--          <hr style="border-top: 1px solid #eee;">-->
+              <!-- <div class="row">
+                                <div class="col-6">
+                                    <button class="loginBtn loginBtn--facebook">
+                                        Login with Facebook
+                                    </button>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <button class="loginBtn loginBtn--google">
+                                        Login with Google
+                                    </button>
+                                </div>
+                            </div> -->
             </div>
-            <textarea id="content1" class="form-control" name="content1" autocomplete="off" formControlName="content"
-              [ngClass]="{ 'is-invalid': submitted && f.content.errors }" placeholder="Nội dung bộ sưu tập "
-              minlength="20" maxlength="500" title="Please enter the content" required autofocus cols="12"
-              style="width: 100%;"></textarea>
-            <div *ngIf="submitted && f.content.errors" class="invalid-feedback">
-              <div *ngIf="f.content.errors.required">Bạn phải mô tả nội dung bộ sưu tập</div>
-              <div *ngIf="f.content.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
-                Nội dung bộ sưu tập chứa ít nhất 20 kí tự.
-              </div>
-              <div *ngIf="f.content.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
-                Nội dung bộ sưu tập chứa nhiều nhất 500 kí tự.
-              </div>
+            <div class="col-4" style="background-color:#1cc91f; position: relative; ">
+                        <img style="position: absolute; width: 100px;height: 100px;border-radius: 100px;top: 31%;left: 35%; " src="../../../assets/images/naumonngon.jpg"/>
             </div>
-            <!-- <input
-                            type="file"
-                            id="image"
-                            class="form-control"
-                            name="image"
-                            autocomplete="off"
-                            #upass="ngModel"
-                            [(ngModel)]="userObject.image"
-                            placeholder="Password"
-                            title="Please enter the image"
-                            required
-                          /> -->
+          </div>
 
-            <div class=".col-md-8" id="gallery" style="position: relative; float: left; padding-left: 5px;"></div>
-            <br>
-            <button class="btn btn-lg btn-outline-success btn-block btn-signin register-button" type="submit"
-              style="width: 50%;margin-left: 30%;" *ngIf="!saving;else other_content10">
-              Thêm bộ sưu tập
-            </button>
-            <ng-template #other_content10>
-              <div>
-
-                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
-                  <span class="sr-only">Loading...</span>
-                </div>
-
-                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
-                  <span class="sr-only">Loading...</span>
-                </div>
-
-                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
-                  <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
-                  <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
-                  <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-success" role="status" style="height: 15px; width: 15px;">
-                  <span class="sr-only">Loading...</span>
-                </div>
-              </div>
-            </ng-template>
-            <p class="text-danger" style="text-align:center;" *ngIf="errorMessage">
-              {{ errorMessage }}
-            </p>
-          </form>
-<!--          <hr style="border-top: 1px solid #eee;">-->
-          <!-- <div class="row">
-                            <div class="col-6">
-                                <button class="loginBtn loginBtn--facebook">
-                                    Login with Facebook
-                                </button>
-                            </div>
-                            <div class="col-6 text-right">
-                                <button class="loginBtn loginBtn--google">
-                                    Login with Google
-                                </button>
-                            </div>
-                        </div> -->
         </div>
+
       </div>
     </div>
   </div>

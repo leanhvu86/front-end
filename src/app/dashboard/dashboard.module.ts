@@ -19,9 +19,6 @@ import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './child/footer/footer.component';
 import { CoutryComponent } from './coutry/coutry.component';
 import { NavComponent } from './child/nav/nav.component';
-import { CloudinaryModule } from '@cloudinary/angular-5.x';
-import * as  cloudinary from 'cloudinary-core';
-import cloudinaryConfiguration from '../config';
 import { FileUploadModule } from 'ng2-file-upload';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -106,7 +103,6 @@ import {AlertModule} from '../shared/animation/_alert';
                 deps: [HttpClient]
             }
         }),
-        CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
         SharedModule,
         AlertModule,
     ],

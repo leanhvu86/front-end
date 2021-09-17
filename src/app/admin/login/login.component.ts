@@ -4,6 +4,8 @@ import {LoginServiceService} from 'src/app/shared/service/login-service.service'
 import {CookieService} from 'ngx-cookie-service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
+import {ChatService} from '../../shared/service/chat.service';
+import {AlertService} from '../../shared/animation/_alert';
 
 @Component({
   selector: 'app-login',
@@ -26,16 +28,15 @@ export class LoginComponent implements OnInit {
               // tslint:disable-next-line:variable-name
               private _router: Router,
               private formBuilder: FormBuilder,
-              private title: Title) {
-    let body = document.getElementsByTagName('body')[0];
-    body.style.backgroundImage = 'url(../../../assets/images/wallpaperflare.com_wallpaper.png)';
-    body.style.height = '100%';
-    body.style.backgroundPosition = 'center';
-    body.style.backgroundRepeat = 'no-repeat';
-    body.style.backgroundSize = 'cover';
+              private title: Title,
+              private chatService: ChatService,
+              private alertService: AlertService
+  ) {
+    this.chatService.setBackground();
   }
 
   ngOnInit() {
+    this.alertService.warn('Vui lòng đăng nhập tài khoản quản trị viên! ')
     this.title.setTitle('Trang quản trị Ẩm thực Món chay');
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -87,6 +88,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('email', this.userObject.email);
           sessionStorage.setItem('user', this.userObject.email);
           this._loginService.updateAuthStatus(true);
+          this.alertService.success('Đăng nhập thành công! ')
           this._router.navigateByUrl('/loadPage');
         }
 
@@ -103,6 +105,7 @@ export class LoginComponent implements OnInit {
       } else {
         this.errorMessage = data.body['message'];
       }
+      this.alertService.warn(this.errorMessage)
 
     });
   }

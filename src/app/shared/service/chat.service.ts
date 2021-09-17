@@ -8,7 +8,7 @@ import {AppSetting} from 'src/app/appsetting';
   providedIn: 'root'
 })
 export class ChatService {
-  url = AppSetting.BASE_SERVER_URL+'/api/upload';
+  url = AppSetting.BASE_SERVER_URL + '/api/upload';
 
   constructor(private socket: Socket) {
   }
@@ -26,6 +26,15 @@ export class ChatService {
     });
   };
 
+
+  setBackground(){
+    let body = document.getElementsByTagName('body')[0];
+    body.style.backgroundImage = 'url(../../../assets/images/wallpaperflare.com_wallpaper.png)';
+    body.style.height = '100%';
+    body.style.backgroundPosition = 'center';
+    body.style.backgroundRepeat = 'no-repeat';
+    body.style.backgroundSize = 'cover';
+  }
   identifyUser() {
     this.socket = io(AppSetting.BASE_SERVER_URL);
     console.log('connect');

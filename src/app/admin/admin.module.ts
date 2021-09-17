@@ -11,19 +11,17 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CounterModule } from 'ngx-counter';
 import { OrderModule } from 'ngx-order-pipe'; // <- import OrderModule
 
-import * as  cloudinary from 'cloudinary-core';
-import cloudinaryConfiguration from '../config';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { RecipeAccessComponent } from './recipe-access/recipe-access.component';
 import { RecipeCheckComponent } from './recipe-check/recipe-check.component';
-import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../shared/helper';
 import { GalleryAccessComponent } from './gallery-access/gallery-access.component';
 import { LoadPageComponent } from './load-page/load-page.component';
 import { SearchPipe } from '../shared/helper/search.pipe';
+import {AlertModule} from '../shared/animation/_alert';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -47,8 +45,8 @@ import { SearchPipe } from '../shared/helper/search.pipe';
     ScrollingModule,
     CounterModule.forRoot(),
     RouterModule.forChild(AdminRoutes),
+    AlertModule,
 
-    CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
   ],
   providers: [],
   schemas: [

@@ -7,10 +7,10 @@ import {LoginServiceService} from 'src/app/shared/service/login-service.service'
 import {User} from 'src/app/shared/model/user';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
-import {Cloudinary} from '@cloudinary/angular-5.x';
 import {MustMatch} from 'src/app/shared/helper/must-match-validator';
 import {ChatService} from 'src/app/shared/service/chat.service';
 import {AppSetting} from '../../appsetting';
+import {AlertService} from '../../shared/animation/_alert';
 
 @Component({
   selector: 'app-userinfor',
@@ -64,14 +64,14 @@ export class UserinforComponent implements OnInit {
   };
 
   constructor(
-    private cloudinary: Cloudinary,
     private route: ActivatedRoute,
     private userService: UserService,
     private cookie: CookieService,
     private _loginService: LoginServiceService,
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private alertService: AlertService
   ) {
     this.isAuthenicate = localStorage.getItem('email') !== '';
   }
@@ -176,6 +176,7 @@ export class UserinforComponent implements OnInit {
     }
 
   }
+
   getImageSrc(event: any) {
     const imageRes = JSON.parse(event);
     console.log(imageRes.filePath);
@@ -208,8 +209,7 @@ export class UserinforComponent implements OnInit {
         const status = data.body['status'];
         if (status === 200) {
           this.message = data.body['message'];
-          const radio: HTMLElement = document.getElementById('modal-button2');
-          radio.click();
+          this.alertService.success(this.message);
           setTimeout(() => {
             this.loading = false;
             window.location.reload();
@@ -258,8 +258,7 @@ export class UserinforComponent implements OnInit {
         }
         this.loading = false;
         this.message = user.body['message'];
-        const radio: HTMLElement = document.getElementById('modal-button2');
-        radio.click();
+        this.alertService.success(this.message);
         this.loading = false;
         setTimeout(() => {
 

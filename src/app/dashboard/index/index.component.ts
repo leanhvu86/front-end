@@ -73,11 +73,11 @@ export class IndexComponent implements OnInit {
     translate.setDefaultLang('vi');
     sessionStorage.setItem('currentLang', 'vi');
     this.mailBox();
+    let body = document.getElementsByTagName('body')[0];
+    body.style.backgroundImage = 'none';
   }
 
   ngOnInit() {
-    let body = document.getElementsByTagName('body')[0];
-    body.style.backgroundImage = 'none';
     this.translate.get('Ẩm thực món chay').subscribe(name => {
       this.title.setTitle(name);
     });

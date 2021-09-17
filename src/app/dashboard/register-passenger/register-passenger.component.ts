@@ -9,7 +9,6 @@ import {CookWay} from 'src/app/shared/model/cookWay';
 import {Recipe} from 'src/app/shared/model/recipe';
 import {RecipeService} from 'src/app/shared/service/recipe-service.service';
 import {Router} from '@angular/router';
-import {Cloudinary} from '@cloudinary/angular-5.x';
 import {HttpClient} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {CookStepService} from '../../shared/service/cook-step.service';
@@ -55,13 +54,14 @@ export class RegisterPassengerComponent implements OnInit {
   imageProp = 'recipe';
   url: any;
 
-  constructor(private cloudinary: Cloudinary, private titleMain: Title,
-              private zone: NgZone, private http: HttpClient,
-              private formbuilder: FormBuilder,
-              private countryService: CountryService, private cookStepService: CookStepService,
-              private recipeService: RecipeService, private _router: Router,
-              private cookie: CookieService, private chatService: ChatService,
-              private alertService: AlertService
+  constructor(
+    private titleMain: Title,
+    private zone: NgZone, private http: HttpClient,
+    private formbuilder: FormBuilder,
+    private countryService: CountryService, private cookStepService: CookStepService,
+    private recipeService: RecipeService, private _router: Router,
+    private cookie: CookieService, private chatService: ChatService,
+    private alertService: AlertService
   ) {
     this.responses = [];
     this.title = '';

@@ -7,14 +7,12 @@ import {AppSetting} from '../../appsetting';
 import {retry, catchError, tap} from 'rxjs/operators';
 import {Recipe} from '../model/recipe';
 
-import {Cloudinary} from '@cloudinary/angular-5.x';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
   headerOptions: any = null;
-  private cloudinary: Cloudinary;
   _isLoggedIn: boolean = false;
 
   authSub = new Subject<any>();

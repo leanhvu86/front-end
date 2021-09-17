@@ -5,7 +5,6 @@ import {Recipe} from 'src/app/shared/model/recipe';
 import {CookieService} from 'ngx-cookie-service';
 import {UserService} from 'src/app/shared/service/user.service.';
 
-import {Cloudinary} from '@cloudinary/angular-5.x';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoginServiceService} from 'src/app/shared/service/login-service.service';
 import {Gallery} from 'src/app/shared/model/gallery';
@@ -81,7 +80,6 @@ export class RecipeDetailComponent implements OnInit {
   resetAll: boolean = false;
 
   constructor(
-    private cloudinary: Cloudinary,
     private route: ActivatedRoute,
     private cookie: CookieService,
     private recipeService: RecipeService,
