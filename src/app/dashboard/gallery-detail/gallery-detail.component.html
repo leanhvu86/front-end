@@ -93,14 +93,15 @@
                        disabled>
               </div>
               <div class="col-md-3">
-                <a class="button_slidehr slide_downhr"
-                   style=" width: 50px;margin-top: 10px;margin-left: 10px;background: none;" id="bookmark"
-                   title="Thêm công thức vào bộ sưu tập" (click)="addBookmark(recipe)"></a>
+<!--                <a class="button_slidehr slide_downhr"-->
+<!--                   style=" width: 50px;margin-top: 10px;margin-left: 10px;background: none;" id="bookmark"-->
+<!--                   title="Thêm công thức vào bộ sưu tập" (click)="addBookmark(recipe)"></a>-->
+                 <app-add-bookmark [childMessage]="recipe" id="i"></app-add-bookmark>
+
               </div>
             </div>
           </a>
 
-          <!-- <app-add-bookmark [childMessage]="recipe" id="i"></app-add-bookmark> -->
         </div>
 
         <span *ngIf="recipe.videoLink" (click)='video(recipe.videoLink)'><i class="fa fa-play-circle-o fa-3x play"

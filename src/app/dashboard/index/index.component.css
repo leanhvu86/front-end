@@ -539,7 +539,9 @@ ul.social-list li a i {
 .top-menu:hover {
   color: #1cc91f !important;
 }
-
+.myShadow {
+  box-shadow: 0 5px 5px rgba(119, 119, 119, 0.5);
+}
 .text-top:hover {
   color: white !important;
 }

@@ -1,0 +1,36 @@
+<div class="mem-statis-box">
+          <span class="headline" style="color: #7cb342" *ngIf="level==='Newbee'">
+            {{level}}
+          </span>
+          <span class="headline" style="color: #757575" *ngIf="level==='Tastee'">
+            {{level}}
+          </span>
+          <span class="headline" style="color: #ffc107" *ngIf="level==='Cookee'">
+            {{level}}
+          </span>
+          <span class="headline" style="color: #018b99" *ngIf="level==='Chefee'">
+            {{level}}
+          </span>
+          <span class="headline" style="color: #361742" *ngIf="level==='Mastee'">
+            {{level}}
+          </span>
+  <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ng5-slider>
+
+  <div class="text">
+    <a class="user-lv1 " title="0 - 100 điểm. Bạn là người quan tâm đến những món ăn ngon và đẹp"
+       style="float: left; width: 20%; color: #7cb342; font-size: 12px; ">
+      Newbee</a>
+    <a class="user-lv1 " title="101 - 250 điểm. Bạn là chuyên gia nêm nếm thưởng thức món ăn"
+       style="float: left; width: 20%; color: #757575;  font-size: 12px; ">Tastee
+    </a>
+    <a class="user-lv1 " title="251 - 400 điểm. Bạn là người nấu ăn ngon"
+       style="float: left;  width: 20%; color: #ffc107;  font-size: 12px; ">Cookee
+    </a>
+    <a class="user-lv1 " title="401 - 600 điểm. Bạn là đầu bếp chuyên ngiệp"
+       style="float: left; width: 20%; color: #018b99;  font-size: 12px; ">Chefee
+    </a>
+    <a class="user-lv1 " title="600 điểm trở lên. Vua đầu bếp"
+       style="float: left; width: 20%; color: #361742;  font-size: 12px;">
+      Mastee</a>
+  </div>
+</div>

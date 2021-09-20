@@ -6,6 +6,9 @@
 .l-page-container {
   min-height: 600px;
 }
+.myShadow {
+  box-shadow: 0 5px 5px rgba(119, 119, 119, 0.5);
+}
 .page-container {
   padding: 20px 0;
 }

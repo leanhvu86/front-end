@@ -49,6 +49,7 @@ import { LoadingBarModule } from "ngx-loading-bar";
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {SharedModule} from '../shared/shared.module';
 import {AlertModule} from '../shared/animation/_alert';
+import { MemberTitleComponent } from './child/member-title/member-title.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import {AlertModule} from '../shared/animation/_alert';
     MygalleryComponent,
     AddGalleryComponent,
     AppRecipeGalleryComponent,
+    MemberTitleComponent,
   ],
     imports: [
         CommonModule,

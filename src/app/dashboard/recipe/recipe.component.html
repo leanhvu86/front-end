@@ -1,5 +1,5 @@
 <br>
-<div class="container" style="background: white; border-radius: 5px; padding: 10px 15px;">
+<div class="container myShadow" style="background: white; padding: 10px 15px;">
   <div class="row">
     <form class="form" style="width:98%;margin-left:5%;">
       <input title="Search" value="" type="submit" class="button search-button">
@@ -69,12 +69,12 @@
 </div>
 <div class="container" *ngIf="loadingSuccess; else skeleton" style="min-height: 400px !important;" >
   <br><a style="color: #10c9f7;font-size: 10px;">{{stringFilter}}</a><br>
-  <h6 style="color: #7f7f7f;">Tổng số <a style="color: #f15b47 !important;" *ngIf="!searchText">{{countRecipe}}</a> công thức</h6>
+  <h6 style="color: #7f7f7f;margin-left: 5%;">Tổng số <a style="color: #f15b47 !important;" *ngIf="!searchText">{{countRecipe}}</a> công thức</h6>
   <div class="recipe-list-wrapper" style="float: left;width: 100%;margin-bottom:20px ;">
     <!-- 1 anh -->
     <div class="ng-scope member-recipe-item"
       *ngFor="let recipe of recipes|filter:searchText|paginate:{itemsPerPage: pageSize, currentPage:p};let i = index">
-      <div class="item-inner ng-scope" style="background: white;">
+      <div class="item-inner ng-scope myShadow" style="background: white;">
         <div class="item-photo" style="    position: relative;">
           <a [routerLink]="['/detail/', recipe.nameSpace]" class="photo" style="position: relative;">
             <img style="width: 100%;height: 230px;image-rendering:crisp-edges;"
@@ -115,20 +115,18 @@
           </div>
         </div>
         <div class="item-footer">
-          <div class="recipe-acts">
-            <a style="font-size: 10px;margin-top: -30px;text-overflow: ellipsis;
+          <div class="recipe-acts row">
+            <div class="col-8">
+              <a style="font-size: 10px;margin-top: -30px;text-overflow: ellipsis;
             overflow: hidden;
             white-space:nowrap;">
-              <img style="width: 50px;height: 50px;border-radius: 50px;display: inline-block;"
-                   src="{{baseImageUrl+ recipe.user.imageUrl }}"/>
-               {{recipe.user.name}}
-            </a>
-            <div style="float: left;
-            margin-top: -60px; margin-left: 132px;">
-              <!-- <i class="fa fa-bookmark"></i> -->
-              <a class="button_slidehr slide_downhr"
-                style="margin-left: 50px; width: 50px;background: none;margin-top: 20px;" id="bookmark"
-                title="Thêm công thức vào bộ sưu tập" (click)="addBookmark(recipe)"></a>
+                <img style="width: 50px;height: 50px;border-radius: 50px;display: inline-block;"
+                     src="{{baseImageUrl+ recipe.user.imageUrl }}"/>
+                {{recipe.user.name}}
+              </a>
+            </div>
+            <div class="col-4">
+              <app-add-bookmark [childMessage]="recipe" id="i"></app-add-bookmark>
             </div>
           </div>
         </div>

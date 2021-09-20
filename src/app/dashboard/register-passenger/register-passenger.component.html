@@ -1,6 +1,9 @@
-<div class="container" style="max-width:1300px; border:none ;">
-  <div class="card " style=" width: 80%;background: white;border:none;box-shadow: none;border-radius: 10px;">
-    <h3 style="margin:2% 35% ; width: 100%;">TẠO VÀ CHIA SẺ CÔNG THỨC MÓN CHAY</h3>
+<div class="container " style="max-width:1300px; border:none ;">
+  <div class="card myShadow" style=" width: 80%;background: white;border:none;border-radius: 10px;">
+    <div style="width: 100%; text-align: center;">
+      <h3 >TẠO VÀ CHIA SẺ CÔNG THỨC MÓN CHAY</h3>
+
+    </div>
     <br>
     <div>
       <br><br>
@@ -302,7 +305,7 @@
                 </div> -->
                 <br/>
                 <a style="margin-left: 5%;"> Cách làm</a><span style="color: red;">*</span>
-                <div class="col " formArrayName="cookStep">
+                <div class="col  " formArrayName="cookStep">
                   <br/>
                   <div [formGroup]="address" class="nguyenlieu"
                        *ngFor="let address of cookStep.controls; let i = index;"

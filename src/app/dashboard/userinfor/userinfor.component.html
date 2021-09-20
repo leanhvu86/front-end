@@ -1,7 +1,7 @@
 <div class="container" *ngIf="loadPage; else skeleton;">
   <div class="row" style=" padding: 50px 0 50px 0;">
     <!--  -->
-    <div class="col-3 account-sidebar">
+    <div class="col-3 account-sidebar myShadow">
       <div class="sidebar-head">
         <!--        <div class="profile-avatar" (fileOver)="fileOverBase1($event)"-->
         <!--          [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver1 }">-->
@@ -36,32 +36,8 @@
             <span class="sr-only">Loading...</span>
           </div>
         </div>
-        <div class="mem-statis-box">
-          <span class="headline">
-            {{user.level}}
-          </span>
-          <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ng5-slider>
-
-          <div class="text">
-            <a class="user-lv1 " title="0 - 100 điểm. Bạn là người quan tâm đến những món ăn ngon và đẹp"
-               style="float: left; width: 20%; color: #7cb342; font-size: 12px; ">
-              Newbee</a>
-            <a class="user-lv1 " title="101 - 250 điểm. Bạn là chuyên gia nêm nếm thưởng thức món ăn"
-               style="float: left; width: 20%; color: #757575;  font-size: 12px; ">Tastee
-            </a>
-            <a class="user-lv1 " title="251 - 400 điểm. Bạn là người nấu ăn ngon"
-               style="float: left;  width: 20%; color: #ffc107;  font-size: 12px; ">Cookee
-            </a>
-            <a class="user-lv1 " title="401 - 600 điểm. Bạn là đầu bếp chuyên ngiệp"
-               style="float: left; width: 20%; color: #018b99;  font-size: 12px; ">Chefee
-            </a>
-            <a class="user-lv1 " title="600 điểm trở lên. Vua đầu bếp"
-               style="float: left; width: 20%; color: #361742;  font-size: 12px;">
-              Mastee</a>
-          </div>
-        </div>
+        <app-member-title [value]="value" [level]="user.level"></app-member-title>
       </div>
-
       <div class="sidebar-content">
         <ul class="list-unstyled">
           <li class="menu-list-a">
@@ -89,8 +65,8 @@
       </div>
     </div>
     <!--  -->
-    <div class="col-8 page-account-info" style="font-family: Arial, Helvetica, sans-serif">
-      <a class="a-title">THÔNG TIN CÁ NHÂN</a>
+    <div class="col-8 page-account-info myShadow" style="font-family: Arial, Helvetica, sans-serif">
+      <a class="a-title" style="color: #7f7f7f;">THÔNG TIN CÁ NHÂN</a>
       <ul class="nav nav-tabs" style="text-align: center;padding-top:5px !important;">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#home">
@@ -273,6 +249,73 @@
               <div class="col" style="width: 300px; padding: 50px;text-align: center;">
                 <h6>BẠN MUỐN THAY ĐỔI MẬT KHẨU?</h6>
                 <br><br>
+<!--                <form class="form-signin" (ngSubmit)="registerUser()" [formGroup]="registerForm" class="px-3"-->
+<!--                      id="register-form">-->
+<!--                  <div class="input-group input-group-lg form-group">-->
+<!--                    <div class="input-group-prepend">-->
+<!--                      <span class="input-group-text rounded-0"><i class="fa fa-user fa-lg fa-fw"></i></span>-->
+<!--                    </div>-->
+<!--                    <input type="text" id="user" class="form-control rounded-0" name="user" formControlName="user"-->
+<!--                           [ngClass]="{ 'is-invalid': submitted && f.user.errors }" [(ngModel)]="userObject.user"-->
+<!--                           placeholder="Tên tài khoản" title="Tên tài khoản" autocomplete="off" required autofocus/>-->
+<!--                  </div>-->
+<!--                  <div *ngIf="submitted && f.user.errors" class="invalid-feedback">-->
+<!--                    <div *ngIf="f.user.errors.required">-->
+<!--                      Vui lòng không để trống tên đăng nhập.-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="input-group input-group-lg form-group">-->
+<!--                    <div class="input-group-prepend">-->
+<!--                      <span class="input-group-text rounded-0"><i class="fa fa-envelope fa-lg fa-fw"></i></span>-->
+<!--                    </div>-->
+<!--                    <input type="text" id="email" class="form-control rounded-0" name="email" formControlName="email"-->
+<!--                           [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [(ngModel)]="userObject.email"-->
+<!--                           placeholder="Email"-->
+<!--                           title="Please enter the email" autocomplete="off" required autofocus/>-->
+<!--                  </div>-->
+<!--                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">-->
+<!--                    <div *ngIf="f.email.errors.required">Vui lòng không để trống Email</div>-->
+<!--                    <div *ngIf="f.email.errors.email">Mail chưa hợp lệ!</div>-->
+<!--                  </div>-->
+<!--                  <div class="input-group input-group-lg form-group">-->
+<!--                    <div class="input-group-prepend">-->
+<!--                      <span class="input-group-text rounded-0"><i class="fa fa-key fa-lg fa-fw"></i></span>-->
+<!--                    </div>-->
+<!--                    <input type="password" id="password" class="form-control rounded-0" name="password"-->
+<!--                           [ngClass]="{ 'is-invalid': submitted && f.password.errors }" formControlName="password"-->
+<!--                           placeholder="Mật khẩu"-->
+<!--                           title="Please enter the password" autocomplete="off" [(ngModel)]="userObject.password" required/>-->
+<!--                  </div>-->
+<!--                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">-->
+<!--                    <div *ngIf="f.password.errors.required">-->
+<!--                      Vui lòng không để trống kí tự-->
+<!--                    </div>-->
+<!--                    <div *ngIf="f.password.errors.minlength">-->
+<!--                      Mật khẩu phải ít nhất 6 kí tự-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="input-group input-group-lg form-group">-->
+<!--                    <div class="input-group-prepend">-->
+<!--                      <span class="input-group-text rounded-0"><i class="fa fa-key fa-lg fa-fw"></i></span>-->
+<!--                    </div>-->
+<!--                    <input type="password" id="confirmpass" class="form-control rounded-0" name="confirmPassword"-->
+<!--                           [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"-->
+<!--                           formControlName="confirmPassword"-->
+<!--                           placeholder="Xác nhận mật khẩu" title="Please re-enter the password" autocomplete="off"-->
+<!--                           [(ngModel)]="confirmPass" required/>-->
+<!--                  </div>-->
+<!--                  <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">-->
+<!--                    <div *ngIf="f.confirmPassword.errors.required">-->
+<!--                      Vui lòng xác nhận mật khẩu-->
+<!--                    </div>-->
+<!--                    <div *ngIf="f.confirmPassword.errors.mustMatch">-->
+<!--                      Phải trùng khớp mật khẩu!-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="form-group">-->
+<!--                    <input type="submit" id="register-btn" value="ĐĂNG KÝ" class="btn btn-primary btn-lg btn-block myBtn"/>-->
+<!--                  </div>-->
+<!--                </form>-->
                 <form class="form-signin" (ngSubmit)="changePass()" [formGroup]="changePassForm"
                       style="width: 300px; margin-left: 150px;">
 

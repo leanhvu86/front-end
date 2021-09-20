@@ -5,7 +5,9 @@
 .nav-link:hover {
   text-decoration: underline;
 }
-
+.myShadow {
+  box-shadow: 0 5px 5px rgba(119, 119, 119, 0.5);
+}
 .content {
   width: 80%;
 }

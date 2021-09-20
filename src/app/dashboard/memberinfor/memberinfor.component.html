@@ -1,5 +1,5 @@
 <div class="container" style="margin-top: 20px;width: 100%;" *ngIf="infoCheck ;else skeleton">
-  <div class="row">
+  <div class="row myShadow">
     <div class="col -4" style="background:white;border-top-left-radius: 16px;border-bottom-left-radius: 16px; ">
       <div style="clear: both;width: 100%;"></div>
       <div class="profile-photo">
@@ -61,12 +61,12 @@
 
 <div class="container" *ngIf="infoCheck ">
   <div>
-    <a class="a-title">CÔNG THỨC CÁ NHÂN <span style="color: red; font-size: 12px;">{{recipeCount}}</span></a>
+    <a class="a-title" style="color: #7f7f7f;">CÔNG THỨC CÁ NHÂN <span style="color: red; font-size: 12px;">{{recipeCount}}</span></a>
 
   </div>
   <div class="recipe-list-wrapper" style="float: left; width: 100%;">
     <!-- 1 anh -->
-    <div class="ng-scope member-recipe-item"
+    <div class="ng-scope member-recipe-item "
          *ngFor="let recipe of memberRecipes|paginate:{itemsPerPage: 4, currentPage:p};let i = index">
       <div class="item-inner ng-scope" style="background: white;cursor: pointer;">
         <div class="item-photo" style="    position: relative;">
@@ -129,7 +129,7 @@
   </div>
 </div>
 <div class="container" *ngIf="infoCheck ">
-  <a class="a-title">BỘ SƯU TẬP CÁ NHÂN <span style="color: red; font-size: 12px;">{{galleryCount}}</span></a>
+  <a class="a-title" style="color: #7f7f7f;">BỘ SƯU TẬP CÁ NHÂN <span style="color: red; font-size: 12px;">{{galleryCount}}</span></a>
 
   <div class="row mt-30">
     <div class="col-md-4 col-sm-6" *ngFor="let gallery of memberGallery; let i=index;" style="margin-bottom: 20px;">

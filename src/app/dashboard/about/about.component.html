@@ -2,7 +2,7 @@
 <br>
 <div class="container" style="min-height: 250px;color: #7f7f7f;">
   <div class="row">
-    <a class="text-left">TOP THÀNH VIÊN NỔI BẬT</a>
+    <a class="text-left" style="margin-left: 5%;">TOP THÀNH VIÊN NỔI BẬT</a>
     <div style="background: white; margin-top: 2%;height: 2px;width: 90%;margin-left: 5%; margin-bottom: 2%;"></div>
     <ng-template #skeleton>
       <section style="width: 100%; min-height: auto;">
@@ -209,12 +209,12 @@
   </div>
 </section>
 <div class="container" style="min-height: 100px; width: 100%;color: #7f7f7f;">
-  <a class="text-left">DANH SÁCH THÀNH VIÊN MỚI</a>
+  <a class="text-left" style="margin-left: 5%;">DANH SÁCH THÀNH VIÊN MỚI</a>
   <div style="background: white; margin-top: 2%;height: 2px;width: 90%;margin-left: 5%; margin-bottom: 2%;"></div>
   <div class="member-list-left">
     <div class="member-list-container tab-content">
       <div role="tabpanel" id="latestlist" class="tab-pane active"
-           *ngFor="let user of allUser|paginate:{itemsPerPage: 4, currentPage:p}; let i = index">
+           *ngFor="let user of allUser|paginate:{itemsPerPage: 8, currentPage:p}; let i = index">
         <div class="member-list row10">
           <div class="member-item-wrapper">
             <div class="member-item">
@@ -252,7 +252,7 @@
   <div class="clearfix"></div>
   <br>
 </div>
-<div class="container">
+<div class="container" style="display: inline-block;text-align: center;">
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 <app-scroll-top></app-scroll-top>

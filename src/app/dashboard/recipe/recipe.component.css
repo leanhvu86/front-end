@@ -5,6 +5,9 @@
   border-radius: 16px;
   background-color: #fff;
 }
+.myShadow {
+  box-shadow: 0 5px 5px rgba(119, 119, 119, 0.5);
+}
 .profile-cover-photo {
   position: absolute;
   bottom: 0;

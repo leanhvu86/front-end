@@ -19,7 +19,9 @@
   margin-right: 35px;
   margin-left: 28px;
 }
-
+.myShadow {
+  box-shadow: 0 5px 5px rgba(119, 119, 119, 0.5);
+}
 .eraser {
   width: 50px;
   border-radius: 5px;

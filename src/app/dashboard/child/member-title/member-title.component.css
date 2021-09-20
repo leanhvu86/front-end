@@ -13,41 +13,6 @@
 .myShadow {
   box-shadow: 0 5px 5px rgba(119, 119, 119, 0.5);
 }
-* {
-  box-sizing: border-box;
-}
-.wrapper {
-  height: 100vh;
-}
-.myColor {
-  background-image: linear-gradient(to left, #1cc91f 50%, #0fef12 150%);
-}
-.myBtn {
-  border-radius: 50px;
-  font-weight: bold;
-  font-size: 20px;
-  cursor: pointer !important;
-  background-image: linear-gradient(to left, #1cc91f 50%, #0fef12 150%);
-  border: none;
-}
-.myBtn:hover {
-  background-image: linear-gradient(to right, #1cc91f 50%, #0fef12 150%) !important;
-}
-.myHr {
-  height: 2px;
-  border-radius: 100px;
-}
-.myLinkBtn {
-  border-radius: 100px;
-  width: 50%;
-  border: 2px solid #fff;
-}
-@media (max-width: 720px) {
-  .wrapper {
-    margin: 2px;
-  }
-}
-
 .button-form:hover {
   background-color: white !important;
   border: 1px solid #1cc91f;

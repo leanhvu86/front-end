@@ -1,7 +1,7 @@
 <div class="container" style="font-family: Arial, Helvetica, sans-serif" *ngIf="loadPage ; else skeleton">
   <div class="row" style="padding: 50px 0 50px 0;">
     <!--  -->
-    <div class="col-3 account-sidebar" style="font-family: Arial, Helvetica, sans-serif">
+    <div class="col-3 account-sidebar myShadow" style="font-family: Arial, Helvetica, sans-serif">
       <div class="sidebar-head">
         <!--        <div class="profile-avatar">-->
         <!--          <a class="a-image" [routerLink]="['/user/info/', id]">-->
@@ -22,30 +22,7 @@
           </a>
         </h3>
 
-        <div class="mem-statis-box" style="font-family: Arial, Helvetica, sans-serif">
-          <span class="headline">
-            {{user.level}}
-          </span>
-          <ng5-slider [(value)]="value" [options]="options"></ng5-slider>
-
-          <div class="text">
-            <a class="user-lv1 " title="0 - 100 điểm. Bạn là người quan tâm đến những món ăn ngon và đẹp"
-               style="float: left; width: 20%; color: #7cb342; font-size: 12px; ">
-              Newbee</a>
-            <a class="user-lv1 " title="101 - 250 điểm. Bạn là chuyên gia nêm nếm thưởng thức món ăn"
-               style="float: left; width: 20%; color: #757575;  font-size: 12px; ">Tastee
-            </a>
-            <a class="user-lv1 " title="251 - 400 điểm. Bạn là người nấu ăn ngon"
-               style="float: left;  width: 20%; color: #ffc107;  font-size: 12px; ">Cookee
-            </a>
-            <a class="user-lv1 " title="401 - 600 điểm. Bạn là đầu bếp chuyên ngiệp"
-               style="float: left; width: 20%; color: #018b99;  font-size: 12px; ">Chefee
-            </a>
-            <a class="user-lv1 " title="600 điểm trở lên. Vua đầu bếp"
-               style="float: left; width: 20%; color: #a944d0;  font-size: 12px;">
-              Mastee</a>
-          </div>
-        </div>
+        <app-member-title [value]="value" [level]="user.level"></app-member-title>
       </div>
 
       <div class="sidebar-content" style="font-family: Arial, Helvetica, sans-serif">
@@ -75,11 +52,11 @@
       </div>
     </div>
     <!--  -->
-    <div class="col-8 page-account-info" style="font-family: Arial, Helvetica, sans-serif">
+    <div class="col-8 page-account-info myShadow" style="font-family: Arial, Helvetica, sans-serif">
 
       <div class="row">
         <div class="col-8">
-          <a class="a-title">BỘ SƯU TẬP CỦA TÔI</a>
+          <a class="a-title" style="color: #7f7f7f;">BỘ SƯU TẬP CỦA TÔI</a>
         </div>
         <div class="col-4">
           <app-add-gallery (galleryOutput)="getGalleryOutput($event)"></app-add-gallery>
@@ -87,7 +64,7 @@
       </div>
       <div class="container mt-40">
         <div class="row mt-30">
-          <div class="col-md-4 col-sm-6" style="margin-bottom: 10px;"
+          <div class="col-md-4 col-sm-6 " style="margin-bottom: 10px;"
                *ngFor="let gallery of myGallery|paginate:{itemsPerPage: 6, currentPage:p};let i = index">
             <div class="box13">
 
@@ -324,13 +301,13 @@
 <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content" style="height: 1000px;">
-      <div class="modal-header" style="background: #1cc91f;">
-        <a style="color: white;">Chỉnh sửa thông tin bộ sưu tập</a>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
+    <div class="modal-content" style="height: 1000px;padding-top: 20px;">
+<!--      <div class="modal-header" style="background: #1cc91f;">-->
+<!--        <a style="color: white;">Chỉnh sửa thông tin bộ sưu tập</a>-->
+        <button type="button" class="close" data-dismiss="modal" hidden aria-label="Close" id="close-modal">
           <span aria-hidden="true" style="color: white;">&times;</span>
         </button>
-      </div>
+<!--      </div>-->
       <form class="form-signin" (ngSubmit)="updateGallery()" [formGroup]="registerForm" style="margin-top: 10px;">
         <div class="container">
           <div class="row">

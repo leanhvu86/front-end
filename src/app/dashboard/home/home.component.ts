@@ -49,6 +49,7 @@ export class Home2Component implements OnInit {
     recipe: Recipe
   };
   baseImageUrl = AppSetting.BASE_IMAGE_URL;
+  p: number;
 
   constructor(
     private cookie: CookieService,

@@ -18,6 +18,9 @@
   height: 203px;
 
 }
+.myShadow {
+  box-shadow: 0 5px 5px rgba(119, 119, 119, 0.5);
+}
 .account-sidebar {
   color: #333;
   min-height: 600px;

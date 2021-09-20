@@ -194,7 +194,9 @@ input[type=radio] + label {
   border-radius: 5px;
   margin-left: 40%;
 }
-
+.myShadow {
+  box-shadow: 0 5px 5px rgba(119, 119, 119, 0.5);
+}
 .register-button:hover {
   color: #1cc91f !important;
   background-color: white;

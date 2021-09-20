@@ -20,13 +20,6 @@ export class AppRecipeGalleryComponent implements OnInit {
   submitted = false;
   registerForm: FormGroup;
   isAuthenticate: boolean;
-  @Input() childMessage: Gallery;
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.initGallery();
-    console.log(this.childMessage);
-  }
-
   galleryObject = {
     content: '',
     _id: '',
@@ -47,6 +40,14 @@ export class AppRecipeGalleryComponent implements OnInit {
     autoClose: true,
     keepAfterRouteChange: false
   };
+  @Input() childMessage: Gallery;
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnChanges(changes: SimpleChanges) {
+    this.initGallery();
+    console.log(this.childMessage);
+  }
+
 
   constructor(
     private cookie: CookieService,
