@@ -45,6 +45,9 @@ export class RecipeService {
   registerRecipe(recipe: any) {
     return this._http.post(`${this.baseUrl}/createRecipe`, {recipe: recipe}, {observe: 'response'});
   }
+  getNameSpaceRecipe(recipe: any) {
+    return this._http.post(`${this.baseUrl}/getNameSpaceRecipe`, {recipe: recipe}, {observe: 'response'});
+  }
 
   acceptRecipe(recipe: any) {
     return this._http.post(`${this.baseUrl}/acceptRecipe`, {recipe: recipe}, {observe: 'response'});

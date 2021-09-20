@@ -53,6 +53,7 @@ export class RegisterPassengerComponent implements OnInit {
   // url = AppSetting.BASE_SERVER_URL + '/api/upload';
   imageProp = 'recipe';
   url: any;
+  checkNameSpace = false;
 
   constructor(
     private titleMain: Title,
@@ -130,6 +131,16 @@ export class RegisterPassengerComponent implements OnInit {
 
   onSubmit() {
     if (this.saving === true) {
+      this.alertService.warn('Hệ thống đang xử lý');
+      return;
+    }
+    if(this.checkNameSpace==false){
+      this.getNameSpace(this.profileForm.value.recipeName);
+    }
+    if (!this.checkNameSpace) {
+      this.message = 'Vui lòng điền tên cho công thức';
+      this.alertService.error(this.message);
+      this.submitted = false;
       return;
     }
     this.submitted = true;
@@ -154,7 +165,7 @@ export class RegisterPassengerComponent implements OnInit {
       this.submitted = false;
       return;
     } else if (this.profileForm.value.recipeName.length > 200) {
-      this.message = 'Tên cho công thức có độ dài nhỏ hơn 500 ký tự';
+      this.message = 'Tên cho công thức có độ dài nhỏ hơn 200 ký tự';
       this.alertService.error(this.message);
       this.submitted = false;
       return;
@@ -205,8 +216,8 @@ export class RegisterPassengerComponent implements OnInit {
       this.alertService.error(this.message);
       this.submitted = false;
       return;
-    } else if (this.profileForm.value.cookStep[0].psnote.length > 500) {
-      this.message = 'Hướng dẫn cho công thức có độ dài nhỏ hơn 500 ký tự';
+    } else if (this.profileForm.value.cookStep[0].psnote.length > 1000) {
+      this.message = 'Hướng dẫn cho công thức có độ dài nhỏ hơn 1000 ký tự';
       this.alertService.error(this.message);
       this.submitted = false;
       return;
@@ -260,12 +271,6 @@ export class RegisterPassengerComponent implements OnInit {
 
         this.message = '';
         recipe.ingredients = this.ingredientArrays;
-        let nameSpace = recipe.recipeName;
-        nameSpace = nameSpace.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        nameSpace = nameSpace.toLowerCase();
-        let name = nameSpace.split(' ');
-        nameSpace = name.join('-');
-        recipe.nameSpace = nameSpace;
         this.recipeService.registerRecipe(recipe).subscribe((data) => {
           const result = data.body;
           if (result['status'] === 200) {
@@ -308,6 +313,37 @@ export class RegisterPassengerComponent implements OnInit {
       console.log('input');
       this.ingredientsGroup.push(this.addControlNgL());
     }
+  }
+
+  scanningNameSpace() {
+    this.checkNameSpace = false;
+  }
+
+  nameSpaceCheck(recipeName: any) {
+    console.log(recipeName);
+    if (recipeName.length !== 0) {
+      this.getNameSpace(recipeName);
+    } else {
+      this.checkNameSpace = false;
+    }
+  }
+
+  getNameSpace(recipeName: any) {
+    let nameSpace = recipeName;
+    nameSpace = nameSpace.trim();
+    nameSpace = nameSpace.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    nameSpace = nameSpace.toLowerCase();
+    let name = nameSpace.split(' ');
+    nameSpace = name.join('-');
+    let recipeObject = {
+      nameSpace
+    };
+    console.log(nameSpace);
+    this.recipeService.getNameSpaceRecipe(recipeObject).subscribe((data) => {
+      console.log(data);
+      this.profileForm.value.recipeName
+      this.checkNameSpace = true;
+    });
   }
 
   deleteAlias(pos) {

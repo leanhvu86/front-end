@@ -20,6 +20,14 @@ nav > div a.nav-item.nav-link {
   color: rgb(8, 8, 8);
 
 }
+.textarea-wrapper {
+  position:relative;
+}
+.remaning {
+  position:absolute;
+  bottom: 10px;
+  right:10px;
+}
 
 #number {
   border-radius: 50%;

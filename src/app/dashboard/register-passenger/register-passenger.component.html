@@ -1,7 +1,7 @@
 <div class="container " style="max-width:1300px; border:none ;">
   <div class="card myShadow" style=" width: 80%;background: white;border:none;border-radius: 10px;">
     <div style="width: 100%; text-align: center;">
-      <h3 >TẠO VÀ CHIA SẺ CÔNG THỨC MÓN CHAY</h3>
+      <h3>TẠO VÀ CHIA SẺ CÔNG THỨC MÓN CHAY</h3>
 
     </div>
     <br>
@@ -64,26 +64,40 @@
 
                 <!--                </div>-->
                 <br>
-                <input type="text" formControlName="recipeName" class="form-control" minlength="5"
-                       [ngClass]="{ 'is-invalid': submitted && f.recipeName.errors }"
-                       style="width:90%; border-radius:10px; margin:2% 5% ;"
-                       placeholder="{{ 'ten.cong.thuc' | translate }}"/>
+                <div class="input-group input-group-lg form-group" style="width: 95%;    padding-left: 5%;">
+
+                  <input type="text" formControlName="recipeName" class="form-control" minlength="5" [maxLength]="200"
+                         [ngClass]="{ 'is-invalid': submitted && f.recipeName.errors }"
+                         (ngModelChange)="scanningNameSpace()" (change)="nameSpaceCheck(f.recipeName.value)"
+                         style="width:90%; border-radius:10px;"
+                         placeholder="{{ 'ten.cong.thuc' | translate }}"/>
+                  <div class="input-group-prepend" >
+                    <span class="input-group-text rounded-0" *ngIf="!checkNameSpace"
+                          style="background: none; color:red;border: none;"><i class="fa fa-check"></i></span>
+                    <span class="input-group-text rounded-0" *ngIf="checkNameSpace"
+                          style="background: none;color:green;border: none;"><i class="fa fa-check"></i></span>
+                  </div>
+                </div>
                 <div style="margin-left: 5%;" *ngIf="submitted && f.recipeName.errors" class="invalid-feedback">
                   <div *ngIf="f.recipeName.errors.required">Bạn phải điền tên công thức</div>
 
                 </div>
                 <div *ngIf="f.recipeName.errors?.minlength" style="margin-left: 5%;font-size: 12px;color: red;">
-                  Tên công thức chứa ít nhất 5 kí tự.
+                  Tên công thức chứa lớn hơn kí tự.
                 </div>
                 <div *ngIf="f.recipeName.errors?.maxlength" style="margin-left: 5%;font-size: 12px;color: red;">
                   Tên công thức chứa nhiều nhất 200 kí tự.
                 </div>
                 <br/>
                 <textarea type="text" formControlName="content" class="form-control" cols="4" minlength="20"
+                          maxlength="500"
                           [ngClass]="{ 'is-invalid': submitted && f.content.errors }"
                           placeholder="{{ 'noidung.cong.thuc' | translate }}"
                           style="width:90%;height: 100px; border-radius:10px; margin:0 5% ; text-align: start;padding-top: 0px;">
               </textarea>
+                <label
+                  style="width: 100%;padding-left: 50px;font-size: 10px;">{{profileForm.get('content').value.length}}
+                  /500 kí tự</label>
                 <div style="margin-left: 5%;" *ngIf="submitted && f.content.errors" class="invalid-feedback">
                   <div *ngIf="f.content.errors.required">Bạn phải điền nội dung công thức</div>
                 </div>
@@ -320,10 +334,15 @@
                       <input type="number" formControlName="time" class="form-control" placeholder="Thời gian"
                              style="left: 72%; top: 7%;width: 20%; position: absolute; " min="0">
 
-                      <textarea type="text" formControlName="psnote" class="form-control"
+                      <textarea type="text" formControlName="psnote" class="form-control" [minLength]="20"
+                                [maxLength]="1000"
                                 placeholder="Bạn phải hướng dẫn cách làm cho bước {{i+1}}"
                                 style="left: 12%; top: 30%;width: 80%; height: 100px; position: absolute; resize: none;"
                                 cols="8"></textarea>
+                      <label
+                        style="position: absolute;left: 12%; bottom: 33%; width: 100%;font-size: 10px;">{{address.get('psnote').value.length}}
+                        /1000 kí tự</label>
+
                       <input type="checkbox" formControlName="check" class="buttonhover"
                              style="position: absolute;right: 10%; bottom: 35%; width: 5%;">
                       <a style="position: absolute;right: 15%; bottom: 33%; width: auto;">Là bước chuẩn bị</a>
