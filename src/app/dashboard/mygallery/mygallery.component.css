@@ -3843,6 +3843,7 @@ p:empty.lead {
   border: 1px solid #1cc91f;
   font-size: 12px;
   padding: 10px 10px;
+  width:70%;
 }
 
 .register-button:hover {

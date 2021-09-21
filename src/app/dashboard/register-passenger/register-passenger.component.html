@@ -64,20 +64,10 @@
 
                 <!--                </div>-->
                 <br>
-                <div class="input-group input-group-lg form-group" style="width: 95%;    padding-left: 5%;">
-
-                  <input type="text" formControlName="recipeName" class="form-control" minlength="5" [maxLength]="200"
-                         [ngClass]="{ 'is-invalid': submitted && f.recipeName.errors }"
-                         (ngModelChange)="scanningNameSpace()" (change)="nameSpaceCheck(f.recipeName.value)"
-                         style="width:90%; border-radius:10px;"
-                         placeholder="{{ 'ten.cong.thuc' | translate }}"/>
-                  <div class="input-group-prepend" >
-                    <span class="input-group-text rounded-0" *ngIf="!checkNameSpace"
-                          style="background: none; color:red;border: none;"><i class="fa fa-check"></i></span>
-                    <span class="input-group-text rounded-0" *ngIf="checkNameSpace"
-                          style="background: none;color:green;border: none;"><i class="fa fa-check"></i></span>
-                  </div>
-                </div>
+                <input type="text" formControlName="recipeName" class="form-control" [minlength]="5" [maxLength]="200"
+                       [ngClass]="{ 'is-invalid': submitted && f.recipeName.errors }"
+                       style="width:90%; border-radius:10px; margin:2% 5% ;"
+                       placeholder="{{ 'ten.cong.thuc' | translate }}"/>
                 <div style="margin-left: 5%;" *ngIf="submitted && f.recipeName.errors" class="invalid-feedback">
                   <div *ngIf="f.recipeName.errors.required">Bạn phải điền tên công thức</div>
 
@@ -323,7 +313,9 @@
                   <br/>
                   <div [formGroup]="address" class="nguyenlieu"
                        *ngFor="let address of cookStep.controls; let i = index;"
-                       style=" font-size: 10px;width:93%; position: relative; border-radius:10px; margin:0 4% ;margin-bottom: 5%; min-height: 350px; padding: 20px 0 50px 0; border: 1px solid lightgray;">
+                       style=" font-size: 10px;width:93%; position: relative; border-radius:10px;
+                       margin: 0 4% 5%;min-height: 350px; padding: 20px 0 50px 0; border: 1px solid lightgray;
+                        display: block; overflow: hidden;" id="cookStep{{i}}">
                     <label>
                       <a disabled
                          style="color: white; background: #1cc91f; width: 5%;left: 2%; top: 5%; position: absolute; border-radius: 7px; text-align: center; border: 1px solid white;">
@@ -352,7 +344,8 @@
 
                     </label>
                     <a style="position: absolute; bottom: 105px;left: 15px; font-size: 12px;"> Ảnh của bước:
-                      <a style="color: gray; font-size: 8px;"> (Bạn có thể xóa ảnh của bước khi nhấn vào nó)</a></a>
+<!--                      <a style="color: gray; font-size: 8px;"> (Bạn có thể xóa ảnh của bước khi nhấn vào nó)</a>-->
+                    </a>
                     <div style="position: absolute; bottom: 5px; left: 5%;width: 700px;" class="row ">
                       <app-imageupload [imageProp]="'roomDetail'" (imageSrcUrl)="getImageSrcTypeRoom($event,i)"
                                        (indexDelete)="getIndexDelete($event,i)"

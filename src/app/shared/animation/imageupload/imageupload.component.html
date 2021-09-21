@@ -1,6 +1,6 @@
 <!-- hotel-access -->
 <!-- image hotel-->
-<div class="wrapper" *ngIf="imageProp == 'hotelAccess'">
+<div class="wrapper container" *ngIf="imageProp == 'hotelAccess'">
   <div class="row">
     <div class="col">
       <div class="file-upload">
@@ -44,17 +44,20 @@
   </div>
 </div>
 <!-- image room-->
-<div *ngIf="imageRoomProp === 'roomDetail'">
-  <div class="row" style="width:950px;">
+<div class="container" *ngIf="imageRoomProp === 'roomDetail'">
+  <div class="row" >
     <div class="col-1">
       <div *ngIf="isShown">
         <label for="upload-photo">
           <img [src]="url ? url : '../../../assets/images/photo-camera-o.64.gray.png'"
-               style="border: 1px solid #ffffff;height: 150%;width: 150%;">
+               style="border: 1px solid #ffffff;height: 250%;width: 250%;">
         </label>
         <input type="file" name="image" ng2FileSelect [uploader]="uploader" (change)="onSelectFile($event)"
                id="upload-photo" accept="image/x-png,image/gif,image/jpeg" [multiple]="multiple"/>
       </div>
+      <span *ngIf="!legalUploadCheck&&!isShown" (click)="resetUploadFile()" style="color: red;cursor: pointer;margin-top: 20px;">
+        <i class="fa fa-undo fa-3x" aria-hidden="true"></i>
+      </span>
     </div>
     <!--    <div class="col-lg-2" *ngFor="let imageCurrent of listRoomImgCurrent[index]; let i = index">-->
     <!--      <div class="row" *ngIf="imageCurrent">-->
@@ -71,26 +74,31 @@
     <!--    </div>-->
     <div class="col-9">
       <div class="row" style="min-width: 800px;">
-        <div class="col-8">
-          <div *ngFor="let imagePre of listImgPreview; let i = index" class="gallery-wrap"
-               style="position: relative;float:left;">
-            <img [src]="imagePre" style="max-width:100%; height: auto;" (click)="removeSelectedFile(i)"/>
-            <span *ngIf="legalUploadCheck" (click)="removeSelectedFile(i)"
-                  style="position: absolute; bottom: 5px; right: 10px;color: red;cursor: pointer;">
-              <i class="fa fa-trash-o fa-2x" (click)="startUploadFile()" aria-hidden="true"></i>
-            </span>
-          </div>
+        <div *ngFor="let imagePre of listImgPreview; let i = index" class="gallery-wrap"
+             style="position: relative;float:left;">
+          <img [src]="imagePre" style="max-width:100%; height: auto;" />
+<!--          <span *ngIf="legalUploadCheck" (click)="removeSelectedFile(i)"-->
+<!--                style="position: absolute; bottom: 5px; right: 10px;color: red;cursor: pointer;">-->
+<!--              <i class="fa fa-trash-o fa-2x" (click)="startUploadFile()" aria-hidden="true"></i>-->
+<!--            </span>-->
         </div>
-        <div class="col-3">
-<!--          <a *ngIf="legalUploadCheck" (click)="startUploadFile()"-->
-<!--             style="float: right; cursor: pointer;border-radius: 5px;text-align: center;margin-top: 50px;width:100px;background-color: #c0f072;color: white">-->
-<!--            <i class="fa fa-upload fa-3x"  aria-hidden="true"></i>-->
-<!--          </a>-->
-          <a *ngIf="!legalUploadCheck&&!isShown" (click)="resetUploadFile()"
-             style=" cursor: pointer;border-radius: 5px;text-align: center;margin-top: 50px;width:100px;background-color: #ef2424;color: white">
-            <i class="fa fa-undo fa-3x" aria-hidden="true"></i>
-          </a>
-        </div>
+<!--        <div class="col-8">-->
+<!--          <div *ngFor="let imagePre of listImgPreview; let i = index" class="gallery-wrap"-->
+<!--               style="position: relative;float:left;">-->
+<!--            <img [src]="imagePre" style="max-width:100%; height: auto;" (click)="removeSelectedFile(i)"/>-->
+<!--            <span *ngIf="legalUploadCheck" (click)="removeSelectedFile(i)"-->
+<!--                  style="position: absolute; bottom: 5px; right: 10px;color: red;cursor: pointer;">-->
+<!--              <i class="fa fa-trash-o fa-2x" (click)="startUploadFile()" aria-hidden="true"></i>-->
+<!--            </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-3">-->
+<!--          &lt;!&ndash;          <a *ngIf="legalUploadCheck" (click)="startUploadFile()"&ndash;&gt;-->
+<!--          &lt;!&ndash;             style="float: right; cursor: pointer;border-radius: 5px;text-align: center;margin-top: 50px;width:100px;background-color: #c0f072;color: white">&ndash;&gt;-->
+<!--          &lt;!&ndash;            <i class="fa fa-upload fa-3x"  aria-hidden="true"></i>&ndash;&gt;-->
+<!--          &lt;!&ndash;          </a>&ndash;&gt;-->
+
+<!--        </div>-->
       </div>
     </div>
   </div>

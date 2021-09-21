@@ -17,7 +17,7 @@
         <!--        </div>-->
         <app-imageupload [imageProp]="imageProp" [url]="imageUrl" [block]="'false'"
                          (imageSrcUrl)="getImageSrc($event)"></app-imageupload>
-        <h3 class="title" style="text-align: center;">
+        <h3 class="title" style="text-align: center;overflow: hidden;">
           <a [routerLink]="['/member/info/', id]" title="Trang cá nhân">
             <span style="color: rgb(255, 124, 36);">{{user.name}}</span>
           </a>

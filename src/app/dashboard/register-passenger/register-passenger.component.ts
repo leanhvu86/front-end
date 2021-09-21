@@ -53,7 +53,6 @@ export class RegisterPassengerComponent implements OnInit {
   // url = AppSetting.BASE_SERVER_URL + '/api/upload';
   imageProp = 'recipe';
   url: any;
-  checkNameSpace = false;
 
   constructor(
     private titleMain: Title,
@@ -112,8 +111,8 @@ export class RegisterPassengerComponent implements OnInit {
     });
     if (pshArrayImage.size > 5) {
       this.message = 'Bạn chỉ có thể nhập 5 ảnh cho 1 bước!';
-      const radio: HTMLElement = document.getElementById('modal-button');
-      radio.click();
+      this.alertService.warn(this.message);
+      return;
     }
     const newImage = Array.from(pshArrayImage).join(',');
     console.log('đây là mảng ảnh mới:' + newImage);
@@ -132,15 +131,6 @@ export class RegisterPassengerComponent implements OnInit {
   onSubmit() {
     if (this.saving === true) {
       this.alertService.warn('Hệ thống đang xử lý');
-      return;
-    }
-    if(this.checkNameSpace==false){
-      this.getNameSpace(this.profileForm.value.recipeName);
-    }
-    if (!this.checkNameSpace) {
-      this.message = 'Vui lòng điền tên cho công thức';
-      this.alertService.error(this.message);
-      this.submitted = false;
       return;
     }
     this.submitted = true;
@@ -250,7 +240,6 @@ export class RegisterPassengerComponent implements OnInit {
     this.cookStepService.createCookSteps(cookSteps).subscribe((data) => {
       console.log('fdaafasf');
       console.log(cookSteps);
-      const result = data.body;
       const steps = data.body;
       recipe.cockStep = steps;
       if (steps !== undefined) {
@@ -313,37 +302,6 @@ export class RegisterPassengerComponent implements OnInit {
       console.log('input');
       this.ingredientsGroup.push(this.addControlNgL());
     }
-  }
-
-  scanningNameSpace() {
-    this.checkNameSpace = false;
-  }
-
-  nameSpaceCheck(recipeName: any) {
-    console.log(recipeName);
-    if (recipeName.length !== 0) {
-      this.getNameSpace(recipeName);
-    } else {
-      this.checkNameSpace = false;
-    }
-  }
-
-  getNameSpace(recipeName: any) {
-    let nameSpace = recipeName;
-    nameSpace = nameSpace.trim();
-    nameSpace = nameSpace.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    nameSpace = nameSpace.toLowerCase();
-    let name = nameSpace.split(' ');
-    nameSpace = name.join('-');
-    let recipeObject = {
-      nameSpace
-    };
-    console.log(nameSpace);
-    this.recipeService.getNameSpaceRecipe(recipeObject).subscribe((data) => {
-      console.log(data);
-      this.profileForm.value.recipeName
-      this.checkNameSpace = true;
-    });
   }
 
   deleteAlias(pos) {
@@ -482,22 +440,26 @@ export class RegisterPassengerComponent implements OnInit {
               this.alertService.error(this.message);
               return;
             }
-            this.recipeService.createIngredient(ingredient).subscribe((data) => {
-              const result = data.body;
-              console.log(data);
-              if (result !== undefined) {
-                const dressage = result['message'];
-                console.log(dressage);
-                this.ingredientArrays.push(result);
-
-                const radio = (document.getElementById('ingredientArraye') as HTMLInputElement);
-                radio.value = '';
-                console.log(this.ingredientArrays);
-              } else {
-                const dressage = result['message'];
-                console.log(dressage);
-              }
-            });
+            this.ingredientArrays.push(ingredient);
+            const radio = (document.getElementById('ingredientArraye') as HTMLInputElement);
+            radio.value = '';
+            console.log(this.ingredientArrays);
+            // this.recipeService.createIngredient(ingredient).subscribe((data) => {
+            //   const result = data.body;
+            //   console.log(data);
+            //   if (result !== undefined) {
+            //     const dressage = result['message'];
+            //     console.log(dressage);
+            //     this.ingredientArrays.push(result);
+            //
+            //     const radio = (document.getElementById('ingredientArraye') as HTMLInputElement);
+            //     radio.value = '';
+            //     console.log(this.ingredientArrays);
+            //   } else {
+            //     const dressage = result['message'];
+            //     console.log(dressage);
+            //   }
+            // });
           }
         }
       }

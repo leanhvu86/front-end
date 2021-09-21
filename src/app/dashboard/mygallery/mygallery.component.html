@@ -16,7 +16,7 @@
         <!--        </div>-->
         <app-imageupload [imageProp]="imageProp" [url]="url" [block]="'true'"
         ></app-imageupload>
-        <h3 class="title" style="text-align: center;">
+        <h3 class="title" style="text-align: center;overflow: hidden;">
           <a title="Trang cá nhân">
             <span style="color: black;">{{user.name}}</span>
           </a>
@@ -301,7 +301,7 @@
 <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content" style="height: 1000px;padding-top: 20px;">
+    <div class="modal-content" style="min-height: 700px;padding-top: 20px;">
 <!--      <div class="modal-header" style="background: #1cc91f;">-->
 <!--        <a style="color: white;">Chỉnh sửa thông tin bộ sưu tập</a>-->
         <button type="button" class="close" data-dismiss="modal" hidden aria-label="Close" id="close-modal">
