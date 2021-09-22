@@ -17,7 +17,7 @@ export const AdminRoutes: Routes = [
     // },
     {
         path: '', component: HomeComponent,
-        canActivate: [AuthGuardGuard],// <- this line is added
+        canActivate: [AuthGuardGuard], // <- this line is added
         children: [
             {
                 path: '',

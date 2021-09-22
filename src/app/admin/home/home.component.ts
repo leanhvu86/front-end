@@ -11,22 +11,22 @@ import { ChatService } from 'src/app/shared/service/chat.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  imageUrl: string = '';
-  image: boolean = false;
+  imageUrl = '';
+  image = false;
   tfa: Token;
-  authcode: string = "";
+  authcode = '';
   errorMessage: string = null;
   emailObject = {
-    email: ""
-  }
+    email: ''
+  };
   user = '';
   id = '';
   newMessage: string;
   messageList: string[] = [];
   constructor(
-    private _loginService: LoginServiceService,
+    private loginService: LoginServiceService,
     private cookie: CookieService,
-    private _router: Router,
+    private router: Router,
     private chatService: ChatService
   ) {
     // this.getAuthDetails();
@@ -44,50 +44,50 @@ export class HomeComponent implements OnInit {
       });
   }
   getImage() {
-    let email = localStorage.getItem('email');
-    this._loginService.testEmail(email).subscribe(data => {
-      let user = data.body['user'];
+    const email = localStorage.getItem('email');
+    this.loginService.testEmail(email).subscribe(data => {
+      const user = data.body['user'];
       if (user !== undefined && user.imageUrl !== '') {
-        this.imageUrl = user.imageUrl
+        this.imageUrl = user.imageUrl;
         this.image = true;
         this.user = user.name;
         this.id = user._id;
       }
-    })
-  }
-  getAuthDetails() {
-    let email = localStorage.getItem('email');
-    console.log(email);
-    this._loginService.verifyAuth(email).subscribe((data) => {
-      const result = data.body;
-      if (data['status'] === 200) {
-
-        if (result == null) {
-          console.log(result);
-        } else {
-          console.log(result);
-
-          localStorage.setItem('token', result[0]);
-        }
-      }
     });
   }
+  // getAuthDetails() {
+  //   const email = localStorage.getItem('email');
+  //   console.log(email);
+  //   this.loginService.verifyAuth(email).subscribe((data) => {
+  //     const result = data.body;
+  //     if (data['status'] === 200) {
+  //
+  //       if (result == null) {
+  //         console.log(result);
+  //       } else {
+  //         console.log(result);
+  //
+  //         localStorage.setItem('token', result[0]);
+  //       }
+  //     }
+  //   });
+  // }
 
   logout() {
-    this._loginService.logoutUser();
-    this._router.navigate(['/login']);
+    this.loginService.logoutUser();
+    this.router.navigate(['/login']);
   }
   openNav() {
-    const radio: HTMLElement = document.getElementById("mySidebar");
-    radio.style.width = "250px";
-    const radio2: HTMLElement = document.getElementById("main");
-    radio2.style.marginLeft = "250px";
-    document.getElementById("menu-open").style.opacity = "0";
+    const radio: HTMLElement = document.getElementById('mySidebar');
+    radio.style.width = '250px';
+    const radio2: HTMLElement = document.getElementById('main');
+    radio2.style.marginLeft = '250px';
+    document.getElementById('menu-open').style.opacity = '0';
   }
 
   closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
-    document.getElementById("menu-open").style.opacity = "1";
+    document.getElementById('mySidebar').style.width = '0';
+    document.getElementById('main').style.marginLeft = '0';
+    document.getElementById('menu-open').style.opacity = '1';
   }
 }
